@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom"
 
 import Home from "./pages/Home"
 import Layouts from "./Layouts/Layouts"
@@ -16,6 +21,7 @@ const AppRoutes = () => {
             </Layouts>
           }
         />
+
         <Route
           path="/about"
           element={
@@ -24,6 +30,7 @@ const AppRoutes = () => {
             </Layouts>
           }
         />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
   )

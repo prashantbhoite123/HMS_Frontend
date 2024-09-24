@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom"
 import { Button } from "./ui/button"
+import { useAuth0 } from "@auth0/auth0-react"
 
 const MainNav = () => {
+  const { loginWithRedirect, isAuthenticated } = useAuth0()
   return (
     <div className="flex w-full justify-between items-center">
       <Link to="/">
@@ -20,7 +22,25 @@ const MainNav = () => {
         </Link>
       </div>
       <div className="text-[1.1rem] font-semibold text-black">
-        <Link to="/sign-in">Sign-in</Link>
+        {isAuthenticated ? (
+          <Link to="/hospital">
+            <Button
+              variant="ghost"
+              className="font-bold hover:text-green-400"
+              onClick={async () => await loginWithRedirect()}
+            >
+              Hospitals
+            </Button>
+          </Link>
+        ) : (
+          <Button
+            variant="ghost"
+            className="font-bold hover:text-green-400"
+            onClick={async () => await loginWithRedirect()}
+          >
+            Log in
+          </Button>
+        )}
       </div>
     </div>
   )
