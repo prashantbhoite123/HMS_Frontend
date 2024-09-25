@@ -30,7 +30,7 @@ const MainNav = () => {
         </Link>
       </div>
       <div className="text-[1.1rem] font-semibold text-black">
-        <Button variant="ghost" className="font-bold hover:text-green-400">
+       
           <Dialog>
             <DialogTrigger>Login</DialogTrigger>
             <DialogContent>
@@ -40,7 +40,7 @@ const MainNav = () => {
               <LoginDialog />
             </DialogContent>
           </Dialog>
-        </Button>
+        
       </div>
     </div>
   )
