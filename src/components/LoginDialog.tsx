@@ -1,14 +1,26 @@
 import { Link } from "react-router-dom"
 import { Button } from "./ui/button"
 
-const LoginDialog = () => {
+type Props = {
+  handleClose: () => void
+}
+
+const LoginDialog = ({ handleClose }: Props) => {
   return (
     <div className="flex justify-evenly">
       <Link to="/">
-        <Button className="h-[20vh] w-[20vh] bg-green-400">As petient</Button>
+        <Button
+          onClick={() => handleClose()}
+          className="h-[15vh] md:h-[20vh] w-[15vh]  md:w-[20vh] bg-green-400  text-black font-semibold shadow-md shadow-gray-800 hover:text-white text-lg"
+        >
+          As petient
+        </Button>
       </Link>
       <Link to="/signuphospital">
-        <Button className="h-[20vh] w-[20vh] bg-green-400">
+        <Button
+          onClick={() => handleClose()}
+          className="h-[15vh] md:h-[20vh] w-[15vh]  md:w-[20vh] bg-green-400 text-black font-semibold shadow-md shadow-gray-800 hover:text-white text-lg"
+        >
           As a Hospital
         </Button>
       </Link>

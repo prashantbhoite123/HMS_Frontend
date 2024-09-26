@@ -9,9 +9,14 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import LoginDialog from "./LoginDialog"
+import { useState } from "react"
 
 const MainNav = () => {
-  // const { isAuthenticated } = useAuth0()
+  const [isOpen, setIsOpen] = useState(false)
+
+  const handleClose = () => {
+    setIsOpen(false)
+  }
   return (
     <div className="flex w-full justify-between items-center">
       <Link to="/">
@@ -30,17 +35,17 @@ const MainNav = () => {
         </Link>
       </div>
       <div className="text-[1.1rem] font-semibold text-black">
-       
-          <Dialog>
-            <DialogTrigger>Login</DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Select your categoary</DialogTitle>
-              </DialogHeader>
-              <LoginDialog />
-            </DialogContent>
-          </Dialog>
-        
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
+          <DialogTrigger>Login</DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle className="text-center font-semibold">
+                Select your categoary
+              </DialogTitle>
+            </DialogHeader>
+            <LoginDialog handleClose={handleClose} />
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   )
