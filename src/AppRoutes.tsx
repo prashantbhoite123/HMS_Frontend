@@ -8,7 +8,7 @@ import {
 import Home from "./pages/Home"
 import Layouts from "./Layouts/Layouts"
 import About from "./pages/About"
-import HospitalSignUp from "./pages/HospitalSignUp"
+import HospitalSignUp from "./form/Hospital-Auth-form/HospitalSignUp"
 
 const AppRoutes = () => {
   return (
