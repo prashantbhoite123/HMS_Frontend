@@ -6,6 +6,9 @@ export const useHospitalRegistration = () => {
   const registerHospital = async (
     registrationData: FormData
   ): Promise<RegisterHos> => {
+    for (let [key, value] of registrationData.entries()) {
+      console.log(` api values ${key}`, value)
+    }
     const responce = await fetch("/api/hospital/signup", {
       method: "POST",
 
