@@ -8,7 +8,8 @@ import {
 import Home from "./pages/Home"
 import Layouts from "./Layouts/Layouts"
 import About from "./pages/About"
-import HospitalSignUp from "./form/Hospital-Auth-form/HospitalSignUp"
+
+import SignUpHos from "./pages/SignUpHos"
 
 const AppRoutes = () => {
   return (
@@ -35,7 +36,7 @@ const AppRoutes = () => {
           path="/signuphospital"
           element={
             <Layouts showhero={false}>
-              <HospitalSignUp />
+              <SignUpHos />
             </Layouts>
           }
         />
