@@ -2,6 +2,8 @@ import { RegisterHos } from "@/types"
 import { useMutation } from "react-query"
 import { toast } from "sonner"
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+
 export const useHospitalRegistration = () => {
   const registerHospital = async (
     registrationData: FormData
@@ -9,10 +11,16 @@ export const useHospitalRegistration = () => {
     for (let [key, value] of registrationData.entries()) {
       console.log(` api values ${key}`, value)
     }
-    const responce = await fetch("/api/hospital/signup", {
-      method: "POST",
 
-      body: JSON.stringify(registrationData),
+    const fromDataObj = Object.fromEntries(registrationData.entries())
+
+    console.log("fromDataObj", fromDataObj)
+    const responce = await fetch(`${API_BASE_URL}/api/hospital/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(fromDataObj),
     })
 
     if (!responce.ok) {

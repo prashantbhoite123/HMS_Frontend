@@ -4,5 +4,4 @@ export type RegisterHos = {
   email: string
   password: string
   contact: number
-  logo: string
 }

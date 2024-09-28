@@ -15,7 +15,7 @@ const formSchema = z.object({
     .trim()
     .min(10, "Phone number must be at least 10 characters long")
     .regex(/^\+?[1-9]\d{1,14}$/, "Phone number must be a valid format"),
-  logo: z.any().refine((files) => files instanceof File, "Logo is required"), // Refine to ensure it's a file
+  
 })
 
 export type HosFormData = z.infer<typeof formSchema>
@@ -48,7 +48,7 @@ const HospitalSignUp = ({ createHospital, isLoading }: Props) => {
     formData.append("email", data.email)
     formData.append("password", data.password)
     formData.append("contact", data.contact)
-    formData.append("logo", data.logo)
+   
 
     // Handle file upload
 
@@ -148,28 +148,7 @@ const HospitalSignUp = ({ createHospital, isLoading }: Props) => {
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="logo"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Logo</FormLabel>
-                  <FormControl>
-                    <Input
-                      className="bg-white"
-                      type="file"
-                      accept=".jpg, .jpeg, .png"
-                      onChange={(event) =>
-                        field.onChange(
-                          event.target.files ? event.target.files[0] : null
-                        )
-                      }
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+        
 
             <Button
               type="submit"
