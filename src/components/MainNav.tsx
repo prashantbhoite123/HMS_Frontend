@@ -20,7 +20,9 @@ const MainNav = () => {
   return (
     <div className="flex w-full justify-between items-center">
       <Link to="/">
-        <Button className="text-[1.1rem]">Kas tari hotay</Button>
+        <Button variant="outline" className="text-[1.1rem]">
+          HMS
+        </Button>
       </Link>
 
       <div className="flex gap-20 text-[1.1rem]  font-semibold text-black">

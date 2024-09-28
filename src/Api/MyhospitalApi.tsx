@@ -1,10 +1,12 @@
 import { RegisterHos } from "@/types"
 import { useMutation } from "react-query"
 import { toast } from "sonner"
+import { useNavigate } from "react-router-dom"
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 export const useHospitalRegistration = () => {
+  const naviagate = useNavigate()
   const registerHospital = async (
     registrationData: FormData
   ): Promise<RegisterHos> => {
@@ -26,9 +28,9 @@ export const useHospitalRegistration = () => {
     if (!responce.ok) {
       throw new Error("Faild to register hospital")
     }
+
     const data = await responce.json()
 
-    console.log("responce", data)
     return data
   }
 
@@ -37,6 +39,7 @@ export const useHospitalRegistration = () => {
     {
       onSuccess: () => {
         toast.success("Hospital Registar Successfully")
+        naviagate("/")
       },
       onError: () => {
         toast.error("Error while register hospital")
