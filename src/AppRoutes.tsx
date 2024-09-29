@@ -10,6 +10,7 @@ import Layouts from "./Layouts/Layouts"
 import About from "./pages/About"
 
 import SignUpHos from "./pages/SignUpHos"
+import SignIn from "./pages/SignIn"
 
 const AppRoutes = () => {
   return (
@@ -37,6 +38,14 @@ const AppRoutes = () => {
           element={
             <Layouts showhero={false}>
               <SignUpHos />
+            </Layouts>
+          }
+        />
+        <Route
+          path="/signin"
+          element={
+            <Layouts showhero={false}>
+              <SignIn />
             </Layouts>
           }
         />

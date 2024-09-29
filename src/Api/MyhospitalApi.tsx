@@ -37,7 +37,7 @@ export const useHospitalRegistration = () => {
     {
       onSuccess: () => {
         toast.success(" Registration Successfully")
-        naviagate("/")
+        naviagate("/signin")
       },
       onError: () => {
         toast.error("Error while registration")
@@ -46,4 +46,42 @@ export const useHospitalRegistration = () => {
   )
 
   return { registerhospital, isLoading }
+}
+
+export const useUserSignIn = () => {
+  const navigate = useNavigate()
+
+  // Function to handle user sign-in
+  const signInUser = async (signInData: FormData) => {
+    const formDataObj = Object.fromEntries(signInData.entries())
+
+    console.log("signInDataObj", formDataObj)
+
+    const response = await fetch(`${API_BASE_URL}/api/hospital/signin`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formDataObj),
+    })
+
+    if (!response.ok) {
+      throw new Error("Failed to sign in user")
+    }
+
+    const data = await response.json()
+    return data
+  }
+
+  const { mutate: signIn, isLoading } = useMutation(signInUser, {
+    onSuccess: () => {
+      toast.success("Sign-in successful")
+      navigate("/") 
+    },
+    onError: () => {
+      toast.error("Error while signing in")
+    },
+  })
+
+  return { signIn, isLoading }
 }
