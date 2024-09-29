@@ -8,7 +8,7 @@ type Props = {
 const LoginDialog = ({ handleClose }: Props) => {
   return (
     <div className="flex justify-evenly">
-      <Link to="/">
+      <Link to="/signuphospital">
         <Button
           onClick={() => handleClose()}
           className="h-[15vh] md:h-[20vh] w-[15vh]  md:w-[20vh] bg-green-400  text-black font-semibold shadow-md shadow-gray-800 hover:text-white text-lg"
@@ -16,7 +16,7 @@ const LoginDialog = ({ handleClose }: Props) => {
           As petient
         </Button>
       </Link>
-      <Link to="/signuphospital">
+      <Link to="/signuphospital?role=hospital">
         <Button
           onClick={() => handleClose()}
           className="h-[15vh] md:h-[20vh] w-[15vh]  md:w-[20vh] bg-green-400 text-black font-semibold shadow-md shadow-gray-800 hover:text-white text-lg"

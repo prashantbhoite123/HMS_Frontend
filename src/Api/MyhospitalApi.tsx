@@ -10,10 +10,6 @@ export const useHospitalRegistration = () => {
   const registerHospital = async (
     registrationData: FormData
   ): Promise<RegisterHos> => {
-    for (let [key, value] of registrationData.entries()) {
-      console.log(` api values ${key}`, value)
-    }
-
     const fromDataObj = Object.fromEntries(registrationData.entries())
 
     console.log("fromDataObj", fromDataObj)
@@ -29,6 +25,8 @@ export const useHospitalRegistration = () => {
       throw new Error("Faild to register hospital")
     }
 
+    
+
     const data = await responce.json()
 
     return data
@@ -38,11 +36,11 @@ export const useHospitalRegistration = () => {
     registerHospital,
     {
       onSuccess: () => {
-        toast.success("Hospital Registar Successfully")
+        toast.success(" Registration Successfully")
         naviagate("/")
       },
       onError: () => {
-        toast.error("Error while register hospital")
+        toast.error("Error while registration")
       },
     }
   )

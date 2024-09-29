@@ -1,6 +1,12 @@
 import { useHospitalRegistration } from "@/Api/MyhospitalApi"
 import HospitalSignUp from "@/form/Hospital-Auth-form/HospitalSignUp"
+import { useLocation } from "react-router-dom"
 const SignUpHos = () => {
+  const location = useLocation()
+  const searchParams = new URLSearchParams(location.search)
+
+  const role = searchParams.get("role") || "petient"
+
   const { registerhospital, isLoading } = useHospitalRegistration()
   return (
     <>
@@ -8,6 +14,7 @@ const SignUpHos = () => {
         <HospitalSignUp
           createHospital={registerhospital}
           isLoading={isLoading}
+          role={role}
         />
       </div>
     </>

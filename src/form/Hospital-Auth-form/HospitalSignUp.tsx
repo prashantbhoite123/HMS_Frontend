@@ -15,7 +15,6 @@ const formSchema = z.object({
     .trim()
     .min(10, "Phone number must be at least 10 characters long")
     .regex(/^\+?[1-9]\d{1,14}$/, "Phone number must be a valid format"),
-  
 })
 
 export type HosFormData = z.infer<typeof formSchema>
@@ -35,9 +34,10 @@ import { Button } from "@/components/ui/button"
 type Props = {
   createHospital: (data: FormData) => void
   isLoading: boolean
+  role: string | null
 }
 
-const HospitalSignUp = ({ createHospital, isLoading }: Props) => {
+const HospitalSignUp = ({ createHospital, isLoading, role }: Props) => {
   const form = useForm<HosFormData>({
     resolver: zodResolver(formSchema),
   })
@@ -48,14 +48,9 @@ const HospitalSignUp = ({ createHospital, isLoading }: Props) => {
     formData.append("email", data.email)
     formData.append("password", data.password)
     formData.append("contact", data.contact)
-   
 
-    // Handle file upload
-
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}`, value)
-    }
-
+    const finalRole = role || "petient"
+    formData.append("role", finalRole)
     try {
       await createHospital(formData)
     } catch (error) {
@@ -70,7 +65,9 @@ const HospitalSignUp = ({ createHospital, isLoading }: Props) => {
           <form onSubmit={form.handleSubmit(onSave)}>
             <div className="mb-4 flex gap-2 flex-col text-center">
               <h2 className="text-2xl font-semibold">
-                Hospital Registration Form
+                {role === "hospital"
+                  ? "HospitalHospital Registration Form"
+                  : "Petient Registration Form"}
               </h2>
               <FormDescription className="mb-3">Fill the form</FormDescription>
             </div>
@@ -80,12 +77,16 @@ const HospitalSignUp = ({ createHospital, isLoading }: Props) => {
               name="hosname"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Hospital Name</FormLabel>
+                  <FormLabel>
+                    {role === "hospital" ? "Hospital Name" : "Petient Name"}
+                  </FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       className="bg-white"
-                      placeholder="Hospital Name"
+                      placeholder={
+                        role === "hospital" ? "Hospital Name" : "Petient Name"
+                      }
                     />
                   </FormControl>
                   <FormMessage />
@@ -147,8 +148,6 @@ const HospitalSignUp = ({ createHospital, isLoading }: Props) => {
                 </FormItem>
               )}
             />
-
-        
 
             <Button
               type="submit"
