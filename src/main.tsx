@@ -3,9 +3,11 @@ import { createRoot } from "react-dom/client"
 
 import "./index.css"
 import AppRoutes from "./AppRoutes.tsx"
-import Auth0ProviderWithNavigate from "./auth/Auth0ProviderWithNavigate.tsx"
+
 import { QueryClient, QueryClientProvider } from "react-query"
 import { Toaster } from "./components/ui/sonner.tsx"
+
+export const BACKEND_API_URL = import.meta.env.VITE_API_BASE_URL as string
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -16,10 +18,8 @@ const queryClient = new QueryClient({
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <Auth0ProviderWithNavigate>
-        <AppRoutes />
-        <Toaster visibleToasts={1} position="top-right" richColors />
-      </Auth0ProviderWithNavigate>
+      <AppRoutes />
+      <Toaster visibleToasts={1} position="top-right" richColors />
     </QueryClientProvider>
   </StrictMode>
 )

@@ -10,11 +10,6 @@ const formSchema = z.object({
     .trim()
     .min(6, "Password must be at least 6 characters long")
     .regex(/[@$!%*?&]/, "Password must contain at least one special character"),
-  contact: z
-    .string()
-    .trim()
-    .min(10, "Phone number must be at least 10 characters long")
-    .regex(/^\+?[1-9]\d{1,14}$/, "Phone number must be a valid format"),
 })
 
 export type HosFormData = z.infer<typeof formSchema>
@@ -30,6 +25,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import GoogleAuthBtn from "@/components/GoogleAuthBtn"
 
 type Props = {
   createHospital: (data: FormData) => void
@@ -47,7 +43,6 @@ const HospitalSignUp = ({ createHospital, isLoading, role }: Props) => {
     formData.append("hosname", data.hosname)
     formData.append("email", data.email)
     formData.append("password", data.password)
-    formData.append("contact", data.contact)
 
     const finalRole = role || "petient"
     formData.append("role", finalRole)
@@ -130,24 +125,7 @@ const HospitalSignUp = ({ createHospital, isLoading, role }: Props) => {
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="contact"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Contact</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      type="tel"
-                      className="bg-white"
-                      placeholder="Contact"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <GoogleAuthBtn role={role} />
 
             <Button
               type="submit"
