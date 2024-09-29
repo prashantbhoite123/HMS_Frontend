@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom"
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
+console.log(API_BASE_URL)
 export const useHospitalRegistration = () => {
   const naviagate = useNavigate()
   const registerHospital = async (
@@ -13,6 +14,7 @@ export const useHospitalRegistration = () => {
     const fromDataObj = Object.fromEntries(registrationData.entries())
 
     console.log("fromDataObj", fromDataObj)
+
     const responce = await fetch(`${API_BASE_URL}/api/hospital/signup`, {
       method: "POST",
       headers: {
@@ -24,8 +26,6 @@ export const useHospitalRegistration = () => {
     if (!responce.ok) {
       throw new Error("Faild to register hospital")
     }
-
-    
 
     const data = await responce.json()
 
