@@ -5,7 +5,7 @@ const SignUpHos = () => {
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
 
-  const role = searchParams.get("role") || "petient"
+  const role = searchParams.get("role") || "patient"
 
   const { registerhospital, isLoading } = useHospitalRegistration()
   return (

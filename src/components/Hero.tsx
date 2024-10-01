@@ -5,7 +5,7 @@ const Hero = () => {
   return (
     <motion.img
       src={heroImg}
-      className="w-full  max-h-[600px] object-contain"
+      className="w-full  max-h-[500px] object-contain"
       animate={{ translateY: [-30, 30] }}
       transition={{
         repeat: Infinity,

@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom"
-import { Button } from "./ui/button"
+// import { Link } from "react-router-dom"
+
 import {
   Sheet,
   SheetContent,
@@ -9,23 +9,17 @@ import {
 } from "./ui/sheet"
 import { Menu } from "lucide-react"
 
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "./ui/dialog"
-import LoginDialog from "./LoginDialog"
 import { Separator } from "./ui/separator"
+
+import LoginBtn from "./LoginBtn"
 
 const MobileNav = () => {
   return (
     <div>
       <div className="flex justify-between">
-        <Link to="/">
+        {/* <Link to="/">
           <Button className="text-[1.1rem]">Kas tari hotay</Button>
-        </Link>
+        </Link> */}
         <Sheet>
           <SheetTrigger>
             <Menu className="text-black" />
@@ -36,19 +30,7 @@ const MobileNav = () => {
             </SheetTitle>
             <Separator />
             <SheetDescription>
-              <Dialog>
-                <DialogTrigger className="w-full">
-                  <Button className="bg-green-400 w-full text-black font-semibold">
-                    Login
-                  </Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Select your categoary</DialogTitle>
-                  </DialogHeader>
-                  <LoginDialog />
-                </DialogContent>
-              </Dialog>
+              <LoginBtn />
             </SheetDescription>
           </SheetContent>
         </Sheet>

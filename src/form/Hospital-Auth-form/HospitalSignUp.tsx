@@ -44,7 +44,7 @@ const HospitalSignUp = ({ createHospital, isLoading, role }: Props) => {
     formData.append("email", data.email)
     formData.append("password", data.password)
 
-    const finalRole = role || "petient"
+    const finalRole = role || "patient"
     formData.append("role", finalRole)
     try {
       await createHospital(formData)
@@ -62,7 +62,7 @@ const HospitalSignUp = ({ createHospital, isLoading, role }: Props) => {
               <h2 className="text-2xl font-semibold">
                 {role === "hospital"
                   ? "HospitalHospital Registration Form"
-                  : "Petient Registration Form"}
+                  : "Patient Registration Form"}
               </h2>
               <FormDescription className="mb-3">Fill the form</FormDescription>
             </div>
@@ -73,14 +73,14 @@ const HospitalSignUp = ({ createHospital, isLoading, role }: Props) => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    {role === "hospital" ? "Hospital Name" : "Petient Name"}
+                    {role === "hospital" ? "Hospital Name" : "Patient Name"}
                   </FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       className="bg-white"
                       placeholder={
-                        role === "hospital" ? "Hospital Name" : "Petient Name"
+                        role === "hospital" ? "Hospital Name" : "Patient Name"
                       }
                     />
                   </FormControl>
