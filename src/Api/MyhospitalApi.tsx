@@ -70,13 +70,15 @@ export const useUserSignIn = () => {
     }
 
     const data = await response.json()
+    sessionStorage.setItem("user", JSON.stringify(data))
     return data
   }
 
   const { mutate: signIn, isLoading } = useMutation(signInUser, {
     onSuccess: () => {
       toast.success("Sign-in successful")
-      navigate("/") 
+
+      navigate("/")
     },
     onError: () => {
       toast.error("Error while signing in")
