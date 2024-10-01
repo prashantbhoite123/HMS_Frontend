@@ -3,8 +3,11 @@ import MainNav from "../MainNav"
 import MobileNav from "../MobileNav"
 import { Button } from "./button"
 import LoginBtn from "../LoginBtn"
+import { useUser } from "@/context/userContext"
 
 const Header = () => {
+  const { currentUser } = useUser()
+  console.log("this is a currentUser", currentUser)
   return (
     <div className="flex justify-between p-6 w-full bg-green-400">
       <Link to="/">
@@ -19,9 +22,29 @@ const Header = () => {
       <div className="hidden md:block">
         <MainNav />
       </div>
-      <div className="hidden md:block">
-        <LoginBtn />
-      </div>
+      {currentUser ? (
+        <>
+          {currentUser.role === "patient" && (
+            <Link to="patient-dashboard">
+              <img src={currentUser.profilepic} alt="" />
+            </Link>
+          )}
+          {currentUser.role === "hospital" && (
+            <div>
+              {" "}
+              <img
+                className="h-12 w-12 rounded-full"
+                src={currentUser.profilepic}
+                alt=""
+              />
+            </div>
+          )}
+        </>
+      ) : (
+        <div className="hidden md:block">
+          <LoginBtn />
+        </div>
+      )}
     </div>
   )
 }

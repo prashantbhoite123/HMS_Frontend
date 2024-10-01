@@ -11,10 +11,12 @@ import About from "./pages/About"
 
 import SignUpHos from "./pages/SignUpHos"
 import SignIn from "./pages/SignIn"
+import ScrollToTop from "./components/ScrollToTop"
 
 const AppRoutes = () => {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route
           path="/"
@@ -49,7 +51,6 @@ const AppRoutes = () => {
             </Layouts>
           }
         />
-        {/* <Route path="*" element={<Navigate to="/" />} /> */}
       </Routes>
     </Router>
   )

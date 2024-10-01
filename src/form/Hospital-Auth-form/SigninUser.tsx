@@ -24,6 +24,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import GoogleAuthBtn from "@/components/GoogleAuthBtn"
+import { Link } from "react-router-dom"
 
 type Props = {
   signInUser: (data: FormData) => void
@@ -96,6 +97,9 @@ const SigninUser = ({ signInUser, isLoading }: Props) => {
           >
             {isLoading ? "Loading" : "Sign In"}
           </Button>
+          <span className="flex mt-5 text-blue-500 hover:underline">
+            <Link to="/signuphospital">sign-up</Link>
+          </span>
         </form>
       </Form>
     </div>

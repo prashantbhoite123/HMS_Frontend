@@ -6,7 +6,7 @@ import {
   ReactNode,
 } from "react"
 
-interface User {
+export interface User {
   _id: string
   hosname: string
   email: string
