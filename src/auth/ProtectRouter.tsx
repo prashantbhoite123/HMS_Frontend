@@ -1,9 +1,10 @@
-import { useAuth0 } from "@auth0/auth0-react"
+import { useUser } from "@/context/userContext"
+
 import { Outlet, Navigate } from "react-router-dom"
 
 const ProtectRouter = () => {
-  const { isAuthenticated } = useAuth0()
-  return isAuthenticated ? <Outlet /> : <Navigate to="/" replace />
+  const { currentUser } = useUser()
+  return currentUser ? <Outlet /> : <Navigate to="/" replace />
 }
 
 export default ProtectRouter

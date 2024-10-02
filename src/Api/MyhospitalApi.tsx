@@ -2,10 +2,12 @@ import { RegisterHos } from "@/types"
 import { useMutation } from "react-query"
 import { toast } from "sonner"
 import { useNavigate } from "react-router-dom"
+import { useUser } from "@/context/userContext"
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 console.log(API_BASE_URL)
+
 export const useHospitalRegistration = () => {
   const naviagate = useNavigate()
   const registerHospital = async (
@@ -49,6 +51,7 @@ export const useHospitalRegistration = () => {
 }
 
 export const useUserSignIn = () => {
+  const { saveUserToSession } = useUser()
   const navigate = useNavigate()
 
   // Function to handle user sign-in
@@ -62,6 +65,7 @@ export const useUserSignIn = () => {
       headers: {
         "Content-Type": "application/json",
       },
+
       body: JSON.stringify(formDataObj),
     })
 
@@ -70,14 +74,13 @@ export const useUserSignIn = () => {
     }
 
     const data = await response.json()
-    sessionStorage.setItem("user", JSON.stringify(data))
+    saveUserToSession(data)
     return data
   }
 
   const { mutate: signIn, isLoading } = useMutation(signInUser, {
     onSuccess: () => {
       toast.success("Sign-in successful")
-
       navigate("/")
     },
     onError: () => {

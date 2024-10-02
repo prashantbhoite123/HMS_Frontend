@@ -26,7 +26,11 @@ const Header = () => {
         <>
           {currentUser.role === "patient" && (
             <Link to="patient-dashboard">
-              <img src={currentUser.profilepic} alt="" />
+              <img
+                className="h-12 w-12 rounded-full"
+                src={currentUser.profilepic}
+                alt=""
+              />
             </Link>
           )}
           {currentUser.role === "hospital" && (

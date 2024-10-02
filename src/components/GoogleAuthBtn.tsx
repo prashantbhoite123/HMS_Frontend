@@ -6,6 +6,8 @@ import { toast } from "sonner"
 import { Button } from "./ui/button"
 import { AiFillGoogleCircle } from "react-icons/ai"
 import { useState } from "react"
+import { useUser } from "@/context/userContext"
+import { useNavigate } from "react-router-dom"
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 type Props = {
@@ -13,6 +15,8 @@ type Props = {
 }
 
 const GoogleAuthBtn = ({ role }: Props) => {
+  const naviagate = useNavigate()
+  const { saveUserToSession } = useUser()
   const [loading, setLoading] = useState<boolean>(false)
 
   const handleGoogleClick = async () => {
@@ -43,16 +47,15 @@ const GoogleAuthBtn = ({ role }: Props) => {
       if (!res.ok) {
         return console.log("Failed to login")
         setLoading(true)
-      }
-      const data = await res.json()
-      if (data.success === true) {
-        toast.success("Registration successs")
       } else {
-        toast.error(data.error)
-      }
+        const data = await res.json()
+        saveUserToSession(data)
 
-      console.log("this is data", data)
-      setLoading(false)
+        toast.success("Registration successs")
+        naviagate("/")
+        console.log("this is data", data)
+        setLoading(false)
+      }
     } catch (error) {
       console.error("Error during Google sign-in:", error)
       toast.error("Failed to login")

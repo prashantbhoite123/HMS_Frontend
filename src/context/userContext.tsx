@@ -18,6 +18,7 @@ export interface User {
 interface UserContextType {
   currentUser: User | null
   setCurrentUser: (user: User | null) => void
+  saveUserToSession: (user: User) => void // Global function to save user
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined)
@@ -36,8 +37,15 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     }
   }, [])
 
+  const saveUserToSession = (user: User) => {
+    sessionStorage.setItem("user", JSON.stringify(user))
+    setCurrentUser(user) // Update the context state
+  }
+
   return (
-    <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+    <UserContext.Provider
+      value={{ currentUser, setCurrentUser, saveUserToSession }}
+    >
       {children}
     </UserContext.Provider>
   )
