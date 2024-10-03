@@ -4,6 +4,7 @@ import MobileNav from "../MobileNav"
 import { Button } from "./button"
 import LoginBtn from "../LoginBtn"
 import { useUser } from "@/context/userContext"
+import UserProfileDropdown from "../UserProfileDropdown "
 
 const Header = () => {
   const { currentUser } = useUser()
@@ -22,33 +23,9 @@ const Header = () => {
       <div className="hidden md:block">
         <MainNav />
       </div>
-      {currentUser ? (
-        <>
-          {currentUser.role === "patient" && (
-            <Link to="patient-dashboard">
-              <img
-                className="h-12 w-12 rounded-full"
-                src={currentUser.profilepic}
-                alt=""
-              />
-            </Link>
-          )}
-          {currentUser.role === "hospital" && (
-            <div>
-              {" "}
-              <img
-                className="h-12 w-12 rounded-full"
-                src={currentUser.profilepic}
-                alt=""
-              />
-            </div>
-          )}
-        </>
-      ) : (
-        <div className="hidden md:block">
-          <LoginBtn />
-        </div>
-      )}
+      <div className="hidden md:block">
+        {currentUser ? <UserProfileDropdown /> : <LoginBtn />}
+      </div>
     </div>
   )
 }
