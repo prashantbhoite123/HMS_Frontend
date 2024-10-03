@@ -4,7 +4,7 @@ import { z } from "zod"
 
 const formSchema = z.object({
   email: z.string().trim().email("Invalid email format"),
-  hosname: z.string().trim().min(1, "Hosname is required"),
+  username: z.string().trim().min(1, "Username is required"),
   password: z
     .string()
     .trim()
@@ -41,7 +41,7 @@ const HospitalSignUp = ({ createHospital, isLoading, role }: Props) => {
 
   const onSave = async (data: HosFormData) => {
     const formData = new FormData()
-    formData.append("hosname", data.hosname)
+    formData.append("username", data.username)
     formData.append("email", data.email)
     formData.append("password", data.password)
 
@@ -70,7 +70,7 @@ const HospitalSignUp = ({ createHospital, isLoading, role }: Props) => {
 
             <FormField
               control={form.control}
-              name="hosname"
+              name="username"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>

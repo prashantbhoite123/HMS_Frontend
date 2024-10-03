@@ -12,6 +12,7 @@ import About from "./pages/Common_Pages/About"
 import SignUpHos from "./pages/SignUpHos"
 import SignIn from "./pages/SignIn"
 import ScrollToTop from "./components/ScrollToTop"
+import Services from "./pages/Common_Pages/Services"
 
 const AppRoutes = () => {
   return (
@@ -36,6 +37,14 @@ const AppRoutes = () => {
           }
         />
         <Route
+          path="/services"
+          element={
+            <Layouts showhero={false}>
+              <Services />
+            </Layouts>
+          }
+        />
+        <Route
           path="/signuphospital"
           element={
             <Layouts showhero={false}>
@@ -51,7 +60,6 @@ const AppRoutes = () => {
             </Layouts>
           }
         />
-        
       </Routes>
     </Router>
   )
