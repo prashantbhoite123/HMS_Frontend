@@ -7,12 +7,12 @@ const MainNav = () => {
   return (
     <>
       <div className="">
-        <div className="flex gap-20 text-[1.1rem]  font-semibold text-black">
-          <Link to="*" className="hover:underline">
-            About
+        <div className="flex gap-10 text-sm md:text-sm font-semibold text-black">
+          <Link to="/" className="hover:underline">
+            Home
           </Link>
-          <Link to="*" className="hover:underline">
-            Gallary
+          <Link to="/about" className="hover:underline">
+            About
           </Link>
           <Link to="*" className="hover:underline">
             Services

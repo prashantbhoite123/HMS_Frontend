@@ -5,9 +5,9 @@ import {
   // Navigate,
 } from "react-router-dom"
 
-import Home from "./pages/Home"
+import Home from "./pages/Common_Pages/Home"
 import Layouts from "./Layouts/Layouts"
-import About from "./pages/About"
+import About from "./pages/Common_Pages/About"
 
 import SignUpHos from "./pages/SignUpHos"
 import SignIn from "./pages/SignIn"
@@ -51,6 +51,7 @@ const AppRoutes = () => {
             </Layouts>
           }
         />
+        
       </Routes>
     </Router>
   )

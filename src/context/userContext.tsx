@@ -8,7 +8,7 @@ import {
 
 export interface User {
   _id: string
-  hosname: string
+  username: string
   email: string
   password: string
   profilepic: string
