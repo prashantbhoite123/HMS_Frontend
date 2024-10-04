@@ -56,23 +56,26 @@ const HospitalSignUp = ({ createHospital, isLoading, role }: Props) => {
 
   return (
     <>
-      <div className="flex flex-col border w-full md:w-[50vw] p-5 md:p-10 shadow-lg rounded-lg">
+      <div className="flex flex-col border w-full md:w-[35vw]  p-5 md:p-10 shadow-lg rounded-lg">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSave)}>
             <div className="mb-4 flex gap-2 flex-col text-center">
+              {" "}
               <h2 className="text-2xl font-semibold">
                 {role === "hospital"
-                  ? "HospitalHospital Registration Form"
+                  ? "Hospital Registration Form"
                   : "Patient Registration Form"}
               </h2>
-              <FormDescription className="mb-3">Fill the form</FormDescription>
+              <FormDescription className="mb-3"> Fill the form</FormDescription>
             </div>
 
             <FormField
               control={form.control}
               name="username"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="mb-4">
+                  {" "}
+                  {/* Added mb-4 for spacing */}
                   <FormLabel>
                     {role === "hospital" ? "Hospital Name" : "Patient Name"}
                   </FormLabel>
@@ -94,7 +97,8 @@ const HospitalSignUp = ({ createHospital, isLoading, role }: Props) => {
               control={form.control}
               name="email"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="mb-2">
+                  {" "}
                   <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
@@ -112,7 +116,8 @@ const HospitalSignUp = ({ createHospital, isLoading, role }: Props) => {
               control={form.control}
               name="password"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="mb-4">
+                  {" "}
                   <FormLabel>Password</FormLabel>
                   <FormControl>
                     <Input
@@ -126,16 +131,20 @@ const HospitalSignUp = ({ createHospital, isLoading, role }: Props) => {
               )}
             />
 
-            <GoogleAuthBtn role={role} />
+            <div className="mb-4">
+              {" "}
+              <GoogleAuthBtn role={role} />
+            </div>
 
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-green-400 to-blue-400 mt-5 text-white font-semibold rounded-lg py-2 shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform"
+              className="w-full bg-gradient-to-r from-green-400 to-blue-400 text-white font-semibold rounded-lg py-2 shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform"
             >
               {isLoading ? "Loading" : "Submit"}
             </Button>
-            <span className="flex mt-5 text-blue-500 hover:underline">
+
+            <span className="flex mt-4 text-blue-500 hover:underline">
               <Link to="/signin">sign-in</Link>
             </span>
           </form>

@@ -13,6 +13,8 @@ import SignUpHos from "./pages/SignUpHos"
 import SignIn from "./pages/SignIn"
 import ScrollToTop from "./components/ScrollToTop"
 import Services from "./pages/Common_Pages/Services"
+import HospitalCreate from "./pages/Hospital_pages/HospitalCreate"
+import ProtectRouter from "./auth/ProtectRouter"
 
 const AppRoutes = () => {
   return (
@@ -60,6 +62,16 @@ const AppRoutes = () => {
             </Layouts>
           }
         />
+        <Route element={<ProtectRouter />}>
+          <Route
+            path="/createhospital"
+            element={
+              <Layouts showhero={false}>
+                <HospitalCreate />
+              </Layouts>
+            }
+          />
+        </Route>
       </Routes>
     </Router>
   )

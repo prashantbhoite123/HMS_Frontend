@@ -48,18 +48,21 @@ const SigninUser = ({ signInUser, isLoading }: Props) => {
   }
 
   return (
-    <div className="flex flex-col border w-full md:w-[50vw] p-5 md:p-10 shadow-lg rounded-lg">
+    <div className="flex flex-col border w-full md:w-[35vw] p-5 md:p-10 shadow-lg rounded-lg">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSave)}>
-          <div className="mb-4 flex gap-2 flex-col text-center">
+          <div className="mb-6 flex gap-2 flex-col text-center">
             <h2 className="text-2xl font-semibold">Sign In</h2>
           </div>
 
+          {/* Email field with margin-bottom */}
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="mb-4">
+                {" "}
+                {/* Added mb-4 for spacing */}
                 <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input {...field} className="bg-white" placeholder="Email" />
@@ -69,11 +72,14 @@ const SigninUser = ({ signInUser, isLoading }: Props) => {
             )}
           />
 
+          {/* Password field with margin-bottom */}
           <FormField
             control={form.control}
             name="password"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="mb-6">
+                {" "}
+                {/* Added mb-6 for larger spacing */}
                 <FormLabel>Password</FormLabel>
                 <FormControl>
                   <Input
@@ -88,15 +94,23 @@ const SigninUser = ({ signInUser, isLoading }: Props) => {
             )}
           />
 
-          <GoogleAuthBtn role={null} />
+          
+          <div className="mb-6">
+            {" "}
+            
+            <GoogleAuthBtn role={null} />
+          </div>
 
+          {/* Submit Button */}
           <Button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-gradient-to-r from-green-400 to-blue-400 mt-5 text-white font-semibold rounded-lg py-2 shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform"
+            className="w-full bg-gradient-to-r from-green-400 to-blue-400 text-white font-semibold rounded-lg py-2 shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform"
           >
             {isLoading ? "Loading" : "Sign In"}
           </Button>
+
+          {/* Sign-Up Link with margin-top */}
           <span className="flex mt-5 text-blue-500 hover:underline">
             <Link to="/signuphospital">sign-up</Link>
           </span>
