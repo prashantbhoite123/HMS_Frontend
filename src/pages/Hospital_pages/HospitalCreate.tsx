@@ -1,7 +1,11 @@
 import HospitalCreateForm from "@/form/Hospital-Auth-form/HospitalCreateForm"
 
 const HospitalCreate = () => {
-  return <HospitalCreateForm />
+  return (
+    <div className="">
+      <HospitalCreateForm />
+    </div>
+  )
 }
 
 export default HospitalCreate

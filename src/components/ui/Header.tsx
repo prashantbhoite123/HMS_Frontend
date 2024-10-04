@@ -2,7 +2,6 @@ import { Link } from "react-router-dom"
 import MainNav from "../MainNav"
 import MobileNav from "../MobileNav"
 
-import LoginBtn from "../LoginBtn"
 import { useUser } from "@/context/userContext"
 import UserProfileDropdown from "../UserProfileDropdown "
 
@@ -10,7 +9,7 @@ const Header = () => {
   const { currentUser } = useUser()
   console.log("this is a currentUser", currentUser)
   return (
-    <div className="flex justify-between items-center p-2 w-full bg-green-400">
+    <div className="flex justify-between items-center p-4 w-full bg-green-400">
       <Link
         to="/"
         className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold"
@@ -27,7 +26,13 @@ const Header = () => {
         <MainNav />
       </div>
       <div className="hidden md:block">
-        {currentUser ? <UserProfileDropdown /> : <LoginBtn />}
+        {currentUser ? (
+          <UserProfileDropdown />
+        ) : (
+          <Link to="/signin" className="text sm font-semibold pr-2">
+            Login
+          </Link>
+        )}
       </div>
     </div>
   )

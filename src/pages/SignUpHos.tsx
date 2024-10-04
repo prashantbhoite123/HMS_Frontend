@@ -1,4 +1,5 @@
 import { useHospitalRegistration } from "@/Api/common_Api/useMyhospitalApi"
+import { useUser } from "@/context/userContext"
 import HospitalSignUp from "@/form/Common_Form/HospitalSignUp"
 
 import { useLocation } from "react-router-dom"
@@ -7,6 +8,10 @@ const SignUpHos = () => {
   const searchParams = new URLSearchParams(location.search)
 
   const role = searchParams.get("role") || "patient"
+  
+  const { currentUser } = useUser()
+
+  console.log("this is ==========", currentUser)
 
   const { registerhospital, isLoading } = useHospitalRegistration()
   return (

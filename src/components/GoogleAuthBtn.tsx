@@ -45,8 +45,8 @@ const GoogleAuthBtn = ({ role }: Props) => {
       })
 
       if (!res.ok) {
-        return console.log("Failed to login")
         setLoading(true)
+        return console.log("Failed to login")
       } else {
         const data = await res.json()
         saveUserToSession(data)

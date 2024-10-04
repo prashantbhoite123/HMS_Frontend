@@ -28,6 +28,7 @@ import { Button } from "@/components/ui/button"
 import GoogleAuthBtn from "@/components/GoogleAuthBtn"
 import { Link } from "react-router-dom"
 
+
 type Props = {
   createHospital: (data: FormData) => void
   isLoading: boolean
@@ -38,6 +39,7 @@ const HospitalSignUp = ({ createHospital, isLoading, role }: Props) => {
   const form = useForm<HosFormData>({
     resolver: zodResolver(formSchema),
   })
+
 
   const onSave = async (data: HosFormData) => {
     const formData = new FormData()
@@ -144,7 +146,7 @@ const HospitalSignUp = ({ createHospital, isLoading, role }: Props) => {
               {isLoading ? "Loading" : "Submit"}
             </Button>
 
-            <span className="flex mt-4 text-blue-500 hover:underline">
+            <span className="flex mt-4 text-blue-500 font-semibold hover:underline">
               <Link to="/signin">sign-in</Link>
             </span>
           </form>

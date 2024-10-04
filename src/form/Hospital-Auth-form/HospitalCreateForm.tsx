@@ -2,8 +2,12 @@ import { zodResolver } from "@hookform/resolvers/zod"
 
 import { FormProvider, useForm } from "react-hook-form"
 import { z } from "zod"
-import FormInput from "../Common_Form/FormInput"
 
+import DetailSection from "./DetailSection"
+import DoctorSection from "./DoctorSection"
+import ImageSection from "./ImageSection"
+import { Separator } from "@/components/ui/separator"
+import AddressSection from "./AddressSection"
 
 const doctorSchema = z.object({
   doctorName: z.string().trim().min(1, { message: "Doctor name is required" }),
@@ -21,7 +25,6 @@ const doctorSchema = z.object({
     .trim()
     .min(1, { message: "Working hours are required" }),
 })
-
 
 const formSchema = z.object({
   hospitalName: z
@@ -71,12 +74,18 @@ const HospitalCreateForm = () => {
   const onSubmit = () => {}
   return (
     <FormProvider {...form}>
-      <form action="" onSubmit={form.handleSubmit(onSubmit)}>
-        <FormInput
-          label="Hospital Name"
-          name="hospitalName"
-          placeholder="enter hospital name"
-        />
+      <form
+        action=""
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-8 bg-gray-50 p-10 rounded-lg"
+      >
+        <DetailSection />
+        <Separator />
+        <DoctorSection />
+        <Separator />
+        <AddressSection />
+        <Separator />
+        <ImageSection />
       </form>
     </FormProvider>
   )

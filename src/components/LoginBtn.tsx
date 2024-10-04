@@ -14,9 +14,9 @@ const LoginBtn = () => {
     setIsOpen(false)
   }
   return (
-    <div className="text-[1.1rem] font-semibold text-black">
+    <div className="text-sm  font-semibold text-blue-500 hover:underline">
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogTrigger>Login</DialogTrigger>
+        <DialogTrigger>Sign-up</DialogTrigger>
         <DialogContent>
           <DialogHeader>
             <DialogTitle className="text-center font-semibold">
