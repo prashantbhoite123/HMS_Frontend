@@ -9,7 +9,7 @@ const AddressSection = () => {
         <FormDescription>Add doctor information</FormDescription>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 p-5 gap-y-2 md:gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-3 py-3  gap-y-2 md:gap-5">
         <FormInput
           label="City"
           name="address.city"

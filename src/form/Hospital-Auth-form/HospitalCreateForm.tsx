@@ -9,14 +9,15 @@ import ImageSection from "./ImageSection"
 import { Separator } from "@/components/ui/separator"
 import AddressSection from "./AddressSection"
 import DepartmentSection from "./DepartmentSection"
+import { Button } from "@/components/ui/button"
 
 const doctorSchema = z.object({
   doctorName: z.string().trim().min(1, { message: "Doctor name is required" }),
   education: z.string().trim().min(1, { message: "Education is required" }),
   experienceYears: z
-    .number()
-    .int()
-    .min(0, { message: "Experience years must be a non-negative integer" }),
+    .string()
+    .trim()
+    .min(0, { message: "Experience years must be a non-negative number" }),
   specialization: z
     .string()
     .trim()
@@ -56,8 +57,7 @@ const formSchema = z.object({
     }),
   doctors: z.array(doctorSchema),
   totalBeds: z
-    .number()
-    .int()
+    .string()
     .min(1, { message: "Total beds must be a positive integer" }),
   departments: z.array(z.string().trim()).optional(),
   services: z.array(z.string().trim()).optional(),
@@ -95,6 +95,8 @@ const HospitalCreateForm = () => {
         <AddressSection />
         <Separator />
         <ImageSection />
+        <Separator />
+        <Button type="submit">Submit</Button>
       </form>
     </FormProvider>
   )

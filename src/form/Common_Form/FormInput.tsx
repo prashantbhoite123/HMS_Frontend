@@ -33,12 +33,12 @@ const FormInput: React.FC<FormInputProps> = ({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{label}</FormLabel>
+          <FormLabel className="font-semibold">{label}</FormLabel>
           <FormMessage className="text-red-600" />
           <FormControl>
             <Input
               placeholder={placeholder}
-              className="text-black rounded-[5px] focus:outline-cyan-600 "
+              className="text-black  rounded-[5px] border-slate-400 placeholder:text-slate-700 px-4 focus:outline-cyan-600 "
               autoFocus
               defaultValue={defaultValue}
               type={type}

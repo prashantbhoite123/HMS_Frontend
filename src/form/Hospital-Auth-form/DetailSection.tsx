@@ -22,7 +22,7 @@ function DetailSection() {
           Enetr the details about your restaurant
         </FormDescription>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 p-4 gap-5 text-black">
+      <div className="grid grid-cols-1 md:grid-cols-2 p-2 gap-5 text-black">
         <FormInput
           label="Hospital Name"
           name="hospitalName"
@@ -49,28 +49,11 @@ function DetailSection() {
           placeholder="enter number of beads"
         />
 
-        <Controller
-          name="description"
-          rules={{ required: "Description is required" }}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Description</FormLabel>
-              <FormControl>
-                <Textarea
-                  {...field}
-                  className="resize-none rounded-[5px] text-black focus:outline-cyan-600"
-                  autoFocus
-                />
-              </FormControl>
-
-              <FormMessage className="text-red-600"></FormMessage>
-            </FormItem>
-          )}
-        />
-
-        <div className="flex md:mx-5 sm:flex-row flex-col gap-4">
-          <div className="flex-1 md:w-1/2">
-            <label htmlFor="experienceLevel">Hospital Type</label>
+        <div className="flex md:mx-5 sm:flex-row flex-col ">
+          <div className="w-full">
+            <label htmlFor="experienceLevel" className="text-sm font-semibold">
+              Hospital Type
+            </label>
             <Controller
               name="hospitalType"
               control={control}
@@ -88,6 +71,27 @@ function DetailSection() {
               )}
             />
                       
+            <div className="w-full ">
+              <Controller
+                name="description"
+                rules={{ required: "Description is required" }}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Description</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        {...field}
+                        className="resize-none border border-slate-400 rounded-[5px] text-black focus:outline-cyan-600"
+                        autoFocus
+                        placeholder="Add discription"
+                      />
+                    </FormControl>
+
+                    <FormMessage className="text-red-600"></FormMessage>
+                  </FormItem>
+                )}
+              />
+            </div>
           </div>
         </div>
       </div>
