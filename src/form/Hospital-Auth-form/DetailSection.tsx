@@ -58,7 +58,7 @@ function DetailSection() {
               <FormControl>
                 <Textarea
                   {...field}
-                  className="rounded-[5px] focus:outline-cyan-600 text-slate-300"
+                  className="resize-none rounded-[5px] text-black focus:outline-cyan-600"
                   autoFocus
                 />
               </FormControl>
@@ -77,7 +77,7 @@ function DetailSection() {
               render={({ field }) => (
                 <select
                   {...field}
-                  className="block w-full cursor-pointer appearance-none bg-white border border-gray-300 rounded-md py-2 px-3 pr-10 text-base focus:outline-none focus:ring-indigo-500 focus:border-green-400 sm:text-sm"
+                  className="block w-full cursor-pointer appearance-none text-black bg-white border border-gray-300 rounded-md py-2 px-3 pr-10 text-base focus:outline-none focus:ring-indigo-500 focus:border-green-400 sm:text-sm"
                 >
                   {hospitalType.map((level) => (
                     <option key={level} value={level}>

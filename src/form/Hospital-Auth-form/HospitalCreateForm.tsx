@@ -75,7 +75,10 @@ const HospitalCreateForm = () => {
   const onSubmit = (data: hospitalFormData) => {
     console.log(data)
   }
-  console.log("Watch : ", form.watch())
+
+  const watch = form.watch()
+  console.log("Watch : ", watch)
+
   return (
     <FormProvider {...form}>
       <form

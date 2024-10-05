@@ -38,7 +38,7 @@ const FormInput: React.FC<FormInputProps> = ({
           <FormControl>
             <Input
               placeholder={placeholder}
-              className="rounded-[5px] focus:outline-cyan-600 text-slate-300"
+              className="text-black rounded-[5px] focus:outline-cyan-600 "
               autoFocus
               defaultValue={defaultValue}
               type={type}
