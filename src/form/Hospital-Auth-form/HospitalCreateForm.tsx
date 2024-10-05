@@ -8,6 +8,7 @@ import DoctorSection from "./DoctorSection"
 import ImageSection from "./ImageSection"
 import { Separator } from "@/components/ui/separator"
 import AddressSection from "./AddressSection"
+import DepartmentSection from "./DepartmentSection"
 
 const doctorSchema = z.object({
   doctorName: z.string().trim().min(1, { message: "Doctor name is required" }),
@@ -71,7 +72,10 @@ const HospitalCreateForm = () => {
     defaultValues: {},
   })
 
-  const onSubmit = () => {}
+  const onSubmit = (data: hospitalFormData) => {
+    console.log(data)
+  }
+  console.log("Watch : ", form.watch())
   return (
     <FormProvider {...form}>
       <form
@@ -82,6 +86,8 @@ const HospitalCreateForm = () => {
         <DetailSection />
         <Separator />
         <DoctorSection />
+        <Separator />
+        <DepartmentSection />
         <Separator />
         <AddressSection />
         <Separator />

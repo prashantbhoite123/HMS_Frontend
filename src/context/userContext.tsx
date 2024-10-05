@@ -31,14 +31,14 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null)
 
   useEffect(() => {
-    const user = sessionStorage.getItem("user")
+    const user = localStorage.getItem("user")
     if (user) {
       setCurrentUser(JSON.parse(user))
     }
   }, [])
 
   const saveUserToSession = (user: User) => {
-    sessionStorage.setItem("user", JSON.stringify(user))
+    localStorage.setItem("user", JSON.stringify(user))
     setCurrentUser(user) // Update the context state
   }
 
