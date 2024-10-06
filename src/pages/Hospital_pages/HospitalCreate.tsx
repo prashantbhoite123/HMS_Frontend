@@ -2,7 +2,7 @@ import HospitalCreateForm from "@/form/Hospital-Auth-form/HospitalCreateForm"
 
 const HospitalCreate = () => {
   return (
-    <div className="">
+    <div className=" p-2">
       <HospitalCreateForm />
     </div>
   )

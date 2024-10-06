@@ -10,6 +10,9 @@ import { Separator } from "@/components/ui/separator"
 import AddressSection from "./AddressSection"
 import DepartmentSection from "./DepartmentSection"
 import { Button } from "@/components/ui/button"
+import ServicesSection from "./ServicesSection"
+// import { departments } from "@/config/HospitalData"
+// import LoadingBtn from "@/components/LoadingBtn"
 
 const doctorSchema = z.object({
   doctorName: z.string().trim().min(1, { message: "Doctor name is required" }),
@@ -61,7 +64,8 @@ const formSchema = z.object({
     .min(1, { message: "Total beds must be a positive integer" }),
   departments: z.array(z.string().trim()).optional(),
   services: z.array(z.string().trim()).optional(),
-  picture: z.string().trim().url({ message: "Picture must be a valid URL" }),
+  pictureUrl: z.string().optional(),
+  picture: z.instanceof(File, { message: "image is required" }).optional(),
 })
 
 export type hospitalFormData = z.infer<typeof formSchema>
@@ -73,7 +77,43 @@ const HospitalCreateForm = () => {
   })
 
   const onSubmit = (data: hospitalFormData) => {
-    console.log(data)
+    console.log("submit clicked")
+    const formData = new FormData()
+
+    formData.append("hospitalName", data.hospitalName)
+    formData.append("description", data.description || "")
+
+    data.departments?.forEach((department, index) => {
+      formData.append(`departments[${index}]`, department)
+    })
+
+    data.services?.forEach((service, index) => {
+      formData.append(`services[${index}]`, service)
+    })
+
+    data.doctors.forEach((doctor, index) => {
+      formData.append(`doctors[${index}].doctorName`, doctor.doctorName)
+      formData.append(`doctors[${index}].education`, doctor.education)
+      formData.append(
+        `doctors[${index}].experienceYears`,
+        doctor.experienceYears.toString()
+      )
+      formData.append(`doctors[${index}].specialization`, doctor.specialization)
+      formData.append(`doctors[${index}].workingHours`, doctor.workingHours)
+    })
+
+    formData.append("establishedDate", data.establishedDate?.toString() || "")
+    formData.append("hospitalType", data.hospitalType)
+    formData.append("phoneNumber", data.phoneNumber)
+    formData.append("totalBeds", data.totalBeds.toString())
+
+    if (data.picture) {
+      formData.append("picture", data.picture)
+    }
+
+    for (let [key, value] of formData.entries()) {
+      console.log("formadata ==", key, value)
+    }
   }
 
   const watch = form.watch()
@@ -84,7 +124,7 @@ const HospitalCreateForm = () => {
       <form
         action=""
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 bg-gray-50 p-10 rounded-lg"
+        className="space-y-8 bg-gray-50  shadow-gray-400 shadow-xl p-10 rounded-lg"
       >
         <DetailSection />
         <Separator />
@@ -94,8 +134,14 @@ const HospitalCreateForm = () => {
         <Separator />
         <AddressSection />
         <Separator />
-        <ImageSection />
+
+        <ServicesSection />
         <Separator />
+        <ImageSection />
+
+        <Separator />
+        {/* {loading ? <LoadingBtn /> : <Button type="submit">Submit</Button>}
+         */}
         <Button type="submit">Submit</Button>
       </form>
     </FormProvider>

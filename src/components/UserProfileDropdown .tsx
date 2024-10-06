@@ -146,8 +146,8 @@ const UserProfileDropdown = () => {
               <Link
                 to={
                   currentUser.role === "patient"
-                    ? "/patientdashboard?tab=profile"
-                    : "/hospitaldashboard?tab=profile"
+                    ? "/createhospital"
+                    : "/createhospital"
                 }
               >
                 {currentUser.role === "patient" ? (

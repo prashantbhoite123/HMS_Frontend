@@ -45,7 +45,7 @@ const DoctorMenuInput = ({ index, removeMenuItem }: Props) => {
         <Button
           type="button"
           onClick={removeMenuItem}
-          className="bg-red-500 max-h-fit mt-2 md:mt-8 px-2 w-[10vw]"
+          className="bg-red-500 max-h-fit mt-2 md:mt-8 px-2 w-[16vw] md:w-[10vw]"
         >
           Remove
         </Button>

@@ -11,7 +11,7 @@ import About from "./pages/Common_Pages/About"
 
 import SignUpHos from "./pages/SignUpHos"
 import SignIn from "./pages/SignIn"
-import ScrollToTop from "./components/ScrollToTop"
+import ScrollToTop from "./auth/ScrollToTop"
 import Services from "./pages/Common_Pages/Services"
 import HospitalCreate from "./pages/Hospital_pages/HospitalCreate"
 import ProtectRouter from "./auth/ProtectRouter"

@@ -3,31 +3,31 @@ import { FormControl, FormItem, FormLabel } from "@/components/ui/form"
 import { ControllerRenderProps, FieldValues } from "react-hook-form"
 
 type Props = {
-  department: string
-  field: ControllerRenderProps<FieldValues, "departments">
+  service: string
+  field: ControllerRenderProps<FieldValues, "services">
 }
-const DepartmentCheckbox = ({ department, field }: Props) => {
+const ServicesCheckBox = ({ service, field }: Props) => {
   const valueArray = Array.isArray(field.value) ? field.value : []
   return (
     <FormItem className="flex flex-row items-center space-x-1 space-y-0 mt-2">
       <FormControl>
         <Checkbox
           className="bg-white"
-          checked={valueArray.includes(department)}
+          checked={valueArray.includes(service)}
           onCheckedChange={(checked) => {
             if (checked) {
-              field.onChange([...valueArray, department])
+              field.onChange([...valueArray, service])
             } else {
               field.onChange(
-                valueArray.filter((value: string) => value !== department)
+                valueArray.filter((value: string) => value !== service)
               )
             }
           }}
         />
       </FormControl>
-      <FormLabel className="text-sm font-normal">{department}</FormLabel>
+      <FormLabel className="text-sm font-normal">{service}</FormLabel>
     </FormItem>
   )
 }
 
-export default DepartmentCheckbox
+export default ServicesCheckBox
