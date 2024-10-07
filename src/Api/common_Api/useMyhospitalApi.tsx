@@ -1,4 +1,4 @@
-import { RegisterHos } from "@/types"
+import { RegisterHos } from "@/Types/types"
 import { useMutation } from "react-query"
 import { toast } from "sonner"
 import { useNavigate } from "react-router-dom"

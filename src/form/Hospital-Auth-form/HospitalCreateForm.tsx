@@ -12,7 +12,7 @@ import DepartmentSection from "./DepartmentSection"
 import { Button } from "@/components/ui/button"
 import ServicesSection from "./ServicesSection"
 // import { departments } from "@/config/HospitalData"
-// import LoadingBtn from "@/components/LoadingBtn"
+import LoadingBtn from "@/components/LoadingBtn"
 
 const doctorSchema = z.object({
   doctorName: z.string().trim().min(1, { message: "Doctor name is required" }),
@@ -70,7 +70,12 @@ const formSchema = z.object({
 
 export type hospitalFormData = z.infer<typeof formSchema>
 
-const HospitalCreateForm = () => {
+type Props = {
+  onSave: (data: FormData) => void
+  loading: boolean
+}
+
+const HospitalCreateForm = ({ onSave, loading }: Props) => {
   const form = useForm<hospitalFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {},
@@ -80,6 +85,10 @@ const HospitalCreateForm = () => {
     console.log("submit clicked")
     const formData = new FormData()
 
+    // formData.append("address", JSON.stringify(data.address))
+    formData.append("address.city", data.address.city)
+    formData.append("address.country", data.address.country)
+    formData.append("address.state", data.address.state)
     formData.append("hospitalName", data.hospitalName)
     formData.append("description", data.description || "")
 
@@ -89,31 +98,32 @@ const HospitalCreateForm = () => {
 
     data.services?.forEach((service, index) => {
       formData.append(`services[${index}]`, service)
-    })
+    }),
+      // data.doctors.forEach((doctor, index) => {
+      //   formData.append(`doctors[${index}].doctorName`, doctor.doctorName)
+      //   formData.append(`doctors[${index}].education`, doctor.education)
+      //   formData.append(
+      //     `doctors[${index}].experienceYears`,
+      //     doctor.experienceYears.toString()
+      //   )
+      //   formData.append(`doctors[${index}].specialization`, doctor.specialization)
+      //   formData.append(`doctors[${index}].workingHours`, doctor.workingHours)
+      // })
 
-    data.doctors.forEach((doctor, index) => {
-      formData.append(`doctors[${index}].doctorName`, doctor.doctorName)
-      formData.append(`doctors[${index}].education`, doctor.education)
-      formData.append(
-        `doctors[${index}].experienceYears`,
-        doctor.experienceYears.toString()
-      )
-      formData.append(`doctors[${index}].specialization`, doctor.specialization)
-      formData.append(`doctors[${index}].workingHours`, doctor.workingHours)
-    })
-
+      formData.append("doctors", JSON.stringify(data.doctors))
     formData.append("establishedDate", data.establishedDate?.toString() || "")
     formData.append("hospitalType", data.hospitalType)
     formData.append("phoneNumber", data.phoneNumber)
     formData.append("totalBeds", data.totalBeds.toString())
-
     if (data.picture) {
       formData.append("picture", data.picture)
     }
 
-    for (let [key, value] of formData.entries()) {
-      console.log("formadata ==", key, value)
-    }
+    // for (let [key, value] of formData.entries()) {
+    //   console.log("formadata ==", key, value)
+    // }
+
+    onSave(formData)
   }
 
   const watch = form.watch()
@@ -140,9 +150,7 @@ const HospitalCreateForm = () => {
         <ImageSection />
 
         <Separator />
-        {/* {loading ? <LoadingBtn /> : <Button type="submit">Submit</Button>}
-         */}
-        <Button type="submit">Submit</Button>
+        {loading ? <LoadingBtn /> : <Button type="submit">Submit</Button>}
       </form>
     </FormProvider>
   )

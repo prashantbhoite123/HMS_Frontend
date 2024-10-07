@@ -109,7 +109,7 @@ const UserProfileDropdown = () => {
         return toast.error("Failed to log out")
       }
 
-      sessionStorage.removeItem("user")
+      localStorage.removeItem("user")
       setCurrentUser(null)
       const data = await response.json()
       toast.success(data.message)
