@@ -16,6 +16,7 @@ export const usecreateHospital = () => {
         {
           method: "POST",
           body: createHospitalFormData,
+          credentials: "include",
         }
       )
       if (!responce.ok) {
@@ -23,7 +24,7 @@ export const usecreateHospital = () => {
       }
 
       const data = await responce.json()
-      console.log(data)
+      console.log("Responce Hotel create ime: ", data)
       return data
     } catch (error) {
       console.log(`Error while create hospital api ${error}`)

@@ -65,7 +65,7 @@ export const useUserSignIn = () => {
       headers: {
         "Content-Type": "application/json",
       },
-
+      credentials: "include",
       body: JSON.stringify(formDataObj),
     })
 
