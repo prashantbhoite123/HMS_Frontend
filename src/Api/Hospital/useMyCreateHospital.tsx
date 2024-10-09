@@ -24,9 +24,13 @@ export const useGetHospital = () => {
     return data
   }
 
-  const { data: hospital, isLoading } = useQuery("gethospital", getHospital)
+  const {
+    data: hospital,
+    isLoading,
+    refetch,
+  } = useQuery("gethospital", getHospital)
 
-  return { hospital, isLoading }
+  return { hospital, isLoading, refetch }
 }
 
 export const usecreateHospital = () => {
@@ -70,4 +74,42 @@ export const usecreateHospital = () => {
     }
   )
   return { createHospitaldata, isLoading }
+}
+
+export const useUpdateMyHospital = (refetch: any) => {
+  const updateHospitalApi = async (
+    updateHospitalFormData: FormData
+  ): Promise<IHospital> => {
+    for (const key in updateHospitalFormData.entries()) {
+      console.log(`==============>  ${key} === ${updateHospitalFormData}`)
+    }
+    const responce = await fetch(
+      `${BACKEND_API_URL}/api/my/hospital/updatehospital`,
+      {
+        method: "PUT",
+        credentials: "include",
+        body: updateHospitalFormData,
+      }
+    )
+
+    if (!responce.ok) {
+      throw new Error(`Faild to update Hospital`)
+    }
+
+    const data = await responce.json()
+    // console.log("this a data=====", data)
+    return data
+  }
+
+  const { mutate: updateHospital, isLoading } = useMutation(updateHospitalApi, {
+    onSuccess: () => {
+      refetch()
+      toast.success("Hospital update Successfull")
+    },
+    onError: () => {
+      toast.error("Faild to update hospital")
+    },
+  })
+
+  return { updateHospital, isLoading }
 }

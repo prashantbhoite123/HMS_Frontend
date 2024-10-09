@@ -1,31 +1,21 @@
 import { FormDescription, FormField, FormItem } from "@/components/ui/form"
-// import FormInput from "../Common_Form/FormInput"
-// import {
-//   Drawer,
-//   DrawerClose,
-//   DrawerContent,
-//   DrawerDescription,
-//   DrawerFooter,
-//   DrawerHeader,
-//   // DrawerTitle,
-//   DrawerTrigger,
-// } from "@/components/ui/drawer"
-// import { Button } from "@/components/ui/button"
+
 import { useFieldArray, useFormContext } from "react-hook-form"
 import DoctorMenuInput from "./DoctorMenuInput"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 
 const DoctorSection = () => {
-  const { control, watch } = useFormContext()
+  const { control
+   } = useFormContext()
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: "doctors",
   })
-  const watchs = watch()
+  // const watchs = watch()
 
-  console.log("wahtch", watchs.doctors)
+  // console.log("wahtch", watchs.doctors)
   return (
     <>
       <div className="space-y-4">

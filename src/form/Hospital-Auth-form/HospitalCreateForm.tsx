@@ -84,7 +84,7 @@ const HospitalCreateForm = ({ onSave, loading, hospital }: Props) => {
     defaultValues: {},
   })
 
-  console.log("taksdas==", hospital?.establishedDate)
+  // console.log("taksdas==", hospital?.establishedDate)
 
   useEffect(() => {
     if (!hospital) {
@@ -94,14 +94,13 @@ const HospitalCreateForm = ({ onSave, loading, hospital }: Props) => {
     const formatedDate = hospital.establishedDate
       ? (() => {
           const date = new Date(hospital.establishedDate)
-          const day = String(date.getDate()).padStart(2, "0") 
-          const month = String(date.getMonth() + 1).padStart(2, "0") 
+          const day = String(date.getDate()).padStart(2, "0")
+          const month = String(date.getMonth() + 1).padStart(2, "0")
           const year = date.getFullYear()
           return `${day}-${month}-${year}`
         })()
       : ""
 
-    console.log("=============", formatedDate)
     const updateData = {
       ...hospital,
       establishedDate: formatedDate,
