@@ -1,6 +1,5 @@
 import mongoose from "mongoose"
 
-
 export type IHospital = {
   hospitalName: string
   description?: string
@@ -9,7 +8,7 @@ export type IHospital = {
     city: string
     state: string
     country: string
-  }[]
+  }
 
   hospitalType: string
   establishedDate?: Date
@@ -23,7 +22,7 @@ export type IHospital = {
     specialization: string
     workingHours: string
   }[]
-  picture: string
+  picture: File
   owner: mongoose.Types.ObjectId
   // New Fields
 }

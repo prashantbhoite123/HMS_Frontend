@@ -13,6 +13,8 @@ import { Button } from "@/components/ui/button"
 import ServicesSection from "./ServicesSection"
 // import { departments } from "@/config/HospitalData"
 import LoadingBtn from "@/components/LoadingBtn"
+import { IHospital } from "@/Types/hospital"
+import { useEffect } from "react"
 
 const doctorSchema = z.object({
   doctorName: z.string().trim().min(1, { message: "Doctor name is required" }),
@@ -71,26 +73,54 @@ const formSchema = z.object({
 export type hospitalFormData = z.infer<typeof formSchema>
 
 type Props = {
+  hospital?: IHospital
   onSave: (data: FormData) => void
   loading: boolean
 }
 
-const HospitalCreateForm = ({ onSave, loading }: Props) => {
+const HospitalCreateForm = ({ onSave, loading, hospital }: Props) => {
   const form = useForm<hospitalFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {},
   })
 
+  console.log("taksdas==", hospital)
+
+  useEffect(() => {
+    if (!hospital) {
+      return
+    }
+
+    const updateData = {
+      ...hospital,
+      establishedDate: hospital.establishedDate
+        ? typeof hospital.establishedDate === "string"
+          ? new Date(hospital.establishedDate).toDateString()
+          : hospital.establishedDate.toDateString()
+        : "",
+      doctors: hospital.doctors.map((doctor) => ({
+        ...doctor,
+        experienceYears: doctor.experienceYears.toString(),
+      })),
+      totalBeds: hospital.totalBeds.toString(),
+    }
+
+    form.reset(updateData)
+  }, [form, hospital])
+
   const onSubmit = (data: hospitalFormData) => {
     console.log("submit clicked")
     const formData = new FormData()
 
-    // formData.append("address", JSON.stringify(data.address))
+    formData.append("hospitalName", data.hospitalName)
+    formData.append("description", data.description || "")
+    formData.append("phoneNumber", data.phoneNumber)
     formData.append("address.city", data.address.city)
     formData.append("address.country", data.address.country)
     formData.append("address.state", data.address.state)
-    formData.append("hospitalName", data.hospitalName)
-    formData.append("description", data.description || "")
+    formData.append("hospitalType", data.hospitalType)
+    formData.append("establishedDate", data.establishedDate?.toString() || "")
+    formData.append("totalBeds", data.totalBeds.toString())
 
     data.departments?.forEach((department, index) => {
       formData.append(`departments[${index}]`, department)
@@ -99,35 +129,16 @@ const HospitalCreateForm = ({ onSave, loading }: Props) => {
     data.services?.forEach((service, index) => {
       formData.append(`services[${index}]`, service)
     }),
-      // data.doctors.forEach((doctor, index) => {
-      //   formData.append(`doctors[${index}].doctorName`, doctor.doctorName)
-      //   formData.append(`doctors[${index}].education`, doctor.education)
-      //   formData.append(
-      //     `doctors[${index}].experienceYears`,
-      //     doctor.experienceYears.toString()
-      //   )
-      //   formData.append(`doctors[${index}].specialization`, doctor.specialization)
-      //   formData.append(`doctors[${index}].workingHours`, doctor.workingHours)
-      // })
-
       formData.append("doctors", JSON.stringify(data.doctors))
-    formData.append("establishedDate", data.establishedDate?.toString() || "")
-    formData.append("hospitalType", data.hospitalType)
-    formData.append("phoneNumber", data.phoneNumber)
-    formData.append("totalBeds", data.totalBeds.toString())
     if (data.picture) {
       formData.append("picture", data.picture)
     }
 
-    // for (let [key, value] of formData.entries()) {
-    //   console.log("formadata ==", key, value)
-    // }
-
     onSave(formData)
   }
 
-  const watch = form.watch()
-  console.log("Watch : ", watch)
+  // const watch = form.watch()
+  // console.log("Watch : ", watch)
 
   return (
     <FormProvider {...form}>
