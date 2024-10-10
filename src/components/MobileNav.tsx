@@ -3,23 +3,24 @@
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetTrigger,
   SheetTitle,
+  SheetFooter,
 } from "./ui/sheet"
 import { Menu } from "lucide-react"
 
 import { Separator } from "./ui/separator"
 
-import LoginBtn from "./LoginBtn"
+import { useUser } from "@/context/userContext"
+import { Link } from "react-router-dom"
+import LogoutBtn from "./LogoutBtn"
+import { Button } from "./ui/button"
 
 const MobileNav = () => {
+  const { currentUser } = useUser()
   return (
     <div>
       <div className="flex justify-between">
-        {/* <Link to="/">
-          <Button className="text-[1.1rem]">Kas tari hotay</Button>
-        </Link> */}
         <Sheet>
           <SheetTrigger>
             <Menu className="text-black" />
@@ -28,10 +29,31 @@ const MobileNav = () => {
             <SheetTitle className="text-black font-semibold">
               Hospital Management
             </SheetTitle>
+
             <Separator />
-            <SheetDescription>
-              <LoginBtn />
-            </SheetDescription>
+
+            <Link
+              to={
+                currentUser?.role === "patient"
+                  ? "/createhospital"
+                  : "/createhospital"
+              }
+            >
+              {currentUser?.role === "patient" ? (
+                <span>Patient Profile</span>
+              ) : (
+                <span>Hospital Profile</span>
+              )}
+            </Link>
+            <SheetFooter className="mt-5">
+              {currentUser ? (
+                <LogoutBtn />
+              ) : (
+                <Link to="/signin">
+                  <Button>Login</Button>
+                </Link>
+              )}
+            </SheetFooter>
           </SheetContent>
         </Sheet>
       </div>
