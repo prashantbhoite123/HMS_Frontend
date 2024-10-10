@@ -81,7 +81,6 @@ type Props = {
 const HospitalCreateForm = ({ onSave, loading, hospital }: Props) => {
   const form = useForm<hospitalFormData>({
     resolver: zodResolver(formSchema),
-    defaultValues: {},
   })
 
   // console.log("taksdas==", hospital?.establishedDate)

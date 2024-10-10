@@ -80,9 +80,10 @@ export const useUpdateMyHospital = (refetch: any) => {
   const updateHospitalApi = async (
     updateHospitalFormData: FormData
   ): Promise<IHospital> => {
-    for (const key in updateHospitalFormData.entries()) {
-      console.log(`==============>  ${key} === ${updateHospitalFormData}`)
+    for (let [key, value] of updateHospitalFormData.entries()) {
+      console.log("Update formadata ==", key, value)
     }
+
     const responce = await fetch(
       `${BACKEND_API_URL}/api/my/hospital/updatehospital`,
       {

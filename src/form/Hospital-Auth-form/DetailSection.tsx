@@ -12,8 +12,8 @@ import { Textarea } from "@/components/ui/textarea"
 import { hospitalType } from "@/config/HospitalData"
 
 function DetailSection() {
-  const { control, watch } = useFormContext()
-  console.log(watch)
+  const { control } = useFormContext()
+
   return (
     <div className="space-y-8 ">
       <div className="">

@@ -11,14 +11,13 @@ const HospitalCreate = () => {
   const { updateHospital, isLoading: updateLoading } =
     useUpdateMyHospital(refetch)
 
-  const updatedHospital = !!updateHospital
-
-  console.log(updatedHospital)
+  const isEditing = !!hospital
+  
   return (
     <div className=" p-2">
       <HospitalCreateForm
         hospital={hospital}
-        onSave={updatedHospital ? updateHospital : createHospitaldata}
+        onSave={isEditing ? updateHospital : createHospitaldata}
         loading={isLoading || updateLoading}
       />
     </div>

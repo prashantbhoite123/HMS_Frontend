@@ -8,7 +8,7 @@ type Props = {
 }
 
 const DoctorMenuInput = ({ index, removeMenuItem }: Props) => {
-  console.log("this is index ===", index)
+  
   return (
     <div className="">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
