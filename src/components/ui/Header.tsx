@@ -25,15 +25,17 @@ const Header = () => {
       <div className=" hidden md:block ">
         <MainNav />
       </div>
-      {currentUser ? (
-        <div className="">
-          <Link to="/hospitals">
-            <h2 className="text-sm font-semibold">Hospitals</h2>
-          </Link>
-        </div>
-      ) : (
-        ""
-      )}
+      <div className="hidden md:block">
+        {currentUser ? (
+          <div className="">
+            <Link to="/hospitals">
+              <h2 className="text-sm font-semibold">Hospitals</h2>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
       <div className="hidden md:block">
         {currentUser ? (
           <UserProfileDropdown />

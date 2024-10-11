@@ -38,7 +38,7 @@ const GoogleAuthBtn = ({ role }: Props) => {
         },
         credentials: "include",
         body: JSON.stringify({
-          hosname: user.displayName,
+          username: user.displayName,
           email: user.email,
           profilePic: user.photoURL,
           role: role,
