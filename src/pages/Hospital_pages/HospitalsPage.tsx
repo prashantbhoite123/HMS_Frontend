@@ -1,5 +1,6 @@
 import { useMyHospitalDetail } from "@/Api/Hospital/useMyHospitalDetails"
 import HospitalsCard from "@/components/Hospital/HospitalsCard"
+import SearchBar from "@/components/Hospital/SearchBar"
 import { IHospital } from "@/Types/hospital"
 
 const HospitalsPage = () => {
@@ -8,7 +9,9 @@ const HospitalsPage = () => {
     <>
       <div className="grid grid-col-[4fr_1fr] gap-4">
         <div className="p-5">
-          <h1>Searchbar</h1>
+          <h1>
+            <SearchBar />
+          </h1>
         </div>
 
         <div className="space-y-4">
