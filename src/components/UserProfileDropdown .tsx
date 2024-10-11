@@ -37,11 +37,7 @@ const UserProfileDropdown = () => {
             <Separator />
             <DropdownMenuItem>
               <Link
-                to={
-                  currentUser.role === "patient"
-                    ? "/createhospital"
-                    : "/createhospital"
-                }
+                to={currentUser.role === "patient" ? "/" : "/createhospital"}
               >
                 {currentUser.role === "patient" ? (
                   <span>Patient Profile</span>
