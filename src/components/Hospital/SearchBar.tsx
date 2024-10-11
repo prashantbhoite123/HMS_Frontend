@@ -5,8 +5,7 @@ import { Input } from "../ui/input"
 const SearchBar = () => {
   return (
     <>
-      <div className="shadow-lg p-10 rounded-2xl">
-        {" "}
+      {/* <div className="shadow-lg p-8 rounded-2xl"> */}
         <div className="flex items-center justify-between p-3 border rounded-full  border-gray-500">
           <Search className="size-8 text-green-500" />
 
@@ -14,19 +13,22 @@ const SearchBar = () => {
             autoFocus
             style={{ outline: "none", boxShadow: "none", border: "none" }}
             placeholder="Search hospital"
-            className="border-none text-lg font-semibold outline-none focus:outline-none focus:ring-0 focus:border-transparent"
+            className="border-none text-xl font-medium outline-none focus:outline-none focus:ring-0 focus:border-transparent"
           />
 
           <div className="flex gap-3">
-            <Button variant="outline" className="border border-green-500">
+            <Button
+              variant="outline"
+              className="border border-green-500 rounded-full"
+            >
               Reset
             </Button>
-            <Button className="bg-green-500 hover:bg-white p-2 hover:text-black">
+            <Button className="bg-gradient-to-r from-indigo-600 to-pink-600 hover:bg-white  hover:text-black rounded-full">
               Search
             </Button>
           </div>
         </div>
-      </div>
+      {/* </div> */}
     </>
   )
 }

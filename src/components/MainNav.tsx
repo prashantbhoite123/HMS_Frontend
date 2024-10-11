@@ -7,7 +7,7 @@ const MainNav = () => {
   return (
     <>
       <div className="">
-        <div className="flex gap-10 text-sm md:text-sm font-semibold text-black">
+        <div className="flex gap-10 text-sm md:text-lg font-semibold text-white">
           <Link to="/" className="hover:underline">
             Home
           </Link>
