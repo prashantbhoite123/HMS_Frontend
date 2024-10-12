@@ -1,6 +1,7 @@
 import { useMyHospitalDetail } from "@/Api/Hospital/useMyHospitalDetails"
 import HospitalsCard from "@/components/Hospital/HospitalsCard"
 import SearchBar from "@/components/Hospital/SearchBar"
+import SearchDetails from "@/components/Hospital/SearchDetails"
 
 import {
   DropdownMenu,
@@ -8,7 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
+
 import { Separator } from "@/components/ui/separator"
 import { IHospital } from "@/Types/hospital"
 import { Link } from "react-router-dom"
@@ -36,6 +37,13 @@ const HospitalsPage = () => {
       </div>
 
       <div className="grid grid-row md:grid-cols-[4fr_1fr] mt-4">
+        <div className="block md:hidden bg-slate-100">
+          {allHospitalData?.map((hospitals: IHospital, index: number) => (
+            <div className="" key={index}>
+              <SearchDetails hospital={hospitals} />
+            </div>
+          ))}
+        </div>
         <Link to="/detail">
           <div className="space-y-7">
             {allHospitalData?.map((hospitals: IHospital, index: number) => (
@@ -48,14 +56,10 @@ const HospitalsPage = () => {
           </div>
         </Link>
 
-        <div className="bg-slate-100">
+        <div className="hidden md:block bg-slate-100">
           {allHospitalData?.map((hospitals: IHospital, index: number) => (
             <div className="" key={index}>
-              {hospitals?.departments?.map((dept) => (
-                <div className="mt-3">
-                  <Input readOnly defaultValue={dept} />
-                </div>
-              ))}
+              <SearchDetails hospital={hospitals} />
             </div>
           ))}
         </div>
