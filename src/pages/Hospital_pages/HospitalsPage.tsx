@@ -1,6 +1,6 @@
 import { useMyHospitalDetail } from "@/Api/Hospital/useMyHospitalDetails"
 import HospitalsCard from "@/components/Hospital/HospitalsCard"
-import SearchBar from "@/components/Hospital/SearchBar"
+import SearchBar, { SearchForm } from "@/components/Hospital/SearchBar"
 import SearchDetails from "@/components/Hospital/SearchDetails"
 
 import {
@@ -16,10 +16,14 @@ import { Link } from "react-router-dom"
 
 const HospitalsPage = () => {
   const { allHospitalData, isLoading } = useMyHospitalDetail()
+
+  const handleSearchSubmit = (searchFormvalues: SearchForm) => {
+    console.log(searchFormvalues.searchQuery)
+  }
   return (
     <>
       <div className="grid grid-cols md:grid-cols-[4fr_1fr] gap-4 p-5 items-center">
-        <SearchBar />
+        <SearchBar onSubmit={handleSearchSubmit} />
         <div className="flex justify-center items-center border p-2 rounded-full bg-gradient-to-r from-indigo-600 to-pink-600 text-white">
           <DropdownMenu>
             <DropdownMenuTrigger>

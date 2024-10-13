@@ -79,7 +79,7 @@ const AppRoutes = () => {
                 <HospitalsPage />
               </Layouts>
             }
-          ></Route>
+          />
         </Route>
       </Routes>
     </Router>

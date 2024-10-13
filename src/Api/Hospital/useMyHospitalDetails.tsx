@@ -31,3 +31,29 @@ export const useMyHospitalDetail = () => {
 
   return { allHospitalData, isLoading }
 }
+
+export const useMySearchHospital = (city?: string) => {
+  const createSearchRequest = async () => {
+    const response = await fetch(
+      `${BACKEND_API_URL}/api/manage/search/${city}`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    )
+
+    if (!response.ok) {
+      throw new Error("Faild to get hospital")
+    }
+
+    const data = await response.json()
+    return data
+  }
+  const { data: result, isLoading } = useQuery(
+    ["searchHospitals"],
+    createSearchRequest,
+    { enabled: !!city }
+  )
+
+  return { result, isLoading }
+}
