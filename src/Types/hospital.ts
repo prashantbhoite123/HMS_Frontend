@@ -26,3 +26,12 @@ export type IHospital = {
   owner: mongoose.Types.ObjectId
   // New Fields
 }
+
+export type HospitalSearchResponse = {
+  data: IHospital[]
+  pagination: {
+    total: number
+    page: number
+    pages: number
+  }
+}

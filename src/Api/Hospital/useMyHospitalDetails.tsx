@@ -1,4 +1,5 @@
 import { BACKEND_API_URL } from "@/main"
+import { HospitalSearchResponse } from "@/Types/hospital"
 import { useQuery } from "react-query"
 
 export const useMyHospitalDetail = () => {
@@ -33,7 +34,7 @@ export const useMyHospitalDetail = () => {
 }
 
 export const useMySearchHospital = (city?: string) => {
-  const createSearchRequest = async () => {
+  const createSearchRequest = async (): Promise<HospitalSearchResponse> => {
     const response = await fetch(
       `${BACKEND_API_URL}/api/manage/search/${city}`,
       {

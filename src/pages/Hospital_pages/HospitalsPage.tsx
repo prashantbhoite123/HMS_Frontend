@@ -1,4 +1,7 @@
-import { useMyHospitalDetail } from "@/Api/Hospital/useMyHospitalDetails"
+import {
+  useMyHospitalDetail,
+  useMySearchHospital,
+} from "@/Api/Hospital/useMyHospitalDetails"
 import HospitalsCard from "@/components/Hospital/HospitalsCard"
 import SearchBar, { SearchForm } from "@/components/Hospital/SearchBar"
 import SearchDetails from "@/components/Hospital/SearchDetails"
@@ -12,13 +15,20 @@ import {
 
 import { Separator } from "@/components/ui/separator"
 import { IHospital } from "@/Types/hospital"
+import { useState } from "react"
 import { Link } from "react-router-dom"
 
 const HospitalsPage = () => {
+  const [city, setCity] = useState<string | undefined>("")
   const { allHospitalData, isLoading } = useMyHospitalDetail()
+  const { result, isLoading: searchLoading } = useMySearchHospital(city)
 
   const handleSearchSubmit = (searchFormvalues: SearchForm) => {
-    console.log(searchFormvalues.searchQuery)
+    setCity(searchFormvalues.searchQuery)
+  }
+
+  if (!result?.data || !city) {
+    return <span>No result found</span>
   }
   return (
     <>
