@@ -19,15 +19,24 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 
 const HospitalsPage = () => {
-  const [city, setCity] = useState<string | undefined>("")
+  const [searchState, setSearchState] = useState<SearchForm>({
+    searchQuery: "",
+  })
   const { allHospitalData, isLoading } = useMyHospitalDetail()
-  const { result, isLoading: searchLoading } = useMySearchHospital(city)
+  const { result, isLoading: searchLoading } = useMySearchHospital(
+    searchState.searchQuery
+  )
 
   const handleSearchSubmit = (searchFormvalues: SearchForm) => {
-    setCity(searchFormvalues.searchQuery)
+    setSearchState((prevState) => ({
+      ...prevState,
+      searchQuery: searchFormvalues.searchQuery,
+    }))
   }
 
-  if (!result?.data || !city) {
+  console.log("this is a result ==", result)
+  console.log(searchLoading)
+  if (!result?.data || !searchState) {
     return <span>No result found</span>
   }
   return (
