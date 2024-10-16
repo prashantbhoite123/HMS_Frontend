@@ -36,13 +36,16 @@ const HospitalsPage = () => {
 
   console.log("this is a result ==", result)
   console.log(searchLoading)
-  if (!result?.data || !searchState) {
-    return <span>No result found</span>
-  }
+  // if (!result?.data) {
+  //   return <span>No result found</span>
+  // }
   return (
     <>
       <div className="grid grid-cols md:grid-cols-[4fr_1fr] gap-4 p-5 items-center">
-        <SearchBar onSubmit={handleSearchSubmit} />
+        <SearchBar
+          searchQuery={searchState.searchQuery}
+          onSubmit={handleSearchSubmit}
+        />
         <div className="flex justify-center items-center border p-2 rounded-full bg-gradient-to-r from-indigo-600 to-pink-600 text-white">
           <DropdownMenu>
             <DropdownMenuTrigger>

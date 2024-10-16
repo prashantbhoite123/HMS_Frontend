@@ -5,6 +5,7 @@ import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, FormControl, FormField, FormItem } from "../ui/form"
+import { useEffect } from "react"
 
 const formSchema = z.object({
   searchQuery: z.string({
@@ -17,12 +18,20 @@ export type SearchForm = z.infer<typeof formSchema>
 type Props = {
   onSubmit: (formData: SearchForm) => void
   onReset?: () => void
+  searchQuery: string
 }
 
-const SearchBar = ({ onSubmit, onReset }: Props) => {
+const SearchBar = ({ onSubmit, onReset, searchQuery }: Props) => {
   const form = useForm<SearchForm>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      searchQuery,
+    },
   })
+
+  useEffect(() => {
+    form.reset({ searchQuery })
+  }, [form, searchQuery])
 
   const handleReset = () => {
     form.reset({
@@ -64,15 +73,13 @@ const SearchBar = ({ onSubmit, onReset }: Props) => {
                 </FormItem>
               )}
             />
-            {form.formState.isDirty && (
-              <Button
-                onClick={handleReset}
-                variant="outline"
-                className="border border-green-500 rounded-full"
-              >
-                Clear
-              </Button>
-            )}
+            <Button
+              onClick={handleReset}
+              variant="outline"
+              className="border border-green-500 rounded-full"
+            >
+              Clear
+            </Button>
 
             <Button className="bg-gradient-to-r ml-2 from-indigo-600 to-pink-600 hover:bg-white  hover:text-black rounded-full">
               Search
