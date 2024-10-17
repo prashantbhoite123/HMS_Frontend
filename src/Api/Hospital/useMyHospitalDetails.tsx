@@ -51,7 +51,7 @@ export const useMySearchHospital = (city?: string) => {
     return data
   }
   const { data: result, isLoading } = useQuery(
-    ["searchHospitals"],
+    ["searchHospitals", city  ],
     createSearchRequest,
     { enabled: !!city }
   )

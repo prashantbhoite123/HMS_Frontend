@@ -81,7 +81,10 @@ const SearchBar = ({ onSubmit, onReset, searchQuery }: Props) => {
               Clear
             </Button>
 
-            <Button className="bg-gradient-to-r ml-2 from-indigo-600 to-pink-600 hover:bg-white  hover:text-black rounded-full">
+            <Button
+              type="submit"
+              className="bg-gradient-to-r ml-2 from-indigo-600 to-pink-600 hover:bg-white  hover:text-black rounded-full"
+            >
               Search
             </Button>
           </div>
