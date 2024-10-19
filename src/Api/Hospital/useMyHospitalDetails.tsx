@@ -1,4 +1,5 @@
 import { BACKEND_API_URL } from "@/main"
+import { SearchState } from "@/pages/Hospital_pages/HospitalsPage"
 import { HospitalSearchResponse } from "@/Types/hospital"
 import { useQuery } from "react-query"
 
@@ -33,10 +34,14 @@ export const useMyHospitalDetail = () => {
   return { allHospitalData, isLoading }
 }
 
-export const useMySearchHospital = (city?: string) => {
+export const useMySearchHospital = (searchState: SearchState) => {
   const createSearchRequest = async (): Promise<HospitalSearchResponse> => {
+    const params = new URLSearchParams()
+    params.set("searchQuery", searchState.searchQuery)
+    params.set("page", searchState.page.toString())
+    params.set("selectedDept", searchState.selectedDept.join(","))
     const response = await fetch(
-      `${BACKEND_API_URL}/api/manage/search/${city}`,
+      `${BACKEND_API_URL}/api/manage/search/?${params.toString()}`,
       {
         method: "GET",
         credentials: "include",
@@ -51,9 +56,9 @@ export const useMySearchHospital = (city?: string) => {
     return data
   }
   const { data: result, isLoading } = useQuery(
-    ["searchHospitals", city  ],
+    ["searchHospitals", searchState],
     createSearchRequest,
-    { enabled: !!city }
+    { enabled: !!searchState }
   )
 
   return { result, isLoading }

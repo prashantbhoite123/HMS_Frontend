@@ -41,6 +41,11 @@ const MobileNav = () => {
                 <span>Hospital Profile</span>
               )}
             </Link>
+
+            <Link to="/hospitals">
+              <span>Hospitals</span>
+            </Link>
+
             <SheetFooter className="mt-5">
               {currentUser ? (
                 <LogoutBtn />

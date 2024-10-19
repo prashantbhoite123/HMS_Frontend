@@ -41,7 +41,7 @@ const HospitalsCard = ({ Hospitals, loading }: Props) => {
                       <MdOutlineDone className="mr-2" /> {services}
                     </div>
                   ))}
-                  <div className="flex gap-x-3 mt-5 text-black font-semibold">
+                  <div className="flex flex-col md:flex-row gap-x-3 mt-5  text-black font-semibold">
                     <h1 className="text-lg font-semibold text-green-500">
                       Address:-
                     </h1>
