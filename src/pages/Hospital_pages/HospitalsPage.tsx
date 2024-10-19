@@ -6,15 +6,8 @@ import HospitalsCard from "@/components/Hospital/HospitalsCard"
 import PaginationSelector from "@/components/Hospital/PaginationSelector"
 import SearchBar, { SearchForm } from "@/components/Hospital/SearchBar"
 import SearchDetails from "@/components/Hospital/SearchDetails"
+import SortByOptions from "@/components/Hospital/SortByOptions"
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-
-import { Separator } from "@/components/ui/separator"
 import { IHospital } from "@/Types/hospital"
 import { useState } from "react"
 import { Link } from "react-router-dom"
@@ -72,20 +65,7 @@ const HospitalsPage = () => {
           searchQuery={searchState.searchQuery}
           onSubmit={handleSearchSubmit}
         />
-        <div className="flex justify-center items-center border p-2 rounded-full bg-gradient-to-r from-indigo-600 to-pink-600 text-white">
-          <DropdownMenu>
-            <DropdownMenuTrigger>
-              <span className="font-semibold">Sort by: Best match</span>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="p-4 shadow-md mt-2">
-              <DropdownMenuItem>Sort by services</DropdownMenuItem>
-              <Separator />
-              <DropdownMenuItem>Hospital type</DropdownMenuItem>
-              <Separator />
-              <DropdownMenuItem>Total beds</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+        <SortByOptions />
       </div>
 
       {/* Main Content */}

@@ -36,7 +36,7 @@ const HospitalsCard = ({ Hospitals, loading }: Props) => {
                   <h1 className="p-2 ml-2 text-lg font-semibold text-black">
                     Services
                   </h1>
-                  {Hospitals?.services?.map((services) => (
+                  {Hospitals?.services?.slice(0, 5).map((services) => (
                     <div className="flex text-green-500 font-semibold text-sm">
                       <MdOutlineDone className="mr-2" /> {services}
                     </div>
