@@ -86,7 +86,7 @@ const HospitalsPage = () => {
         {/* Left Side: Hospital Cards */}
         <div>
           {displayHospitalData?.map((hospital: IHospital, index: number) => (
-            <Link to="/detail" key={index}>
+            <Link to="/detailpage" key={index}>
               <HospitalsCard
                 Hospitals={hospital}
                 loading={isLoading || searchLoading}

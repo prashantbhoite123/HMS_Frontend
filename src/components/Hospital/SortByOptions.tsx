@@ -4,7 +4,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-// import { Separator } from "@/components/ui/separator"
+import { Separator } from "../ui/separator"
 
 type Props = {
   onChange: (value: string) => void
@@ -35,14 +35,19 @@ const SortByOptions = ({ onChange, sortOption }: Props) => {
             <span className="font-semibold">Sort by: {sortOption}</span>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="p-4 shadow-md mt-2">
-            {SORT_OPTIONS.map((options) => (
-              <DropdownMenuItem
-                className="cursor-pointer"
-                onClick={() => onChange(options.value)}
-              >
-                {options.lable}
-              </DropdownMenuItem>
-            ))}
+            {SORT_OPTIONS.map((options, index) => {
+              return (
+                <div key={index}>
+                  <DropdownMenuItem
+                    className="cursor-pointer"
+                    onClick={() => onChange(options.value)}
+                  >
+                    {options.lable}
+                  </DropdownMenuItem>
+                  <Separator />
+                </div>
+              )
+            })}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
