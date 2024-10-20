@@ -26,7 +26,7 @@ const MobileNav = () => {
             <Menu className="text-black" />
           </SheetTrigger>
           <SheetContent className="space-y-3">
-            <SheetTitle className="text-black font-semibold">
+            <SheetTitle className="text-black font-semibold text-lg">
               Hospital Management
             </SheetTitle>
 
@@ -35,15 +35,11 @@ const MobileNav = () => {
             <Link
               to={currentUser?.role === "patient" ? "/" : "/createhospital"}
             >
-              {currentUser?.role === "patient" ? (
-                <span>Patient Profile</span>
-              ) : (
-                <span>Hospital Profile</span>
-              )}
+              <span className="text-sm font-semibold">Profile</span>
             </Link>
-
+            <Separator />
             <Link to="/hospitals">
-              <span>Hospitals</span>
+              <span className="text-sm font-semibold">Hospitals</span>
             </Link>
 
             <SheetFooter className="mt-5">
@@ -51,7 +47,9 @@ const MobileNav = () => {
                 <LogoutBtn />
               ) : (
                 <Link to="/signin">
-                  <Button>Login</Button>
+                  <Button className="bg-transparent-to-r from-indigo-600 to-pink-600">
+                    Login
+                  </Button>
                 </Link>
               )}
             </SheetFooter>

@@ -31,7 +31,7 @@ const LogoutBtn = () => {
   return (
     <Button
       onClick={handleSignOut}
-      className="bg-black text-white font-semibold text-md"
+      className="text-lg bg-gradient-to-r from-indigo-600 to-pink-600 rounded-md"
     >
       Log out
     </Button>

@@ -30,7 +30,10 @@ const HospitalsCard = ({ Hospitals, loading }: Props) => {
             </CardHeader>
             <CardContent>
               <div className=" grid grid-row-[3fr_2fr_1fr] gap-3 md:gap-0  md:grid-cols-[3fr_2fr_1fr]">
-                <img className="h-[30vh] rounded-md" src={imageSrc} />
+                <img
+                  className="h-[30vh] w-full md:w-[20vw] md:h-[30vh] rounded-md  object-cover"
+                  src={imageSrc}
+                />
 
                 <div className="">
                   <h1 className="p-2 ml-2 text-lg font-semibold text-black">
