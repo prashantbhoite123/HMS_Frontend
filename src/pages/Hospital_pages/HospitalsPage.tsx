@@ -16,6 +16,7 @@ export type SearchState = {
   searchQuery: string
   page: number
   selectedDept: string[]
+  sortOption: string
 }
 
 const HospitalsPage = () => {
@@ -23,6 +24,7 @@ const HospitalsPage = () => {
     searchQuery: "",
     page: 1,
     selectedDept: [],
+    sortOption: "bestmatch",
   })
 
   const [isExpanded, setisExpanded] = useState<boolean>(false)
@@ -51,6 +53,14 @@ const HospitalsPage = () => {
     }))
   }
 
+  const handleSortOption = (sortValues: string) => {
+    setSearchState((prevState) => ({
+      ...prevState,
+      sortOption: sortValues,
+      page: 1,
+    }))
+  }
+
   // Determine which hospital data to display
   const displayHospitalData =
     result && result.data && result.data.length > 0
@@ -65,7 +75,10 @@ const HospitalsPage = () => {
           searchQuery={searchState.searchQuery}
           onSubmit={handleSearchSubmit}
         />
-        <SortByOptions />
+        <SortByOptions
+          onChange={handleSortOption}
+          sortOption={searchState.sortOption}
+        />
       </div>
 
       {/* Main Content */}
