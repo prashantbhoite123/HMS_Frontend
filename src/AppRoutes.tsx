@@ -16,6 +16,7 @@ import Services from "./pages/Common_Pages/Services"
 import HospitalCreate from "./pages/Hospital_pages/HospitalCreate"
 import ProtectRouter from "./auth/ProtectRouter"
 import HospitalsPage from "./pages/Hospital_pages/HospitalsPage"
+import DetailPage from "./pages/Hospital_pages/DetailPage"
 
 const AppRoutes = () => {
   return (
@@ -77,6 +78,14 @@ const AppRoutes = () => {
             element={
               <Layouts showhero={false}>
                 <HospitalsPage />
+              </Layouts>
+            }
+          />
+          <Route
+            path="/detail/:hospitalId"
+            element={
+              <Layouts showhero={false}>
+                <DetailPage />
               </Layouts>
             }
           />

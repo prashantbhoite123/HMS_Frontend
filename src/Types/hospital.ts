@@ -1,6 +1,7 @@
 import mongoose from "mongoose"
 
 export type IHospital = {
+  _id: string
   hospitalName: string
   description?: string
   phoneNumber: string
