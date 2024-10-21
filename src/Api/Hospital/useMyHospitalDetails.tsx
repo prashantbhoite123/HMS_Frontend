@@ -2,6 +2,7 @@ import { BACKEND_API_URL } from "@/main"
 import { SearchState } from "@/pages/Hospital_pages/HospitalsPage"
 import { HospitalSearchResponse } from "@/Types/hospital"
 import { useQuery } from "react-query"
+import { toast } from "sonner"
 
 export const useMyHospitalDetail = () => {
   const getallHospitals = async () => {
@@ -62,4 +63,42 @@ export const useMySearchHospital = (searchState: SearchState) => {
   )
 
   return { result, isLoading }
+}
+
+export const useMygetHospital = (hospitalId: string) => {
+  console.log(hospitalId)
+  const getMyhospital = async () => {
+    try {
+      const responce = await fetch(
+        `${BACKEND_API_URL}/api/manage/${hospitalId}`,
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      )
+      if (!responce.ok) {
+        throw new Error("Faild to get hospital")
+      }
+
+      const data = await responce.json()
+      console.log("this is a data =>", data)
+      return data
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const { data: getHospital, isLoading } = useQuery(
+    "getHospital",
+    getMyhospital,
+
+    {
+      enabled: !!hospitalId,
+      onError: () => {
+        toast.error("faild to get hospital")
+      },
+    }
+  )
+
+  return { getHospital, isLoading }
 }
