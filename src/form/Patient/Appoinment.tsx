@@ -4,6 +4,13 @@ import { z } from "zod"
 import FormInput from "../Common_Form/FormInput"
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer"
 import { Button } from "@/components/ui/button"
+import {
+  FormControl,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Textarea } from "@/components/ui/textarea"
 
 const formData = z.object({
   patientName: z.string().trim().min(1, { message: "patientName is required" }),
@@ -57,7 +64,7 @@ const Appoinment = ({ doctors }: Props) => {
           <FormProvider {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className="w-full h-full flex justify-center items-center">
-                <div className="flex flex-col items-center  p-6  w-[50vw] bg-slate-200">
+                <div className="flex flex-col items-center mt-7 p-6 w-full md:w-[50vw] bg-white shadow-2xl">
                   <h1 className="text-lg text-green-400 font-semibold">
                     Book Appoinment
                   </h1>
@@ -69,10 +76,10 @@ const Appoinment = ({ doctors }: Props) => {
                       placeholder="patientname"
                     />
                     <label
-                      htmlFor="experienceLevel"
+                      htmlFor="doctorName"
                       className="text-sm font-semibold"
                     >
-                      Hospital Type
+                      Doctor Name
                     </label>
                     <Controller
                       name="doctorName"
@@ -94,11 +101,33 @@ const Appoinment = ({ doctors }: Props) => {
                       )}
                     />
                     <FormInput
-                      name="patientName"
-                      type="text"
-                      label="Patient Name"
-                      placeholder="patientname"
+                      name="appointmentDate"
+                      type="date"
+                      label="AppointmentDate"
+                      placeholder="appointmentDate"
                     />
+                    <div className="w-full ">
+                      <Controller
+                        name="reason"
+                        rules={{ required: "Description is required" }}
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Reason</FormLabel>
+                            <FormControl>
+                              <Textarea
+                                {...field}
+                                className="resize-none  border border-gray-300 rounded-[5px] text-black focus:outline-cyan-600"
+                                autoFocus
+                                placeholder="Add reason"
+                              />
+                            </FormControl>
+
+                            <FormMessage className="text-red-600"></FormMessage>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <Button className="bg-green-400 text-lg ">Submit</Button>
                   </div>
                 </div>
               </div>
