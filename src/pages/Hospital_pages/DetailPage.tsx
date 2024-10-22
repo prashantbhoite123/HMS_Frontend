@@ -14,7 +14,8 @@ import {
 } from "react-icons/fa" // Icons for doctor information
 import { Dialog, DialogTrigger } from "@/components/ui/dialog"
 import HosImageDialog from "@/components/Hospital/HosImageDialog"
-import { Button } from "@/components/ui/button"
+
+import Appoinment from "@/form/Patient/Appoinment"
 
 const DetailPage = () => {
   const { hospitalId } = useParams()
@@ -100,15 +101,7 @@ const DetailPage = () => {
               </div>
             </div>
           </div>
-          <div className="">
-            <Button
-              type="button"
-              variant="outline"
-              className="w-full bg-green-500 text-[1.1.4rem] shadow-sm text-white"
-            >
-              Book Appoinment
-            </Button>
-          </div>
+          <Appoinment doctors={getHospital.doctors} />
         </div>
       </div>
 
