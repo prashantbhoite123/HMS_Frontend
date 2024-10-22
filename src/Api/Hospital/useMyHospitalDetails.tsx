@@ -88,7 +88,11 @@ export const useMygetHospital = (hospitalId: string) => {
     }
   }
 
-  const { data: getHospital, isLoading } = useQuery(
+  const {
+    data: getHospital,
+    isLoading,
+    isError,
+  } = useQuery(
     "getHospital",
     getMyhospital,
 
@@ -100,5 +104,5 @@ export const useMygetHospital = (hospitalId: string) => {
     }
   )
 
-  return { getHospital, isLoading }
+  return { getHospital, isLoading, isError }
 }
