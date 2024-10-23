@@ -12,7 +12,7 @@ interface FormInputProps {
   name: string
   label: string
   placeholder: string
-  type?: "text" | "date" // Restrict the type to "text" and "date"
+  type?: string // Restrict the type to "text" and "date"
   defaultValue?: string // Use string for defaultValue, especially for date inputs
   min?: string // For date inputs, min should be a string
   max?: string // For date inputs, max should be a string
