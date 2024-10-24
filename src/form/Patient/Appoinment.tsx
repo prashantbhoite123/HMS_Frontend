@@ -22,11 +22,6 @@ const formData = z.object({
 
 export type Appointment = z.infer<typeof formData>
 
-const onSubmit = (data: Appointment) => {
-  console.log("submit clicked")
-  console.log("this is a data==>", data)
-}
-
 export interface IDoctors {
   doctorName: string
   education: string
@@ -37,9 +32,26 @@ export interface IDoctors {
 
 type Props = {
   doctors: IDoctors[]
+  onSave: (data: FormData) => void
+  isLoading: boolean
 }
 
-const Appointment = ({ doctors }: Props) => {
+const Appointment = ({ doctors, onSave, isLoading }: Props) => {
+  const onSubmit = (data: Appointment) => {
+    const formData = new FormData()
+
+    formData.append("patientName", data.patientName)
+    formData.append("doctorName", data.doctorName)
+    formData.append("appointmentDate", data.appointmentDate)
+    formData.append("reason", data.reason)
+
+    for (let [key, value] of formData.entries()) {
+      console.log(`this appoinmrny= ==> ${key} : ${value}`)
+    }
+
+    onSave(formData)
+  }
+
   const form = useForm<Appointment>({
     resolver: zodResolver(formData),
     defaultValues: {
@@ -145,7 +157,9 @@ const Appointment = ({ doctors }: Props) => {
                     )}
                   />
 
-                  <Button className="bg-green-400">Submit</Button>
+                  <Button className="bg-green-400">
+                    {isLoading ? <span>Loading..</span> : <span>Submit</span>}
+                  </Button>
                 </div>
               </div>
             </div>

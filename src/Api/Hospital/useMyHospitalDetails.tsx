@@ -66,7 +66,6 @@ export const useMySearchHospital = (searchState: SearchState) => {
 }
 
 export const useMygetHospital = (hospitalId: string) => {
-  console.log(hospitalId)
   const getMyhospital = async () => {
     try {
       const responce = await fetch(
@@ -81,7 +80,7 @@ export const useMygetHospital = (hospitalId: string) => {
       }
 
       const data = await responce.json()
-      console.log("this is a data =>", data)
+
       return data
     } catch (error) {
       console.log(error)

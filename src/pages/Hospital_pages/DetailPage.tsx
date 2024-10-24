@@ -16,8 +16,10 @@ import { Dialog, DialogTrigger } from "@/components/ui/dialog"
 import HosImageDialog from "@/components/Hospital/HosImageDialog"
 
 import Appoinment from "@/form/Patient/Appoinment"
+import { useMyAppoinment } from "@/Api/patient/useMyAppoinment"
 
 const DetailPage = () => {
+  const { appoinment, isLoading: appLoading } = useMyAppoinment()
   const { hospitalId } = useParams()
   const { getHospital, isLoading, isError } = useMygetHospital(
     hospitalId as string
@@ -101,7 +103,11 @@ const DetailPage = () => {
               </div>
             </div>
           </div>
-          <Appoinment doctors={getHospital.doctors} />
+          <Appoinment
+            onSave={appoinment}
+            isLoading={appLoading}
+            doctors={getHospital.doctors}
+          />
         </div>
       </div>
 
