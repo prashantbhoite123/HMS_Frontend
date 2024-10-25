@@ -32,24 +32,24 @@ export interface IDoctors {
 
 type Props = {
   doctors: IDoctors[]
-  onSave: (data: FormData) => void
+  onSave: (data: Appointment) => void
   isLoading: boolean
 }
 
 const Appointment = ({ doctors, onSave, isLoading }: Props) => {
   const onSubmit = (data: Appointment) => {
-    const formData = new FormData()
+    // const formData = new FormData()
 
-    formData.append("patientName", data.patientName)
-    formData.append("doctorName", data.doctorName)
-    formData.append("appointmentDate", data.appointmentDate)
-    formData.append("reason", data.reason)
+    // formData.append("patientName", data.patientName)
+    // formData.append("doctorName", data.doctorName)
+    // formData.append("appointmentDate", data.appointmentDate)
+    // formData.append("reason", data.reason)
 
-    for (let [key, value] of formData.entries()) {
-      console.log(`this appoinmrny= ==> ${key} : ${value}`)
-    }
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(`this appoinmrny= ==> ${key} : ${value}`)
+    // }
 
-    onSave(formData)
+    onSave(data)
   }
 
   const form = useForm<Appointment>({
@@ -102,7 +102,7 @@ const Appointment = ({ doctors, onSave, isLoading }: Props) => {
                     control={control}
                     render={({ field }) => (
                       <select {...field} className="border p-2 rounded">
-                        <option value="" disabled>
+                        <option value="" defaultValue="Select doctor" disabled>
                           Select a doctor
                         </option>
                         {doctors.map((doctor: IDoctors) => (

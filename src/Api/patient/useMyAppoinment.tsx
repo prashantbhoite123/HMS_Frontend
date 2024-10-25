@@ -1,14 +1,12 @@
 import { BACKEND_API_URL } from "@/main"
 import { IAppointment } from "@/Types/appoinmentType"
 import { useMutation } from "react-query"
+import { toast } from "sonner"
 
 export const useMyAppoinment = () => {
   const createAppoinment = async (
     appoinmentData: FormData
   ): Promise<IAppointment | undefined> => {
-    for (let [key, value] of appoinmentData.entries()) {
-      console.log(`Appoinment data ${key}:${value}`)
-    }
     const response = await fetch(`${BACKEND_API_URL}/api/appoinment`, {
       method: "POST",
       headers: {
@@ -22,8 +20,9 @@ export const useMyAppoinment = () => {
     if (!response.ok) {
       throw new Error("Something went wrong")
     }
-
-    return response.json()
+    const data = await response.json()
+    toast.success(data.message)
+    return data
   }
   const { mutate: appoinment, isLoading } = useMutation(createAppoinment, {
     onError: () => {
