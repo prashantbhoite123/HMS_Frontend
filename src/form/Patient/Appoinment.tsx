@@ -102,9 +102,12 @@ const Appointment = ({ doctors, onSave, isLoading }: Props) => {
                     control={control}
                     render={({ field }) => (
                       <select {...field} className="border p-2 rounded">
-                        <option value="" defaultValue="Select doctor" disabled>
-                          Select a doctor
-                        </option>
+                        {/* Render default "Select a doctor" option conditionally if doctors list length is 1 */}
+                        {doctors.length === 1 && (
+                          <option value="" disabled selected>
+                            Select a doctor
+                          </option>
+                        )}
                         {doctors.map((doctor: IDoctors) => (
                           <option
                             key={doctor.doctorName}
