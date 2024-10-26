@@ -19,8 +19,10 @@ import Appoinment from "@/form/Patient/Appoinment"
 import { useMyAppoinment } from "@/Api/patient/useMyAppoinment"
 
 const DetailPage = () => {
-  const { appoinment, isLoading: appLoading } = useMyAppoinment()
   const { hospitalId } = useParams()
+  const { appoinment, isLoading: appLoading } = useMyAppoinment(
+    hospitalId as string
+  )
   const { getHospital, isLoading, isError } = useMygetHospital(
     hospitalId as string
   )

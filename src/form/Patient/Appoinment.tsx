@@ -8,6 +8,7 @@ import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 
+
 const formData = z.object({
   patientName: z.string().min(1, { message: "Patient name is required" }),
   doctorName: z.string().min(1, { message: "Doctor name is required" }),
@@ -37,18 +38,10 @@ type Props = {
 }
 
 const Appointment = ({ doctors, onSave, isLoading }: Props) => {
+
+
+
   const onSubmit = (data: Appointment) => {
-    // const formData = new FormData()
-
-    // formData.append("patientName", data.patientName)
-    // formData.append("doctorName", data.doctorName)
-    // formData.append("appointmentDate", data.appointmentDate)
-    // formData.append("reason", data.reason)
-
-    // for (let [key, value] of formData.entries()) {
-    //   console.log(`this appoinmrny= ==> ${key} : ${value}`)
-    // }
-
     onSave(data)
   }
 
