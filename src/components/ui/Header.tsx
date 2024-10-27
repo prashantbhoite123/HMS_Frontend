@@ -1,5 +1,3 @@
-
-
 import { Link } from "react-router-dom"
 import MainNav from "../MainNav"
 import MobileNav from "../MobileNav"
@@ -28,14 +26,12 @@ const Header = () => {
         <MobileNav />
       </div>
 
-      {/* Main Navigation for desktop */}
       <div className="hidden md:flex space-x-6">
         <MainNav />
       </div>
 
-      {/* Hospital Link (if user is logged in) */}
       <div className="hidden md:block">
-        {currentUser ? (
+        {currentUser?.role === "patient" ? (
           <Link to="/hospitals">
             <h2 className="text-lg font-semibold text-white hover:underline transition duration-300">
               Hospitals
