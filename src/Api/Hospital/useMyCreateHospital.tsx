@@ -33,7 +33,7 @@ export const useGetHospital = () => {
   return { hospital, isLoading, refetch }
 }
 
-export const usecreateHospital = () => {
+export const usecreateHospital = (ownerId: string) => {
   const createHospital = async (
     createHospitalFormData: FormData
   ): Promise<IHospital | undefined> => {
@@ -42,7 +42,7 @@ export const usecreateHospital = () => {
     }
     try {
       const responce = await fetch(
-        `${BACKEND_API_URL}/api/my/hospital/createhospital`,
+        `${BACKEND_API_URL}/api/my/hospital/createhospital/${ownerId}`,
         {
           method: "POST",
           body: createHospitalFormData,

@@ -8,7 +8,6 @@ import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 
-
 const formData = z.object({
   patientName: z.string().min(1, { message: "Patient name is required" }),
   doctorName: z.string().min(1, { message: "Doctor name is required" }),
@@ -38,9 +37,6 @@ type Props = {
 }
 
 const Appointment = ({ doctors, onSave, isLoading }: Props) => {
-
-
-
   const onSubmit = (data: Appointment) => {
     onSave(data)
   }
@@ -66,12 +62,12 @@ const Appointment = ({ doctors, onSave, isLoading }: Props) => {
           </Button>
         </div>
       </DrawerTrigger>
-      <DrawerContent className="h-screen">
+      <DrawerContent className="h-screen bg-slate-50">
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="flex justify-center items-center w-full h-full">
-              <div className="flex flex-col items-center mt-7 p-6 w-full md:w-[40vw] bg-white shadow-2xl">
-                <h1 className="text-lg text-green-400 font-semibold">
+              <div className="flex flex-col items-center mt-7 p-6 w-full md:w-[30vw] bg-white shadow-lg shadow-slate-700 rounded-xl">
+                <h1 className="text-xl text-green-400 font-semibold">
                   Book Appointment
                 </h1>
                 <div className="flex flex-col w-full gap-5 mt-5">
@@ -95,7 +91,6 @@ const Appointment = ({ doctors, onSave, isLoading }: Props) => {
                     control={control}
                     render={({ field }) => (
                       <select {...field} className="border p-2 rounded">
-                        {/* Render default "Select a doctor" option conditionally if doctors list length is 1 */}
                         {doctors.length === 1 && (
                           <option value="" disabled selected>
                             Select a doctor
@@ -130,7 +125,7 @@ const Appointment = ({ doctors, onSave, isLoading }: Props) => {
                             "appointmentDate",
                             format(date as Date, "yyyy-MM-dd")
                           )
-                        } // Format date
+                        }
                         className="border p-2 rounded"
                         placeholderText="Select appointment date"
                         dateFormat="yyyy-MM-dd"
@@ -153,7 +148,7 @@ const Appointment = ({ doctors, onSave, isLoading }: Props) => {
                     )}
                   />
 
-                  <Button className="bg-green-400">
+                  <Button className=" bg-gradient-to-r from-indigo-600 to-pink-600">
                     {isLoading ? <span>Loading..</span> : <span>Submit</span>}
                   </Button>
                 </div>
