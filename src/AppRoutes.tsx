@@ -17,6 +17,7 @@ import HospitalCreate from "./pages/Hospital_pages/HospitalCreate"
 import ProtectRouter from "./auth/ProtectRouter"
 import HospitalsPage from "./pages/Hospital_pages/HospitalsPage"
 import DetailPage from "./pages/Hospital_pages/DetailPage"
+import Dashboard from "./pages/Common_Pages/Dashboard"
 
 const AppRoutes = () => {
   return (
@@ -86,6 +87,14 @@ const AppRoutes = () => {
             element={
               <Layouts showhero={false}>
                 <DetailPage />
+              </Layouts>
+            }
+          />
+          <Route
+            path="dashboard"
+            element={
+              <Layouts showhero={false}>
+                <Dashboard />
               </Layouts>
             }
           />
