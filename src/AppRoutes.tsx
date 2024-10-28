@@ -12,12 +12,13 @@ import About from "./pages/Common_Pages/About"
 import SignUpHos from "./pages/SignUpHos"
 import SignIn from "./pages/SignIn"
 import ScrollToTop from "./auth/ScrollToTop"
-import Services from "./pages/Common_Pages/Services"
+
 import HospitalCreate from "./pages/Hospital_pages/HospitalCreate"
 import ProtectRouter from "./auth/ProtectRouter"
 import HospitalsPage from "./pages/Hospital_pages/HospitalsPage"
 import DetailPage from "./pages/Hospital_pages/DetailPage"
 import Dashboard from "./pages/Common_Pages/Dashboard"
+import MyAppoinment from "./pages/Patient_pages/MyAppoinment"
 
 const AppRoutes = () => {
   return (
@@ -45,7 +46,7 @@ const AppRoutes = () => {
           path="/myaopoinment"
           element={
             <Layouts showhero={false}>
-              <Services />
+              <MyAppoinment />
             </Layouts>
           }
         />
