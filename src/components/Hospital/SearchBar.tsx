@@ -75,6 +75,7 @@ const SearchBar = ({ onSubmit, onReset, searchQuery }: Props) => {
             />
             <Button
               onClick={handleReset}
+              type='button'
               variant="outline"
               className="border border-green-500 rounded-full"
             >

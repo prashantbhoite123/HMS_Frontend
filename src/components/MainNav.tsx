@@ -14,8 +14,8 @@ const MainNav = () => {
           <Link to="/about" className="hover:underline">
             About
           </Link>
-          <Link to="/services" className="hover:underline">
-            Services
+          <Link to="/myaopoinment" className="hover:underline">
+            My Appoinment
           </Link>
         </div>
       </div>

@@ -42,7 +42,7 @@ const AppRoutes = () => {
           }
         />
         <Route
-          path="/services"
+          path="/myaopoinment"
           element={
             <Layouts showhero={false}>
               <Services />
@@ -91,7 +91,7 @@ const AppRoutes = () => {
             }
           />
           <Route
-            path="dashboard"
+            path="/dashboard"
             element={
               <Layouts showhero={false}>
                 <Dashboard />
