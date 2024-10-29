@@ -11,6 +11,7 @@ import {
 } from "react-icons/md"
 import { Button } from "../ui/button"
 import { FaEdit } from "react-icons/fa"
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "../ui/dialog"
 
 export type Appointment = {
   patientName: string
@@ -112,16 +113,38 @@ const AppinmetCard = ({ appoinment }: Props) => {
 
               <div className="flex justify-between md:justify-end gap-3 mt-3 md:mt-0 ">
                 <Button className="flex items-center bg-gradient-to-r from-blue-200 to-blue-300 hover:underline hover:from-blue-100 hover:to-purple-200 text-blue-700 font-semibold px-6 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105 space-x-3">
-                  <FaEdit className="text-lg" />
-                  <span>Edit</span>
+                  <FaEdit className="text-2xl" />
+                  {/* <span>Edit</span> */}
                 </Button>
-                <Button
-                  variant="link"
-                  className="flex items-center bg-gradient-to-r from-red-200 to-red-300 hover:from-red-100 hover:to-red-200 text-red-700 font-medium px-5 py-2 rounded-md shadow-sm hover:shadow-md transition-all transform hover:scale-105 space-x-2"
-                >
-                  <MdDelete className="text-lg" />
-                  <span>Delete</span>
-                </Button>
+
+                <Dialog>
+                  <DialogTrigger>
+                    <Button
+                      variant="link"
+                      className="flex items-center bg-gradient-to-r from-red-200 to-red-300 hover:from-red-100 hover:to-red-200 text-red-700 font-medium px-5 py-2 rounded-md shadow-sm hover:shadow-md transition-all transform hover:scale-105 space-x-2"
+                    >
+                      <MdDelete className="text-2xl" />
+                      {/* <span>Delete</span> */}
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="flex flex-col gap-y-7 bg-white">
+                    <DialogTitle>
+                      <h1 className="text-black text-lg font-semibold">
+                        Are you sure to delete this appoinment ..?
+                      </h1>
+                    </DialogTitle>
+
+                    <div className="flex justify-end gap-x-4">
+                      <Button
+                        variant="outline"
+                        className="bg-white text-black "
+                      >
+                        Cancel
+                      </Button>
+                      <Button>Delete</Button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
               </div>
             </div>
           </CardContent>
