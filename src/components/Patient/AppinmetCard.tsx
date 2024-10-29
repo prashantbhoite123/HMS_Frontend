@@ -1,14 +1,23 @@
-import { Hospital, User } from "lucide-react"
+import { User } from "lucide-react"
 import { Card, CardContent } from "../ui/card"
-import { MdMedicalServices } from "react-icons/md"
+import {
+  MdCancel,
+  MdCheckCircleOutline,
+  MdDateRange,
+  MdDelete,
+  MdInfoOutline,
+  MdMedicalServices,
+  MdPendingActions,
+} from "react-icons/md"
 import { Button } from "../ui/button"
+import { FaEdit } from "react-icons/fa"
 
 export type Appointment = {
   patientName: string
   doctorName: string
   date: Date
   reason: string
-  status: "pending" | "confirmed" | "completed" | "cancelled"
+  status: "Pending" | "Completed" | "Cancelled"
 }
 type Props = {
   appoinment: Appointment[]
@@ -20,58 +29,98 @@ const AppinmetCard = ({ appoinment }: Props) => {
       {appoinment.map((appoinment: Appointment, index: number) => (
         <Card
           key={index}
-          className="bg-white shadow-md shadow-slate-200 rounded-lg hover:shadow-lg transition-shadow duration-200"
+          className="bg-white shadow-md shadow-slate-400 rounded-lg hover:shadow-lg transition-shadow duration-200"
         >
           <CardContent className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-              {/* Appointment Details */}
               <div className="flex flex-col gap-y-3">
                 <div className="flex items-center gap-3 text-slate-700">
                   <User size={20} className="text-blue-600" />
-                  <span className="font-semibold">Patient Name:</span>
-                  <span>{appoinment.patientName}</span>
+                  <span className="text-[1.1.4rem] font-semibold">
+                    Patient Name:
+                  </span>
+                  <span className="text-sm font-semibold">
+                    {appoinment.patientName}
+                  </span>
                 </div>
 
                 <div className="flex items-center gap-3 text-slate-700">
                   <MdMedicalServices size={20} className="text-green-600" />
-                  <span className="font-semibold">Doctor Name:</span>
-                  <span>{appoinment.doctorName}</span>
+                  <span className="text-[1.1.4rem] font-semibold">
+                    Doctor Name:
+                  </span>
+                  <span className="text-sm font-semibold">
+                    {appoinment.doctorName}
+                  </span>
                 </div>
 
                 <div className="flex items-center gap-3 text-slate-700">
-                  <Hospital size={20} className="text-red-600" />
-                  <span className="font-semibold">Appointment Date:</span>
-                  <span>
+                  <MdDateRange size={20} className="text-red-600" />
+                  <span className="text-[1.1.4rem] font-semibold">
+                    Appointment Date:
+                  </span>
+                  <span className="font-semibold text-sm">
                     {new Date(appoinment.date).toLocaleDateString("en-GB")}
                   </span>
                 </div>
 
                 <div className="flex items-center gap-3 text-slate-700">
-                  <span className="font-semibold">Reason:</span>
-                  <span>{appoinment.reason}</span>
+                  <MdInfoOutline size="20" />
+                  <span className="text-[1.1.4rem] font-semibold">Reason:</span>
+                  <span className="font-semibold text-sm">
+                    {appoinment.reason}
+                  </span>
                 </div>
 
-                <div
-                  className={`flex items-center gap-3 font-semibold ${getStatusColor(
-                    appoinment.status
-                  )}`}
-                >
-                  Status:{" "}
-                  {appoinment.status.charAt(0).toUpperCase() +
-                    appoinment.status.slice(1)}
+                <div className="flex gap-x-3 text text-slate-700">
+                  <span
+                    className={`flex items-center gap-3 font-semibold ${
+                      appoinment.status === "Pending"
+                        ? "text-yellow-500"
+                        : appoinment.status === "Completed"
+                        ? "text-green-500"
+                        : "text-red-500"
+                    }`}
+                  >
+                    {" "}
+                    {appoinment.status === "Pending" ? (
+                      <MdPendingActions size="20" />
+                    ) : appoinment.status === "Completed" ? (
+                      <MdCheckCircleOutline />
+                    ) : (
+                      <MdCancel size="20" />
+                    )}
+                  </span>
+                  <span className="text-[1.1.4rem] font-semibold">
+                    {" "}
+                    Status:
+                  </span>
+
+                  <span
+                    className={`flex items-center gap-3 font-semibold ${
+                      appoinment.status === "Pending"
+                        ? "text-yellow-500"
+                        : appoinment.status === "Completed"
+                        ? "text-green-500"
+                        : "text-red-500"
+                    }`}
+                  >
+                    {appoinment.status}
+                  </span>
                 </div>
               </div>
 
-              {/* Buttons */}
-              <div className="flex justify-end gap-3">
-                <Button className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md transition-all">
-                  Edit
+              <div className="flex justify-between md:justify-end gap-3 mt-3 md:mt-0 ">
+                <Button className="flex items-center bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold px-6 py-2 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:scale-105 space-x-3">
+                  <FaEdit className="text-xl" />
+                  <span>Edit</span>
                 </Button>
                 <Button
-                  variant="outline"
-                  className="border-2 border-red-500 text-red-500 hover:bg-red-50 px-4 py-2 rounded-md transition-all"
+                  variant="link"
+                  className="flex items-center bg-gradient-to-r from-red-200 to-red-300 hover:from-red-100 hover:to-red-200 text-red-700 font-medium px-5 py-2 rounded-md shadow-sm hover:shadow-md transition-all transform hover:scale-105 space-x-2"
                 >
-                  Delete
+                  <MdDelete className="text-lg" />
+                  <span>Delete</span>
                 </Button>
               </div>
             </div>
@@ -80,22 +129,6 @@ const AppinmetCard = ({ appoinment }: Props) => {
       ))}
     </div>
   )
-}
-
-// Helper function to set status color
-function getStatusColor(status: string) {
-  switch (status) {
-    case "pending":
-      return "text-yellow-500"
-    case "confirmed":
-      return "text-blue-500"
-    case "completed":
-      return "text-green-500"
-    case "cancelled":
-      return "text-red-500"
-    default:
-      return "text-slate-700"
-  }
 }
 
 export default AppinmetCard

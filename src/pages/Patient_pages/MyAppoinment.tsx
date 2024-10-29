@@ -1,5 +1,6 @@
 import { useMyallAppoinment } from "@/Api/patient/useMyAppoinment"
 import AppinmetCard from "@/components/Patient/AppinmetCard"
+import { MdEventNote } from "react-icons/md"
 
 const MyAppoinment = () => {
   const { allAppoinment, isLoading } = useMyallAppoinment()
@@ -8,7 +9,14 @@ const MyAppoinment = () => {
   }
   return (
     <div className="flex flex-col gap-4 justify-center items-center">
-      <h1 className="p-4  text-xl font-semibold">All Appoinments</h1>
+      <div className="flex justify-center items-center ">
+        <span className="text-red-500">
+          <MdEventNote size="25" />
+        </span>
+        <h1 className=" p-4  text-2xl text-slate-00 font-semibold ">
+          Appoinments
+        </h1>
+      </div>
       <AppinmetCard appoinment={allAppoinment} />
     </div>
   )
