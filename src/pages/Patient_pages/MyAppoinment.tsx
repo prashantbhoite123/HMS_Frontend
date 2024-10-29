@@ -5,7 +5,7 @@ import { MdEventNote } from "react-icons/md"
 const MyAppoinment = () => {
   const { allAppoinment, isLoading } = useMyallAppoinment()
   if (isLoading) {
-    return <div className="text-2xl">Loading...</div>
+    return <div className="text-lg text-black font-semibold">Loading...</div>
   }
   return (
     <div className="flex flex-col gap-4 justify-center items-center">

@@ -61,15 +61,16 @@ const HospitalsPage = () => {
     }))
   }
 
-  
   const displayHospitalData =
     result && result.data && result.data.length > 0
       ? result.data
       : allHospitalData
 
+  if (isLoading || searchLoading) {
+    return <div className="text-lg text-black font-semibold">Loading...</div>
+  }
   return (
     <div className="container mx-auto p-5">
-      
       <div className="grid grid-cols-1 md:grid-cols-[4fr_1fr] gap-4 items-center mb-6">
         <SearchBar
           searchQuery={searchState.searchQuery}
@@ -83,7 +84,6 @@ const HospitalsPage = () => {
 
       {/* Main Content */}
       <div className="grid grid-cols-1 md:grid-cols-[3fr_1fr] gap-6">
-      
         <div>
           {displayHospitalData?.map((hospital: IHospital, index: number) => (
             <Link to={`/detail/${hospital._id}`} key={index}>
@@ -95,7 +95,6 @@ const HospitalsPage = () => {
           ))}
         </div>
 
-        
         <div className=" p-4 rounded">
           <SearchDetails
             isExpanded={isExpanded}

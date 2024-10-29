@@ -4,6 +4,8 @@ import MobileNav from "../MobileNav"
 
 import { useUser } from "@/context/userContext"
 import UserProfileDropdown from "../UserProfileDropdown "
+import { Button } from "./button"
+import { Hospital } from "lucide-react"
 
 const Header = () => {
   const { currentUser } = useUser()
@@ -33,9 +35,10 @@ const Header = () => {
       <div className="hidden md:block">
         {currentUser?.role === "patient" ? (
           <Link to="/hospitals">
-            <h2 className="text-lg font-semibold text-white hover:underline transition duration-300">
-              Hospitals
-            </h2>
+            <Button className="flex items-center gap-2 text-lg font-semibold bg-gradient-to-r from-red-500 to-pink-400 text-white px-6 py-2 rounded-md transition-transform duration-300 hover:scale-105 hover:underline shadow-md">
+              <Hospital className="text-xl" />
+              <span>Hospitals</span>
+            </Button>
           </Link>
         ) : null}
       </div>

@@ -1,9 +1,11 @@
+import { useUser } from "@/context/userContext"
 import { Link } from "react-router-dom"
 
 // import { Button } from "./ui/button"
 // import { useAuth0 } from "@auth0/auth0-react"
 
 const MainNav = () => {
+  const { currentUser } = useUser()
   return (
     <>
       <div className="">
@@ -14,9 +16,13 @@ const MainNav = () => {
           <Link to="/about" className="hover:underline">
             About
           </Link>
-          <Link to="/myaopoinment" className="hover:underline">
-            My Appoinment
-          </Link>
+          {currentUser?.role === "patient" ? (
+            <Link to="/myappoinment" className="hover:underline">
+              My Appoinment
+            </Link>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </>

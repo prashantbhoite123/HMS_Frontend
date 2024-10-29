@@ -66,12 +66,21 @@ const AppRoutes = () => {
             </Layouts>
           }
         />
+
         <Route element={<ProtectRouter />}>
           <Route
             path="/createhospital"
             element={
               <Layouts showhero={false}>
                 <HospitalCreate />
+              </Layouts>
+            }
+          />
+          <Route
+            path="/myappoinment"
+            element={
+              <Layouts showhero={false}>
+                <MyAppoinment />
               </Layouts>
             }
           />

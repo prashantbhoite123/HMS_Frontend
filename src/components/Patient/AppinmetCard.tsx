@@ -111,8 +111,8 @@ const AppinmetCard = ({ appoinment }: Props) => {
               </div>
 
               <div className="flex justify-between md:justify-end gap-3 mt-3 md:mt-0 ">
-                <Button className="flex items-center bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold px-6 py-2 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:scale-105 space-x-3">
-                  <FaEdit className="text-xl" />
+                <Button className="flex items-center bg-gradient-to-r from-blue-200 to-blue-300 hover:underline hover:from-blue-100 hover:to-purple-200 text-blue-700 font-semibold px-6 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105 space-x-3">
+                  <FaEdit className="text-lg" />
                   <span>Edit</span>
                 </Button>
                 <Button
