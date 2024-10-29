@@ -12,8 +12,11 @@ import {
 import { Button } from "../ui/button"
 import { FaEdit } from "react-icons/fa"
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "../ui/dialog"
+import LoadingBtn from "../LoadingBtn"
+import { useState } from "react"
 
 export type Appointment = {
+  _id: string
   patientName: string
   doctorName: string
   date: Date
@@ -22,12 +25,21 @@ export type Appointment = {
 }
 type Props = {
   appoinment: Appointment[]
+  delApp: (appId: string) => void
+  loading: boolean
 }
 
-const AppinmetCard = ({ appoinment }: Props) => {
+const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
+  const [appoinments, setAppoinment] = useState(appoinment)
+  const handleDelete = (appId: string) => {
+    console.log("click delt", appId)
+    delApp(appId)
+
+    setAppoinment((prev) => prev.filter((app) => app._id !== appId))
+  }
   return (
     <div className="flex flex-col p-6 md:p-0 gap-6 w-full md:w-[50vw]">
-      {appoinment.map((appoinment: Appointment, index: number) => (
+      {appoinments.map((appoinment: Appointment, index: number) => (
         <Card
           key={index}
           className="bg-white shadow-md shadow-slate-400 rounded-lg hover:shadow-lg transition-shadow duration-200"
@@ -141,7 +153,13 @@ const AppinmetCard = ({ appoinment }: Props) => {
                       >
                         Cancel
                       </Button>
-                      <Button>Delete</Button>
+                      {loading ? (
+                        <LoadingBtn />
+                      ) : (
+                        <Button onClick={() => handleDelete(appoinment._id)}>
+                          Delete
+                        </Button>
+                      )}
                     </div>
                   </DialogContent>
                 </Dialog>

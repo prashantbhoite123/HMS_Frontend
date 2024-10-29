@@ -1,9 +1,13 @@
-import { useMyallAppoinment } from "@/Api/patient/useMyAppoinment"
+import {
+  useMyallAppoinment,
+  useMydeleteApp,
+} from "@/Api/patient/useMyAppoinment"
 import AppinmetCard from "@/components/Patient/AppinmetCard"
 import { MdEventNote } from "react-icons/md"
 
 const MyAppoinment = () => {
   const { allAppoinment, isLoading } = useMyallAppoinment()
+  const { delApp, isLoading: delAppLoading } = useMydeleteApp()
   if (isLoading) {
     return <div className="text-lg text-black font-semibold">Loading...</div>
   }
@@ -17,7 +21,11 @@ const MyAppoinment = () => {
           Appoinments
         </h1>
       </div>
-      <AppinmetCard appoinment={allAppoinment} />
+      <AppinmetCard
+        delApp={delApp}
+        loading={delAppLoading}
+        appoinment={allAppoinment}
+      />
     </div>
   )
 }

@@ -73,3 +73,34 @@ export const useMyallAppoinment = () => {
   )
   return { allAppoinment, isLoading }
 }
+
+export const useMydeleteApp = () => {
+  const deleteAppoinment = async (appoinmentId: string) => {
+    const response = await fetch(
+      `${BACKEND_API_URL}/api/manappoinemt/delapp/${appoinmentId}`,
+      {
+        method: "DELETE",
+        credentials: "include",
+      }
+    )
+
+    if (!response.ok) {
+      throw new Error("faild to delete apponment")
+    }
+
+    const data = await response.json()
+    toast.success(data.message)
+    return data
+  }
+
+  const { mutate: delApp, isLoading } = useMutation(deleteAppoinment, {
+    onSuccess: () => {
+      console.log("appoinment delete successfull")
+    },
+    onError: () => {
+      console.log("Faild to delete appoinment")
+    },
+  })
+
+  return { delApp, isLoading }
+}
