@@ -30,12 +30,17 @@ type Props = {
 }
 
 const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
-  const [appoinments, setAppoinment] = useState(appoinment)
-  const handleDelete = (appId: string) => {
+  const [appoinments, setAppoinment] = useState<Appointment[]>(appoinment)
+  const [dialogopen, setDialogopen] = useState(false)
+  const handleDelete = async (appId: string) => {
     console.log("click delt", appId)
     delApp(appId)
-
+    setDialogopen(false)
     setAppoinment((prev) => prev.filter((app) => app._id !== appId))
+  }
+
+  const handleCancel = () => {
+    setDialogopen(false)
   }
   return (
     <div className="flex flex-col p-6 md:p-0 gap-6 w-full md:w-[50vw]">
@@ -129,14 +134,13 @@ const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
                   {/* <span>Edit</span> */}
                 </Button>
 
-                <Dialog>
+                <Dialog open={dialogopen} onOpenChange={setDialogopen}>
                   <DialogTrigger>
                     <Button
                       variant="link"
                       className="flex items-center bg-gradient-to-r from-red-200 to-red-300 hover:from-red-100 hover:to-red-200 text-red-700 font-medium px-5 py-2 rounded-md shadow-sm hover:shadow-md transition-all transform hover:scale-105 space-x-2"
                     >
                       <MdDelete className="text-2xl" />
-                      {/* <span>Delete</span> */}
                     </Button>
                   </DialogTrigger>
                   <DialogContent className="flex flex-col gap-y-7 bg-white">
@@ -150,6 +154,7 @@ const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
                       <Button
                         variant="outline"
                         className="bg-white text-black "
+                        onClick={handleCancel}
                       >
                         Cancel
                       </Button>
