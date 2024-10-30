@@ -102,15 +102,12 @@ export const useMydeleteApp = () => {
   }
 
   const { mutate: delApp, isLoading } = useMutation(deleteAppoinment, {
-    // Optimistic update: remove the appointment locally before API call
     onMutate: async (appId: string) => {
       await queryClient.cancelQueries("allAppoinment")
 
-      // Snapshot of previous appointments
       const previousAppointments =
         queryClient.getQueryData<Appointment[]>("allAppoinment")
 
-      // Optimistically update cache
       queryClient.setQueryData<Appointment[]>("allAppoinment", (old) =>
         old ? old.filter((app) => app._id !== appId) : []
       )
