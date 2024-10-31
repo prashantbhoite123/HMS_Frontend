@@ -1,140 +1,70 @@
 import { Appointment } from "@/components/Patient/AppinmetCard"
 import { BACKEND_API_URL } from "@/main"
 import { IAppointment } from "@/Types/appoinmentType"
-import { useMutation, useQuery, useQueryClient } from "react-query"
+import { useMutation, useQueryClient } from "react-query"
 import { toast } from "sonner"
 
-// Hook to create an appointment
-export const useMyAppoinment = (hospitalId: string) => {
-  const createAppoinment = async (
-    appoinmentData: FormData
-  ): Promise<IAppointment | undefined> => {
+// Hook to update an appointment
+export const useUpdateApp = (appId: string) => {
+  const queryClient = useQueryClient()
+
+  const updateApp = async (updatedAppData: FormData): Promise<IAppointment> => {
     const response = await fetch(
-      `${BACKEND_API_URL}/api/appoinment/${hospitalId}`,
+      `${BACKEND_API_URL}/api/manappoinemt/update/${appId}`,
       {
-        method: "POST",
+        method: "PUT",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(appoinmentData),
-        credentials: "include",
+        body: JSON.stringify(updatedAppData),
       }
     )
 
     if (!response.ok) {
-      throw new Error("Something went wrong")
-    }
-    const data = await response.json()
-    if (data.success === true) {
-      toast.success(data.message)
-      return
-    } else {
-      toast.error(data.message)
-    }
-    return data
-  }
-
-  const { mutate: appoinment, isLoading } = useMutation(createAppoinment, {
-    onError: () => {
-      throw new Error("Error while creating appointment")
-    },
-    onSuccess: () => {
-      console.log("Appointment successfully created")
-    },
-  })
-
-  return { appoinment, isLoading }
-}
-
-// Hook to fetch all appointments
-export const useMyallAppoinment = () => {
-  const getallAppoinment = async () => {
-    const response = await fetch(
-      `${BACKEND_API_URL}/api/appoinment/getallappinment`,
-      {
-        method: "GET",
-        credentials: "include",
-      }
-    )
-    if (!response.ok) {
-      throw new Error("Failed to get appointments")
-    }
-
-    return response.json()
-  }
-
-  const { data: allAppoinment, isLoading } = useQuery(
-    "allAppoinment",
-    getallAppoinment,
-    {
-      onSuccess: () => {
-        console.log("Fetched all appointments successfully")
-      },
-      onError: () => {
-        console.log("Failed to get appointments")
-      },
-    }
-  )
-
-  return { allAppoinment, isLoading }
-}
-
-// Hook to delete an appointment with optimistic update
-export const useMydeleteApp = () => {
-  const queryClient = useQueryClient() // Use a local queryClient instance
-
-  const deleteAppoinment = async (appoinmentId: string) => {
-    const response = await fetch(
-      `${BACKEND_API_URL}/api/manappoinemt/delapp/${appoinmentId}`,
-      {
-        method: "DELETE",
-        credentials: "include",
-      }
-    )
-
-    if (!response.ok) {
-      throw new Error("Failed to delete appointment")
+      throw new Error("Failed to update appointment")
     }
 
     const data = await response.json()
     toast.success(data.message)
-    return appoinmentId // Return the ID for optimistic updates
+    return data
   }
 
-  const { mutate: delApp, isLoading } = useMutation(deleteAppoinment, {
-    onMutate: async (appId: string) => {
+  const { mutate: updateAppointment, isLoading } = useMutation(updateApp, {
+    onMutate: async (updatedAppData: FormData) => {
       await queryClient.cancelQueries("allAppoinment")
 
+      // Snapshot the previous appointments
       const previousAppointments =
         queryClient.getQueryData<Appointment[]>("allAppoinment")
 
+      // Optimistically update to new value
       queryClient.setQueryData<Appointment[]>("allAppoinment", (old) =>
-        old ? old.filter((app) => app._id !== appId) : []
+        old
+          ? old.map((app) =>
+              app._id === appId ? { ...app, ...updatedAppData } : app
+            )
+          : []
       )
 
       return { previousAppointments }
     },
-    
-    onError: (err, variables, context) => {
-      if (context?.previousAppointments) {
-        console.error(err, variables)
 
+    onError: (err, variables, context) => {
+      console.log(err, variables)
+      if (context?.previousAppointments) {
         queryClient.setQueryData("allAppoinment", context.previousAppointments)
       }
-      toast.error("Failed to delete appointment")
+      toast.error("Failed to update appointment")
     },
-    
+
     onSuccess: () => {
       queryClient.invalidateQueries("allAppoinment")
-      toast.success("Appointment deleted successfully")
+      toast.success("Appointment updated successfully")
     },
   })
 
-  // export const useUpdateApp = () => {
-  //   const updateApp = () => {
-  //     const responce = await fetch(`${BACKEND_API_URL}/`)
-  //   }
-  // }
-
-  return { delApp, isLoading }
+  return { updateAppointment, isLoading }
 }
+
+// Your other hooks remain unchanged...
