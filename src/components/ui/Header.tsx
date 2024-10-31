@@ -18,7 +18,7 @@ const Header = () => {
         to="/"
         className="flex items-center text-xl sm:text-2xl font-bold text-white"
       >
-        <span className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-pink-600 rounded-md">
+        <span className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-pink-600 rounded-md text-transparent bg-clip-text">
           CarePlusX
         </span>
       </Link>

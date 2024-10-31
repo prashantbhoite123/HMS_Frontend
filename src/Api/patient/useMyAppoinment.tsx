@@ -114,7 +114,7 @@ export const useMydeleteApp = () => {
 
       return { previousAppointments }
     },
-    // Rollback if deletion fails
+    
     onError: (err, variables, context) => {
       if (context?.previousAppointments) {
         console.error(err, variables)
@@ -123,12 +123,18 @@ export const useMydeleteApp = () => {
       }
       toast.error("Failed to delete appointment")
     },
-    // Refetch appointments on success
+    
     onSuccess: () => {
       queryClient.invalidateQueries("allAppoinment")
       toast.success("Appointment deleted successfully")
     },
   })
+
+  // export const useUpdateApp = () => {
+  //   const updateApp = () => {
+  //     const responce = await fetch(`${BACKEND_API_URL}/`)
+  //   }
+  // }
 
   return { delApp, isLoading }
 }

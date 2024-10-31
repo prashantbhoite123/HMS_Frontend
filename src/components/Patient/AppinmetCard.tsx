@@ -19,7 +19,7 @@ export type Appointment = {
   _id: string
   patientName: string
   doctorName: string
-  date: Date
+  appointmentDate: Date
   reason: string
   status: "Pending" | "Completed" | "Cancelled"
 }
@@ -79,7 +79,9 @@ const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
                       Appointment Date:
                     </span>
                     <span className="font-semibold text-sm">
-                      {new Date(appoinment.date).toLocaleDateString("en-GB")}
+                      {new Date(appoinment.appointmentDate).toLocaleDateString(
+                        "en-GB"
+                      )}
                     </span>
                   </div>
 
@@ -103,7 +105,6 @@ const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
                           : "text-red-500"
                       }`}
                     >
-                      {" "}
                       {appoinment.status === "Pending" ? (
                         <MdPendingActions size="20" />
                       ) : appoinment.status === "Completed" ? (
