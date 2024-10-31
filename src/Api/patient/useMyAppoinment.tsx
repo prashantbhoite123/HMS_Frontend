@@ -5,12 +5,12 @@ import { useMutation, useQueryClient } from "react-query"
 import { toast } from "sonner"
 
 // Hook to update an appointment
-export const useUpdateApp = (appId: string) => {
+export const useUpdateApp = (appId: string, hospitalId: string) => {
   const queryClient = useQueryClient()
 
   const updateApp = async (updatedAppData: FormData): Promise<IAppointment> => {
     const response = await fetch(
-      `${BACKEND_API_URL}/api/manappoinemt/update/${appId}`,
+      `${BACKEND_API_URL}/api/manappoinemt/update/${appId}/${hospitalId}`,
       {
         method: "PUT",
         credentials: "include",
@@ -34,11 +34,9 @@ export const useUpdateApp = (appId: string) => {
     onMutate: async (updatedAppData: FormData) => {
       await queryClient.cancelQueries("allAppoinment")
 
-      // Snapshot the previous appointments
       const previousAppointments =
         queryClient.getQueryData<Appointment[]>("allAppoinment")
 
-      // Optimistically update to new value
       queryClient.setQueryData<Appointment[]>("allAppoinment", (old) =>
         old
           ? old.map((app) =>
