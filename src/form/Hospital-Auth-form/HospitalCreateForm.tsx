@@ -11,7 +11,7 @@ import AddressSection from "./AddressSection"
 import DepartmentSection from "./DepartmentSection"
 import { Button } from "@/components/ui/button"
 import ServicesSection from "./ServicesSection"
-// import { departments } from "@/config/HospitalData"
+
 import LoadingBtn from "@/components/LoadingBtn"
 import { IHospital } from "@/Types/hospital"
 import { useEffect } from "react"
@@ -30,7 +30,18 @@ const doctorSchema = z.object({
   workingHours: z
     .string()
     .trim()
-    .min(1, { message: "Working hours are required" }),
+    .refine((value) => /^[0-9]{2}$/.test(value), {
+      message: "Working hours must be exactly 2 digits.",
+    })
+    .refine(
+      (value) => {
+        const hour = parseInt(value, 10)
+        return hour >= 0 && hour <= 24 // Ensure hour is between 0 and 24
+      },
+      {
+        message: "Working hours must be between 0 and 24.",
+      }
+    ),
 })
 
 const formSchema = z.object({
