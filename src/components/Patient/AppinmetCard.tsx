@@ -1,4 +1,4 @@
-import { User } from "lucide-react"
+import { TimerIcon, User } from "lucide-react"
 import { Card, CardContent } from "../ui/card"
 import {
   MdCancel,
@@ -10,19 +10,21 @@ import {
   MdPendingActions,
 } from "react-icons/md"
 import { Button } from "../ui/button"
-import { FaEdit } from "react-icons/fa"
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "../ui/dialog"
 import LoadingBtn from "../LoadingBtn"
 import { useState } from "react"
+import AppoinmentUpdate from "./AppoinmentUpdate"
 
 export type Appointment = {
   _id: string
   patientName: string
   doctorName: string
   appointmentDate: Date
+  appTime: string // e.g., "13:00 - 14:00"
   reason: string
   status: "Pending" | "Completed" | "Cancelled"
 }
+
 type Props = {
   appoinment: Appointment[]
   delApp: (appId: string) => void
@@ -32,8 +34,9 @@ type Props = {
 const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
   const [appoinments, setAppoinment] = useState<Appointment[]>(appoinment)
   const [dialogopen, setDialogopen] = useState(false)
+
   const handleDelete = async (appId: string) => {
-    console.log("click delt", appId)
+    console.log("click delete", appId)
     delApp(appId)
     setDialogopen(false)
     setAppoinment((prev) => prev.filter((app) => app._id !== appId))
@@ -42,6 +45,23 @@ const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
   const handleCancel = () => {
     setDialogopen(false)
   }
+
+  const formatAppointmentTime = (timeSlot: string) => {
+    if (!timeSlot) return "Time not available"
+
+    const [start, end] = timeSlot.split(" - ")
+
+    const formatTime = (time: string) => {
+      const [hour, minute] = time.split(":")
+      const hourNum = parseInt(hour)
+      const suffix = hourNum >= 12 ? "pm" : "am"
+      const formattedHour = hourNum % 12 === 0 ? 12 : hourNum % 12 // Convert 0 to 12 for 12 PM
+      return `${formattedHour}:${minute} ${suffix}`
+    }
+
+    return `${formatTime(start)} - ${formatTime(end)}`
+  }
+
   return (
     <div className="flex flex-col p-6 md:p-0 gap-6 w-full md:w-[50vw]">
       {appoinments.length > 0 ? (
@@ -82,6 +102,16 @@ const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
                       {new Date(appoinment.appointmentDate).toLocaleDateString(
                         "en-GB"
                       )}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-3 text-slate-700">
+                    <TimerIcon size={20} className="text-green-600" />
+                    <span className="text-[1.1.4rem] font-semibold">
+                      Appointment time:
+                    </span>
+                    <span className="text-sm font-semibold">
+                      {formatAppointmentTime(appoinment.appTime)}
                     </span>
                   </div>
 
@@ -133,11 +163,8 @@ const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
                 </div>
 
                 <div className="flex justify-between md:justify-end gap-3 mt-3 md:mt-0 ">
-                  <Button className="flex items-center bg-gradient-to-r from-blue-200 to-blue-300 hover:underline hover:from-blue-100 hover:to-purple-200 text-blue-700 font-semibold px-6 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105 space-x-3">
-                    <FaEdit className="text-2xl" />
-                    {/* <span>Edit</span> */}
-                  </Button>
-
+                  {/* here edit btn */}
+                  <AppoinmentUpdate appoinment={appoinment} />
                   <Dialog open={dialogopen} onOpenChange={setDialogopen}>
                     <DialogTrigger>
                       <Button
@@ -150,7 +177,7 @@ const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
                     <DialogContent className="flex flex-col gap-y-7 bg-white">
                       <DialogTitle>
                         <h1 className="text-black text-lg font-semibold">
-                          Are you sure to delete this appoinment ..?
+                          Are you sure to delete this appointment..?
                         </h1>
                       </DialogTitle>
 
@@ -165,8 +192,11 @@ const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
                         {loading ? (
                           <LoadingBtn />
                         ) : (
-                          <Button onClick={() => handleDelete(appoinment._id)}>
-                            Delete
+                          <Button
+                            className="bg-red-600 text-white"
+                            onClick={() => handleDelete(appoinment._id)}
+                          >
+                            Confirm
                           </Button>
                         )}
                       </div>
@@ -178,7 +208,9 @@ const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
           </Card>
         ))
       ) : (
-        <span>Appoinment not have</span>
+        <h2 className="text-xl font-semibold text-slate-600 text-center">
+          No Appointments
+        </h2>
       )}
     </div>
   )

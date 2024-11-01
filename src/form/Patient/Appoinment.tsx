@@ -1,3 +1,4 @@
+
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, FormProvider, useForm } from "react-hook-form"
 import { z } from "zod"
@@ -8,6 +9,7 @@ import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 
+// Define validation schema with Zod
 const formData = z.object({
   patientName: z.string().min(1, { message: "Patient name is required" }),
   doctorName: z.string().min(1, { message: "Doctor name is required" }),
@@ -17,6 +19,7 @@ const formData = z.object({
       invalid_type_error: "Invalid date format",
     })
     .refine((date) => !isNaN(Date.parse(date)), { message: "Invalid date" }),
+  appTime: z.string().min(1, { message: "Appointment time is required" }),
   reason: z.string().min(1, { message: "Reason is required" }),
 })
 
@@ -36,6 +39,22 @@ type Props = {
   isLoading: boolean
 }
 
+// Generate time slots for a given doctor
+function generateTimeSlots(doctor: IDoctors): string[] {
+  const slots: string[] = []
+  const workingHours = Number(doctor.workingHours) // Convert to number
+  const startHour = 9 
+
+  
+  for (let i = 0; i < workingHours; i++) {
+    const startTime = startHour + i
+    const endTime = startTime + 1
+    slots.push(`${startTime}:00 - ${endTime}:00`)
+  }
+
+  return slots
+}
+
 const Appointment = ({ doctors, onSave, isLoading }: Props) => {
   const onSubmit = (data: Appointment) => {
     onSave(data)
@@ -47,7 +66,16 @@ const Appointment = ({ doctors, onSave, isLoading }: Props) => {
       appointmentDate: format(new Date(), "yyyy-MM-dd"), // Format today's date to "yyyy-MM-dd"
     },
   })
-  const { control, setValue } = form
+  const { control, setValue, watch } = form
+
+  
+  const selectedDoctorName = watch("doctorName")
+  const selectedDoctor = doctors.find(
+    (doctor) => doctor.doctorName === selectedDoctorName
+  )
+  const appointmentSlots = selectedDoctor
+    ? generateTimeSlots(selectedDoctor)
+    : []
 
   return (
     <Drawer>
@@ -91,11 +119,9 @@ const Appointment = ({ doctors, onSave, isLoading }: Props) => {
                     control={control}
                     render={({ field }) => (
                       <select {...field} className="border p-2 rounded">
-                        {doctors.length === 1 && (
-                          <option value="" disabled selected>
-                            Select a doctor
-                          </option>
-                        )}
+                        <option value="" disabled selected>
+                          Select a doctor
+                        </option>
                         {doctors.map((doctor: IDoctors) => (
                           <option
                             key={doctor.doctorName}
@@ -133,6 +159,26 @@ const Appointment = ({ doctors, onSave, isLoading }: Props) => {
                     )}
                   />
 
+                  <label htmlFor="appTime" className="text-sm font-semibold">
+                    Appointment Time
+                  </label>
+                  <Controller
+                    name="appTime"
+                    control={control}
+                    render={({ field }) => (
+                      <select {...field} className="border p-2 rounded">
+                        <option value="" disabled selected>
+                          Select appointment time
+                        </option>
+                        {appointmentSlots.map((slot) => (
+                          <option key={slot} value={slot}>
+                            {slot}
+                          </option>
+                        ))}
+                      </select>
+                    )}
+                  />
+
                   <label htmlFor="reason" className="text-sm font-semibold">
                     Reason
                   </label>
@@ -148,8 +194,8 @@ const Appointment = ({ doctors, onSave, isLoading }: Props) => {
                     )}
                   />
 
-                  <Button className=" bg-gradient-to-r from-indigo-600 to-pink-600">
-                    {isLoading ? <span>Loading..</span> : <span>Submit</span>}
+                  <Button className="bg-gradient-to-r from-indigo-600 to-pink-600">
+                    {isLoading ? <span>Loading...</span> : <span>Submit</span>}
                   </Button>
                 </div>
               </div>

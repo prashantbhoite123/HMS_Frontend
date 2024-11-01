@@ -42,14 +42,7 @@ const AppRoutes = () => {
             </Layouts>
           }
         />
-        <Route
-          path="/myaopoinment"
-          element={
-            <Layouts showhero={false}>
-              <MyAppoinment />
-            </Layouts>
-          }
-        />
+
         <Route
           path="/signuphospital"
           element={
