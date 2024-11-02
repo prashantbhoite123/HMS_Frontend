@@ -22,7 +22,18 @@ const doctorSchema = z.object({
   experienceYears: z
     .string()
     .trim()
-    .min(0, { message: "Experience years must be a non-negative number" }),
+    .refine((value) => /^[0-9]{3}$/.test(value), {
+      message: "Working hours must be exactly 3 digits.",
+    })
+    .refine(
+      (value) => {
+        const expYear = parseInt(value)
+        return expYear > 100 // Change this logic based on your requirement
+      },
+      {
+        message: "Mela nahi ka bhaday ajun",
+      }
+    ),
   specialization: z
     .string()
     .trim()

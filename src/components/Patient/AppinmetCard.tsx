@@ -21,6 +21,7 @@ export type Appointment = {
   doctorName: string
   appointmentDate: Date
   appTime: string // e.g., "13:00 - 14:00"
+  hospitalId: string
   reason: string
   status: "Pending" | "Completed" | "Cancelled"
 }
@@ -47,8 +48,6 @@ const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
   }
 
   const formatAppointmentTime = (timeSlot: string) => {
-    if (!timeSlot) return "Time not available"
-
     const [start, end] = timeSlot.split(" - ")
 
     const formatTime = (time: string) => {
@@ -196,7 +195,7 @@ const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
                             className="bg-red-600 text-white"
                             onClick={() => handleDelete(appoinment._id)}
                           >
-                            Confirm
+                            Delete
                           </Button>
                         )}
                       </div>

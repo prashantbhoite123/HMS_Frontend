@@ -1,4 +1,3 @@
-
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, FormProvider, useForm } from "react-hook-form"
 import { z } from "zod"
@@ -43,9 +42,8 @@ type Props = {
 function generateTimeSlots(doctor: IDoctors): string[] {
   const slots: string[] = []
   const workingHours = Number(doctor.workingHours) // Convert to number
-  const startHour = 9 
+  const startHour = 9
 
-  
   for (let i = 0; i < workingHours; i++) {
     const startTime = startHour + i
     const endTime = startTime + 1
@@ -63,12 +61,11 @@ const Appointment = ({ doctors, onSave, isLoading }: Props) => {
   const form = useForm<Appointment>({
     resolver: zodResolver(formData),
     defaultValues: {
-      appointmentDate: format(new Date(), "yyyy-MM-dd"), // Format today's date to "yyyy-MM-dd"
+      appointmentDate: format(new Date(), "yyyy-MM-dd"),
     },
   })
   const { control, setValue, watch } = form
 
-  
   const selectedDoctorName = watch("doctorName")
   const selectedDoctor = doctors.find(
     (doctor) => doctor.doctorName === selectedDoctorName
