@@ -39,7 +39,7 @@ type Props = {
 }
 
 // Generate time slots for a given doctor
-function generateTimeSlots(doctor: IDoctors): string[] {
+export const generateTimeSlots = (doctor: IDoctors): string[] => {
   const slots: string[] = []
   const workingHours = Number(doctor.workingHours) // Convert to number
   const startHour = 9

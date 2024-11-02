@@ -154,12 +154,12 @@ export const useMydeleteApp = () => {
   return { delApp, isLoading }
 }
 
-export const useUpdateApp = (appId: string, hospitalId: string) => {
+export const useUpdateApp = (appId: string) => {
   const queryClient = useQueryClient()
 
   const updateApp = async (updatedApp: FormData): Promise<Appointment> => {
     const response = await fetch(
-      `${BACKEND_API_URL}/api/manappoinemt/update/${appId}/${hospitalId}`,
+      `${BACKEND_API_URL}/api/manappoinemt/update/${appId}`,
       {
         method: "PUT",
         headers: {
