@@ -12,7 +12,7 @@ const Header = () => {
   console.log("this is a currentUser", currentUser)
 
   return (
-    <header className="flex justify-between items-center p-4 bg-gradient-to-r from-green-400 to-blue-500 shadow-lg">
+    <header className="flex justify-between sticky top-0 z-10 overflow-hidden items-center p-4 bg-gradient-to-r from-green-400 to-blue-500 shadow-lg">
       {/* Logo Section */}
       <Link
         to="/"

@@ -3,6 +3,7 @@ import {
   useMydeleteApp,
 } from "@/Api/patient/useMyAppoinment"
 import AppinmetCard from "@/components/Patient/AppinmetCard"
+import SearchApp from "@/components/Patient/SearchApp"
 import { MdEventNote } from "react-icons/md"
 
 const MyAppoinment = () => {
@@ -13,7 +14,7 @@ const MyAppoinment = () => {
   }
   return (
     <div className="flex flex-col gap-4 items-center p-4 w-full">
-      <div className="flex flex-col   md:flex-row justify-evenly items-center h-[15vh] md:h-[0vh] p-4 w-full relative">
+      <div className="flex flex-col mb-6 md:flex-row justify-evenly items-center h-[20vh] md:h-[0vh] p-7 w-full">
         {/* Centered Heading */}
         <div className="flex absolute right-30 justify-center items-center">
           <span className="text-red-500">
@@ -23,13 +24,10 @@ const MyAppoinment = () => {
             Appointments
           </h1>
         </div>
+
         {/* Search Bar on the Right */}
         <div className="flex items-center mt-16 md:mt-0 ml-0 md:ml-auto">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="p-2 rounded-md border border-gray-300 w-full md:w-[25vw]"
-          />
+          <SearchApp />
         </div>
       </div>
 
