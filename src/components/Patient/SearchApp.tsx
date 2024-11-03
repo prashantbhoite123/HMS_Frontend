@@ -3,7 +3,7 @@ import { Form, FormControl, FormField, FormItem } from "../ui/form"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import { z } from "zod"
-import { useForm } from "react-hook-form"
+import { SubmitHandler, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 const formSchema = z.object({
@@ -19,8 +19,8 @@ const SearchApp = () => {
     resolver: zodResolver(formSchema),
   })
 
-  const onSubmit = (data: FormData) => {
-    console.log(data)
+  const onSubmit: SubmitHandler<appSearch> = (data) => {
+    console.log(data.searchQuery)
   }
 
   return (
