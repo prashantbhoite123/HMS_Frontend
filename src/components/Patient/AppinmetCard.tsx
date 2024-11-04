@@ -1,4 +1,5 @@
 import { TimerIcon, User } from "lucide-react"
+import "../../Progress.css"
 import { Card, CardContent } from "../ui/card"
 import {
   MdDateRange,
@@ -11,6 +12,7 @@ import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "../ui/dialog"
 import LoadingBtn from "../LoadingBtn"
 import { useState } from "react"
 import AppoinmentUpdate from "./AppoinmentUpdate"
+import { Progress } from "../ui/progress"
 
 export type Appointment = {
   _id: string
@@ -115,6 +117,16 @@ const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
                     >
                       {appoinment.status}
                     </span>
+                    <Progress
+                      value={
+                        appoinment.status === "Pending"
+                          ? 33
+                          : appoinment.status === "Completed"
+                          ? 100
+                          : 0
+                      }
+                      className="w-full"
+                    />
                   </div>
                 </div>
                 <div className="flex justify-between md:justify-end gap-3 mt-3 md:mt-0">

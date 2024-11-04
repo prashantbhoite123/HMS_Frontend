@@ -7,3 +7,12 @@ export type IAppointment = {
   reason: string
   status: string
 }
+
+export type AppoinmentSearchResponse = {
+  data: IAppointment[]
+  pagination: {
+    total: number
+    page: number
+    pages: number
+  }
+}

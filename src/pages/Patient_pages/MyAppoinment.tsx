@@ -4,9 +4,20 @@ import {
 } from "@/Api/patient/useMyAppoinment"
 import AppinmetCard from "@/components/Patient/AppinmetCard"
 import SearchApp from "@/components/Patient/SearchApp"
+import { useState } from "react"
 import { MdEventNote } from "react-icons/md"
 
+export type searchState = {
+  searchQuery: string
+  page: number
+}
+
 const MyAppoinment = () => {
+  const [searchState, setSearchState] = useState<searchState>({
+    searchQuery: "",
+    page: 1,
+  })
+
   const { allAppoinment, isLoading } = useMyallAppoinment()
   const { delApp, isLoading: delAppLoading } = useMydeleteApp()
   if (isLoading) {
