@@ -3,6 +3,7 @@ import {
   useMyallAppoinment,
   useMydeleteApp,
 } from "@/Api/patient/useMyAppoinment"
+import PaginationSelector from "@/components/Hospital/PaginationSelector"
 import AppinmetCard from "@/components/Patient/AppinmetCard"
 import SearchApp, { appSearch } from "@/components/Patient/SearchApp"
 import { useState } from "react"
@@ -18,6 +19,12 @@ const MyAppoinment = () => {
     searchQuery: "",
     page: 1,
   })
+  const setPage = (page: number) => {
+    setSearchState((prevState) => ({
+      ...prevState,
+      page,
+    }))
+  }
 
   const sethandleSubmit = (data: appSearch) => {
     setSearchState((prevState) => ({
@@ -31,6 +38,9 @@ const MyAppoinment = () => {
   if (isLoading || searchLoding) {
     return <div className="text-lg text-black font-semibold">Loading...</div>
   }
+
+  console.log("-----------------|>", result)
+  console.log("=========|>", allAppoinment)
 
   const searchAndallApp = result ? result.data : allAppoinment
 
@@ -61,6 +71,12 @@ const MyAppoinment = () => {
         delApp={delApp}
         loading={delAppLoading}
         appoinment={searchAndallApp}
+      />
+
+      <PaginationSelector
+        page={result?.pagination?.page || 1}
+        pages={result?.pagination?.pages || 1}
+        onPageChange={setPage}
       />
     </div>
   )
