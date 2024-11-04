@@ -114,3 +114,42 @@ export const useUpdateMyHospital = (refetch: any) => {
 
   return { updateHospital, isLoading }
 }
+
+export const useMyDeleteHospital = () => {
+  const deleteMyhospital = async () => {
+    const responce = await fetch(
+      `${BACKEND_API_URL}/api/manage/delete`,
+      {
+        method: "DELETE",
+        credentials: "include",
+      }
+    )
+
+    if (!responce.ok) {
+      throw new Error("Faied to delete hospital")
+    }
+
+    const data = await responce.json()
+    if (data.success === false) {
+      return toast.error(data.message)
+    } else {
+      toast.success(data.message)
+    }
+
+    return data
+  }
+
+  const { mutate: deleteHos, isLoading } = useMutation(deleteMyhospital, {
+    onSuccess: () => {
+      console.log("Hospital delete successfull")
+    },
+    onError: () => {
+      console.log("failed to delete hospital")
+    },
+  })
+
+  return {
+    deleteHos,
+    isLoading,
+  }
+}

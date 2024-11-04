@@ -16,7 +16,7 @@ const HospitalsCard = ({ Hospitals, loading }: Props) => {
       {loading ? (
         <h1>Loading</h1>
       ) : (
-        <div className="p-2 w-full md:w-[65vw]">
+        <div className="p-2 w-full md:w-[60vw]">
           <Card className="shadow-lg shadow-gray-400">
             <CardHeader>
               <div className="flex flex-col md:flex-row md:space-x-10 space-x-0 gap-3">

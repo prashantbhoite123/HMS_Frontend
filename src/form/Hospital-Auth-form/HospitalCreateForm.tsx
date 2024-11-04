@@ -95,12 +95,20 @@ const formSchema = z.object({
 export type hospitalFormData = z.infer<typeof formSchema>
 
 type Props = {
+  deleteHospital: () => void
+  deleteLoding: boolean
   hospital?: IHospital
   onSave: (data: FormData) => void
   loading: boolean
 }
 
-const HospitalCreateForm = ({ onSave, loading, hospital }: Props) => {
+const HospitalCreateForm = ({
+  deleteHospital,
+  deleteLoding,
+  onSave,
+  loading,
+  hospital,
+}: Props) => {
   const form = useForm<hospitalFormData>({
     resolver: zodResolver(formSchema),
   })
@@ -188,7 +196,20 @@ const HospitalCreateForm = ({ onSave, loading, hospital }: Props) => {
         <ImageSection />
 
         <Separator />
-        {loading ? <LoadingBtn /> : <Button type="submit">Submit</Button>}
+        <div className="flex justify-between">
+          {loading ? <LoadingBtn /> : <Button type="submit">Submit</Button>}
+          {deleteLoding ? (
+            <LoadingBtn />
+          ) : (
+            <Button
+              className="text-white bg-red-500 hover:underline font-semibold"
+              variant="outline"
+              onClick={deleteHospital}
+            >
+              Delete
+            </Button>
+          )}
+        </div>
       </form>
     </FormProvider>
   )

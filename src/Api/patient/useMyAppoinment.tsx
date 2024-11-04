@@ -98,7 +98,7 @@ export const useMydeleteApp = () => {
 
     const data = await response.json()
     toast.success(data.message)
-    return appoinmentId // Return the ID for optimistic updates
+    return appoinmentId 
   }
 
   const { mutate: delApp, isLoading } = useMutation(deleteAppoinment, {
