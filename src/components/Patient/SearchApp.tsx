@@ -3,8 +3,9 @@ import { Form, FormControl, FormField, FormItem } from "../ui/form"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import { z } from "zod"
-import { SubmitHandler, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useEffect } from "react"
 
 const formSchema = z.object({
   searchQuery: z.string({
@@ -14,15 +15,24 @@ const formSchema = z.object({
 
 export type appSearch = z.infer<typeof formSchema>
 
-const SearchApp = () => {
+type Props = {
+  onSubmit: (FormData: appSearch) => void
+  searchQuery: string
+}
+const SearchApp = ({ onSubmit, searchQuery }: Props) => {
   const form = useForm<appSearch>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      searchQuery,
+    },
   })
 
-  const onSubmit: SubmitHandler<appSearch> = (data) => {
-    console.log(data.searchQuery)
-  }
+  useEffect(() => {
+    form.reset({ searchQuery })
+  }, [form, searchQuery])
 
+  // const { watch } = useForm()
+  // console.log("search app form", form.watch())
   return (
     <div>
       <Form {...form}>

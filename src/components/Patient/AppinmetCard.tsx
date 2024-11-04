@@ -1,5 +1,5 @@
 import { TimerIcon, User } from "lucide-react"
-import "../../Progress.css"
+
 import { Card, CardContent } from "../ui/card"
 import {
   MdDateRange,
@@ -43,7 +43,8 @@ const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
 
   const handleCancel = () => setDialogopen(false)
 
-  const formatAppointmentTime = (timeSlot: string) => {
+  const formatAppointmentTime = (timeSlot?: string): string => {
+    if (!timeSlot) return "Time not available" // Handle undefined timeSlot
     const [start, end] = timeSlot.split(" - ")
 
     const formatTime = (time: string) => {

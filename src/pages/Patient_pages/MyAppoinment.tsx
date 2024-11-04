@@ -1,9 +1,10 @@
+import { useMysearchAppoinment } from "@/Api/patient/UseManageAppoinment"
 import {
   useMyallAppoinment,
   useMydeleteApp,
 } from "@/Api/patient/useMyAppoinment"
 import AppinmetCard from "@/components/Patient/AppinmetCard"
-import SearchApp from "@/components/Patient/SearchApp"
+import SearchApp, { appSearch } from "@/components/Patient/SearchApp"
 import { useState } from "react"
 import { MdEventNote } from "react-icons/md"
 
@@ -18,11 +19,23 @@ const MyAppoinment = () => {
     page: 1,
   })
 
+  const sethandleSubmit = (data: appSearch) => {
+    setSearchState((prevState) => ({
+      ...prevState,
+      ...data,
+    }))
+  }
+  const { result, isLoading: searchLoding } = useMysearchAppoinment(searchState)
   const { allAppoinment, isLoading } = useMyallAppoinment()
   const { delApp, isLoading: delAppLoading } = useMydeleteApp()
-  if (isLoading) {
+  if (isLoading || searchLoding) {
     return <div className="text-lg text-black font-semibold">Loading...</div>
   }
+
+  console.log("================>", result)
+  console.log("============", allAppoinment)
+  const searchAndallApp = result ? result.data : allAppoinment
+  
   return (
     <div className="flex flex-col gap-4 items-center p-4 w-full">
       <div className="flex flex-col mb-6 md:flex-row justify-evenly items-center h-[20vh] md:h-[0vh] p-7 w-full">
@@ -38,7 +51,10 @@ const MyAppoinment = () => {
 
         {/* Search Bar on the Right */}
         <div className="flex items-center mt-16 md:mt-0 ml-0 md:ml-auto">
-          <SearchApp />
+          <SearchApp
+            onSubmit={sethandleSubmit}
+            searchQuery={searchState.searchQuery}
+          />
         </div>
       </div>
 
@@ -46,7 +62,7 @@ const MyAppoinment = () => {
       <AppinmetCard
         delApp={delApp}
         loading={delAppLoading}
-        appoinment={allAppoinment}
+        appoinment={searchAndallApp}
       />
     </div>
   )
