@@ -32,13 +32,11 @@ const MyAppoinment = () => {
     return <div className="text-lg text-black font-semibold">Loading...</div>
   }
 
-  console.log("================>", result)
-  console.log("============", allAppoinment)
   const searchAndallApp = result ? result.data : allAppoinment
-  
+
   return (
     <div className="flex flex-col gap-4 items-center p-4 w-full">
-      <div className="flex flex-col mb-6 md:flex-row justify-evenly items-center h-[20vh] md:h-[0vh] p-7 w-full">
+      <div className="flex flex-col mb-7 md:flex-row justify-evenly flex-wrap items-center h-[20vh] md:h-[0vh] p-7 w-full">
         {/* Centered Heading */}
         <div className="flex absolute right-30 justify-center items-center">
           <span className="text-red-500">
@@ -50,7 +48,7 @@ const MyAppoinment = () => {
         </div>
 
         {/* Search Bar on the Right */}
-        <div className="flex items-center mt-16 md:mt-0 ml-0 md:ml-auto">
+        <div className="flex items-center  mt-20 md:mt-7 ml-0 md:ml-auto ">
           <SearchApp
             onSubmit={sethandleSubmit}
             searchQuery={searchState.searchQuery}

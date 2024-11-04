@@ -6,6 +6,9 @@ import { useUser } from "@/context/userContext"
 import UserProfileDropdown from "../UserProfileDropdown "
 import { Button } from "./button"
 import { Hospital } from "lucide-react"
+// import { GiHeartWings } from "react-icons/gi"
+import { BsHeartPulseFill } from "react-icons/bs"
+// import { PiHeartbeatFill } from "react-icons/pi"
 
 const Header = () => {
   const { currentUser } = useUser()
@@ -18,8 +21,11 @@ const Header = () => {
         to="/"
         className="flex items-center text-xl sm:text-2xl font-bold text-white"
       >
-        <span className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-pink-600 rounded-md text-transparent bg-clip-text">
-          CarePlusX
+        <span className="flex justify-center items-center gap-x-3 px-4 py-2 bg-gradient-to-r from-indigo-600 to-pink-600 rounded-md text-transparent bg-clip-text">
+          <span>
+            <BsHeartPulseFill className="text-pink-500" size="30" />
+          </span>
+          <span>CarePlusX</span>
         </span>
       </Link>
 

@@ -58,7 +58,7 @@ const SearchApp = ({ onSubmit, searchQuery }: Props) => {
                         border: "none",
                       }}
                       placeholder="Search appoinment"
-                      className="border-none shadow-none text-sm focus-visible:right-0"
+                      className="border-none shadow-none text-sm font-semibold focus-visible:right-0"
                     />
                   </FormControl>
                 </FormItem>
