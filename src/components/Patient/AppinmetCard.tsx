@@ -15,6 +15,7 @@ export type Appointment = {
   patientName: string
   doctorName: string
   appointmentDate: Date
+  apptNumber: string
   appTime: string // e.g., "13:00 - 14:00"
   hospitalId: string
   reason: string
@@ -63,8 +64,17 @@ const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
             className="bg-gradient-to-r from-gray-50 to-gray-100 shadow-lg rounded-lg hover:shadow-2xl transition-shadow duration-200 border border-gray-200"
           >
             <CardContent className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+              <div className="grid grid-cols-1 md:grid-cols-[3fr_1fr] gap-6 items-center">
                 <div className="flex flex-col gap-y-4">
+                  <div className="flex items-center gap-3 text-gray-800">
+                    <User size={20} className="text-blue-500" />
+                    <span className="text-lg font-semibold">Code :</span>
+                    <span className="text-md ">
+                      <span className="bg-blue-200 text-blue-600 font-bold py-1 px-2 rounded-md shadow-md">
+                        {appoinment.apptNumber}
+                      </span>
+                    </span>
+                  </div>
                   <div className="flex items-center gap-3 text-gray-800">
                     <User size={20} className="text-blue-500" />
                     <span className="text-lg font-semibold">Patient:</span>
