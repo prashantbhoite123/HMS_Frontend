@@ -7,7 +7,7 @@ const Footer = () => {
       <Link to="/">
         <span className="flex justify-center items-center gap-x-3 px-4 py-2 bg-gradient-to-r text-xl font-bold from-indigo-600 to-pink-600 rounded-md text-transparent bg-clip-text">
           <span>
-            <BsHeartPulseFill className="text-pink-500" size="30" />
+            <BsHeartPulseFill className="text-pink-600" size="30" />
           </span>
           <span>CarePlusX</span>
         </span>

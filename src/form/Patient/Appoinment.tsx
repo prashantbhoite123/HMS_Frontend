@@ -7,6 +7,7 @@ import { format } from "date-fns"
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
+import { useState } from "react"
 
 // Define validation schema with Zod
 const formData = z.object({
@@ -54,8 +55,13 @@ export const generateTimeSlots = (doctor: IDoctors): string[] => {
 }
 
 const Appointment = ({ doctors, onSave, isLoading }: Props) => {
+  const [close, setClose] = useState(false)
   const onSubmit = (data: Appointment) => {
     onSave(data)
+  }
+
+  const handleClick = () => {
+    setClose(false)
   }
 
   const form = useForm<Appointment>({
@@ -75,7 +81,7 @@ const Appointment = ({ doctors, onSave, isLoading }: Props) => {
     : []
 
   return (
-    <Drawer>
+    <Drawer open={close} onOpenChange={setClose}>
       <DrawerTrigger>
         <div>
           <Button
@@ -91,11 +97,11 @@ const Appointment = ({ doctors, onSave, isLoading }: Props) => {
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="flex justify-center items-center w-full h-full">
-              <div className="flex flex-col items-center mt-7 p-6 w-full md:w-[30vw] bg-white shadow-lg shadow-slate-700 rounded-xl">
+              <div className="flex flex-col  items-center mt-7 mb-3 p-6 w-full md:w-[30vw] bg-white shadow-lg shadow-slate-700 rounded-xl">
                 <h1 className="text-xl text-green-400 font-semibold">
                   Book Appointment
                 </h1>
-                <div className="flex flex-col w-full gap-5 mt-5">
+                <div className="flex flex-col w-full gap-3 mt-5">
                   <label
                     htmlFor="patientName"
                     className="text-sm font-semibold"
@@ -191,7 +197,10 @@ const Appointment = ({ doctors, onSave, isLoading }: Props) => {
                     )}
                   />
 
-                  <Button className="bg-gradient-to-r from-indigo-600 to-pink-600">
+                  <Button
+                    onClick={handleClick}
+                    className="bg-gradient-to-r from-indigo-600 to-pink-600"
+                  >
                     {isLoading ? <span>Loading...</span> : <span>Submit</span>}
                   </Button>
                 </div>

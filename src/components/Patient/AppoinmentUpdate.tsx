@@ -217,7 +217,10 @@ const AppoinmentUpdate = ({ appoinment }: Props) => {
                     />
                   </div>
 
-                  <Button className="bg-gradient-to-r from-indigo-600 to-pink-600 col-span-2 mt-4 h-10">
+                  <Button
+                    type="submit"
+                    className="bg-gradient-to-r from-indigo-600 to-pink-600 col-span-2 mt-4 h-10"
+                  >
                     {updatedappLoading ? (
                       <span>Loading...</span>
                     ) : (

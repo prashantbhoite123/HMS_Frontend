@@ -118,16 +118,16 @@ const DetailPage = () => {
           <FaUserMd className="text-blue-500 mr-2" size={24} />
           <h2 className="text-xl font-bold">Doctors</h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 p-2 mt-4 gap-4 ">
+        <div className="flex flex-col flex-wrap space-y-6  md:flex-row w-full justify-center items-center  p-2 mt-4 gap-4 ">
           {getHospital.doctors.map((doctor: any, index: number) => (
             <Card
               key={index}
-              className="w-full  p-2 bg-white shadow-lg rounded-md"
+              className="w-full md:w-[25vw] p-2 bg-white shadow-xl shadow-slate-400 rounded-md"
             >
               <CardHeader>
                 <div className="flex justify-center items-center">
                   <img
-                    className="w-16 h-16 rounded-full"
+                    className="size-24 rounded-full"
                     src={
                       doctor.image ||
                       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQN5aeH5PWbBb2Ws7lZnlJ6VJviegkHLgbhg&s"
@@ -141,7 +141,7 @@ const DetailPage = () => {
                   <div className="mb-2">
                     <FaUserMd className="inline mr-2 text-blue-500" />
                     <span className="font-semibold text-lg">
-                      {doctor.doctorName}
+                      Dr. {doctor.doctorName}
                     </span>
                   </div>
                   <div className="flex justify-around w-full gap-4">

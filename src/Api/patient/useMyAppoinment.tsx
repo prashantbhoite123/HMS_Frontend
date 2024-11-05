@@ -98,7 +98,7 @@ export const useMydeleteApp = () => {
 
     const data = await response.json()
     toast.success(data.message)
-    return appoinmentId 
+    return appoinmentId
   }
 
   const { mutate: delApp, isLoading } = useMutation(deleteAppoinment, {
@@ -211,5 +211,3 @@ export const useUpdateApp = (appId: string) => {
 
   return { updatedApp, isLoading }
 }
-
-

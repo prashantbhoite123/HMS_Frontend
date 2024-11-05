@@ -28,7 +28,6 @@ import { Button } from "@/components/ui/button"
 import GoogleAuthBtn from "@/components/GoogleAuthBtn"
 import { Link } from "react-router-dom"
 
-
 type Props = {
   createHospital: (data: FormData) => void
   isLoading: boolean
@@ -39,7 +38,6 @@ const HospitalSignUp = ({ createHospital, isLoading, role }: Props) => {
   const form = useForm<HosFormData>({
     resolver: zodResolver(formSchema),
   })
-
 
   const onSave = async (data: HosFormData) => {
     const formData = new FormData()
@@ -63,11 +61,7 @@ const HospitalSignUp = ({ createHospital, isLoading, role }: Props) => {
           <form onSubmit={form.handleSubmit(onSave)}>
             <div className="mb-4 flex gap-2 flex-col text-center">
               {" "}
-              <h2 className="text-2xl font-semibold">
-                {role === "hospital"
-                  ? "Hospital Registration Form"
-                  : "Patient Registration Form"}
-              </h2>
+              <h2 className="text-2xl font-semibold">Registration Form</h2>
               <FormDescription className="mb-3"> Fill the form</FormDescription>
             </div>
 
@@ -78,9 +72,7 @@ const HospitalSignUp = ({ createHospital, isLoading, role }: Props) => {
                 <FormItem className="mb-4">
                   {" "}
                   {/* Added mb-4 for spacing */}
-                  <FormLabel>
-                    {role === "hospital" ? "Hospital Name" : "Patient Name"}
-                  </FormLabel>
+                  <FormLabel>Username</FormLabel>
                   <FormControl>
                     <Input
                       {...field}

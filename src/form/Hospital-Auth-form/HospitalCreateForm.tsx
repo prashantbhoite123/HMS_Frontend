@@ -22,13 +22,10 @@ const doctorSchema = z.object({
   experienceYears: z
     .string()
     .trim()
-    .refine((value) => /^[0-9]{3}$/.test(value), {
-      message: "Working hours must be exactly 3 digits.",
-    })
     .refine(
       (value) => {
         const expYear = parseInt(value)
-        return expYear > 100 // Change this logic based on your requirement
+        return expYear < 100 // Change this logic based on your requirement
       },
       {
         message: "Mela nahi ka bhaday ajun",
@@ -41,9 +38,6 @@ const doctorSchema = z.object({
   workingHours: z
     .string()
     .trim()
-    .refine((value) => /^[0-9]{2}$/.test(value), {
-      message: "Working hours must be exactly 2 digits.",
-    })
     .refine(
       (value) => {
         const hour = parseInt(value, 10)

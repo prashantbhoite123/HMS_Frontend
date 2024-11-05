@@ -39,9 +39,6 @@ const MyAppoinment = () => {
     return <div className="text-lg text-black font-semibold">Loading...</div>
   }
 
-  console.log("-----------------|>", result)
-  console.log("=========|>", allAppoinment)
-
   const searchAndallApp = result ? result.data : allAppoinment
 
   return (
