@@ -1,4 +1,4 @@
-import { Sidebar, SidebarHeader, SidebarMenu } from "../ui/sidebar"
+import { Sidebar, SidebarHeader } from "../ui/sidebar"
 
 const DashSidebar = () => {
   return (

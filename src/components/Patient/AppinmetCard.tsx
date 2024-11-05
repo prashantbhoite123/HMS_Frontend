@@ -1,18 +1,14 @@
 import { TimerIcon, User } from "lucide-react"
 
 import { Card, CardContent } from "../ui/card"
-import {
-  MdDateRange,
-  MdDelete,
-  MdInfoOutline,
-  MdMedicalServices,
-} from "react-icons/md"
+import { MdDateRange, MdDelete, MdInfoOutline } from "react-icons/md"
 import { Button } from "../ui/button"
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "../ui/dialog"
 import LoadingBtn from "../LoadingBtn"
 import { useState } from "react"
 import AppoinmentUpdate from "./AppoinmentUpdate"
 import { Progress } from "../ui/progress"
+import { FaUserMd } from "react-icons/fa"
 
 export type Appointment = {
   _id: string
@@ -77,7 +73,7 @@ const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
                     </span>
                   </div>
                   <div className="flex items-center gap-3 text-gray-800">
-                    <MdMedicalServices size={20} className="text-green-500" />
+                    <FaUserMd size={20} className="text-green-500" />
                     <span className="text-lg font-semibold">Doctor:</span>
                     <span className="text-md font-medium">
                       {appoinment.doctorName}
@@ -125,6 +121,13 @@ const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
                           : appoinment.status === "Completed"
                           ? 100
                           : 0
+                      }
+                      status={
+                        appoinment.status === "Pending"
+                          ? "warning"
+                          : appoinment.status === "Completed"
+                          ? "success"
+                          : "error"
                       }
                       className="w-full"
                     />
