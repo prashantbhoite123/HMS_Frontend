@@ -8,7 +8,7 @@ import LoadingBtn from "../LoadingBtn"
 import { useState } from "react"
 import AppoinmentUpdate from "./AppoinmentUpdate"
 import { Progress } from "../ui/progress"
-import { FaUserMd } from "react-icons/fa"
+import { FaKey, FaUserMd } from "react-icons/fa"
 
 export type Appointment = {
   _id: string
@@ -67,7 +67,7 @@ const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
               <div className="grid grid-cols-1 md:grid-cols-[3fr_1fr] gap-6 items-center">
                 <div className="flex flex-col gap-y-4">
                   <div className="flex items-center gap-3 text-gray-800">
-                    <User size={20} className="text-blue-500" />
+                    <FaKey size={17} className="text-blue-500" />
                     <span className="text-lg font-semibold">Code :</span>
                     <span className="text-md ">
                       <span className="bg-blue-200 text-blue-600 font-bold py-1 px-2 rounded-md shadow-md">

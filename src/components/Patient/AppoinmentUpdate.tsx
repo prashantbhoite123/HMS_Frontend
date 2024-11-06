@@ -91,7 +91,7 @@ const AppoinmentUpdate = ({ appoinment }: Props) => {
             <FaEdit className="text-2xl" />
           </Button>
         </DialogTrigger>
-        <DialogContent className="flex flex-col items-center mt-7 p-10 h-[70vh] w-full bg-white shadow-lg shadow-slate-700 rounded-xl">
+        <DialogContent className="flex flex-col items-center mt-7 p-10  w-full bg-white shadow-lg shadow-slate-700 rounded-xl">
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="flex justify-center items-center ">
               <div className="">
