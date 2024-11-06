@@ -17,8 +17,8 @@ import HospitalCreate from "./pages/Hospital_pages/HospitalCreate"
 import ProtectRouter from "./auth/ProtectRouter"
 import HospitalsPage from "./pages/Hospital_pages/HospitalsPage"
 import DetailPage from "./pages/Hospital_pages/DetailPage"
-import Dashboard from "./pages/Common_Pages/Dashboard"
 import MyAppoinment from "./pages/Patient_pages/MyAppoinment"
+import HosDashboard from "./pages/Hospital_pages/HosDashboard"
 
 const AppRoutes = () => {
   return (
@@ -93,14 +93,7 @@ const AppRoutes = () => {
               </Layouts>
             }
           />
-          <Route
-            path="/dashboard"
-            element={
-              <Layouts showhero={false}>
-                <Dashboard />
-              </Layouts>
-            }
-          />
+          <Route path="/dashboard" element={<HosDashboard />} />
         </Route>
       </Routes>
     </Router>

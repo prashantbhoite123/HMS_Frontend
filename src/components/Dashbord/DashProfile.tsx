@@ -1,5 +1,5 @@
 const DashProfile = () => {
-  return <div>DashProfile</div>
+  return <div className="text-black">DashProfile</div>
 }
 
 export default DashProfile
