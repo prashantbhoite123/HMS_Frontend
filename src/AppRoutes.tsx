@@ -19,6 +19,7 @@ import HospitalsPage from "./pages/Hospital_pages/HospitalsPage"
 import DetailPage from "./pages/Hospital_pages/DetailPage"
 import MyAppoinment from "./pages/Patient_pages/MyAppoinment"
 import HosDashboard from "./pages/Hospital_pages/HosDashboard"
+import DashLayout from "./Layouts/DashLayout"
 
 const AppRoutes = () => {
   return (
@@ -93,7 +94,14 @@ const AppRoutes = () => {
               </Layouts>
             }
           />
-          <Route path="/dashboard" element={<HosDashboard />} />
+          <Route
+            path="/dashboard"
+            element={
+              <DashLayout>
+                <HosDashboard />
+              </DashLayout>
+            }
+          />
         </Route>
       </Routes>
     </Router>

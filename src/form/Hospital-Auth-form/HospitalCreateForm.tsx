@@ -18,7 +18,7 @@ import { useEffect } from "react"
 
 const doctorSchema = z.object({
   doctorName: z.string().trim().min(1, { message: "Doctor name is required" }),
-  email: z.string().trim().min(1, { message: "Doctor emil is required" }),
+  email: z.string().trim().email("Invalid email format"),
   education: z.string().trim().min(1, { message: "Education is required" }),
   experienceYears: z
     .string()
