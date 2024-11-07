@@ -4,7 +4,7 @@ import { BACKEND_API_URL } from "@/main"
 import { useUser } from "@/context/userContext"
 import { useNavigate } from "react-router-dom"
 
-const LogoutBtn = () => {
+const   LogoutBtn = () => {
   const naviagte = useNavigate()
   const { setCurrentUser } = useUser()
   const handleSignOut = async () => {

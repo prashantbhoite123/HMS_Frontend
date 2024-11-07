@@ -6,9 +6,8 @@ import { useUser } from "@/context/userContext"
 import UserProfileDropdown from "../UserProfileDropdown "
 import { Button } from "./button"
 import { Hospital } from "lucide-react"
-// import { GiHeartWings } from "react-icons/gi"
+
 import { BsHeartPulseFill } from "react-icons/bs"
-// import { PiHeartbeatFill } from "react-icons/pi"
 
 const Header = () => {
   const { currentUser } = useUser()
