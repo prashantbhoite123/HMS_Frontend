@@ -8,15 +8,20 @@ type Props = {
 }
 
 const DoctorMenuInput = ({ index, removeMenuItem }: Props) => {
-  
   return (
     <div className="">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
         <FormInput
           name={`doctors.${index}.doctorName`}
           label="Doctor Name"
           type="text"
           placeholder="Enter doctor name"
+        />
+        <FormInput
+          name={`doctors.${index}.email`}
+          label="Doctor email"
+          type="email"
+          placeholder="Enter doctor email"
         />
         <FormInput
           name={`doctors.${index}.education`}
