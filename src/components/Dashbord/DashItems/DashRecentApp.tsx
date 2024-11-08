@@ -1,9 +1,5 @@
-
-
 function DashRecentApp() {
-  return (
-    <div>DashRecentApp</div>
-  )
+  return <div className="w-full bg-red-400 h-[45vh]">DashRecentApp</div>
 }
 
 export default DashRecentApp

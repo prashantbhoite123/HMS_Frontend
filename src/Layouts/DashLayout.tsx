@@ -8,10 +8,10 @@ type Props = {
 const DashLayout = ({ children }: Props) => {
   return (
     <div className="flex flex-col md:flex-row">
-      <div className="flex bg-slate-200 w-full md:w-64 p-2">
+      <div className="flex bg-white shadow-xl shadow-slate-400 w-full md:w-64 p-2">
         <DashSidebar />
       </div>
-      <div className="p-4 w-full h-screen">
+      <div className="p-2 md:p-4 w-full h-screen">
         <DashNavbar />
         {children}
       </div>
