@@ -7,7 +7,7 @@ function DashCards() {
     <div className="flex flex-col md:flex-row gap-3">
       <div className="w-full md:w-[20vw]">
         <Card>
-          <CardContent className="flex flex-col gap-y-2 p-4 shadow-xl rounded-md">
+          <CardContent className="flex flex-col gap-y-2 p-4 shadow-xl rounded-none">
             <div className="flex items-center gap-x-2 text-green-500">
               <MdSupervisedUserCircle size={24} />
               <span className="text-[1.2rem] font-semibold ">Total Users</span>
@@ -22,7 +22,7 @@ function DashCards() {
       </div>
       <div className="w-full md:w-[20vw]">
         <Card>
-          <CardContent className="flex flex-col gap-y-2 p-4 shadow-xl rounded-md">
+          <CardContent className="flex flex-col gap-y-2 p-4 shadow-xl rounded-none">
             <div className="flex items-center gap-x-2 text-green-500">
               <MdEventNote size={24} />
               <span className="text-[1.2rem] font-semibold ">
@@ -39,7 +39,7 @@ function DashCards() {
       </div>
       <div className="w-full md:w-[20vw]">
         <Card>
-          <CardContent className="flex flex-col gap-y-2 p-4 shadow-xl rounded-md">
+          <CardContent className="flex flex-col gap-y-2 p-4 shadow-xl rounded-none">
             <div className="flex items-center gap-x-2 text-green-500">
               <FaUserMd size={24} />
 

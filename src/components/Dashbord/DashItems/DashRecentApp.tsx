@@ -6,11 +6,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { MdEventNote } from "react-icons/md"
 
 const DashRecentApp = () => {
   return (
     <div className="w-full overflow-scroll md:overflow-hidden p-2 shadow-xl rounded-md">
-      <span className="text-lg font-semibold ml-2">Latest Appoinment</span>
+      <span className="flex items-center gap-x-2 text-[1.2rem] font-semibold ml-2 text-green-500">
+        <MdEventNote />
+        Latest Appoinment
+      </span>
       <Table>
         <TableHeader>
           <TableRow>
@@ -25,11 +29,15 @@ const DashRecentApp = () => {
           <TableRow>
             <TableCell>Prashant bhoite</TableCell>
             <TableCell>
-              <span className="font-semibold text-sm bg-blue-200 text-blue-500 px-2 rounded-md">
+              <span className="font-semibold text-sm bg-green-200 text-green-500 px-2 rounded-md">
                 APPT-0345-PE
               </span>
             </TableCell>
-            <TableCell>Pending</TableCell>
+            <TableCell>
+              <span className="font-semibold text-sm bg-orange-200 text-orange-500 px-2 rounded-md">
+                Pending
+              </span>
+            </TableCell>
             <TableCell>Dr.Babitaji</TableCell>
             <TableCell>07/11/2024</TableCell>
           </TableRow>
