@@ -13,7 +13,7 @@ const DashboardComponents = () => {
         <DashRecentApp />
         <DashChart />
       </div>
-      <div className="ml-2 px-2 w-full">
+      <div className="ml-2 px-2 w-full relative">
         <DashRightbar />
       </div>
     </div>
