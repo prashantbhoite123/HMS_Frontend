@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { FaUserMd } from "react-icons/fa"
 import { MdEventNote, MdSupervisedUserCircle } from "react-icons/md"
 import { CardData } from "../DashboardComponents"
+import { ArrowUp } from "lucide-react"
 
 type Props = {
   CardData: CardData
@@ -26,9 +27,12 @@ const DashCards = ({ CardData, loading }: Props) => {
                 ? `0${CardData?.totalUser}`
                 : CardData?.totalUser}
             </div>
-            <div className="ml-7 font-semibold text-sm">
-              <span className="text-green-500 ">12%</span> More than previous
-              week
+            <div className="flex items-center gap-x-2 ml-7 font-semibold text-sm">
+              <span className="flex gap-x-1 items-center text-green-500 ">
+                <ArrowUp size={20} />
+                <span>{CardData.lastMonthUser}</span>
+              </span>
+              <span className="text-slate-400">Last Month</span>
             </div>
           </CardContent>
         </Card>
@@ -47,9 +51,12 @@ const DashCards = ({ CardData, loading }: Props) => {
                 ? `0${CardData?.totalAppoinment}`
                 : CardData?.totalAppoinment}
             </div>
-            <div className="ml-7 font-semibold text-sm">
-              <span className="text-green-500 ">12%</span> More than previous
-              week
+            <div className="flex items-center gap-x-2 ml-7 font-semibold text-sm">
+              <span className="flex gap-x-1 items-center text-green-500 ">
+                <ArrowUp size={20} />
+                <span>{CardData.lastMonthAppoinment}</span>
+              </span>
+              <span className="text-slate-400">Last Month</span>
             </div>
           </CardContent>
         </Card>

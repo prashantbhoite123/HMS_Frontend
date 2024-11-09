@@ -30,8 +30,8 @@ const DashRecentApp = ({ latestAppoinment, loading }: Props) => {
       <span className="flex items-center gap-x-2 text-[1.2rem] font-semibold ml-2 text-green-500">
         {/* <MdEventNote /> */}
         <span className="">
-          <span className="mr-2">{latestAppoinment.length}</span>
           <span>Latest Appoinment</span>
+          <span className="mr-2">{latestAppoinment.length}</span>
         </span>
       </span>
       <Table>
