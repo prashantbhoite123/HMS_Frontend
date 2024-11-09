@@ -1,13 +1,14 @@
-import { Appointment } from "@/components/Patient/AppinmetCard"
+import { Appointment } from "@/form/Patient/Appoinment"
+import { Appointment as apptype } from "@/components/Patient/AppinmetCard"
 import { BACKEND_API_URL } from "@/main"
 import { IAppointment } from "@/Types/appoinmentType"
+
 import { useMutation, useQuery, useQueryClient } from "react-query"
 import { toast } from "sonner"
 
-// Hook to create an appointment
 export const useMyAppoinment = (hospitalId: string) => {
   const createAppoinment = async (
-    appoinmentData: FormData
+    appoinmentData: Appointment
   ): Promise<IAppointment | undefined> => {
     const response = await fetch(
       `${BACKEND_API_URL}/api/appoinment/${hospitalId}`,
@@ -46,7 +47,6 @@ export const useMyAppoinment = (hospitalId: string) => {
   return { appoinment, isLoading }
 }
 
-// Hook to fetch all appointments
 export const useMyallAppoinment = () => {
   const getallAppoinment = async () => {
     const response = await fetch(
@@ -79,7 +79,6 @@ export const useMyallAppoinment = () => {
   return { allAppoinment, isLoading }
 }
 
-// Hook to delete an appointment with optimistic update
 export const useMydeleteApp = () => {
   const queryClient = useQueryClient() // Use a local queryClient instance
 
@@ -106,9 +105,9 @@ export const useMydeleteApp = () => {
       await queryClient.cancelQueries("allAppoinment")
 
       const previousAppointments =
-        queryClient.getQueryData<Appointment[]>("allAppoinment")
+        queryClient.getQueryData<apptype[]>("allAppoinment")
 
-      queryClient.setQueryData<Appointment[]>("allAppoinment", (old) =>
+      queryClient.setQueryData<apptype[]>("allAppoinment", (old) =>
         old ? old.filter((app) => app._id !== appId) : []
       )
 
@@ -184,9 +183,9 @@ export const useUpdateApp = (appId: string) => {
       await queryClient.cancelQueries("allAppoinment")
 
       const previousAppointments =
-        queryClient.getQueryData<Appointment[]>("allAppoinment")
+        queryClient.getQueryData<apptype[]>("allAppoinment")
 
-      queryClient.setQueryData<Appointment[]>("allAppoinment", (old) =>
+      queryClient.setQueryData<apptype[]>("allAppoinment", (old) =>
         old
           ? old.map((app) => (app._id === appId ? { ...app, ...newApp } : app))
           : []

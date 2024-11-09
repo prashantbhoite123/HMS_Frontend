@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { useState } from "react"
 
-// Define validation schema with Zod
 const formData = z.object({
   patientName: z.string().min(1, { message: "Patient name is required" }),
   doctorName: z.string().min(1, { message: "Doctor name is required" }),
