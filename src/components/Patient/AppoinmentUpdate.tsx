@@ -87,7 +87,7 @@ const AppoinmentUpdate = ({ appoinment }: Props) => {
     <FormProvider {...form}>
       <Dialog>
         <DialogTrigger>
-          <Button className="flex items-center bg-gradient-to-r from-blue-200 to-blue-300 hover:underline hover:from-blue-100 hover:to-purple-200 text-blue-700 font-semibold px-6 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105 space-x-3">
+          <Button className="flex items-center bg-gradient-to-r from-green-200 to-green-300 hover:underline hover:from-green-300 hover:to-green-400 text-green-700 font-semibold px-6 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105 space-x-3">
             <FaEdit className="text-2xl" />
           </Button>
         </DialogTrigger>

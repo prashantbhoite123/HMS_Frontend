@@ -21,8 +21,10 @@ const DashCards = ({ CardData, loading }: Props) => {
               <MdSupervisedUserCircle size={24} />
               <span className="text-[1.2rem] font-semibold ">Total Users</span>
             </div>
-            <div className="ml-7 text-lg font-semibold">
-              {CardData?.totalUser}
+            <div className="ml-7 text-[1.2rem] font-semibold">
+              {CardData?.totalUser < 10
+                ? `0${CardData?.totalUser}`
+                : CardData?.totalUser}
             </div>
             <div className="ml-7 font-semibold text-sm">
               <span className="text-green-500 ">12%</span> More than previous
@@ -41,7 +43,9 @@ const DashCards = ({ CardData, loading }: Props) => {
               </span>
             </div>
             <div className="ml-7 text-lg font-semibold">
-              {CardData?.totalAppoinment}
+              {CardData?.totalAppoinment < 10
+                ? `0${CardData?.totalAppoinment}`
+                : CardData?.totalAppoinment}
             </div>
             <div className="ml-7 font-semibold text-sm">
               <span className="text-green-500 ">12%</span> More than previous
@@ -61,7 +65,9 @@ const DashCards = ({ CardData, loading }: Props) => {
               </span>
             </div>
             <div className="ml-7 text-lg font-semibold">
-              {CardData?.totalDoctors}
+              {CardData?.totalDoctors < 10
+                ? `0${CardData?.totalDoctors}`
+                : CardData?.totalDoctors}
             </div>
             <div className="ml-7 font-semibold text-sm">
               <span className="text-green-500 ">12%</span> More than previous

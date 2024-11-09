@@ -5,6 +5,7 @@ import { IAppointment } from "@/Types/appoinmentType"
 
 import { useMutation, useQuery, useQueryClient } from "react-query"
 import { toast } from "sonner"
+import { AppointmentForm } from "@/components/Patient/AppoinmentUpdate"
 
 export const useMyAppoinment = (hospitalId: string) => {
   const createAppoinment = async (
@@ -156,7 +157,7 @@ export const useMydeleteApp = () => {
 export const useUpdateApp = (appId: string) => {
   const queryClient = useQueryClient()
 
-  const updateApp = async (updatedApp: FormData): Promise<Appointment> => {
+  const updateApp = async (updatedApp: AppointmentForm): Promise<apptype> => {
     const response = await fetch(
       `${BACKEND_API_URL}/api/manappoinemt/update/${appId}`,
       {
@@ -187,7 +188,15 @@ export const useUpdateApp = (appId: string) => {
 
       queryClient.setQueryData<apptype[]>("allAppoinment", (old) =>
         old
-          ? old.map((app) => (app._id === appId ? { ...app, ...newApp } : app))
+          ? old.map((app) =>
+              app._id === appId
+                ? ({
+                    ...app,
+                    ...newApp,
+                    appointmentDate: new Date(newApp.appointmentDate),
+                  } as apptype)
+                : app
+            )
           : []
       )
 

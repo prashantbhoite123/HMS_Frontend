@@ -1,4 +1,5 @@
 export type IAppointment = {
+  _id: string
   patientName: string
   hospitalId: string
   petientId: string
