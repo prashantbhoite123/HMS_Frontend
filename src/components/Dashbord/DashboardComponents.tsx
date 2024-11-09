@@ -3,12 +3,27 @@ import DashChart from "./DashItems/DashChart"
 import DashRecentApp from "./DashItems/DashRecentApp"
 import DashRightbar from "./DashItems/DashRightbar"
 
-const DashboardComponents = () => {
+export interface CardData {
+  totalDoctors: number
+  totalUser: number
+  totalAppoinment: number
+}
+
+interface TotalData {
+  CardData: CardData
+  latesAppoinments: Array<any>
+}
+
+type Props = {
+  dashData: TotalData
+  loading: boolean
+}
+const DashboardComponents = ({ dashData, loading }: Props) => {
   return (
     <div className="flex flex-col md:flex-row">
       <div className="flex flex-col gap-y-6">
         <div className="">
-          <DashCards />
+          <DashCards CardData={dashData?.CardData} loading={loading} />
         </div>
         <DashRecentApp />
         <DashChart />
