@@ -7,7 +7,6 @@ export interface CardData {
   totalDoctors: number
   totalUser: number
   totalAppoinment: number
-  lastMonthUser: number
   lastMonthAppoinment: number
 }
 
@@ -28,12 +27,12 @@ const DashboardComponents = ({ dashData, loading }: Props) => {
           <DashCards CardData={dashData?.CardData} loading={loading} />
         </div>
         <DashRecentApp
-          latestAppoinment={dashData.latesAppoinments}
+          latestAppoinment={dashData?.latesAppoinments}
           loading={loading}
         />
         <DashChart />
       </div>
-      <div className="ml-2 px-2 w-full relative">
+      <div className="ml-2  relative">
         <DashRightbar />
       </div>
     </div>

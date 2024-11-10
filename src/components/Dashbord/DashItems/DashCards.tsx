@@ -30,7 +30,7 @@ const DashCards = ({ CardData, loading }: Props) => {
             <div className="flex items-center gap-x-2 ml-7 font-semibold text-sm">
               <span className="flex gap-x-1 items-center text-green-500 ">
                 <ArrowUp size={20} />
-                <span>{CardData.lastMonthUser}</span>
+                <span>{CardData.lastMonthAppoinment}</span>
               </span>
               <span className="text-slate-400">Last Month</span>
             </div>
@@ -76,9 +76,12 @@ const DashCards = ({ CardData, loading }: Props) => {
                 ? `0${CardData?.totalDoctors}`
                 : CardData?.totalDoctors}
             </div>
-            <div className="ml-7 font-semibold text-sm">
-              <span className="text-green-500 ">12%</span> More than previous
-              week
+            <div className="flex items-center gap-x-2 ml-7 font-semibold text-sm">
+              <span className="flex gap-x-1 items-center text-green-500 ">
+                <ArrowUp size={20} />
+                <span>{CardData.lastMonthAppoinment}</span>
+              </span>
+              <span className="text-slate-400">Last Month</span>
             </div>
           </CardContent>
         </Card>

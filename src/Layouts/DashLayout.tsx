@@ -7,7 +7,7 @@ type Props = {
 
 const DashLayout = ({ children }: Props) => {
   return (
-    <div className="flex flex-col md:flex-row relative">
+    <div className="flex flex-col md:flex-row relative overflow-hidden">
       {/* Sidebar with sticky positioning */}
       <div className="flex bg-white shadow-xl shadow-slate-400 w-full md:w-64 p-2 md:sticky md:top-0 h-screen">
         <DashSidebar />
@@ -23,4 +23,3 @@ const DashLayout = ({ children }: Props) => {
 }
 
 export default DashLayout
-  

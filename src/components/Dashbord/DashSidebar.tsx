@@ -47,19 +47,7 @@ const DashSidebar = () => {
           </div>
 
           {/* Appointment Tab */}
-          <div
-            className={`flex items-center gap-x-3 p-2 rounded-md ${
-              activeTab === "/dashboard?tab=profile"
-                ? "bg-gray-500 text-white"
-                : ""
-            }`}
-            onClick={() => handleTabChange("/dashboard?tab=profile")}
-          >
-            <HiUser size="25" />
-            <Link to="/dashboard?tab=profile" className="font-semibold">
-              Profile
-            </Link>
-          </div>
+
           <div
             className={`flex items-center gap-x-3 p-2 rounded-md ${
               activeTab === "/dashboard?tab=dashappoinment"
@@ -88,7 +76,19 @@ const DashSidebar = () => {
               Doctors
             </Link>
           </div>
-
+          <div
+            className={`flex items-center gap-x-3 p-2 rounded-md ${
+              activeTab === "/dashboard?tab=profile"
+                ? "bg-gray-500 text-white"
+                : ""
+            }`}
+            onClick={() => handleTabChange("/dashboard?tab=profile")}
+          >
+            <HiUser size="25" />
+            <Link to="/dashboard?tab=profile" className="font-semibold">
+              Profile
+            </Link>
+          </div>
           {/* Logout */}
           <div
             className="flex items-center gap-x-3 p-2 rounded-md hover:cursor-pointer"
