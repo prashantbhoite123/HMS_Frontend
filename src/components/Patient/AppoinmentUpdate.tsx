@@ -33,7 +33,10 @@ type Appointment = {
   patientName: string
   doctorName: string
   appointmentDate: Date
-  hospitalId: string
+  hospitalId: {
+    _id: string
+    hospitalName: string
+  }
   appTime: string
   reason: string
   status: "Pending" | "Completed" | "Cancelled"
@@ -48,7 +51,7 @@ const AppoinmentUpdate = ({ appoinment }: Props) => {
 
   console.log(isLoading)
   const matchingHospital = allHospitalData?.find(
-    (hospital: IHospital) => hospital._id === appoinment.hospitalId
+    (hospital: IHospital) => hospital._id === appoinment?.hospitalId?._id
   )
 
   const doctors = matchingHospital?.doctors || []

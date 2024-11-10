@@ -38,7 +38,7 @@ const SearchApp = ({ onSubmit, searchQuery }: Props) => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div
-            className={`flex items-center justify-between p-1 border rounded-full  border-gray-500 ${
+            className={`flex items-center justify-between pl-3 p-1 border rounded-full  border-gray-500 ${
               form.formState.errors.searchQuery && "border-red-500"
             }`}
           >
@@ -58,7 +58,7 @@ const SearchApp = ({ onSubmit, searchQuery }: Props) => {
                         border: "none",
                       }}
                       placeholder="Search appoinment"
-                      className="border-none shadow-none text-sm font-semibold focus-visible:right-0"
+                      className="border-none shadow-none  text-sm font-semibold focus-visible:right-0"
                     />
                   </FormControl>
                 </FormItem>

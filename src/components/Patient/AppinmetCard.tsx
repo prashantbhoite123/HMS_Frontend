@@ -1,4 +1,4 @@
-import { TimerIcon, User } from "lucide-react"
+import { Hospital, TimerIcon, User } from "lucide-react"
 
 import { Card, CardContent } from "../ui/card"
 import { MdDateRange, MdDelete, MdInfoOutline } from "react-icons/md"
@@ -17,7 +17,10 @@ export type Appointment = {
   appointmentDate: Date
   apptNumber: string
   appTime: string // e.g., "13:00 - 14:00"
-  hospitalId: string
+  hospitalId: {
+    _id: string
+    hospitalName: string
+  }
   reason: string
   status: "Pending" | "Completed" | "Cancelled"
 }
@@ -41,8 +44,11 @@ const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
   const handleCancel = () => setDialogopen(false)
 
   const formatAppointmentTime = (timeSlot?: string): string => {
-    if (!timeSlot) return "Time not available" // Handle undefined timeSlot
+    if (!timeSlot) return "Time not available"
+
     const [start, end] = timeSlot.split(" - ")
+
+    if (!start || !end) return "Invalid time format"
 
     const formatTime = (time: string) => {
       const [hour, minute] = time.split(":")
@@ -58,20 +64,71 @@ const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
   return (
     <div className="flex flex-col p-2 md:p-6 gap-6 w-full md:w-[50vw]">
       {appoinments.length > 0 ? (
-        appoinments.map((appoinment: Appointment, index: number) => (
+        appoinments.map((appoinment: Appointment) => (
           <Card
-            key={index}
+            key={appoinment._id}
             className="bg-gradient-to-r from-gray-50 to-gray-100 shadow-lg rounded-lg hover:shadow-2xl transition-shadow duration-200 border border-gray-200"
           >
-            <CardContent className="p-6">
+            <CardContent className="p-6 relative">
+              <div className="flex justify-end gap-3 absolute top-4 right-4">
+                <AppoinmentUpdate appoinment={appoinment} />
+                <Dialog open={dialogopen} onOpenChange={setDialogopen}>
+                  <DialogTrigger>
+                    <Button
+                      variant="link"
+                      className="bg-red-100 hover:bg-red-200 text-red-700 font-medium px-3 py-2 rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:scale-105"
+                    >
+                      <MdDelete className="text-2xl" />
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="flex flex-col gap-y-5 bg-white p-5 rounded-md shadow-lg">
+                    <DialogTitle>
+                      <h1 className="text-gray-900 text-lg font-semibold">
+                        Are you sure you want to delete this appointment?
+                      </h1>
+                    </DialogTitle>
+                    <div className="flex justify-end gap-4">
+                      <Button
+                        variant="outline"
+                        className="bg-white text-gray-700"
+                        onClick={handleCancel}
+                      >
+                        Cancel
+                      </Button>
+                      {loading ? (
+                        <LoadingBtn />
+                      ) : (
+                        <Button
+                          className="bg-red-600 text-white"
+                          onClick={() => handleDelete(appoinment._id)}
+                        >
+                          Delete
+                        </Button>
+                      )}
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </div>
+
+              {/* Main content of the card */}
               <div className="grid grid-cols-1 md:grid-cols-[3fr_1fr] gap-6 items-center">
-                <div className="flex flex-col gap-y-4">
+                <div className="flex flex-col gap-y-3">
+                  {/* Card details */}
+                  <div className="flex items-center gap-3 text-gray-800">
+                    <Hospital size={17} className="text-green-500" />
+                    <span className="text-lg font-semibold">Hospital:</span>
+                    <span className="text-md ">
+                      <span className=" text-green-500 font-bold py-1 px-2 ">
+                        {appoinment?.hospitalId?.hospitalName}
+                      </span>
+                    </span>
+                  </div>
                   <div className="flex items-center gap-3 text-gray-800">
                     <FaKey size={17} className="text-green-500" />
                     <span className="text-lg font-semibold">Code :</span>
                     <span className="text-md ">
                       <span className="bg-green-200 text-green-500 font-bold py-1 px-2 rounded-md shadow-md">
-                        {appoinment.apptNumber}
+                        {appoinment?.apptNumber}
                       </span>
                     </span>
                   </div>
@@ -79,21 +136,21 @@ const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
                     <User size={20} className="text-blue-500" />
                     <span className="text-lg font-semibold">Patient:</span>
                     <span className="text-md font-medium">
-                      {appoinment.patientName}
+                      {appoinment?.patientName}
                     </span>
                   </div>
                   <div className="flex items-center gap-3 text-gray-800">
                     <FaUserMd size={20} className="text-green-500" />
                     <span className="text-lg font-semibold">Doctor:</span>
                     <span className="text-md font-medium">
-                      {appoinment.doctorName}
+                      {appoinment?.doctorName}
                     </span>
                   </div>
                   <div className="flex items-center gap-3 text-gray-800">
                     <MdDateRange size={20} className="text-red-500" />
                     <span className="text-lg font-semibold">Date:</span>
                     <span className="font-medium text-md">
-                      {new Date(appoinment.appointmentDate).toLocaleDateString(
+                      {new Date(appoinment?.appointmentDate).toLocaleDateString(
                         "en-GB"
                       )}
                     </span>
@@ -102,14 +159,14 @@ const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
                     <TimerIcon size={20} className="text-green-500" />
                     <span className="text-lg font-semibold">Time:</span>
                     <span className="text-md font-medium">
-                      {formatAppointmentTime(appoinment.appTime)}
+                      {formatAppointmentTime(appoinment?.appTime)}
                     </span>
                   </div>
                   <div className="flex items-center gap-3 text-gray-800">
                     <MdInfoOutline size={20} className="text-blue-400" />
                     <span className="text-lg font-semibold">Reason:</span>
                     <span className="font-medium text-md">
-                      {appoinment.reason}
+                      {appoinment?.reason}
                     </span>
                   </div>
                   <div className="flex items-center gap-3">
@@ -142,45 +199,6 @@ const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
                       className="w-full"
                     />
                   </div>
-                </div>
-                <div className="flex justify-between md:justify-end gap-3 mt-3 md:mt-0">
-                  <AppoinmentUpdate appoinment={appoinment} />
-                  <Dialog open={dialogopen} onOpenChange={setDialogopen}>
-                    <DialogTrigger>
-                      <Button
-                        variant="link"
-                        className="bg-red-100 hover:bg-red-200 text-red-700 font-medium px-5 py-2 rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:scale-105"
-                      >
-                        <MdDelete className="text-2xl" />
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="flex flex-col gap-y-5 bg-white p-5 rounded-md shadow-lg">
-                      <DialogTitle>
-                        <h1 className="text-gray-900 text-lg font-semibold">
-                          Are you sure you want to delete this appointment?
-                        </h1>
-                      </DialogTitle>
-                      <div className="flex justify-end gap-4">
-                        <Button
-                          variant="outline"
-                          className="bg-white text-gray-700"
-                          onClick={handleCancel}
-                        >
-                          Cancel
-                        </Button>
-                        {loading ? (
-                          <LoadingBtn />
-                        ) : (
-                          <Button
-                            className="bg-red-600 text-white"
-                            onClick={() => handleDelete(appoinment._id)}
-                          >
-                            Delete
-                          </Button>
-                        )}
-                      </div>
-                    </DialogContent>
-                  </Dialog>
                 </div>
               </div>
             </CardContent>
