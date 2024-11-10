@@ -1,18 +1,20 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { FaUserMd } from "react-icons/fa"
 import { MdEventNote, MdSupervisedUserCircle } from "react-icons/md"
-import { CardData } from "../DashboardComponents"
+
 import { ArrowUp } from "lucide-react"
 
+interface CardData {
+  totalDoctors: number
+  totalUser: number
+  totalAppoinment: number
+  lastMonthAppoinment: number
+}
 type Props = {
   CardData: CardData
-  loading: boolean
 }
 
-const DashCards = ({ CardData, loading }: Props) => {
-  if (loading) {
-    return <h2>Loading....</h2>
-  }
+const DashCards = ({ CardData }: Props) => {
   return (
     <div className="flex flex-col md:flex-row gap-3">
       <div className="w-full md:w-[20vw]">

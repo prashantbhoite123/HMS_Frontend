@@ -1,4 +1,3 @@
-
 import {
   Table,
   TableBody,
@@ -7,26 +6,29 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+
 // import { MdEventNote } from "react-icons/md"
 
 interface latestApp {
   _id: string
   patientName: string
-  doctorName: string
-  appointmentDate: Date
-  apptNumber: string
-  appTime: string
+  petientId: string
   hospitalId: string
+  doctorName: string
+  appointmentDate: string // ISO string format (2024-11-10T00:00:00.000Z)
+  appTime: string
   reason: string
-  status: "Pending" | "Completed" | "Cancelled"
+  apptNumber: string
+  status: string
+  __v: number
+  createdAt: string
 }
 
 type Props = {
-  latestAppoinment: latestApp[] | null // Allow for null or undefined
-  loading: boolean
+  latestAppoinment: latestApp[] | null
 }
 
-const DashRecentApp = ({ latestAppoinment, loading }: Props) => {
+const DashRecentApp = ({ latestAppoinment }: Props) => {
   // Make sure latestAppoinment is correctly accessed
   if (!latestAppoinment || latestAppoinment.length === 0) {
     return (
@@ -60,13 +62,7 @@ const DashRecentApp = ({ latestAppoinment, loading }: Props) => {
         </TableHeader>
 
         <TableBody>
-          {loading ? (
-            <TableRow>
-              <TableCell colSpan={5} className="py-4 text-center text-gray-500">
-                Loading...
-              </TableCell>
-            </TableRow>
-          ) : latestAppoinment.length === 0 ? (
+          { latestAppoinment.length === 0 ? (
             <TableRow>
               <TableCell colSpan={5} className="py-4 text-center text-gray-500">
                 No Appointments Found

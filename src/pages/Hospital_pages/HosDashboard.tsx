@@ -17,12 +17,16 @@ const HosDashboard = () => {
       setTab(tabFormUrl)
     }
   }, [location.search])
+
+  if (isLoading) {
+    return <h1>Loading...</h1>
+  }
   return (
     <div className="p-4">
-      {tab === "dash" && (
-        <DashboardComponents dashData={dashdata} loading={isLoading} />
+      {tab === "dash" && <DashboardComponents dashData={dashdata} />}
+      {tab === "dashappoinment" && (
+        <DashAppoinment allAppoinment={dashdata?.allAppoinment} />
       )}
-      {tab === "dashappoinment" && <DashAppoinment />}
       {tab === "dashdoctors" && <DashDoctors />}
       {tab === "profile" && <DashProfile />}
     </div>

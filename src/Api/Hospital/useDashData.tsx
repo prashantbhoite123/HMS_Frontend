@@ -14,7 +14,7 @@ export const useMyDashData = () => {
 
     const data = await response.json()
 
-    console.log("this is dash data")
+    console.log("this is dash data", data)
     return data
   }
 
