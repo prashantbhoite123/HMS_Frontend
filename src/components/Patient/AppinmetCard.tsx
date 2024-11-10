@@ -43,7 +43,7 @@ const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
 
   const handleCancel = () => setDialogopen(false)
 
-  const formatAppointmentTime = (timeSlot?: string): string => {
+   const formatAppointmentTime = (timeSlot?: string): string => {
     if (!timeSlot) return "Time not available"
 
     const [start, end] = timeSlot.split(" - ")

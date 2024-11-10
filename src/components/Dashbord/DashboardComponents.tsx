@@ -16,20 +16,20 @@ interface Doctor {
   workingHours: string
 }
 
-// Define types for the appointment data
+
 interface Appointment {
   _id: ObjectId
   patientName: string
   petientId: ObjectId
   hospitalId: ObjectId
   doctorName: string
-  appointmentDate: string // ISO string format (2024-11-10T00:00:00.000Z)
+  appointmentDate: string 
   appTime: string
   reason: string
   apptNumber: string
   status: string
   __v: number
-  createdAt: string // ISO string format
+  createdAt: string 
 }
 
 // Define the structure of the data
@@ -49,23 +49,19 @@ interface DashboardResponse {
 
 type Props = {
   dashData: DashboardResponse
-  
 }
 const DashboardComponents = ({ dashData }: Props) => {
   return (
     <div className="flex flex-col md:flex-row">
       <div className="flex flex-col gap-y-6">
         <div className="">
-          <DashCards CardData={dashData?.CardData}  />
+          <DashCards CardData={dashData?.CardData} />
         </div>
-        <DashRecentApp
-          latestAppoinment={dashData?.latesAppoinments}
-          
-        />
+        <DashRecentApp latestAppoinment={dashData?.latesAppoinments} />
         <DashChart />
       </div>
       <div className="ml-2  relative">
-        <DashRightbar />
+        <DashRightbar todayApp={dashData?.todayAppointments} />
       </div>
     </div>
   )
