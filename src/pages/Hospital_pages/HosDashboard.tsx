@@ -27,7 +27,7 @@ const HosDashboard = () => {
       {tab === "dashappoinment" && (
         <DashAppoinment allAppoinment={dashdata?.allAppoinment} />
       )}
-      {tab === "dashdoctors" && <DashDoctors />}
+      {tab === "dashdoctors" && <DashDoctors doctors={dashdata?.doctors} />}
       {tab === "profile" && <DashProfile />}
     </div>
   )
