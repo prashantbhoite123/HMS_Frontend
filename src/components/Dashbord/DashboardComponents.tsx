@@ -16,20 +16,19 @@ interface Doctor {
   workingHours: string
 }
 
-
 interface Appointment {
   _id: ObjectId
   patientName: string
   petientId: ObjectId
   hospitalId: ObjectId
   doctorName: string
-  appointmentDate: string 
+  appointmentDate: string
   appTime: string
   reason: string
   apptNumber: string
   status: string
   __v: number
-  createdAt: string 
+  createdAt: string
 }
 
 // Define the structure of the data
@@ -60,7 +59,7 @@ const DashboardComponents = ({ dashData }: Props) => {
         <DashRecentApp latestAppoinment={dashData?.latesAppoinments} />
         <DashChart />
       </div>
-      <div className="ml-2  relative">
+      <div className="relative">
         <DashRightbar todayApp={dashData?.todayAppointments} />
       </div>
     </div>

@@ -33,7 +33,7 @@ const DashRecentApp = ({ latestAppoinment }: Props) => {
   if (!latestAppoinment || latestAppoinment.length === 0) {
     return (
       <div className="w-full p-4 shadow-lg rounded-lg bg-white">
-        <span className="flex items-center gap-x-2 text-2xl font-semibold ml-4 text-green-600">
+        <span className="flex items-center gap-x-2 text-2xl font-semibold ml-4 text-red-600">
           {/* <MdEventNote /> */}
           <span>No appointments available</span>
         </span>

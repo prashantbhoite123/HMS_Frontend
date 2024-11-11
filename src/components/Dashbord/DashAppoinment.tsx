@@ -30,6 +30,16 @@ type Props = {
 }
 
 function DashAppoinment({ allAppoinment }: Props) {
+  if (!allAppoinment || allAppoinment.length === 0) {
+    return (
+      <div className="w-full p-4 shadow-lg rounded-lg bg-white">
+        <span className="flex items-center gap-x-2 text-2xl font-semibold ml-4 text-red-600">
+          {/* <MdEventNote /> */}
+          <span>No appointments available</span>
+        </span>
+      </div>
+    )
+  }
   return (
     <div className=" shadow-lg p-2 md:p-4 shadow-slate-400 rounded-xl">
       <h1 className="text-green-500 font-semibold text-xl mb-4 flex items-center gap-x-2 justify-center">
@@ -38,7 +48,7 @@ function DashAppoinment({ allAppoinment }: Props) {
       </h1>
       <div className="mt-4">
         <Table className="w-full bg-white shadow-sm rounded-lg overflow-hidden">
-          <TableHeader className="">
+          <TableHeader>
             <TableRow className="text-[1.1rem]">
               <TableHead className="py-3 px-3 font-semibold text-green-500">
                 Patient Name
