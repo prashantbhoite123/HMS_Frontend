@@ -141,7 +141,7 @@ const DashRightbar = ({ todayApp }: Props) => {
     <div className="flex flex-col h-full  gap-y-6 mt-5 md:mt-0 md:fixed md:top-36 md:right-5 md:h-screen">
       {/* Upcoming Appointments Card */}
       <div>
-        <Card className="w-[15rem] max-w-full">
+        <Card borderRadius="none" className="w-[15rem] max-w-full">
           <CardContent className="flex flex-col gap-y-2 p-4">
             <h4 className="flex items-center gap-x-2 text-lg font-semibold text-green-500">
               <BsRocketTakeoffFill />
@@ -171,7 +171,7 @@ const DashRightbar = ({ todayApp }: Props) => {
 
       {/* Hospital Notifications Card */}
       <div>
-        <Card className="w-[15rem] max-w-full">
+        <Card borderRadius="none" className="w-[15rem] max-w-full">
           <CardContent className="flex flex-col gap-y-2 p-4">
             <h3 className="flex items-center gap-x-2 text-lg font-semibold text-green-500">
               <MdNotificationAdd />

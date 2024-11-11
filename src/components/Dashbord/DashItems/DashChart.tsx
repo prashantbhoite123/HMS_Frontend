@@ -41,7 +41,7 @@ const chartConfig = {
 const DashChart = () => {
   return (
     <div className="">
-      <Card>
+      <Card borderRadius="10px">
         <CardHeader>
           <h2 className="text-lg font-semibold">Week Chart</h2>
           <CardTitle>Line Chart - Multiple</CardTitle>

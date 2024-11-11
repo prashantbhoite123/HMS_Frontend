@@ -4,6 +4,7 @@ import {
   useMydeleteApp,
 } from "@/Api/patient/useMyAppoinment"
 import PaginationSelector from "@/components/Hospital/PaginationSelector"
+import Loader from "@/components/Loader"
 import AppinmetCard from "@/components/Patient/AppinmetCard"
 import SearchApp, { appSearch } from "@/components/Patient/SearchApp"
 import { useState } from "react"
@@ -35,12 +36,16 @@ const MyAppoinment = () => {
   const { result, isLoading: searchLoding } = useMysearchAppoinment(searchState)
   const { allAppoinment, isLoading } = useMyallAppoinment()
   const { delApp, isLoading: delAppLoading } = useMydeleteApp()
-  if (isLoading || searchLoding) {
-    return <div className="text-lg text-black font-semibold">Loading...</div>
-  }
 
   const searchAndallApp = result ? result.data : allAppoinment
 
+  if (searchLoding || isLoading) {
+    return (
+      <div>
+        <Loader />
+      </div>
+    )
+  }
   return (
     <div className="flex flex-col gap-4 items-center p-4 w-full">
       <div className="flex flex-col mb-7 md:flex-row justify-evenly flex-wrap items-center h-[20vh] md:h-[0vh] p-7 w-full">

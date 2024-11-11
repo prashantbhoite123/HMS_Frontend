@@ -23,6 +23,16 @@ type Props = {
 }
 
 const DashDoctors = ({ doctors }: Props) => {
+  if (!doctors || doctors.length === 0) {
+    return (
+      <div className="w-full p-4 shadow-lg rounded-lg bg-white">
+        <span className="flex items-center gap-x-2 text-2xl font-semibold ml-4 text-red-600">
+          {/* <MdEventNote /> */}
+          <span>No doctor available available</span>
+        </span>
+      </div>
+    )
+  }
   return (
     <div className=" p-4 shadow-lg bg-white rounded-xl">
       <h1 className="text-green-500 font-semibold text-xl mb-4 flex items-center gap-x-2 justify-center">

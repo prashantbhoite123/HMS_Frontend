@@ -18,7 +18,7 @@ const DashCards = ({ CardData }: Props) => {
   return (
     <div className="flex flex-col md:flex-row gap-3">
       <div className="w-full md:w-[20vw]">
-        <Card>
+        <Card borderRadius="none">
           <CardContent className="flex flex-col gap-y-2 p-4 shadow-xl rounded-none">
             <div className="flex items-center gap-x-2 text-green-500">
               <MdSupervisedUserCircle size={24} />
@@ -40,7 +40,7 @@ const DashCards = ({ CardData }: Props) => {
         </Card>
       </div>
       <div className="w-full md:w-[20vw]">
-        <Card>
+        <Card borderRadius="none">
           <CardContent className="flex flex-col gap-y-2 p-4 shadow-xl rounded-none">
             <div className="flex items-center gap-x-2 text-green-500">
               <MdEventNote size={24} />
@@ -64,7 +64,7 @@ const DashCards = ({ CardData }: Props) => {
         </Card>
       </div>
       <div className="w-full md:w-[20vw]">
-        <Card>
+        <Card borderRadius="none">
           <CardContent className="flex flex-col gap-y-2 p-4 shadow-xl rounded-none">
             <div className="flex items-center gap-x-2 text-green-500">
               <FaUserMd size={24} />
