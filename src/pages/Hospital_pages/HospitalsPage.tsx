@@ -7,6 +7,7 @@ import PaginationSelector from "@/components/Hospital/PaginationSelector"
 import SearchBar, { SearchForm } from "@/components/Hospital/SearchBar"
 import SearchDetails from "@/components/Hospital/SearchDetails"
 import SortByOptions from "@/components/Hospital/SortByOptions"
+import Loader from "@/components/Loader"
 
 import { IHospital } from "@/Types/hospital"
 import { useState } from "react"
@@ -66,8 +67,12 @@ const HospitalsPage = () => {
       ? result.data
       : allHospitalData
 
-  if (isLoading || searchLoading) {
-    return <div className="text-lg text-black font-semibold">Loading...</div>
+  if (isLoading) {
+    return (
+      <div className="text-lg text-black font-semibold">
+        <Loader />
+      </div>
+    )
   }
   return (
     <div className="container mx-auto p-5">
@@ -83,30 +88,36 @@ const HospitalsPage = () => {
       </div>
 
       {/* Main Content */}
-      <div className="grid grid-cols-1 md:grid-cols-[3fr_1fr] gap-6">
+
+      {searchLoading ? (
         <div>
-          {displayHospitalData?.map((hospital: IHospital, index: number) => (
-            <Link to={`/detail/${hospital._id}`} key={index}>
-              <HospitalsCard
-                Hospitals={hospital}
-                loading={isLoading || searchLoading}
-              />
-            </Link>
-          ))}
+          <Loader />
         </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-[3fr_1fr] gap-6">
+          <div>
+            {displayHospitalData?.map((hospital: IHospital, index: number) => (
+              <Link to={`/detail/${hospital._id}`} key={index}>
+                <HospitalsCard
+                  Hospitals={hospital}
+                  loading={isLoading || searchLoading}
+                />
+              </Link>
+            ))}
+          </div>
 
-        <div className=" p-4 rounded">
-          <SearchDetails
-            isExpanded={isExpanded}
-            onExpandedClick={() =>
-              setisExpanded((prevIsExpanded) => !prevIsExpanded)
-            }
-            selectedDept={searchState.selectedDept}
-            onChange={handleDeptChange} // Updated function name
-          />
+          <div className=" p-4 rounded">
+            <SearchDetails
+              isExpanded={isExpanded}
+              onExpandedClick={() =>
+                setisExpanded((prevIsExpanded) => !prevIsExpanded)
+              }
+              selectedDept={searchState.selectedDept}
+              onChange={handleDeptChange} // Updated function name
+            />
+          </div>
         </div>
-      </div>
-
+      )}
       {/* Bottom: Pagination */}
       <div className="flex justify-center mt-8">
         <PaginationSelector

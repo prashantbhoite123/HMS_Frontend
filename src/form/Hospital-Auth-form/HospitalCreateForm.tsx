@@ -26,7 +26,7 @@ const doctorSchema = z.object({
     .refine(
       (value) => {
         const expYear = parseInt(value)
-        return expYear < 100 // Change this logic based on your requirement
+        return expYear < 100
       },
       {
         message: "Mela nahi ka bhaday ajun",
@@ -42,7 +42,7 @@ const doctorSchema = z.object({
     .refine(
       (value) => {
         const hour = parseInt(value, 10)
-        return hour >= 0 && hour <= 24 // Ensure hour is between 0 and 24
+        return hour >= 0 && hour <= 24
       },
       {
         message: "Working hours must be between 0 and 24.",
@@ -75,7 +75,7 @@ const formSchema = z.object({
     .string()
     .trim()
     .refine((value) => !isNaN(Date.parse(value)), {
-      message: "Established date must be a valid date",
+      message: "Established date must be a valid date", 
     }),
   doctors: z.array(doctorSchema),
   totalBeds: z

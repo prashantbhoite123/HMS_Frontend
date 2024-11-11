@@ -17,15 +17,16 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
+import { useEffect, useState } from "react"
 
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-]
+// const chartData = [
+//   { month: "January", desktop: 186, mobile: 80 },
+//   { month: "February", desktop: 305, mobile: 200 },
+//   { month: "March", desktop: 237, mobile: 120 },
+//   { month: "April", desktop: 73, mobile: 190 },
+//   { month: "May", desktop: 209, mobile: 130 },
+//   { month: "June", desktop: 214, mobile: 140 },
+// ]
 
 const chartConfig = {
   desktop: {
@@ -38,7 +39,31 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-const DashChart = () => {
+type Props = {
+  chartData: { count: number; month: string | null }[]
+}
+
+type ChartDataItem = {
+  month: string
+  desktop: number
+  mobile: number
+}
+const DashChart = ({ chartData }: Props) => {
+  const [formattedData, setFormattedData] = useState<ChartDataItem[]>([])
+
+  useEffect(() => {
+    const transformData = () => {
+      const data = chartData.map((item, index) => ({
+        month: item.month || `Month ${index + 1}`, // Handle null month values
+        desktop: item.count,
+        mobile: item.count * 0.8, // Example for a mobile version
+      }))
+      setFormattedData(data)
+    }
+
+    transformData()
+  }, [chartData])
+
   return (
     <div className="">
       <Card borderRadius="10px">
@@ -50,7 +75,7 @@ const DashChart = () => {
         <CardContent>
           <ChartContainer config={chartConfig}>
             <LineChart
-              data={chartData}
+              data={formattedData}
               margin={{
                 left: 12,
                 right: 12,

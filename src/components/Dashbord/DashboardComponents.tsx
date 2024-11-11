@@ -57,7 +57,7 @@ const DashboardComponents = ({ dashData }: Props) => {
           <DashCards CardData={dashData?.CardData} />
         </div>
         <DashRecentApp latestAppoinment={dashData?.latesAppoinments} />
-        <DashChart />
+        <DashChart chartData={dashData?.chartData} />
       </div>
       <div className="relative">
         <DashRightbar todayApp={dashData?.todayAppointments} />

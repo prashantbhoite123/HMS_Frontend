@@ -138,7 +138,7 @@ const DashRightbar = ({ todayApp }: Props) => {
   }
 
   return (
-    <div className="flex flex-col h-full  gap-y-6 mt-5 md:mt-0 md:fixed md:top-36 md:right-5 md:h-screen">
+    <div className="flex flex-col h-full  gap-y-6 mt-5 md:mt-0 md:sticky md:top-36 md:right-5 md:h-screen">
       {/* Upcoming Appointments Card */}
       <div>
         <Card borderRadius="none" className="w-[15rem] max-w-full">
