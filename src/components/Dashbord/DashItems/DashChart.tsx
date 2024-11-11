@@ -19,15 +19,6 @@ import {
 } from "@/components/ui/chart"
 import { useEffect, useState } from "react"
 
-// const chartData = [
-//   { month: "January", desktop: 186, mobile: 80 },
-//   { month: "February", desktop: 305, mobile: 200 },
-//   { month: "March", desktop: 237, mobile: 120 },
-//   { month: "April", desktop: 73, mobile: 190 },
-//   { month: "May", desktop: 209, mobile: 130 },
-//   { month: "June", desktop: 214, mobile: 140 },
-// ]
-
 const chartConfig = {
   desktop: {
     label: "Appoinments",
@@ -48,15 +39,16 @@ type ChartDataItem = {
   desktop: number
   mobile: number
 }
+const monthNames = ["January", "February", "March", "April", "May", "June"]
 const DashChart = ({ chartData }: Props) => {
   const [formattedData, setFormattedData] = useState<ChartDataItem[]>([])
-
+  console.log(formattedData)
   useEffect(() => {
     const transformData = () => {
       const data = chartData.map((item, index) => ({
-        month: item.month || `Month ${index + 1}`, // Handle null month values
-        desktop: item.count,
-        mobile: item.count * 0.8, // Example for a mobile version
+        month: monthNames[index] || `Month ${index + 1}`,
+        desktop: Math.round(item.count),
+        mobile: Math.round(item.count * 0.8),
       }))
       setFormattedData(data)
     }
