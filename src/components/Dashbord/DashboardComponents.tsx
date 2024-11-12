@@ -34,8 +34,8 @@ interface Appointment {
 // Define the structure of the data
 interface DashboardResponse {
   CardData: {
-    totalDoctors: number
-    totalUser: number
+    completeAppoinments: number
+    cancelAppoinments: number
     pendingAppoinments: number
     lastMonthAppoinment: number
   }
