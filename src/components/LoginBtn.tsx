@@ -19,7 +19,7 @@ const LoginBtn = () => {
         <DialogTrigger>Sign-up</DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle className="text-center font-semibold">
+            <DialogTitle className="text-center font-semibold text-green-500">
               Select your categoary
             </DialogTitle>
           </DialogHeader>

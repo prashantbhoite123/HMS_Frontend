@@ -9,8 +9,8 @@ import Home from "./pages/Common_Pages/Home"
 import Layouts from "./Layouts/Layouts"
 import About from "./pages/Common_Pages/About"
 
-import SignUpHos from "./pages/SignUpHos"
-import SignIn from "./pages/SignIn"
+import SignUpHos from "./pages/Common_Pages/SignUpHos"
+import SignIn from "./pages/Common_Pages/SignIn"
 import ScrollToTop from "./auth/ScrollToTop"
 
 import HospitalCreate from "./pages/Hospital_pages/HospitalCreate"

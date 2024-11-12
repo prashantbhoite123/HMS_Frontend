@@ -46,12 +46,18 @@ const Header = () => {
             </Button>
           </Link>
         ) : (
+          ""
+        )}
+
+        {currentUser?.role === "hospital" ? (
           <Link to="/dashboard?tab=dash">
             <Button className="flex items-center gap-2 text-lg font-semibold bg-gradient-to-r from-red-500 to-pink-400 text-white px-6 py-2 rounded-md transition-transform duration-300 hover:scale-105 hover:underline shadow-md">
               <Hospital className="text-xl" />
               <span>Dashboard</span>
             </Button>
           </Link>
+        ) : (
+          ""
         )}
       </div>
 
