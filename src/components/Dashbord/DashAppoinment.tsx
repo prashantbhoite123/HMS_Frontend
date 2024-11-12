@@ -1,5 +1,4 @@
-import { FcCancel } from "react-icons/fc"
-import { Button } from "../ui/button"
+
 import {
   Table,
   TableBody,
@@ -51,6 +50,9 @@ function DashAppoinment({ allAppoinment }: Props) {
           <TableHeader>
             <TableRow className="text-[1.1rem]">
               <TableHead className="py-3 px-3 font-semibold text-green-500">
+                #
+              </TableHead>
+              <TableHead className="py-3 px-3 font-semibold text-green-500">
                 Patient Name
               </TableHead>
               <TableHead className="py-3 px-9 font-semibold text-green-500">
@@ -68,23 +70,21 @@ function DashAppoinment({ allAppoinment }: Props) {
               <TableHead className="py-3 px-3 font-semibold text-green-500">
                 Status
               </TableHead>
-              <TableHead className="py-3 px-3 font-semibold text-green-500">
-                Reason
-              </TableHead>
-              <TableHead className="py-3 px-3 font-semibold text-green-500">
-                Cancel
-              </TableHead>
+
               <TableHead className="py-3 px-3 font-semibold text-green-500">
                 Update
               </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {allAppoinment?.map((allApp) => (
+            {allAppoinment?.map((allApp, index) => (
               <TableRow
                 key={allApp._id}
                 className="transition-all duration-300 hover:bg-gray-100 border-none font-semibold hover:shadow-md hover:rounded-md"
               >
+                <TableCell className="py-3 px-2 font-semibold">
+                  {index + 1}
+                </TableCell>
                 <TableCell className="py-3 px-2 font-semibold">
                   {allApp?.patientName}
                 </TableCell>
@@ -113,15 +113,7 @@ function DashAppoinment({ allAppoinment }: Props) {
                     {allApp?.status}
                   </span>
                 </TableCell>
-                <TableCell className="py-3 px-2 line-clamp-2">
-                  {allApp?.reason}
-                </TableCell>
 
-                <TableCell className="py-3 px-2">
-                  <Button className="bg-red-100 hover:bg-red-200 text-red-700 font-medium px-3 py-2 rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:scale-105">
-                    <FcCancel />
-                  </Button>
-                </TableCell>
                 <TableCell className="py-3 px-6">
                   {/* <Button className="bg-blue-100 hover:bg-blue-200 text-blue-700 font-medium px-3 py-2 rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:scale-105">
                     Update

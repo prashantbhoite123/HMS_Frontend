@@ -7,7 +7,7 @@ import { ArrowUp } from "lucide-react"
 interface CardData {
   totalDoctors: number
   totalUser: number
-  totalAppoinment: number
+  pendingAppoinments: number
   lastMonthAppoinment: number
 }
 type Props = {
@@ -45,13 +45,13 @@ const DashCards = ({ CardData }: Props) => {
             <div className="flex items-center gap-x-2 text-green-500">
               <MdEventNote size={24} />
               <span className="text-[1.2rem] font-semibold ">
-                Total Appoinment
+                Pending Appoinment
               </span>
             </div>
             <div className="ml-7 text-lg font-semibold">
-              {CardData?.totalAppoinment < 10
-                ? `0${CardData?.totalAppoinment}`
-                : CardData?.totalAppoinment}
+              {CardData?.pendingAppoinments < 10
+                ? `0${CardData?.pendingAppoinments}`
+                : CardData?.pendingAppoinments}
             </div>
             <div className="flex items-center gap-x-2 ml-7 font-semibold text-sm">
               <span className="flex gap-x-1 items-center text-green-500 ">

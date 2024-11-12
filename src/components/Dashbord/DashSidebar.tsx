@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { Button } from "../ui/button"
 import { HiArrowSmRight, HiChartPie, HiMenu, HiUser } from "react-icons/hi"
 import { MdEventNote } from "react-icons/md"
@@ -7,6 +7,7 @@ import { FaUserMd } from "react-icons/fa"
 import { Separator } from "../ui/separator"
 import { GiExitDoor } from "react-icons/gi"
 const DashSidebar = () => {
+  const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState("/dashboard?tab=dash")
   const [openSidebar, setOpenSidebar] = useState(false)
   console.log(openSidebar)
@@ -24,18 +25,23 @@ const DashSidebar = () => {
     <div className="w-full ">
       <div className=" w-full">
         <div className="p-2 flex w-full justify-between font-semibold">
-          <Link to="/" className="w-full">
-            <div className="hidden md:block w-full">
-              <Button className=" flex items-center justify-center w-full gap-2  px-4 py-2 text-white font-semibold text-lg bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 rounded-md shadow-md transition duration-200">
-                <GiExitDoor size="20" />
-                Back
-              </Button>
-            </div>
-
-            <Button className="block md:hidden bg-gradient-to-r from-red-300 to-red-400">
+          <div className="hidden md:block w-full">
+            <Button
+              className="flex items-center justify-center w-full gap-2  px-4 py-2 text-white font-semibold text-lg bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 rounded-md shadow-md transition duration-200"
+              onClick={() => navigate(-1)}
+            >
               <GiExitDoor size="20" />
+              Back
             </Button>
-          </Link>
+          </div>
+
+          <Button
+            className="block md:hidden bg-gradient-to-r from-red-300 to-red-400"
+            onClick={() => navigate(-1)}
+          >
+            <GiExitDoor size="20" />
+          </Button>
+
           <div className="block md:hidden">
             <Button
               onClick={() => setOpenSidebar(!openSidebar)}

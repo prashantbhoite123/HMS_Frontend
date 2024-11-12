@@ -36,7 +36,7 @@ interface DashboardResponse {
   CardData: {
     totalDoctors: number
     totalUser: number
-    totalAppoinment: number
+    pendingAppoinments: number
     lastMonthAppoinment: number
   }
   latesAppoinments: Appointment[]

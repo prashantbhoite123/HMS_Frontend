@@ -35,13 +35,13 @@ const MobileNav = () => {
             <div className="flex flex-col py-1 px-4 gap-y-6">
               <Link to="/" className="flex gap-x-3">
                 <span>
-                  <FaHome color="green" />
+                  <FaHome />
                 </span>
                 <span className="text-sm font-semibold ">Home</span>
               </Link>
               <Link to="/about" className="flex items-center gap-x-3">
                 <span>
-                  <FaBookOpen color="green" />
+                  <FaBookOpen />
                 </span>
                 <span className="text-sm font-semibold">About</span>
               </Link>
@@ -50,7 +50,7 @@ const MobileNav = () => {
                 className="flex gap-x-3 items-center"
               >
                 <span>
-                  <User size="19" color="green" />
+                  <User />
                 </span>
                 <span className="text-sm font-semibold">Profile</span>
               </Link>
@@ -59,14 +59,14 @@ const MobileNav = () => {
                 <>
                   <Link to="/hospitals" className="flex gap-x-3">
                     <span>
-                      <Hospital size="19" color="green" />
+                      <Hospital />
                     </span>
                     <span className="text-sm font-semibold">Hospitals</span>
                   </Link>
                   {/* <Separator /> */}
                   <Link to="/myappoinment" className="flex gap-x-3">
                     <span>
-                      <MdEventNote size="19" color="green" />
+                      <MdEventNote />
                     </span>
                     <span className="text-sm font-semibold">My Appoinment</span>
                   </Link>
@@ -78,7 +78,7 @@ const MobileNav = () => {
                     className="flex items-center gap-x-3"
                   >
                     <span>
-                      <Hospital color="green" />
+                      <Hospital />
                     </span>
                     <span className="text-sm font-semibold">Dashboard</span>
                   </Link>
