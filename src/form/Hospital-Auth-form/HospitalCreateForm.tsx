@@ -75,7 +75,7 @@ const formSchema = z.object({
     .string()
     .trim()
     .refine((value) => !isNaN(Date.parse(value)), {
-      message: "Established date must be a valid date", 
+      message: "Established date must be a valid date",
     }),
   doctors: z.array(doctorSchema),
   totalBeds: z
@@ -107,8 +107,6 @@ const HospitalCreateForm = ({
   const form = useForm<hospitalFormData>({
     resolver: zodResolver(formSchema),
   })
-
-  // console.log("taksdas==", hospital?.establishedDate)
 
   useEffect(() => {
     if (!hospital) {

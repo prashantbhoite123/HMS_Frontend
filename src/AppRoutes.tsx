@@ -20,6 +20,7 @@ import DetailPage from "./pages/Hospital_pages/DetailPage"
 import MyAppoinment from "./pages/Patient_pages/MyAppoinment"
 import HosDashboard from "./pages/Hospital_pages/HosDashboard"
 import DashLayout from "./Layouts/DashLayout"
+import AdminSignin from "./pages/Common_Pages/AdminSignin"
 
 const AppRoutes = () => {
   return (
@@ -103,6 +104,14 @@ const AppRoutes = () => {
             }
           />
         </Route>
+        <Route
+          path="/admin-sign"
+          element={
+            <Layouts showhero={false}>
+              <AdminSignin />
+            </Layouts>
+          }
+        />
       </Routes>
     </Router>
   )
