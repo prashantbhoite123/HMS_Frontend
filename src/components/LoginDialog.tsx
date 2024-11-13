@@ -24,6 +24,7 @@ const LoginDialog = ({ handleClose }: Props) => {
           As a Hospital
         </Button>
       </Link>
+      
     </div>
   )
 }

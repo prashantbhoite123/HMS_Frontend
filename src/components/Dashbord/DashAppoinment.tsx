@@ -1,4 +1,3 @@
-
 import {
   Table,
   TableBody,
@@ -55,11 +54,8 @@ function DashAppoinment({ allAppoinment }: Props) {
               <TableHead className="py-3 px-3 font-semibold text-green-500">
                 Patient Name
               </TableHead>
-              <TableHead className="py-3 px-9 font-semibold text-green-500">
-                Code
-              </TableHead>
               <TableHead className="py-3 px-3 font-semibold text-green-500">
-                Doctor Name
+                status
               </TableHead>
               <TableHead className="py-3 px-3 font-semibold text-green-500">
                 Date
@@ -68,7 +64,7 @@ function DashAppoinment({ allAppoinment }: Props) {
                 Time
               </TableHead>
               <TableHead className="py-3 px-3 font-semibold text-green-500">
-                Status
+                Doctor Name
               </TableHead>
 
               <TableHead className="py-3 px-3 font-semibold text-green-500">
@@ -88,19 +84,8 @@ function DashAppoinment({ allAppoinment }: Props) {
                 <TableCell className="py-3 px-2 font-semibold">
                   {allApp?.patientName}
                 </TableCell>
+
                 <TableCell className="py-3 px-2">
-                  <span className="font-semibold text-sm text-green-500 px-3 py-1 rounded-md">
-                    {allApp?.apptNumber}
-                  </span>
-                </TableCell>
-                <TableCell className="py-3 px-2">
-                  {allApp?.doctorName}
-                </TableCell>
-                <TableCell className="py-3 px-2">
-                  {new Date(allApp?.appointmentDate).toLocaleDateString()}
-                </TableCell>
-                <TableCell className="py-3 px-4">{allApp?.appTime}</TableCell>
-                <TableCell className="py-3 px-4">
                   <span
                     className={`font-semibold text-sm px-2 py-1 rounded-md ${
                       allApp?.status === "Completed"
@@ -112,6 +97,13 @@ function DashAppoinment({ allAppoinment }: Props) {
                   >
                     {allApp?.status}
                   </span>
+                </TableCell>
+                <TableCell className="py-3 px-2">
+                  {new Date(allApp?.appointmentDate).toLocaleDateString()}
+                </TableCell>
+                <TableCell className="py-3 px-4">{allApp?.appTime}</TableCell>
+                <TableCell className="py-3 px-4">
+                  {allApp?.doctorName}
                 </TableCell>
 
                 <TableCell className="py-3 px-6">

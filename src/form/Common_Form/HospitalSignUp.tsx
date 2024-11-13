@@ -28,6 +28,7 @@ import { Button } from "@/components/ui/button"
 import GoogleAuthBtn from "@/components/GoogleAuthBtn"
 import { Link } from "react-router-dom"
 
+
 type Props = {
   createHospital: (data: FormData) => void
   isLoading: boolean
@@ -61,7 +62,9 @@ const HospitalSignUp = ({ createHospital, isLoading, role }: Props) => {
           <form onSubmit={form.handleSubmit(onSave)}>
             <div className="mb-4 flex gap-2 flex-col text-center">
               {" "}
-              <h2 className="text-2xl font-semibold">Registration Form</h2>
+              <h2 className="text-2xl font-semibold">
+                Registration Form
+              </h2>
               <FormDescription className="mb-3"> Fill the form</FormDescription>
             </div>
 
@@ -137,10 +140,11 @@ const HospitalSignUp = ({ createHospital, isLoading, role }: Props) => {
             >
               {isLoading ? "Loading" : "Submit"}
             </Button>
-
-            <span className="flex mt-4 text-blue-500 font-semibold hover:underline">
-              <Link to="/signin">sign-in</Link>
-            </span>
+            <div className="flex justify-between">
+              <span className="flex mt-4 text-blue-500 font-semibold hover:underline">
+                <Link to="/signin">sign-in</Link>
+              </span>
+            </div>
           </form>
         </Form>
       </div>
