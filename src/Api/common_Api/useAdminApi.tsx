@@ -26,7 +26,7 @@ export const useMyAdminApi = () => {
     console.log("this is admin data", data)
     if (data.success === true) {
       toast.success(data.message)
-      navigate("/otppage")
+      navigate(`/otppage?tab=${data.otpExpiry}`)
     }
 
     return data
@@ -84,3 +84,5 @@ export const useMyVarifyOtp = () => {
 
   return { varifyOtp, isLoading }
 }
+
+export const useMyResendOtp = () => {}
