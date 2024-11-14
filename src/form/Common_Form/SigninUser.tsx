@@ -25,6 +25,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import GoogleAuthBtn from "@/components/GoogleAuthBtn"
 import LoginBtn from "@/components/LoginBtn"
+import { Link } from "react-router-dom"
 
 type Props = {
   signInUser: (data: FormData) => void
@@ -109,9 +110,14 @@ const SigninUser = ({ signInUser, isLoading }: Props) => {
           </Button>
 
           {/* Sign-Up Link with margin-top */}
-          <span className="flex mt-5 text-blue-500 hover:underline">
-            <LoginBtn />
-          </span>
+          <div className="flex justify-between">
+            <span className="flex mt-5 text-blue-500 hover:underline">
+              <LoginBtn />
+            </span>
+            <span className="flex mt-5 text-blue-500 font-semibold text-sm hover:underline">
+              <Link to="/admin-sign">Admin</Link>
+            </span>
+          </div>
         </form>
       </Form>
     </div>

@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 
 const formSchema = z.object({
-  key: z
+  Akey: z
     .string()
     .trim()
     .regex(/^\d{4}$/, { message: "Key must be exactly 4 digits." }),
@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { Link } from "react-router-dom"
 
 type Props = {
   signInAdmin: (data: FormData) => void
@@ -42,7 +43,7 @@ function AdminSigninForm({ signInAdmin, isLoading }: Props) {
   const onSave = async (data: SignInFormData) => {
     const formData = new FormData()
 
-    formData.append("key", data.key)
+    formData.append("key", data.Akey)
     formData.append("email", data.email)
     formData.append("password", data.password)
     try {
@@ -64,7 +65,7 @@ function AdminSigninForm({ signInAdmin, isLoading }: Props) {
 
           <FormField
             control={form.control}
-            name="key"
+            name="Akey"
             render={({ field }) => (
               <FormItem className="mb-4">
                 <FormLabel>Key</FormLabel>
@@ -122,6 +123,9 @@ function AdminSigninForm({ signInAdmin, isLoading }: Props) {
           </Button>
         </form>
       </Form>
+      <div className="flex mt-5 text-blue-500 font-semibold text-sm hover:underline">
+        <Link to="/signin">Sign-in</Link>
+      </div>
     </div>
   )
 }

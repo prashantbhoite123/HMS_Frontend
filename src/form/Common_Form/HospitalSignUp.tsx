@@ -62,9 +62,7 @@ const HospitalSignUp = ({ createHospital, isLoading, role }: Props) => {
           <form onSubmit={form.handleSubmit(onSave)}>
             <div className="mb-4 flex gap-2 flex-col text-center">
               {" "}
-              <h2 className="text-2xl font-semibold">
-                Registration Form
-              </h2>
+              <h2 className="text-2xl font-semibold">Registration Form</h2>
               <FormDescription className="mb-3"> Fill the form</FormDescription>
             </div>
 
@@ -73,16 +71,13 @@ const HospitalSignUp = ({ createHospital, isLoading, role }: Props) => {
               name="username"
               render={({ field }) => (
                 <FormItem className="mb-4">
-                  {" "}
-                  {/* Added mb-4 for spacing */}
+                 
                   <FormLabel>Username</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       className="bg-white"
-                      placeholder={
-                        role === "hospital" ? "Hospital Name" : "Patient Name"
-                      }
+                      placeholder="User Name"
                     />
                   </FormControl>
                   <FormMessage />

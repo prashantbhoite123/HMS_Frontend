@@ -104,14 +104,9 @@ const AppRoutes = () => {
             }
           />
         </Route>
-        <Route
-          path="/admin-sign"
-          element={
-            <Layouts showhero={false}>
-              <AdminSignin />
-            </Layouts>
-          }
-        />
+        <Route path="/admin-sign" element={<Layouts showhero={false}>
+          <AdminSignin/>
+        </Layouts>} />
       </Routes>
     </Router>
   )
