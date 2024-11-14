@@ -1,12 +1,11 @@
+import { useMyAdminApi } from "@/Api/common_Api/useAdminApi"
 import AdminSigninForm from "@/form/Common_Form/AdminSigninForm"
 
-const handleSign = () => {
-  console.log("click");
-}
 const AdminSignin = () => {
+  const { adminData, isLoading } = useMyAdminApi()
   return (
     <div className="flex justify-center items-center gap-5">
-      <AdminSigninForm signInAdmin={handleSign} isLoading={false} />
+      <AdminSigninForm signInAdmin={adminData} isLoading={isLoading} />
     </div>
   )
 }

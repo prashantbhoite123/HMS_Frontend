@@ -30,7 +30,7 @@ import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
 
 type Props = {
-  signInAdmin: (data: FormData) => void
+  signInAdmin: (data: SignInFormData) => void
   isLoading: boolean
 }
 function AdminSigninForm({ signInAdmin, isLoading }: Props) {
@@ -41,16 +41,7 @@ function AdminSigninForm({ signInAdmin, isLoading }: Props) {
   const watch = form.watch()
   console.log("Watch : ", watch)
   const onSave = async (data: SignInFormData) => {
-    const formData = new FormData()
-
-    formData.append("key", data.Akey)
-    formData.append("email", data.email)
-    formData.append("password", data.password)
-    try {
-      await signInAdmin(formData)
-    } catch (error) {
-      console.log(`Error signing in`, error)
-    }
+    signInAdmin(data)
   }
 
   return (
