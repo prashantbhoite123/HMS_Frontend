@@ -21,6 +21,7 @@ import MyAppoinment from "./pages/Patient_pages/MyAppoinment"
 import HosDashboard from "./pages/Hospital_pages/HosDashboard"
 import DashLayout from "./Layouts/DashLayout"
 import AdminSignin from "./pages/Common_Pages/AdminSignin"
+import AdminOtp from "./pages/Common_Pages/AdminOtp"
 
 const AppRoutes = () => {
   return (
@@ -104,9 +105,22 @@ const AppRoutes = () => {
             }
           />
         </Route>
-        <Route path="/admin-sign" element={<Layouts showhero={false}>
-          <AdminSignin/>
-        </Layouts>} />
+        <Route
+          path="/admin-sign"
+          element={
+            <Layouts showhero={false}>
+              <AdminSignin />
+            </Layouts>
+          }
+        />
+        <Route
+          path="/otppage"
+          element={
+            <Layouts showhero={false}>
+              <AdminOtp />
+            </Layouts>
+          }
+        />
       </Routes>
     </Router>
   )
