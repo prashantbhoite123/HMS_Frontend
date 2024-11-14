@@ -1,7 +1,10 @@
 import React, { useState } from "react"
 import { Button } from "@/components/ui/button"
+import { useMyVarifyOtp } from "@/Api/common_Api/useAdminApi"
+import LoadingBtn from "@/components/LoadingBtn"
 
 const AdminOtp = () => {
+  const { varifyOtp, isLoading } = useMyVarifyOtp()
   const [otp, setOtp] = useState<string[]>(new Array(6).fill(""))
 
   const handleInputChange = (index: number, value: string) => {
@@ -28,7 +31,7 @@ const AdminOtp = () => {
   }
 
   const handleSubmit = () => {
-    console.log("Entered OTP:", otp.join(""))
+    varifyOtp(otp.join(""))
   }
 
   const handleResendOtp = () => {
@@ -65,12 +68,16 @@ const AdminOtp = () => {
         </div>
 
         <div className="flex justify-between mt-4">
-          <Button
-            onClick={handleSubmit}
-            className="bg-gradient-to-r from-green-400 to-blue-400 text-white font-semibold rounded-lg py-2 shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform"
-          >
-            Submit
-          </Button>
+          {isLoading ? (
+            <LoadingBtn />
+          ) : (
+            <Button
+              onClick={handleSubmit}
+              className="bg-gradient-to-r from-green-400 to-blue-400 text-white font-semibold rounded-lg py-2 shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform"
+            >
+              Submit
+            </Button>
+          )}
           <Button
             onClick={handleResendOtp}
             className="bg-gradient-to-r from-green-400 to-blue-400 text-white font-semibold rounded-lg py-2 shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform"

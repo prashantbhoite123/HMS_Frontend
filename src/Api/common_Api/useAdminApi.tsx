@@ -18,10 +18,12 @@ export const useMyAdminApi = () => {
       body: JSON.stringify(adminFormData),
     })
     if (!responce) {
+      toast.error("faild to admin sign in")
       throw new Error("Faild to sign admin")
     }
 
     const data = await responce.json()
+    console.log("this is admin data", data)
     if (data.success === true) {
       toast.success(data.message)
       navigate("/otppage")
@@ -41,7 +43,8 @@ export const useMyAdminApi = () => {
   return { adminData, isLoading }
 }
 
-export const useMyOtpAdmin = () => {
+export const useMyVarifyOtp = () => {
+  console.log(import.meta.env.VITE_ADMIN_EMAIL)
   const navigate = useNavigate()
   const { saveUserToSession } = useUser()
   const otpVarification = async (otp: any) => {
@@ -52,8 +55,8 @@ export const useMyOtpAdmin = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: import.meta.env.ADMIN_EMAIL,
-        otp: otp,
+        email: import.meta.env.VITE_ADMIN_EMAIL,
+        otp: Number(otp),
       }),
     })
     if (!responce) {
