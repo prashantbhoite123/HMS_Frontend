@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import { useMyVarifyOtp } from "@/Api/common_Api/useAdminApi"
 import LoadingBtn from "@/components/LoadingBtn"
 import { useLocation } from "react-router-dom"
-
+import otpImage from "../../assets/otpLock-removebg-preview (1).png"
 const AdminOtp = () => {
   const location = useLocation()
   const urlPrams = new URLSearchParams(location.search)
@@ -65,9 +65,17 @@ const AdminOtp = () => {
 
   return (
     <div className="flex justify-center items-center w-full h-[100%]">
-      <div className="p-6 bg-slate-300  rounded-md shadow-lg w-96 mt-8">
+      <div className="flex flex-col justify-center items-center p-6 bg-slate-200  rounded-md shadow-lg w-96 ">
+        <img
+          src={otpImage}
+          draggable="false"
+          alt="otpimg"
+          className="w-20 select-none pointer-events-none"
+        />
         <div className="mb-4 text-center">
-          <h2 className="text-2xl font-bold text-green-500 ">One-Time OTP</h2>
+          <h2 className="text-lg font-bold text-green-500 ">
+            Varify Your Email Address
+          </h2>
           <p className="text-sm font-semibold mt-3">
             Please enter the one-time{" "}
             <span className="text-blue-500 font-bold">OTP</span> sent to your
@@ -96,22 +104,23 @@ const AdminOtp = () => {
           Time remaining:{" "}
           {timeLeft > 0 ? formatTimeLeft(timeLeft) : "OTP expired"}
         </p>
-        <div className="flex justify-between mt-4">
+        <div className="flex flex-col items-center gap-y-2 mt-4">
           {isLoading ? (
             <LoadingBtn />
           ) : (
             <Button
               type="submit"
               onClick={handleSubmit}
-              className="bg-gradient-to-r from-green-400 to-blue-400 text-white font-semibold rounded-lg py-2 shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform"
+              className="bg-gradient-to-r   from-green-400 to-blue-400 text-white w-52 font-semibold rounded-full  shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform"
             >
-              Submit
+              Varify code
             </Button>
           )}
           <Button
+            variant="link"
             type="submit"
             onClick={handleResendOtp}
-            className="bg-gradient-to-r from-green-400 to-blue-400 text-white font-semibold rounded-lg py-2 shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform"
+            className=" text-blue-500 font-semibold w-52 rounded-lg "
           >
             Resend OTP
           </Button>

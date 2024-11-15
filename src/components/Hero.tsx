@@ -5,7 +5,8 @@ const Hero = () => {
   return (
     <motion.img
       src={heroImg}
-      className="w-full  max-h-[500px] object-contain"
+      draggable="false"
+      className="w-full select-none pointer-events-none max-h-[500px] object-contain"
       animate={{ translateY: [-30, 30] }}
       transition={{
         repeat: Infinity,
