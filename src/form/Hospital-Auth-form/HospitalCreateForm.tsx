@@ -4,7 +4,6 @@ import { FormProvider, useForm } from "react-hook-form"
 import { z } from "zod"
 
 import DetailSection from "./DetailSection"
-import DoctorSection from "./DoctorSection"
 import ImageSection from "./ImageSection"
 import { Separator } from "@/components/ui/separator"
 import AddressSection from "./AddressSection"
@@ -15,40 +14,6 @@ import ServicesSection from "./ServicesSection"
 import LoadingBtn from "@/components/LoadingBtn"
 import { IHospital } from "@/Types/hospital"
 import { useEffect } from "react"
-
-const doctorSchema = z.object({
-  doctorName: z.string().trim().min(1, { message: "Doctor name is required" }),
-  email: z.string().trim().email("Invalid email format"),
-  education: z.string().trim().min(1, { message: "Education is required" }),
-  experienceYears: z
-    .string()
-    .trim()
-    .refine(
-      (value) => {
-        const expYear = parseInt(value)
-        return expYear < 100
-      },
-      {
-        message: "Mela nahi ka bhaday ajun",
-      }
-    ),
-  specialization: z
-    .string()
-    .trim()
-    .min(1, { message: "Specialization is required" }),
-  workingHours: z
-    .string()
-    .trim()
-    .refine(
-      (value) => {
-        const hour = parseInt(value, 10)
-        return hour >= 0 && hour <= 24
-      },
-      {
-        message: "Working hours must be between 0 and 24.",
-      }
-    ),
-})
 
 const formSchema = z.object({
   hospitalName: z
@@ -77,7 +42,6 @@ const formSchema = z.object({
     .refine((value) => !isNaN(Date.parse(value)), {
       message: "Established date must be a valid date",
     }),
-  doctors: z.array(doctorSchema),
   totalBeds: z
     .string()
     .min(1, { message: "Total beds must be a positive integer" }),
@@ -126,10 +90,6 @@ const HospitalCreateForm = ({
     const updateData = {
       ...hospital,
       establishedDate: formatedDate,
-      doctors: hospital.doctors.map((doctor) => ({
-        ...doctor,
-        experienceYears: doctor.experienceYears.toString(),
-      })),
       totalBeds: hospital.totalBeds.toString(),
     }
 
@@ -156,8 +116,7 @@ const HospitalCreateForm = ({
 
     data.services?.forEach((service, index) => {
       formData.append(`services[${index}]`, service)
-    }),
-      formData.append("doctors", JSON.stringify(data.doctors))
+    })
     if (data.picture) {
       formData.append("picture", data.picture)
     }
@@ -176,8 +135,7 @@ const HospitalCreateForm = ({
         className="space-y-8 bg-gray-50  shadow-gray-400 shadow-xl p-10 rounded-lg"
       >
         <DetailSection />
-        <Separator />
-        <DoctorSection />
+
         <Separator />
         <DepartmentSection />
         <Separator />

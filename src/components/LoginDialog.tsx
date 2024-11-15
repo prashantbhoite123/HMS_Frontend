@@ -8,7 +8,7 @@ type Props = {
 const LoginDialog = ({ handleClose }: Props) => {
   return (
     <div className="flex justify-evenly">
-      <Link to="/signuphospital">
+      <Link to="/signuphospital?role=patient">
         <Button
           onClick={() => handleClose()}
           className="h-[15vh] md:h-[20vh] w-[15vh]  md:w-[20vh] bg-green-400  text-black font-semibold shadow-md shadow-gray-800 hover:text-white text-lg"
@@ -19,12 +19,19 @@ const LoginDialog = ({ handleClose }: Props) => {
       <Link to="/signuphospital?role=hospital">
         <Button
           onClick={() => handleClose()}
-          className="relative h-[15vh] md:h-[20vh] w-[15vh] md:w-[20vh] bg-green-400 text-black font-semibold shadow-md shadow-gray-800 text-lg transition-transform duration-500 hover:rotate-y-180"
+          className="relative h-[15vh] md:h-[20vh] hover:text-white w-[15vh] md:w-[20vh] bg-green-400 text-black font-semibold shadow-md shadow-gray-800 text-lg transition-transform duration-500 hover:rotate-y-180"
         >
           As a Hospital
         </Button>
       </Link>
-      
+      <Link to="/signuphospital?role=clinic">
+        <Button
+          onClick={() => handleClose()}
+          className="relative h-[15vh] md:h-[20vh] w-[15vh] hover:text-white md:w-[20vh] bg-green-400 text-black font-semibold shadow-md shadow-gray-800 text-lg transition-transform duration-500 hover:rotate-y-180"
+        >
+          As a Clinic
+        </Button>
+      </Link>
     </div>
   )
 }

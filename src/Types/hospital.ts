@@ -16,13 +16,7 @@ export type IHospital = {
   totalBeds: number
   departments?: string[]
   services?: string[]
-  doctors: {
-    doctorName: string
-    education: string
-    experienceYears: number
-    specialization: string
-    workingHours: string
-  }[]
+
   picture: File
   owner: mongoose.Types.ObjectId
   // New Fields
@@ -36,3 +30,13 @@ export type HospitalSearchResponse = {
     pages: number
   }
 }
+
+
+  export type doctors= {
+    doctorName: string
+    education: string
+    experienceYears: number
+    specialization: string
+    workingHours: string
+  }
+  ;[]
