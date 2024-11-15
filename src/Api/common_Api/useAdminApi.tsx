@@ -1,6 +1,7 @@
 import { useUser } from "@/context/userContext"
 import { SignInFormData } from "@/form/Common_Form/AdminSigninForm"
 import { BACKEND_API_URL } from "@/main"
+import { useState } from "react"
 import { useMutation } from "react-query"
 import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
@@ -8,7 +9,6 @@ import { toast } from "sonner"
 export const useMyAdminApi = () => {
   const navigate = useNavigate()
   const adminsign = async (adminFormData: SignInFormData) => {
-    console.log("this is admin data", adminFormData)
     const responce = await fetch(`${BACKEND_API_URL}/api/admin/adminsign`, {
       method: "POST",
       credentials: "include",
@@ -23,7 +23,6 @@ export const useMyAdminApi = () => {
     }
 
     const data = await responce.json()
-    console.log("this is admin data", data)
     if (data.success === true) {
       toast.success(data.message)
       navigate(`/otppage?tab=${data.otpExpiry}`)
@@ -44,7 +43,6 @@ export const useMyAdminApi = () => {
 }
 
 export const useMyVarifyOtp = () => {
-  console.log(import.meta.env.VITE_ADMIN_EMAIL)
   const navigate = useNavigate()
   const { saveUserToSession } = useUser()
   const otpVarification = async (otp: any) => {
@@ -85,4 +83,42 @@ export const useMyVarifyOtp = () => {
   return { varifyOtp, isLoading }
 }
 
-export const useMyResendOtp = () => {}
+export const useMyResendOtp = () => {
+  const [otpExpiry, setOtpExpiry] = useState(null)
+  const resendOtp = async () => {
+    const responce = await fetch(`${BACKEND_API_URL}/api/admin/resendotp`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: import.meta.env.VITE_ADMIN_EMAIL,
+      }),
+    })
+    if (!responce) {
+      throw new Error("Faild to rensend otp")
+    }
+
+    const data = await responce.json()
+
+    if (data.success === false) {
+      return toast.error(data.message)
+    }
+
+    toast.success(data.message)
+    return data
+  }
+  const { mutate: otpresend, isLoading } = useMutation(resendOtp, {
+    onSuccess: (data: any) => {
+      console.log("OTP resend successfull")
+      console.log("OTP resend expirytime", data.otpExpiry)
+      setOtpExpiry(data?.otpExpiry)
+    },
+    onError: (error) => {
+      console.log("failed to resend otp", error)
+    },
+  })
+
+  return { otpresend, isLoading, otpExpiry }
+}

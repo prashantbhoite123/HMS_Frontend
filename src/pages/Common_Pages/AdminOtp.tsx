@@ -1,31 +1,41 @@
 import React, { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
-import { useMyVarifyOtp } from "@/Api/common_Api/useAdminApi"
+import { useMyResendOtp, useMyVarifyOtp } from "@/Api/common_Api/useAdminApi"
 import LoadingBtn from "@/components/LoadingBtn"
 import { useLocation } from "react-router-dom"
+import "../../App.css"
 import otpImage from "../../assets/otpLock-removebg-preview (1).png"
 const AdminOtp = () => {
   const location = useLocation()
   const urlPrams = new URLSearchParams(location.search)
   const otpExpiry: any = urlPrams.get("tab")
 
-  console.log(otpExpiry)
+  const {
+    otpresend,
+    isLoading: resendotpL,
+    otpExpiry: resendOtpE,
+  } = useMyResendOtp()
+
+  // console.log("===>", resendOtpE)
+  // console.log(otpExpiry)
   const { varifyOtp, isLoading } = useMyVarifyOtp()
   const [otp, setOtp] = useState<string[]>(new Array(4).fill(""))
-  const [timeLeft, setTimeLeft] = useState(Math.max(otpExpiry - Date.now(), 0))
+  const [timeLeft, setTimeLeft] = useState(
+    Math.max((resendOtpE || otpExpiry) - Date.now(), 0)
+  )
 
   useEffect(() => {
     const timer = setInterval(() => {
-      const remainingTime = Math.max(otpExpiry - Date.now(), 0)
+      const remainingTime = Math.max((resendOtpE || otpExpiry) - Date.now(), 0)
       setTimeLeft(remainingTime)
 
       if (remainingTime === 0) {
-        clearInterval(timer) // Stop the timer when it reaches zero
+        clearInterval(timer)
       }
     }, 1000)
 
-    return () => clearInterval(timer) // Cleanup on component unmount
-  }, [otpExpiry])
+    return () => clearInterval(timer)
+  }, [otpExpiry, resendOtpE])
 
   const formatTimeLeft = (time: any) => {
     const minutes = Math.floor(time / (1000 * 60))
@@ -58,14 +68,12 @@ const AdminOtp = () => {
   const handleSubmit = () => {
     varifyOtp(otp.join(""))
   }
-
-  const handleResendOtp = () => {
-    console.log("Resending OTP...")
+  const handelOtpResend = () => {
+    otpresend()
   }
-
   return (
     <div className="flex justify-center items-center w-full h-[100%]">
-      <div className="flex flex-col justify-center items-center p-6 bg-slate-200  rounded-md shadow-lg w-96 ">
+      <div className=" flex flex-col justify-center items-center p-6 bg-slate-200  rounded-lg shadow-lg w-96 ">
         <img
           src={otpImage}
           draggable="false"
@@ -91,7 +99,7 @@ const AdminOtp = () => {
               value={otp[index]}
               onChange={(e) => handleInputChange(index, e.target.value)}
               onKeyDown={(e) => handleBackspace(index, e)}
-              className="w-12 h-12 mx-1 text-center border border-gray-300 rounded"
+              className="otp-input w-12 h-12 mx-1 text-center border border-gray-300 rounded"
               maxLength={1}
               type="text"
               inputMode="numeric"
@@ -119,10 +127,11 @@ const AdminOtp = () => {
           <Button
             variant="link"
             type="submit"
-            onClick={handleResendOtp}
+            disabled={resendotpL}
+            onClick={handelOtpResend}
             className=" text-blue-500 font-semibold w-52 rounded-lg "
           >
-            Resend OTP
+            {resendotpL ? <span>Loading</span> : <span>Resend OTP</span>}
           </Button>
         </div>
       </div>
