@@ -33,7 +33,7 @@ export const useGetHospital = () => {
   return { hospital, isLoading, refetch }
 }
 
-export const usecreateHospital = (ownerId: string) => {
+export const usecreateHospital = () => {
   const createHospital = async (
     createHospitalFormData: FormData
   ): Promise<IHospital | undefined> => {
@@ -42,7 +42,7 @@ export const usecreateHospital = (ownerId: string) => {
     }
     try {
       const responce = await fetch(
-        `${BACKEND_API_URL}/api/my/hospital/createhospital/${ownerId}`,
+        `${BACKEND_API_URL}/api/my/hospital/createhospital`,
         {
           method: "POST",
           body: createHospitalFormData,
@@ -80,8 +80,6 @@ export const useUpdateMyHospital = (refetch: any) => {
   const updateHospitalApi = async (
     updateHospitalFormData: FormData
   ): Promise<IHospital> => {
-   
-
     const responce = await fetch(
       `${BACKEND_API_URL}/api/my/hospital/updatehospital`,
       {
@@ -115,13 +113,10 @@ export const useUpdateMyHospital = (refetch: any) => {
 
 export const useMyDeleteHospital = () => {
   const deleteMyhospital = async () => {
-    const responce = await fetch(
-      `${BACKEND_API_URL}/api/manage/delete`,
-      {
-        method: "DELETE",
-        credentials: "include",
-      }
-    )
+    const responce = await fetch(`${BACKEND_API_URL}/api/manage/delete`, {
+      method: "DELETE",
+      credentials: "include",
+    })
 
     if (!responce.ok) {
       throw new Error("Faied to delete hospital")
