@@ -50,6 +50,13 @@ type Props = {
   dashData: DashboardResponse
 }
 const DashboardComponents = ({ dashData }: Props) => {
+  if (!dashData) {
+    return (
+      <span className="text-xl font-semibold text-red-500">
+        No Available query
+      </span>
+    )
+  }
   return (
     <div className="flex flex-col md:flex-row">
       <div className="flex flex-col gap-y-6">

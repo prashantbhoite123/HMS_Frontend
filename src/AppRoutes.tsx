@@ -23,7 +23,7 @@ import DashLayout from "./Layouts/DashLayout"
 import AdminSignin from "./pages/Common_Pages/AdminSignin"
 import AdminOtp from "./pages/Common_Pages/AdminOtp"
 import AdminProtect from "./auth/AdminProtect"
-import DoctorSIgnup from "./pages/Hospital_pages/Doctor/DoctorSIgnup"
+
 
 const AppRoutes = () => {
   return (
@@ -90,14 +90,7 @@ const AppRoutes = () => {
             }
           />
           // Doctors Routes
-          <Route
-            path="/doctorsingup"
-            element={
-              <Layouts showhero={false}>
-                <DoctorSIgnup />
-              </Layouts>
-            }
-          />
+         
         </Route>
         <Route element={<AdminProtect />}>
           <Route

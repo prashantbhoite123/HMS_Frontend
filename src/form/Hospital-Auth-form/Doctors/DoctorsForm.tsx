@@ -6,6 +6,7 @@ import Webcam from "react-webcam"
 import { Button } from "@/components/ui/button"
 import FormInput from "@/form/Common_Form/FormInput"
 import { doctorSpecializations, workingHours } from "@/config/DoctorData"
+import { FaUserMd } from "react-icons/fa"
 
 export const doctorSchema = z.object({
   doctorName: z.string().min(1, "Doctor name is required").trim(),
@@ -67,8 +68,11 @@ const DoctorsForm = () => {
   return (
     <FormProvider {...form}>
       <div className="flex justify-center items-center  min-h-screen p-5">
-        <div className="w-full max-w-4xl bg-white rounded-lg shadow-lg p-6">
-          <h1 className="text-xl font-semibold text-center text-gray-800 mb-4">
+        <div className="w-full max-w-4xl bg-white rounded-lg shadow-lg shadow-slate-300 p-6">
+          <h1 className="flex  justify-center items-center gap-x-2 text-2xl  font-semibold text-center text-green-400 mb-4">
+            <span>
+              <FaUserMd />
+            </span>
             Doctor Registration
           </h1>
           <form
@@ -171,21 +175,48 @@ const DoctorsForm = () => {
                 />
               ) : (
                 <div className="w-full h-64 bg-gray-200 flex items-center justify-center rounded-md">
-                  <span className="text-gray-500">Camera is off</span>
+                  <span className="text-gray-500 font-semibold">
+                    Camera is off
+                  </span>
                 </div>
               )}
               <div className="mt-4 flex justify-between">
-                <Button type="button" onClick={capture}>
+                <Button
+                  type="button"
+                  onClick={capture}
+                  className=" bg-gradient-to-r from-indigo-600 to-pink-600 hover:shadow-xl transform  hover:scale-105 transition-transform"
+                >
                   Capture Photo
                 </Button>
-                <Button type="button" onClick={toggleCamera}>
-                  {cameraOn ? "Turn Off Camera" : "Turn On Camera"}
+                <Button
+                  type="button"
+                  onClick={toggleCamera}
+                  className={`rounded-full py-0 px-3  hover:shadow-xl transform  hover:scale-105 transition-transform${
+                    cameraOn
+                      ? " bg-gradient-to-r  from-indigo-600 to-pink-600  hover:bg-gradient-to-r hover:from-indigo-600 hover:to-pink-600 pr-0 "
+                      : "bg-slate-500 pl-0 "
+                  } `}
+                >
+                  <span
+                    className={`bg-slate-200 rounded-full h-[100%]  px-4 w-[20px] ${
+                      cameraOn ? "hidden" : "block"
+                    }`}
+                  ></span>
+                  {cameraOn ? " Off" : " On "}
+                  <span
+                    className={`bg-slate-200 rounded-full h-[100%] px-4 w-[20px] ${
+                      cameraOn ? "block" : "hidden"
+                    }`}
+                  ></span>
                 </Button>
               </div>
             </div>
             {/* Submit Button */}
             <div className="col-span-2">
-              <Button type="submit" className="w-full">
+              <Button
+                type="submit"
+                className="w-full bg-gradient-to-r from-green-400 to-blue-400 hover:shadow-xl transform  hover:scale-105 transition-transform"
+              >
                 Submit
               </Button>
             </div>
