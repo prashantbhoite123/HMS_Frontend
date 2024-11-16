@@ -22,6 +22,8 @@ import HosDashboard from "./pages/Hospital_pages/HosDashboard"
 import DashLayout from "./Layouts/DashLayout"
 import AdminSignin from "./pages/Common_Pages/AdminSignin"
 import AdminOtp from "./pages/Common_Pages/AdminOtp"
+import AdminProtect from "./auth/AdminProtect"
+import DoctorSIgnup from "./pages/Hospital_pages/Doctor/DoctorSIgnup"
 
 const AppRoutes = () => {
   return (
@@ -42,23 +44,6 @@ const AppRoutes = () => {
           element={
             <Layouts showhero={false}>
               <About />
-            </Layouts>
-          }
-        />
-
-        <Route
-          path="/signuphospital"
-          element={
-            <Layouts showhero={false}>
-              <SignUpHos />
-            </Layouts>
-          }
-        />
-        <Route
-          path="/signin"
-          element={
-            <Layouts showhero={false}>
-              <SignIn />
             </Layouts>
           }
         />
@@ -104,23 +89,50 @@ const AppRoutes = () => {
               </DashLayout>
             }
           />
+          // Doctors Routes
+          <Route
+            path="/doctorsingup"
+            element={
+              <Layouts showhero={false}>
+                <DoctorSIgnup />
+              </Layouts>
+            }
+          />
         </Route>
-        <Route
-          path="/admin-sign"
-          element={
-            <Layouts showhero={false}>
-              <AdminSignin />
-            </Layouts>
-          }
-        />
-        <Route
-          path="/otppage"
-          element={
-            <Layouts showhero={false}>
-              <AdminOtp />
-            </Layouts>
-          }
-        />
+        <Route element={<AdminProtect />}>
+          <Route
+            path="/admin-sign"
+            element={
+              <Layouts showhero={false}>
+                <AdminSignin />
+              </Layouts>
+            }
+          />
+          <Route
+            path="/otppage"
+            element={
+              <Layouts showhero={false}>
+                <AdminOtp />
+              </Layouts>
+            }
+          />
+          <Route
+            path="/signuphospital"
+            element={
+              <Layouts showhero={false}>
+                <SignUpHos />
+              </Layouts>
+            }
+          />
+          <Route
+            path="/signin"
+            element={
+              <Layouts showhero={false}>
+                <SignIn />
+              </Layouts>
+            }
+          />
+        </Route>
       </Routes>
     </Router>
   )
