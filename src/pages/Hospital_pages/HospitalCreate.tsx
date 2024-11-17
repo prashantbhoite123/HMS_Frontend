@@ -21,17 +21,12 @@ const HospitalCreate = () => {
   const isEditing = !!hospital
 
   return (
-    <Tabs defaultValue="doctorsignup">
-      <TabsList>
-        <TabsTrigger value="doctorsignup">Doctors SignUp</TabsTrigger>
+    <Tabs defaultValue="manage-hospital">
+      <TabsList className="ml-5 md:ml-0">
         <TabsTrigger value="manage-hospital">Manage Hospital</TabsTrigger>
+        <TabsTrigger value="doctorsignup">Doctors SignUp</TabsTrigger>
       </TabsList>
-      <TabsContent
-        value="doctorsignup"
-        className="space-y-5 bg-gray-50 pg-10 rounded-lg"
-      >
-        <DoctorSIgnup />
-      </TabsContent>
+
       <TabsContent value="manage-hospital">
         <HospitalCreateForm
           deleteHospital={deleteHos}
@@ -40,6 +35,12 @@ const HospitalCreate = () => {
           onSave={isEditing ? updateHospital : createHospitaldata}
           loading={isLoading || updateLoading}
         />
+      </TabsContent>
+      <TabsContent
+        value="doctorsignup"
+        className="space-y-5 bg-gray-50 pg-10 rounded-lg"
+      >
+        <DoctorSIgnup />
       </TabsContent>
     </Tabs>
   )

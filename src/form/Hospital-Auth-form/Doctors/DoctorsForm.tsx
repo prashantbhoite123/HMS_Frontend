@@ -1,3 +1,4 @@
+
 import React, { useState } from "react"
 import { Controller, FormProvider, useForm } from "react-hook-form"
 import { z } from "zod"
@@ -67,105 +68,105 @@ const DoctorsForm = () => {
 
   return (
     <FormProvider {...form}>
-      <div className="flex justify-center items-center  min-h-screen p-5">
-        <div className="w-full max-w-4xl bg-white rounded-lg shadow-lg shadow-slate-300 p-6">
-          <h1 className="flex  justify-center items-center gap-x-2 text-2xl  font-semibold text-center text-green-400 mb-4">
+      <div className="flex justify-center items-center min-h-screen p-4 bg-gray-50">
+        <div className="w-full max-w-4xl bg-white rounded-lg shadow-lg p-6">
+          <h1 className="flex justify-center items-center gap-x-2 text-2xl font-semibold text-center text-green-500 mb-6">
             <span>
               <FaUserMd />
             </span>
             Doctor Registration
           </h1>
-          <form
-            onSubmit={form.handleSubmit(onSave)}
-            className="grid gap-6 grid-cols-1 md:grid-cols-2"
-          >
-            {/* Inputs */}
-            <FormInput
-              label="Doctor Name"
-              placeholder="Enter full name"
-              name="doctorName"
-              type="text"
-            />
-            <FormInput
-              label="Email"
-              placeholder="Enter email address"
-              name="email"
-              type="email"
-            />
-            <FormInput
-              label="Password"
-              placeholder="Enter password"
-              name="password"
-              type="password"
-            />
-            <FormInput
-              label="Education"
-              placeholder="e.g., MBBS, MD"
-              name="education"
-              type="text"
-            />
-            <FormInput
-              label="Experience Years"
-              placeholder="Enter years of experience"
-              name="experienceYears"
-              type="number"
-            />
-            <div className="flex flex-col gap-2">
-              <label className="text-sm font-medium text-gray-700">
-                Specialization
-              </label>
-              <Controller
-                name="specialization"
-                control={form.control}
-                render={({ field }) => (
-                  <select
-                    {...field}
-                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-400 focus:border-green-400"
-                  >
-                    <option value="" disabled>
-                      Select specialization
-                    </option>
-                    {doctorSpecializations.map((specialization) => (
-                      <option key={specialization} value={specialization}>
-                        {specialization}
+
+          <form onSubmit={form.handleSubmit(onSave)} className="">
+            {/* Input Fields */}
+            <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
+              <FormInput
+                label="Doctor Name"
+                placeholder="Enter full name"
+                name="doctorName"
+                type="text"
+              />
+              <FormInput
+                label="Email"
+                placeholder="Enter email address"
+                name="email"
+                type="email"
+              />
+              <FormInput
+                label="Password"
+                placeholder="Enter password"
+                name="password"
+                type="password"
+              />
+              <FormInput
+                label="Education"
+                placeholder="e.g., MBBS, MD"
+                name="education"
+                type="text"
+              />
+              <FormInput
+                label="Experience Years"
+                placeholder="Enter years of experience"
+                name="experienceYears"
+                type="number"
+              />
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-medium text-black">
+                  Specialization
+                </label>
+                <Controller
+                  name="specialization"
+                  control={form.control}
+                  render={({ field }) => (
+                    <select
+                      {...field}
+                      className="block w-full border-gray-500 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
+                    >
+                      <option value="" disabled>
+                        Select specialization
                       </option>
-                    ))}
-                  </select>
-                )}
+                      {doctorSpecializations.map((specialization) => (
+                        <option key={specialization} value={specialization}>
+                          {specialization}
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-medium text-black">
+                  Working Hours
+                </label>
+                <Controller
+                  name="workingHours"
+                  control={form.control}
+                  render={({ field }) => (
+                    <select
+                      {...field}
+                      className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500"
+                    >
+                      <option value="" disabled>
+                        Select working hours
+                      </option>
+                      {workingHours.map((hours) => (
+                        <option key={hours} value={hours}>
+                          {hours} hours
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                />
+              </div>
+              <FormInput
+                label="Degree Certificate"
+                name="degree"
+                placeholder="Upload degree certificate"
+                type="file"
               />
             </div>
-            <div className="flex flex-col gap-2">
-              <label className="text-sm font-medium text-gray-700">
-                Working Hours
-              </label>
-              <Controller
-                name="workingHours"
-                control={form.control}
-                render={({ field }) => (
-                  <select
-                    {...field}
-                    className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-green-400 focus:border-green-400"
-                  >
-                    <option value="" disabled>
-                      Select working hours
-                    </option>
-                    {workingHours.map((hours) => (
-                      <option key={hours} value={hours}>
-                        {hours} hours
-                      </option>
-                    ))}
-                  </select>
-                )}
-              />
-            </div>
-            <FormInput
-              label="Degree Certificate"
-              name="degree"
-              placeholder="Upload degree certificate"
-              type="file"
-            />
-            {/* Camera & Capture Section */}
-            <div className="col-span-2">
+            {/* Camera Section */}
+            <div className="col-span-2 flex flex-col py-4 gap-4">
               {cameraOn ? (
                 <Webcam
                   audio={false}
@@ -175,11 +176,10 @@ const DoctorsForm = () => {
                 />
               ) : (
                 <div className="w-full h-64 bg-gray-200 flex items-center justify-center rounded-md">
-                  <span className="text-gray-500 font-semibold">
-                    Camera is off
-                  </span>
+                  <span className="text-gray-500">Camera is off</span>
                 </div>
               )}
+
               <div className="mt-4 flex justify-between">
                 <Button
                   type="button"
@@ -215,7 +215,7 @@ const DoctorsForm = () => {
             <div className="col-span-2">
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-green-400 to-blue-400 hover:shadow-xl transform  hover:scale-105 transition-transform"
+                className="w-full bg-gradient-to-r from-green-400 to-blue-400 text-white rounded-md py-2"
               >
                 Submit
               </Button>
