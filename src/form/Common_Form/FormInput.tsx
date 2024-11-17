@@ -12,10 +12,10 @@ interface FormInputProps {
   name: string
   label: string
   placeholder: string
-  type?: string // Restrict the type to "text" and "date"
-  defaultValue?: string // Use string for defaultValue, especially for date inputs
-  min?: string // For date inputs, min should be a string
-  max?: string // For date inputs, max should be a string
+  type?: string 
+  defaultValue?: string 
+  min?: string 
+  max?: string 
 }
 
 const FormInput: React.FC<FormInputProps> = ({
@@ -40,6 +40,7 @@ const FormInput: React.FC<FormInputProps> = ({
               className="text-black  rounded-[5px] border border-gray-300 placeholder:text-slate-700 px-4 focus:outline-cyan-600"
               autoFocus
               defaultValue={defaultValue}
+            
               type={type}
               {...field}
               max={max}
