@@ -44,6 +44,8 @@ const DoctorsForm = () => {
   const [image, setImage] = useState<string | null>(null)
   const [cameraOn, setCameraOn] = useState<boolean>(false)
 
+  console.log(image)
+
   const webcamRef = React.useRef<Webcam>(null)
 
   console.log(watch("degree"))
@@ -208,7 +210,7 @@ const DoctorsForm = () => {
                     />
                   )}
                 />
-                <FormMessage name="degree" />
+                <FormMessage />
               </div>
             </div>
             {/* Camera Section */}
@@ -267,6 +269,9 @@ const DoctorsForm = () => {
               </Button>
             </div>
           </form>
+          <div className="">
+            <img src="" alt="" />
+          </div>
         </div>
       </div>
     </FormProvider>
