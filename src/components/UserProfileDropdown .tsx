@@ -27,7 +27,13 @@ const UserProfileDropdown = () => {
             <DropdownMenuItem>
               <div className="">
                 <span className="block text-sm font-medium truncate">
-                  {currentUser.username}
+                  {currentUser.role === "Admin" ? (
+                    <span className=" text-slate-800 rounded-full  py-4">
+                      <span> Admin</span>
+                    </span>
+                  ) : (
+                    currentUser.username
+                  )}
                 </span>
                 <span className="block text-sm font-medium truncate">
                   {currentUser.email}
@@ -35,20 +41,30 @@ const UserProfileDropdown = () => {
               </div>
             </DropdownMenuItem>
             <Separator />
-            <DropdownMenuItem>
+            <DropdownMenuItem className="flex gap-y-2 flex-col justify-start items-start">
               <Link
                 to={
                   currentUser.role === "patient"
-                    ? "/pdashbord"
-                    : "/createhospital"
+                    ? "/"
+                    : currentUser.role === "hospital"
+                    ? "/createhospital"
+                    : "/approvels"
                 }
               >
                 {currentUser.role === "patient" ? (
                   <span>Patient Profile</span>
-                ) : (
+                ) : currentUser.role === "hospital" ? (
                   <span>Hospital Profile</span>
+                ) : (
+                  <span>Approvels</span>
                 )}
               </Link>
+              <Separator />
+              {currentUser.role === "Admin" ? (
+                <Link to="/adminProfile">Profile</Link>
+              ) : (
+                ""
+              )}
             </DropdownMenuItem>
             <Separator />
             <DropdownMenuItem>
