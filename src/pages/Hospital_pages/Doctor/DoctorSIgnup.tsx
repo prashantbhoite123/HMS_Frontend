@@ -1,9 +1,13 @@
 import DoctorsForm from "@/form/Hospital-Auth-form/Doctors/DoctorsForm"
 
-const DoctorSIgnup = () => {
+type Props = {
+  hospitalId: string
+}
+
+const DoctorSIgnup = ({ hospitalId }: Props) => {
   return (
     <div>
-      <DoctorsForm />
+      <DoctorsForm hospitalId={hospitalId} />
     </div>
   )
 }

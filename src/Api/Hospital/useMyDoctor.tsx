@@ -4,14 +4,17 @@ import { BACKEND_API_URL } from "@/main"
 import { useMutation } from "react-query"
 import { toast } from "sonner"
 
-export const useMyDoctorRegister = () => {
+export const useMyDoctorRegister = (hospitalId: string) => {
   const registerDoctor = async (doctorData: FormData): Promise<doctors> => {
-    const responce = await fetch(`${BACKEND_API_URL}/api/doctor/register`, {
-      method: "POST",
-      credentials: "include",
+    const responce = await fetch(
+      `${BACKEND_API_URL}/api/doctor/register/${hospitalId}`,
+      {
+        method: "POST",
+        credentials: "include",
 
-      body: doctorData,
-    })
+        body: doctorData,
+      }
+    )
 
     if (!responce) {
       throw new Error("failed to register doctor")

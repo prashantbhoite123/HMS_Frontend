@@ -40,7 +40,7 @@ const HospitalCreate = () => {
         value="doctorsignup"
         className="space-y-5 bg-gray-50 pg-10 rounded-lg"
       >
-        <DoctorSIgnup />
+        <DoctorSIgnup hospitalId={hospital?._id as string} />
       </TabsContent>
     </Tabs>
   )

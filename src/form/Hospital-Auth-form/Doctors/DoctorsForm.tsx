@@ -38,9 +38,14 @@ export const doctorSchema = z.object({
 
 export type doctors = z.infer<typeof doctorSchema>
 
-const DoctorsForm = () => {
+type Props = {
+  hospitalId: String
+}
+const DoctorsForm = ({ hospitalId }: Props) => {
   const { watch } = useForm()
-  const { doctorRegister, isLoading } = useMyDoctorRegister()
+  const { doctorRegister, isLoading } = useMyDoctorRegister(
+    hospitalId as string
+  )
   const [image, setImage] = useState<string | null>(null)
   const [cameraOn, setCameraOn] = useState<boolean>(false)
 
