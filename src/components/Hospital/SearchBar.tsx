@@ -19,9 +19,10 @@ type Props = {
   onSubmit: (formData: SearchForm) => void
   onReset?: () => void
   searchQuery: string
+  placeholder: string
 }
 
-const SearchBar = ({ onSubmit, onReset, searchQuery }: Props) => {
+const SearchBar = ({ onSubmit, onReset, searchQuery, placeholder }: Props) => {
   const form = useForm<SearchForm>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -66,16 +67,17 @@ const SearchBar = ({ onSubmit, onReset, searchQuery }: Props) => {
                         boxShadow: "none",
                         border: "none",
                       }}
-                      placeholder="Search hospital"
+                      placeholder={placeholder}
                       className="border-none shadow-none text-xl focus-visible:right-0"
                     />
                   </FormControl>
                 </FormItem>
               )}
             />
+
             <Button
               onClick={handleReset}
-              type='button'
+              type="button"
               variant="outline"
               className="border border-green-500 rounded-full"
             >

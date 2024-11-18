@@ -23,7 +23,7 @@ import DashLayout from "./Layouts/DashLayout"
 import AdminSignin from "./pages/Common_Pages/AdminSignin"
 import AdminOtp from "./pages/Common_Pages/AdminOtp"
 import AdminProtect from "./auth/AdminProtect"
-
+import AdminRequestHosPage from "./pages/Admin/AdminRequestHosPage"
 
 const AppRoutes = () => {
   return (
@@ -89,8 +89,14 @@ const AppRoutes = () => {
               </DashLayout>
             }
           />
-          // Doctors Routes
-         
+          <Route
+            path="/requestedhos"
+            element={
+              <Layouts showhero={false}>
+                <AdminRequestHosPage />
+              </Layouts>
+            }
+          />
         </Route>
         <Route element={<AdminProtect />}>
           <Route

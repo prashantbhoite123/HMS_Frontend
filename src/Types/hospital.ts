@@ -16,10 +16,10 @@ export type IHospital = {
   totalBeds: number
   departments?: string[]
   services?: string[]
-
+  status: string
   picture: File
   owner: mongoose.Types.ObjectId
-  // New Fields
+  createdAt: Date
 }
 
 export type HospitalSearchResponse = {
@@ -31,12 +31,11 @@ export type HospitalSearchResponse = {
   }
 }
 
-
-  export type doctors= {
-    doctorName: string
-    education: string
-    experienceYears: number
-    specialization: string
-    workingHours: string
-  }
-  ;[]
+export type doctors = {
+  doctorName: string
+  education: string
+  experienceYears: number
+  specialization: string
+  workingHours: string
+}
+;[]

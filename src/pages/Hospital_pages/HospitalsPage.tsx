@@ -78,6 +78,7 @@ const HospitalsPage = () => {
     <div className="container mx-auto p-5">
       <div className="grid grid-cols-1 md:grid-cols-[4fr_1fr] gap-4 items-center mb-6">
         <SearchBar
+          placeholder="Search Hospital"
           searchQuery={searchState.searchQuery}
           onSubmit={handleSearchSubmit}
         />
