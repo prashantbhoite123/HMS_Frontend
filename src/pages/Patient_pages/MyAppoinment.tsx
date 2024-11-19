@@ -2,12 +2,14 @@ import { useMysearchAppoinment } from "@/Api/patient/UseManageAppoinment"
 import {
   useMyallAppoinment,
   useMydeleteApp,
+  useUpdateApp,
 } from "@/Api/patient/useMyAppoinment"
 import PaginationSelector from "@/components/Hospital/PaginationSelector"
 import Loader from "@/components/Loader"
 import AppinmetCard from "@/components/Patient/AppinmetCard"
+import { AppointmentForm } from "@/components/Patient/AppoinmentUpdate"
 import SearchApp, { appSearch } from "@/components/Patient/SearchApp"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { MdEventNote } from "react-icons/md"
 
 export type searchState = {
@@ -16,6 +18,7 @@ export type searchState = {
 }
 
 const MyAppoinment = () => {
+  const [appId, setAppId] = useState("")
   const [searchState, setSearchState] = useState<searchState>({
     searchQuery: "",
     page: 1,
@@ -34,8 +37,24 @@ const MyAppoinment = () => {
     }))
   }
   const { result, isLoading: searchLoding } = useMysearchAppoinment(searchState)
-  const { allAppoinment, isLoading } = useMyallAppoinment()
+  const { allAppoinment, isLoading, refetch } = useMyallAppoinment()
+
   const { delApp, isLoading: delAppLoading } = useMydeleteApp()
+  const { updatedApp, isLoading: updatedappLoading } = useUpdateApp(appId)
+
+  useEffect(() => {
+    if (!updatedappLoading && allAppoinment?.length) {
+      refetch()
+    }
+  }, [updatedappLoading, allAppoinment, refetch])
+
+  const handleUpdaredApp = (
+    appId: string,
+    updatedAppoinment: AppointmentForm
+  ) => {
+    setAppId(appId)
+    updatedApp(updatedAppoinment)
+  }
 
   const searchAndallApp = result ? result.data : allAppoinment
 
@@ -70,6 +89,8 @@ const MyAppoinment = () => {
 
       {/* Appointments Card */}
       <AppinmetCard
+        handleUpdateApp={handleUpdaredApp}
+        isLoading={updatedappLoading}
         delApp={delApp}
         loading={delAppLoading}
         appoinment={searchAndallApp}

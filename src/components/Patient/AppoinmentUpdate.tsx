@@ -11,7 +11,7 @@ import { FaEdit } from "react-icons/fa"
 import { generateTimeSlots, IDoctors } from "@/form/Patient/Appoinment"
 import { Textarea } from "../ui/textarea"
 import FormInput from "@/form/Common_Form/FormInput"
-import { useUpdateApp } from "@/Api/patient/useMyAppoinment"
+import LoadingBtn from "../LoadingBtn"
 
 const formData = z.object({
   patientName: z.string().min(1, { message: "Patient name is required" }),
@@ -42,14 +42,19 @@ type Appointment = {
   status: "Pending" | "Completed" | "Cancelled"
 }
 
+
+
 type Props = {
   appoinment: Appointment
+  updatedApp: (appId: string, updatedAppoinment: AppointmentForm) => void
+  isLoading: boolean
 }
 
-const AppoinmentUpdate = ({ appoinment }: Props) => {
-  const { allHospitalData, isLoading } = useMyHospitalDetail()
+const AppoinmentUpdate = ({ updatedApp, isLoading, appoinment }: Props) => {
 
-  console.log(isLoading)
+  const { allHospitalData, isLoading: allAppLoading } = useMyHospitalDetail()
+
+  console.log(allAppLoading)
   const matchingHospital = allHospitalData?.find(
     (hospital: IHospital) => hospital._id === appoinment?.hospitalId?._id
   )
@@ -77,13 +82,13 @@ const AppoinmentUpdate = ({ appoinment }: Props) => {
   // const formValues = watch()
   // console.log("this is form values", formValues)
 
-  const { updatedApp, isLoading: updatedappLoading } = useUpdateApp(
-    appoinment._id
-  )
+  // const { updatedApp, isLoading: updatedappLoading } = useUpdateApp(
+  //   appoinment._id
+  // )
 
-  const onSubmit = (data: AppointmentForm) => {
-    updatedApp(data)
-    console.log("this is updated form data", data)
+  const onSubmit = (updatedAppoinment: AppointmentForm) => {
+    updatedApp(appoinment._id, updatedAppoinment)
+    console.log("this is updated form data", updatedAppoinment)
   }
 
   return (
@@ -220,16 +225,16 @@ const AppoinmentUpdate = ({ appoinment }: Props) => {
                     />
                   </div>
 
-                  <Button
-                    type="submit"
-                    className="bg-gradient-to-r from-indigo-600 to-pink-600 col-span-2 mt-4 h-10"
-                  >
-                    {updatedappLoading ? (
-                      <span>Loading...</span>
-                    ) : (
-                      <span>Submit</span>
-                    )}
-                  </Button>
+                  {isLoading ? (
+                    <LoadingBtn />
+                  ) : (
+                    <Button
+                      type="submit"
+                      className="bg-gradient-to-r from-indigo-600 to-pink-600 col-span-2 mt-4 h-10"
+                    >
+                      Submit
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>

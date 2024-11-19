@@ -17,6 +17,7 @@ import HosImageDialog from "@/components/Hospital/HosImageDialog"
 
 import Appoinment from "@/form/Patient/Appoinment"
 import { useMyAppoinment } from "@/Api/patient/useMyAppoinment"
+import Loader from "@/components/Loader"
 
 const DetailPage = () => {
   const { hospitalId } = useParams()
@@ -29,8 +30,10 @@ const DetailPage = () => {
 
   if (isLoading) {
     return (
-      <div className="h-screen  w-full flex justify-center items-center">
-        <div className="loader">Loading...</div>
+      <div className="h-full  w-full flex justify-center items-center">
+        <div className="loader">
+          <Loader />
+        </div>
       </div>
     )
   }

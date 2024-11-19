@@ -6,7 +6,7 @@ import { Button } from "../ui/button"
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "../ui/dialog"
 import LoadingBtn from "../LoadingBtn"
 import { useState } from "react"
-import AppoinmentUpdate from "./AppoinmentUpdate"
+import AppoinmentUpdate, { AppointmentForm } from "./AppoinmentUpdate"
 import { Progress } from "../ui/progress"
 import { FaKey, FaUserMd } from "react-icons/fa"
 
@@ -28,10 +28,18 @@ export type Appointment = {
 type Props = {
   appoinment: Appointment[]
   delApp: (appId: string) => void
+  handleUpdateApp: (appId: string, updatedAppoinment: AppointmentForm) => void
   loading: boolean
+  isLoading: boolean
 }
 
-const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
+const AppinmetCard = ({
+  appoinment,
+  delApp,
+  loading,
+  isLoading,
+  handleUpdateApp,
+}: Props) => {
   const [appoinments, setAppoinment] = useState<Appointment[]>(appoinment)
   const [dialogopen, setDialogopen] = useState(false)
 
@@ -43,7 +51,7 @@ const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
 
   const handleCancel = () => setDialogopen(false)
 
-   const formatAppointmentTime = (timeSlot?: string): string => {
+  const formatAppointmentTime = (timeSlot?: string): string => {
     if (!timeSlot) return "Time not available"
 
     const [start, end] = timeSlot.split(" - ")
@@ -71,7 +79,7 @@ const AppinmetCard = ({ appoinment, delApp, loading }: Props) => {
           >
             <CardContent className="p-6 relative">
               <div className="flex justify-end gap-3 absolute top-4 right-4">
-                <AppoinmentUpdate appoinment={appoinment} />
+                <AppoinmentUpdate updatedApp={handleUpdateApp} isLoading={isLoading} appoinment={appoinment} />
                 <Dialog open={dialogopen} onOpenChange={setDialogopen}>
                   <DialogTrigger>
                     <Button

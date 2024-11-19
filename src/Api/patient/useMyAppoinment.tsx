@@ -64,20 +64,20 @@ export const useMyallAppoinment = () => {
     return response.json()
   }
 
-  const { data: allAppoinment, isLoading } = useQuery(
-    "allAppoinment",
-    getallAppoinment,
-    {
-      onSuccess: () => {
-        console.log("Fetched all appointments successfully")
-      },
-      onError: () => {
-        console.log("Failed to get appointments")
-      },
-    }
-  )
+  const {
+    data: allAppoinment,
+    isLoading,
+    refetch,
+  } = useQuery("allAppoinment", getallAppoinment, {
+    onSuccess: () => {
+      console.log("Fetched all appointments successfully")
+    },
+    onError: () => {
+      console.log("Failed to get appointments")
+    },
+  })
 
-  return { allAppoinment, isLoading }
+  return { allAppoinment, isLoading, refetch }
 }
 
 export const useMydeleteApp = () => {
@@ -157,7 +157,9 @@ export const useMydeleteApp = () => {
 export const useUpdateApp = (appId: string) => {
   const queryClient = useQueryClient()
 
-  const updateApp = async (updatedApp: AppointmentForm): Promise<apptype> => {
+  const updateApp = async (
+    updatedAppoinment: AppointmentForm
+  ): Promise<apptype> => {
     const response = await fetch(
       `${BACKEND_API_URL}/api/manappoinemt/update/${appId}`,
       {
@@ -166,7 +168,7 @@ export const useUpdateApp = (appId: string) => {
           "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify(updatedApp),
+        body: JSON.stringify(updatedAppoinment),
       }
     )
 
@@ -179,43 +181,52 @@ export const useUpdateApp = (appId: string) => {
     return data
   }
 
-  const { mutate: updatedApp, isLoading } = useMutation(updateApp, {
-    onMutate: async (newApp) => {
-      await queryClient.cancelQueries("allAppoinment")
+  const { mutate: updatedApp, isLoading } = useMutation(
+    (updatedAppoinment: AppointmentForm) => updateApp(updatedAppoinment),
+    {
+      // onMutate: async (newApp) => {
+      //   await queryClient.cancelQueries("allAppoinment")
 
-      const previousAppointments =
-        queryClient.getQueryData<apptype[]>("allAppoinment")
+      //   const previousAppointments =
+      //     queryClient.getQueryData<apptype[]>("allAppoinment")
 
-      queryClient.setQueryData<apptype[]>("allAppoinment", (old) =>
-        old
-          ? old.map((app) =>
-              app._id === appId
-                ? ({
-                    ...app,
-                    ...newApp,
-                    appointmentDate: new Date(newApp.appointmentDate),
-                  } as apptype)
-                : app
-            )
-          : []
-      )
+      //   queryClient.setQueryData<apptype[]>("allAppoinment", (old) =>
+      //     old
+      //       ? old.map((app) =>
+      //           app._id === appId
+      //             ? ({
+      //                 ...app,
+      //                 ...newApp,
+      //                 appointmentDate: new Date(newApp.appointmentDate),
+      //               } as apptype)
+      //             : app
+      //         )
+      //       : []
+      //   )
 
-      return { previousAppointments }
-    },
+      //   return { previousAppointments }
+      // },
 
-    onError: (err, variables, context) => {
-      console.log(err, variables)
-      if (context?.previousAppointments) {
-        queryClient.setQueryData("allAppoinment", context.previousAppointments)
-      }
-      toast.error("Failed to update appointment")
-    },
+      // onError: (err, variables, context) => {
+      //   console.log(err, variables)
+      //   if (context?.previousAppointments) {
+      //     queryClient.setQueryData(
+      //       "allAppoinment",
+      //       context.previousAppointments
+      //     )
+      //   }
+      //   toast.error("Failed to update appointment")
+      // },
+      onError: () => {
+        console.log("Error to updated appoinment")
+      },
 
-    onSuccess: () => {
-      queryClient.invalidateQueries("allAppoinment")
-      toast.success("Appointment updated successfully")
-    },
-  })
+      onSuccess: () => {
+        queryClient.invalidateQueries("allAppoinment")
+        toast.success("Appointment updated successfully")
+      },
+    }
+  )
 
   return { updatedApp, isLoading }
 }
