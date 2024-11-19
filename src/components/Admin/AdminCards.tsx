@@ -4,6 +4,7 @@ import { FaPhone } from "react-icons/fa"
 import { Bed, Dot } from "lucide-react"
 import { Button } from "../ui/button"
 import { BsWatch } from "react-icons/bs"
+import AdminResonPoup from "./AdminResonPoup"
 
 type Props = {
   hospitals: IHospital
@@ -115,12 +116,7 @@ const AdminCards = ({ hospitals }: Props) => {
 
             {/* Action Buttons */}
             <div className="flex flex-col md:flex-row gap-2 space-y-4 md:space-y-0 space-x-4">
-              <Button
-                variant="outline"
-                className="text-red-500 font-bold shadow-xl hover:text-red-500 hover:bg-white rounded-lg transition hover:scale-110 shadow-slate-300"
-              >
-                Rejected
-              </Button>
+              <AdminResonPoup />
               <Button className=" bg-gradient-to-r from-green-400 to-blue-400 text-white font-semibold rounded-lg py-2 shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform">
                 Approve
               </Button>
