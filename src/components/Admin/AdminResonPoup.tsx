@@ -1,11 +1,28 @@
+import { useState } from "react"
 import { Button } from "../ui/button"
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog"
 import { Textarea } from "../ui/textarea"
+import LoadingBtn from "../LoadingBtn"
 
-const AdminResonPoup = () => {
+type Props = {
+  hospitalRejection: (reson: string) => void
+  isLoading: boolean
+}
+
+const AdminResonPoup = ({ hospitalRejection, isLoading }: Props) => {
+  const [getReson, setGetReson] = useState("")
+  const [open, setOpen] = useState(false)
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setGetReson(e.target.value)
+  }
+  const handleSubmit = () => {
+    setOpen(false)
+    hospitalRejection(getReson.trim())
+  }
   return (
     <div>
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger>
           <Button
             variant="outline"
@@ -23,9 +40,15 @@ const AdminResonPoup = () => {
           </div>
           <div className="mt-4">
             <label className="text-slate-700">Reason for rejection</label>
-            <Textarea placeholder="fill the reason" />
+            <Textarea placeholder="fill the reason" onChange={handleChange} />
           </div>
-          <Button className="bg-red-500 text-lg">Reject</Button>
+          {isLoading ? (
+            <LoadingBtn />
+          ) : (
+            <Button className="bg-red-500 text-lg" onClick={handleSubmit}>
+              Reject
+            </Button>
+          )}
         </DialogContent>
       </Dialog>
     </div>

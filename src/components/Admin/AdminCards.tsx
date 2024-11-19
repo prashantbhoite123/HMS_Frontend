@@ -8,9 +8,20 @@ import AdminResonPoup from "./AdminResonPoup"
 
 type Props = {
   hospitals: IHospital
+  rejectedHospital: (reson: string, hospitalId: string) => void
+  isLoading: boolean
+  hospitalId: string
 }
 
-const AdminCards = ({ hospitals }: Props) => {
+const AdminCards = ({
+  hospitals,
+  rejectedHospital,
+  isLoading,
+  hospitalId,
+}: Props) => {
+  const handleRejection = (reson: string) => {
+    rejectedHospital(reson, hospitalId as string)
+  }
   return (
     <div className="p-4">
       <Card className="p-6 shadow-lg">
@@ -116,7 +127,10 @@ const AdminCards = ({ hospitals }: Props) => {
 
             {/* Action Buttons */}
             <div className="flex flex-col md:flex-row gap-2 space-y-4 md:space-y-0 space-x-4">
-              <AdminResonPoup />
+              <AdminResonPoup
+                hospitalRejection={handleRejection}
+                isLoading={isLoading}
+              />
               <Button className=" bg-gradient-to-r from-green-400 to-blue-400 text-white font-semibold rounded-lg py-2 shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform">
                 Approve
               </Button>

@@ -17,7 +17,7 @@ export type IHospital = {
   departments?: string[]
   services?: string[]
   status: string
-  picture: File
+  picture: string | File | null
   owner: mongoose.Types.ObjectId
   createdAt: Date
 }

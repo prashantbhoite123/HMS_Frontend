@@ -23,7 +23,7 @@ export const useMyRequestedHospital = () => {
     }
   }
 
-  const { data: requestedHospital, isLoading } = useQuery(
+  const { data: requestedHospital, isLoading ,refetch} = useQuery(
     "requestedHos",
     getMyRequestHos,
     {
@@ -35,19 +35,21 @@ export const useMyRequestedHospital = () => {
       },
     }
   )
-  return { requestedHospital, isLoading }
+  return { requestedHospital, isLoading, refetch }
 }
 
-export const useMyRejectHospital = (hospitalId: string) => {
-  const hospitalRejectApi = async (reson: string) => {
+export const useMyRejectHospital = () => {
+  const hospitalRejectApi = async (reson: string, hospitalId: string) => {
+    console.log(reson, hospitalId)
     const responce = await fetch(
       `${BACKEND_API_URL}/api/approvel/rejected/${hospitalId as string}`,
       {
-        method: "POST",
+        method: "PUT",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(reson),
+        body: JSON.stringify({ reson }),
       }
     )
     if (!responce.ok) {
@@ -63,14 +65,18 @@ export const useMyRejectHospital = (hospitalId: string) => {
     return data
   }
 
-  const { mutate: rejectionHos, isLoading } = useMutation(hospitalRejectApi, {
-    onSuccess: () => {
-      console.log("hospital rejected successful")
-    },
-    onError: () => {
-      console.log("error to hospital rejection ")
-    },
-  })
+  const { mutate: rejectionHos, isLoading } = useMutation(
+    ({ reson, hospitalId }: { reson: string; hospitalId: string }) =>
+      hospitalRejectApi(reson, hospitalId),
+    {
+      onSuccess: () => {
+        console.log("Hospital rejected successfully")
+      },
+      onError: () => {
+        console.log("Error rejecting hospital")
+      },
+    }
+  )
 
   return { rejectionHos, isLoading }
 }
