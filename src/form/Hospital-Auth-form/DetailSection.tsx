@@ -11,12 +11,17 @@ import { Controller, useFormContext } from "react-hook-form"
 import { Textarea } from "@/components/ui/textarea"
 import { hospitalType } from "@/config/HospitalData"
 
-function DetailSection() {
+type Props = {
+  message: string
+}
+
+function DetailSection({ message }: Props) {
   const { control } = useFormContext()
 
   return (
     <div className="space-y-8 ">
       <div className="">
+        <h2>Status :- {message}</h2>
         <h2 className="text-lg font-bold">Hospital Details</h2>
         <FormDescription>
           Enetr the details about your restaurant

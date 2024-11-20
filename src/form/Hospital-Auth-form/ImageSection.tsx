@@ -7,10 +7,13 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { useState } from "react"
 import { useFormContext } from "react-hook-form"
 
 const ImageSection = () => {
   const { control, watch } = useFormContext()
+
+  const [image, setImage] = useState<File | null>(null)
 
   const picture = watch("picture")
   return (
@@ -25,7 +28,7 @@ const ImageSection = () => {
         {picture && (
           <AspectRatio ratio={16 / 9}>
             <img
-              src={picture}
+              src={image || picture}
               className="rounded-md object-cover h-full w-full"
             />
           </AspectRatio>
@@ -42,7 +45,10 @@ const ImageSection = () => {
                   accept=".jpg,.jpeg,.png"
                   onChange={(event) =>
                     field.onChange(
-                      event.target.files ? event.target.files[0] : null
+                      event.target.files ? event.target.files[0] : null,
+                      setImage(
+                        event.target.files ? event.target.files[0] : null
+                      )
                     )
                   }
                 />

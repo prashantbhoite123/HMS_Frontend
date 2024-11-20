@@ -14,6 +14,7 @@ const HospitalCreate = () => {
 
   const { createHospitaldata } = usecreateHospital()
   const { hospital, isLoading, refetch } = useGetHospital()
+
   const { updateHospital, isLoading: updateLoading } =
     useUpdateMyHospital(refetch)
   const { deleteHos, isLoading: delLoading } = useMyDeleteHospital()
@@ -24,7 +25,11 @@ const HospitalCreate = () => {
     <Tabs defaultValue="manage-hospital">
       <TabsList className="ml-5 md:ml-0">
         <TabsTrigger value="manage-hospital">Manage Hospital</TabsTrigger>
-        <TabsTrigger value="doctorsignup">Doctors SignUp</TabsTrigger>
+        {hospital && typeof hospital === "object" ? (
+          <TabsTrigger value="doctorsignup">Doctors SignUp</TabsTrigger>
+        ) : (
+          ""
+        )}
       </TabsList>
 
       <TabsContent value="manage-hospital">
@@ -36,12 +41,16 @@ const HospitalCreate = () => {
           loading={isLoading || updateLoading}
         />
       </TabsContent>
-      <TabsContent
-        value="doctorsignup"
-        className="space-y-5 bg-gray-50 pg-10 rounded-lg"
-      >
-        <DoctorSIgnup hospitalId={hospital?._id as string} />
-      </TabsContent>
+      {hospital && typeof hospital === "object" ? (
+        <TabsContent
+          value="doctorsignup"
+          className="space-y-5 bg-gray-50 pg-10 rounded-lg"
+        >
+          <DoctorSIgnup hospitalId={hospital?._id as string} />
+        </TabsContent>
+      ) : (
+        ""
+      )}
     </Tabs>
   )
 }
