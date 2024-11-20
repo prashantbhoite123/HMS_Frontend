@@ -1,4 +1,4 @@
-import { useMyAdminApi } from "@/Api/common_Api/useAdminApi"
+import { useMyAdminApi } from "@/Api/Admin/useAdminApi"
 import AdminSigninForm from "@/form/Common_Form/AdminSigninForm"
 
 const AdminSignin = () => {

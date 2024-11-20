@@ -5,6 +5,7 @@ import { Bed, Dot } from "lucide-react"
 import { Button } from "../ui/button"
 import { BsWatch } from "react-icons/bs"
 import AdminResonPoup from "./AdminResonPoup"
+import LoadingBtn from "../LoadingBtn"
 
 type Props = {
   hospitals: IHospital
@@ -135,12 +136,17 @@ const AdminCards = ({
                 hospitalRejection={handleRejection}
                 isLoading={isLoading}
               />
-              <Button
-                onClick={handleApprove}
-                className=" bg-gradient-to-r from-green-400 to-blue-400 text-white font-semibold rounded-lg py-2 shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform"
-              >
-                Approve
-              </Button>
+
+              {isLoading ? (
+                <LoadingBtn />
+              ) : (
+                <Button
+                  onClick={handleApprove}
+                  className=" bg-gradient-to-r from-green-400 to-blue-400 text-white font-semibold rounded-lg py-2 shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform"
+                >
+                  Approve
+                </Button>
+              )}
             </div>
           </div>
         </CardContent>

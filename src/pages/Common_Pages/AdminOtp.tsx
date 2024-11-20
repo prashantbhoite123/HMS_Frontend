@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
-import { useMyResendOtp, useMyVarifyOtp } from "@/Api/common_Api/useAdminApi"
+import { useMyResendOtp, useMyVarifyOtp } from "@/Api/Admin/useAdminApi"
 import LoadingBtn from "@/components/LoadingBtn"
 import { useLocation } from "react-router-dom"
 import "../../App.css"

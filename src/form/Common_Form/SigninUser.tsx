@@ -37,12 +37,14 @@ const SigninUser = ({ signInUser, isLoading }: Props) => {
     resolver: zodResolver(formSchema),
   })
 
+  const handleClick = () => {}
+
   const onSave = async (data: SignInFormData) => {
     const formData = new FormData()
     formData.append("email", data.email)
     formData.append("password", data.password)
     try {
-      await signInUser(formData)
+      signInUser(formData)
     } catch (error) {
       console.log(`Error signing in`, error)
     }
@@ -114,7 +116,13 @@ const SigninUser = ({ signInUser, isLoading }: Props) => {
             <span className="flex mt-5 text-blue-500 hover:underline">
               <LoginBtn />
             </span>
-            <span className="flex mt-5 text-blue-500 font-semibold text-sm hover:underline">
+            <span
+              onClick={handleClick}
+              className="flex mt-5  text-blue-500 font-semibold text-sm hover:underline"
+            >
+              <Link to="/">Doctor</Link>
+            </span>
+            <span className="flex mt-5  text-blue-500 font-semibold text-sm hover:underline">
               <Link to="/admin-sign">Admin</Link>
             </span>
           </div>
