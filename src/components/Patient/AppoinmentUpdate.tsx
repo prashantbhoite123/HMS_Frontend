@@ -12,6 +12,7 @@ import { generateTimeSlots, IDoctors } from "@/form/Patient/Appoinment"
 import { Textarea } from "../ui/textarea"
 import FormInput from "@/form/Common_Form/FormInput"
 import LoadingBtn from "../LoadingBtn"
+import { useState } from "react"
 
 const formData = z.object({
   patientName: z.string().min(1, { message: "Patient name is required" }),
@@ -42,8 +43,6 @@ type Appointment = {
   status: "Pending" | "Completed" | "Cancelled"
 }
 
-
-
 type Props = {
   appoinment: Appointment
   updatedApp: (appId: string, updatedAppoinment: AppointmentForm) => void
@@ -51,13 +50,15 @@ type Props = {
 }
 
 const AppoinmentUpdate = ({ updatedApp, isLoading, appoinment }: Props) => {
-
+  const [open, setOpen] = useState(false)
   const { allHospitalData, isLoading: allAppLoading } = useMyHospitalDetail()
-
   console.log(allAppLoading)
-  const matchingHospital = allHospitalData?.find(
-    (hospital: IHospital) => hospital._id === appoinment?.hospitalId?._id
-  )
+  console.log("alll hospital Data==>", allHospitalData)
+  const matchingHospital = Array.isArray(allHospitalData)
+    ? allHospitalData.find(
+        (hospital: IHospital) => hospital._id === appoinment?.hospitalId?._id
+      )
+    : null
 
   const doctors = matchingHospital?.doctors || []
 
@@ -87,13 +88,14 @@ const AppoinmentUpdate = ({ updatedApp, isLoading, appoinment }: Props) => {
   // )
 
   const onSubmit = (updatedAppoinment: AppointmentForm) => {
+    setOpen(false)
     updatedApp(appoinment._id, updatedAppoinment)
     console.log("this is updated form data", updatedAppoinment)
   }
 
   return (
     <FormProvider {...form}>
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger>
           <Button className="flex items-center bg-gradient-to-r from-green-200 to-green-300 hover:underline hover:from-green-300 hover:to-green-400 text-green-700 font-semibold px-6 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-105 space-x-3">
             <FaEdit className="text-2xl" />

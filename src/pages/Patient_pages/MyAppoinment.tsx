@@ -41,12 +41,14 @@ const MyAppoinment = () => {
 
   const { delApp, isLoading: delAppLoading } = useMydeleteApp()
   const { updatedApp, isLoading: updatedappLoading } = useUpdateApp(appId)
-
+  console.log(updatedApp)
+  console.log("Updated app loading:", updatedappLoading)
+  console.log("All appointments:", allAppoinment)
   useEffect(() => {
     if (!updatedappLoading && allAppoinment?.length) {
       refetch()
     }
-  }, [updatedappLoading, allAppoinment, refetch])
+  }, [updatedappLoading, allAppoinment, updatedApp, refetch])
 
   const handleUpdaredApp = (
     appId: string,

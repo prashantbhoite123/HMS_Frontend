@@ -40,7 +40,11 @@ const AdminResonPoup = ({ hospitalRejection, isLoading }: Props) => {
           </div>
           <div className="mt-4">
             <label className="text-slate-700">Reason for rejection</label>
-            <Textarea placeholder="fill the reason" onChange={handleChange} />
+            <Textarea
+              placeholder="fill the reason"
+              onChange={handleChange}
+              className="text-slate-700"
+            />
           </div>
           {isLoading ? (
             <LoadingBtn />
