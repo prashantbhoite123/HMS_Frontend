@@ -22,6 +22,10 @@ const AdminCards = ({
   const handleRejection = (reson: string) => {
     rejectedHospital(reson, hospitalId as string)
   }
+
+  const handleApprove = () => {
+    rejectedHospital(import.meta.env.VITE_APPROVE, hospitalId as string)
+  }
   return (
     <div className="p-4">
       <Card className="p-6 shadow-lg">
@@ -131,7 +135,10 @@ const AdminCards = ({
                 hospitalRejection={handleRejection}
                 isLoading={isLoading}
               />
-              <Button className=" bg-gradient-to-r from-green-400 to-blue-400 text-white font-semibold rounded-lg py-2 shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform">
+              <Button
+                onClick={handleApprove}
+                className=" bg-gradient-to-r from-green-400 to-blue-400 text-white font-semibold rounded-lg py-2 shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform"
+              >
                 Approve
               </Button>
             </div>
