@@ -31,6 +31,10 @@ const UserProfileDropdown = () => {
                     <span className=" text-slate-800 rounded-full  py-4">
                       <span> Admin</span>
                     </span>
+                  ) : currentUser.role === "Doctor" ? (
+                    <span className=" text-slate-800 rounded-full  py-4">
+                      <span>Doctor</span>
+                    </span>
                   ) : (
                     currentUser.username
                   )}
@@ -48,6 +52,8 @@ const UserProfileDropdown = () => {
                     ? "/"
                     : currentUser.role === "hospital"
                     ? "/createhospital"
+                    : currentUser.role === "Doctor"
+                    ? "/doctorProfile"
                     : "/requestedhos"
                 }
               >
@@ -55,17 +61,22 @@ const UserProfileDropdown = () => {
                   <span>Patient Profile</span>
                 ) : currentUser.role === "hospital" ? (
                   <span>Hospital Profile</span>
+                ) : currentUser.role === "Doctor" ? (
+                  <span>Doctor Profile</span>
                 ) : (
                   <span>Approvels</span>
                 )}
               </Link>
-              <Separator />
-              {currentUser.role === "Admin" ? (
-                <Link to="/adminProfile">Profile</Link>
-              ) : (
-                ""
-              )}
             </DropdownMenuItem>
+            {currentUser.role === "Admin" ? <Separator /> : ""}
+            {currentUser.role === "Admin" ? (
+              <DropdownMenuItem className="flex gap-y-2 flex-col justify-start items-start">
+                <Link to="/adminProfile">Profile</Link>
+              </DropdownMenuItem>
+            ) : (
+              ""
+            )}
+
             <Separator />
             <DropdownMenuItem>
               <LogoutBtn />

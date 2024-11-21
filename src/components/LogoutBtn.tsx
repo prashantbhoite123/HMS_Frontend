@@ -3,8 +3,9 @@ import { Button } from "./ui/button"
 import { BACKEND_API_URL } from "@/main"
 import { useUser } from "@/context/userContext"
 import { useNavigate } from "react-router-dom"
+import { FaArrowRight } from "react-icons/fa"
 
-const   LogoutBtn = () => {
+const LogoutBtn = () => {
   const naviagte = useNavigate()
   const { setCurrentUser } = useUser()
   const handleSignOut = async () => {
@@ -33,6 +34,7 @@ const   LogoutBtn = () => {
       onClick={handleSignOut}
       className="text-lg bg-gradient-to-r w-full from-indigo-600 to-pink-600 rounded-md"
     >
+      <FaArrowRight />
       Log out
     </Button>
   )
