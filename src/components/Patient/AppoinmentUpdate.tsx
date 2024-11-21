@@ -1,6 +1,6 @@
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog"
 import { useMyHospitalDetail } from "@/Api/Hospital/useMyHospitalDetails"
-import { IHospital } from "@/Types/hospital"
+import { IDoctor, IHospital } from "@/Types/hospital"
 import { Controller, FormProvider, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import ReactDatePicker from "react-datepicker"
@@ -54,13 +54,16 @@ const AppoinmentUpdate = ({ updatedApp, isLoading, appoinment }: Props) => {
   const { allHospitalData, isLoading: allAppLoading } = useMyHospitalDetail()
   console.log(allAppLoading)
   console.log("alll hospital Data==>", allHospitalData)
-  const matchingHospital = Array.isArray(allHospitalData)
-    ? allHospitalData.find(
+  const matchingHospital = Array.isArray(allHospitalData?.hospitals)
+    ? allHospitalData?.hospitals.find(
         (hospital: IHospital) => hospital._id === appoinment?.hospitalId?._id
       )
     : null
 
-  const doctors = matchingHospital?.doctors || []
+  console.log("matchHospital", matchingHospital)
+  const doctors = allHospitalData?.doctors.filter(
+    (doctor: IDoctor) => doctor.hospitalId === matchingHospital._id
+  )
 
   const form = useForm<AppointmentForm>({
     resolver: zodResolver(formData),
@@ -72,8 +75,8 @@ const AppoinmentUpdate = ({ updatedApp, isLoading, appoinment }: Props) => {
   const { control, setValue, watch } = form
 
   const selectedDoctorName = watch("doctorName")
-  const selectedDoctor = doctors.find(
-    (doctor: IDoctors) => doctor.doctorName === selectedDoctorName
+  const selectedDoctor = doctors?.find(
+    (doctor: IDoctor) => doctor?.doctorName === selectedDoctorName
   )
 
   const appointmentSlots = selectedDoctor

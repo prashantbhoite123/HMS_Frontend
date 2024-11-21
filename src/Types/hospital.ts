@@ -1,4 +1,4 @@
-import mongoose from "mongoose"
+import mongoose, { ObjectId } from "mongoose"
 
 export type IHospital = {
   _id: string
@@ -31,11 +31,19 @@ export type HospitalSearchResponse = {
   }
 }
 
-export type doctors = {
+export type IDoctor = {
+  _id: ObjectId
   doctorName: string
+  profilePic: string
+  degree: string
+  role: "Doctor"
+  email: string
+  ownerId: ObjectId
+  hospitalId: ObjectId
+  password: string
   education: string
   experienceYears: number
   specialization: string
   workingHours: string
+  __v: number
 }
-;[]

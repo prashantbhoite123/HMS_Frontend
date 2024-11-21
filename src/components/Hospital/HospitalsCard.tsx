@@ -1,3 +1,4 @@
+
 import { IHospital } from "@/Types/hospital"
 import { Card, CardContent, CardHeader } from "../ui/card"
 import { MdOutlineDone } from "react-icons/md"
@@ -6,58 +7,78 @@ type Props = {
   Hospitals: IHospital
   loading: boolean
 }
+
 const HospitalsCard = ({ Hospitals, loading }: Props) => {
   const imageSrc =
     Hospitals.picture instanceof File
       ? URL.createObjectURL(Hospitals.picture)
       : Hospitals.picture
+
   return (
     <>
       {loading ? (
-        <h1>Loading</h1>
+        <h1 className="text-center text-lg font-bold text-gray-700">
+          Loading...
+        </h1>
       ) : (
-        <div className="p-2 w-full md:w-[60vw]">
-          <Card className="shadow-lg shadow-gray-400">
+        <div className="p-4 w-full max-w-4xl mx-auto">
+          <Card className="shadow-lg shadow-gray-400 rounded-lg overflow-hidden">
             <CardHeader>
-              <div className="flex flex-col md:flex-row md:space-x-10 space-x-0 gap-3">
-                <h1 className="text-lg font-semibold">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-2 md:space-y-0">
+                <h1 className="text-lg font-semibold text-gray-800">
                   {Hospitals.hospitalName} -
                   <span className="text-green-500 px-2">
                     {Hospitals.hospitalType}
                   </span>
                 </h1>
+                <h1 className="text-lg font-semibold text-gray-700">
+                  Total Beds:{" "}
+                  <span className="text-gray-800">{Hospitals.totalBeds}</span>
+                </h1>
               </div>
             </CardHeader>
             <CardContent>
-              <div className=" grid grid-row-[3fr_2fr_1fr] gap-3 md:gap-0  md:grid-cols-[3fr_2fr_1fr]">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Image Section */}
                 <img
-                  className="h-[30vh] w-full md:w-[20vw] md:h-[30vh] rounded-md  object-cover"
+                  className="h-[30vh] w-full rounded-md object-cover"
                   src={imageSrc}
+                  alt={`${Hospitals.hospitalName} Image`}
                 />
 
-                <div className="">
-                  <h1 className="p-2 ml-2 text-lg font-semibold text-black">
-                    Services
-                  </h1>
-                  {Hospitals?.services?.slice(0, 5).map((services) => (
-                    <div className="flex text-green-500 font-semibold text-sm">
-                      <MdOutlineDone className="mr-2" /> {services}
-                    </div>
-                  ))}
-                  <div className="flex flex-col md:flex-row gap-x-3 mt-5  text-black font-semibold">
-                    <h1 className="text-lg font-semibold text-green-500">
-                      Address:-
+                {/* Details Section */}
+                <div className="space-y-4">
+                  {/* Services */}
+                  <div>
+                    <h1 className="text-lg font-semibold text-gray-800">
+                      Services
                     </h1>
-                    <h1>{Hospitals.address.city}</h1>
-                    <h1>{Hospitals.address.country}</h1>
-                    <h1>{Hospitals.address.state}</h1>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {Hospitals?.services
+                        ?.slice(0, 5)
+                        .map((service, index) => (
+                          <div
+                            key={index}
+                            className="flex items-center text-green-500 font-semibold text-sm"
+                          >
+                            <MdOutlineDone className="mr-1" />
+                            {service}
+                          </div>
+                        ))}
+                    </div>
                   </div>
-                </div>
-                {/* <Separator /> */}
-                <div className="">
-                  <h1 className="text-lg font-semibold">
-                    Total Beds:{Hospitals.totalBeds}
-                  </h1>
+
+                  {/* Address */}
+                  <div>
+                    <h1 className="text-lg font-semibold text-green-500">
+                      Address:
+                    </h1>
+                    <div className="text-gray-700 space-y-1">
+                      <p>{Hospitals.address.city}</p>
+                      <p>{Hospitals.address.state}</p>
+                      <p>{Hospitals.address.country}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </CardContent>
@@ -67,4 +88,5 @@ const HospitalsCard = ({ Hospitals, loading }: Props) => {
     </>
   )
 }
+
 export default HospitalsCard

@@ -65,7 +65,7 @@ const HospitalsPage = () => {
   const displayHospitalData =
     result && result.data && result.data.length > 0
       ? result.data
-      : allHospitalData
+      : allHospitalData?.hospitals
 
   if (isLoading) {
     return (

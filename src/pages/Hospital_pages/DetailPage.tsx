@@ -28,6 +28,8 @@ const DetailPage = () => {
     hospitalId as string
   )
 
+  console.log(getHospital)
+
   if (isLoading) {
     return (
       <div className="h-full  w-full flex justify-center items-center">
@@ -48,9 +50,9 @@ const DetailPage = () => {
     )
   }
 
-  const formatedDate = getHospital.establishedDate
+  const formatedDate = getHospital.hospital.establishedDate
     ? (() => {
-        const date = new Date(getHospital.establishedDate)
+        const date = new Date(getHospital.hospital.establishedDate)
         const day = String(date.getDate()).padStart(2, "0")
         const month = String(date.getMonth() + 1).padStart(2, "0")
         const year = date.getFullYear()
@@ -64,36 +66,39 @@ const DetailPage = () => {
           <DialogTrigger>
             <img
               className="rounded-full ml-4 md:ml-0 h-[25vw] w-[25vw] md:h-[15vw] md:w-[15vw] object-cover"
-              src={getHospital.picture || "/default-hospital.jpg"}
-              alt={getHospital.hospitalName}
+              src={getHospital.hospital.picture || "/default-hospital.jpg"}
+              alt={getHospital.hospital.hospitalName}
             />
           </DialogTrigger>
-          <HosImageDialog picture={getHospital.picture} />
+          <HosImageDialog picture={getHospital.hospital.picture} />
         </Dialog>
 
         <div className="p-4 ml-5 flex flex-col  gap-4">
           <h1 className="text-2xl md:text-4xl font-semibold">
-            {getHospital.hospitalName}
+            {getHospital.hospital.hospitalName}
           </h1>
-          <h2 className="text-xl md:text-2xl">{getHospital.hospitalType}</h2>
+          <h2 className="text-xl md:text-2xl">
+            {getHospital.hospital.hospitalType}
+          </h2>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col gap-2 text-sm font-semibold">
               <div className="flex items-center gap-2 text-gray-700">
                 <MdLocationOn size={20} />
-                <span>{`${getHospital.address.city}, ${getHospital.address.state}, ${getHospital.address.country}`}</span>
+                <span>{`${getHospital.hospital.address.city}, ${getHospital.hospital.address.state}, ${getHospital.hospital.address.country}`}</span>
               </div>
 
               <div className="flex items-center gap-2 text-gray-700">
                 <Phone size={20} />
-                <span>{getHospital.phoneNumber}</span>
+                <span>{getHospital.hospital.phoneNumber}</span>
               </div>
 
               {/* Description */}
               <div className="flex items-center gap-2 text-gray-700">
                 <Notebook size={20} />
                 <span>
-                  {getHospital.description || "No description available"}
+                  {getHospital.hospital.description ||
+                    "No description available"}
                 </span>
               </div>
             </div>
@@ -104,7 +109,7 @@ const DetailPage = () => {
               </div>
               <div className="flex gap-2 items-center">
                 <FaBed />
-                <span>{getHospital.totalBeds}</span>
+                <span>{getHospital.hospital.totalBeds}</span>
               </div>
             </div>
           </div>
@@ -192,16 +197,18 @@ const DetailPage = () => {
               <h2 className="text-xl font-bold">Departments</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              {getHospital.departments.map((dept: string, index: number) => (
-                <div
-                  key={index}
-                  className="flex items-center gap-3 p-3 rounded-md shadow-md"
-                >
-                  <FaHospitalAlt className="text-blue-500" size={20} />{" "}
-                  {/* Department Icon */}
-                  <span className="text-lg font-medium">{dept}</span>
-                </div>
-              ))}
+              {getHospital.hospital.departments.map(
+                (dept: string, index: number) => (
+                  <div
+                    key={index}
+                    className="flex items-center gap-3 p-3 rounded-md shadow-md"
+                  >
+                    <FaHospitalAlt className="text-blue-500" size={20} />{" "}
+                    {/* Department Icon */}
+                    <span className="text-lg font-medium">{dept}</span>
+                  </div>
+                )
+              )}
             </div>
           </div>
 
@@ -212,16 +219,18 @@ const DetailPage = () => {
               <h2 className="text-xl font-bold">Services</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              {getHospital.services.map((service: string, index: number) => (
-                <div
-                  key={index}
-                  className="flex items-center gap-3 p-3 rounded-md shadow-md"
-                >
-                  <FaConciergeBell className="text-green-500" size={20} />{" "}
-                  {/* Service Icon */}
-                  <span className="text-lg font-medium">{service}</span>
-                </div>
-              ))}
+              {getHospital.hospital.services.map(
+                (service: string, index: number) => (
+                  <div
+                    key={index}
+                    className="flex items-center gap-3 p-3 rounded-md shadow-md"
+                  >
+                    <FaConciergeBell className="text-green-500" size={20} />{" "}
+                    {/* Service Icon */}
+                    <span className="text-lg font-medium">{service}</span>
+                  </div>
+                )
+              )}
             </div>
           </div>
         </div>
