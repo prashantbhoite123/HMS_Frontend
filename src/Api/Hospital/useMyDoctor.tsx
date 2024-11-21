@@ -42,18 +42,15 @@ export const useMyDoctorRegister = (hospitalId: string) => {
   return { doctorRegister, isLoading }
 }
 
-
-
-
 export const useMyDoctorLogin = () => {
   const { saveUserToSession } = useUser()
   const navigate = useNavigate()
 
-  // Function to handle user sign-in
   const loginDoctor = async (signInData: FormData) => {
+    console.log("doctor sing==><<")
     const formDataObj = Object.fromEntries(signInData.entries())
 
-    console.log("signInDataObj", formDataObj)
+    console.log("Docto signInDataObj", formDataObj)
 
     const response = await fetch(`${BACKEND_API_URL}/api/doctor/login`, {
       method: "POST",
@@ -73,16 +70,15 @@ export const useMyDoctorLogin = () => {
     return data
   }
 
-  const { mutate: signIn, isLoading } = useMutation(loginDoctor, {
+  const { mutate: DoctorSign, isLoading } = useMutation(loginDoctor, {
     onSuccess: () => {
-      toast.success("Sign-in successful")
+      toast.success("Doctor Sign-in successful")
       navigate("/")
     },
     onError: () => {
-      toast.error("Error while signing in")
+      toast.error("Error while Doctor Signin")
     },
   })
 
-  return { signIn, isLoading }
+  return { DoctorSign, isLoading }
 }
-

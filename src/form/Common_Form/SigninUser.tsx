@@ -26,20 +26,23 @@ import { Button } from "@/components/ui/button"
 import GoogleAuthBtn from "@/components/GoogleAuthBtn"
 import LoginBtn from "@/components/LoginBtn"
 import { Link } from "react-router-dom"
+import { useState } from "react"
 
 type Props = {
   signInUser: (data: FormData) => void
+  doctorSignIn: (data: FormData) => void
   isLoading: boolean
 }
 
-const SigninUser = ({ signInUser, isLoading }: Props) => {
+const SigninUser = ({ signInUser, doctorSignIn, isLoading }: Props) => {
   const form = useForm<SignInFormData>({
     resolver: zodResolver(formSchema),
   })
 
-  const handleClick = () => {}
+  const [doctorApi, setDoctorAPi] = useState<boolean>(false)
 
   const onSave = async (data: SignInFormData) => {
+    console.log("user function call==>")
     const formData = new FormData()
     formData.append("email", data.email)
     formData.append("password", data.password)
@@ -50,12 +53,32 @@ const SigninUser = ({ signInUser, isLoading }: Props) => {
     }
   }
 
+  const doctorOnSave = (data: SignInFormData) => {
+    console.log("Doctor function call==>")
+    const formData = new FormData()
+    formData.append("email", data.email)
+    formData.append("password", data.password)
+    try {
+      doctorSignIn(formData)
+    } catch (error) {
+      console.log(`Error signing in`, error)
+    }
+  }
+
   return (
     <div className="flex flex-col border w-full md:w-[35vw] p-5 md:p-10 shadow-lg rounded-lg">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSave)}>
+        <form
+          onSubmit={
+            doctorApi
+              ? form.handleSubmit(doctorOnSave)
+              : form.handleSubmit(onSave)
+          }
+        >
           <div className="mb-6 flex gap-2 flex-col text-center">
-            <h2 className="text-2xl font-semibold">Sign In</h2>
+            <h2 className="text-2xl font-semibold">
+              {doctorApi ? "Doctor SignIn" : "Sign In"}
+            </h2>
           </div>
 
           {/* Email field with margin-bottom */}
@@ -103,12 +126,13 @@ const SigninUser = ({ signInUser, isLoading }: Props) => {
           </div>
 
           {/* Submit Button */}
+
           <Button
             type="submit"
             disabled={isLoading}
             className="w-full bg-gradient-to-r from-green-400 to-blue-400 text-white font-semibold rounded-lg py-2 shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform"
           >
-            {isLoading ? "Loading" : "Sign In"}
+            {isLoading ? "Loading" : doctorApi ? "Doctor Signin" : "Sign In"}
           </Button>
 
           {/* Sign-Up Link with margin-top */}
@@ -117,10 +141,10 @@ const SigninUser = ({ signInUser, isLoading }: Props) => {
               <LoginBtn />
             </span>
             <span
-              onClick={handleClick}
+              onClick={() => setDoctorAPi((prev) => !prev)}
               className="flex mt-5  text-blue-500 font-semibold text-sm hover:underline"
             >
-              <Link to="/">Doctor</Link>
+              <Link to="">{doctorApi ? "User" : "Doctor"}</Link>
             </span>
             <span className="flex mt-5  text-blue-500 font-semibold text-sm hover:underline">
               <Link to="/admin-sign">Admin</Link>

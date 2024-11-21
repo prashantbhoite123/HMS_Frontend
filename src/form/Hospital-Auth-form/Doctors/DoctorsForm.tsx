@@ -8,8 +8,7 @@ import FormInput from "@/form/Common_Form/FormInput"
 import { doctorSpecializations, workingHours } from "@/config/DoctorData"
 import { FaUserMd } from "react-icons/fa"
 import { useMyDoctorRegister } from "@/Api/Hospital/useMyDoctor"
-import Loader from "@/components/Loader"
-
+  
 import {
   // FormControl,
   // FormField,
@@ -101,13 +100,6 @@ const DoctorsForm = ({ hospitalId }: Props) => {
     doctorRegister(formData)
   }
 
-  if (isLoading) {
-    return (
-      <div className="h-full w-full justify-center items-center">
-        <Loader />
-      </div>
-    )
-  }
   return (
     <FormProvider {...form}>
       <div className="flex justify-center items-center min-h-screen p-4 bg-gray-50">
@@ -267,10 +259,11 @@ const DoctorsForm = ({ hospitalId }: Props) => {
             {/* Submit Button */}
             <div className="col-span-2">
               <Button
+                disabled={isLoading}
                 type="submit"
                 className="w-full bg-gradient-to-r from-green-400 to-blue-400 text-white rounded-md py-2"
               >
-                Submit
+                {isLoading ? "Loading..." : "Submit"}
               </Button>
             </div>
           </form>
