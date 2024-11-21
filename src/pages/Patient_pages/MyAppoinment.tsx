@@ -40,15 +40,19 @@ const MyAppoinment = () => {
   const { allAppoinment, isLoading, refetch } = useMyallAppoinment()
 
   const { delApp, isLoading: delAppLoading } = useMydeleteApp()
-  const { updatedApp, isLoading: updatedappLoading } = useUpdateApp(appId)
+  const { updatedApp, isLoading: updatedappLoading } = useUpdateApp(
+    appId,
+    refetch
+  )
   console.log(updatedApp)
   console.log("Updated app loading:", updatedappLoading)
   console.log("All appointments:", allAppoinment)
+
   useEffect(() => {
-    if (!updatedappLoading && allAppoinment?.length) {
+    if (!updatedappLoading) {
       refetch()
     }
-  }, [updatedappLoading, allAppoinment, updatedApp, refetch])
+  }, [updatedApp])
 
   const handleUpdaredApp = (
     appId: string,
@@ -58,8 +62,6 @@ const MyAppoinment = () => {
     updatedApp(updatedAppoinment)
   }
 
-  const searchAndallApp = result ? result.data : allAppoinment
-
   if (searchLoding || isLoading) {
     return (
       <div>
@@ -67,6 +69,9 @@ const MyAppoinment = () => {
       </div>
     )
   }
+
+  const searchAndallApp = result ? result.data : allAppoinment
+
   return (
     <div className="flex flex-col gap-4 items-center p-4 w-full">
       <div className="flex flex-col mb-7 md:flex-row justify-evenly flex-wrap items-center h-[20vh] md:h-[0vh] p-7 w-full">
@@ -86,8 +91,8 @@ const MyAppoinment = () => {
             onSubmit={sethandleSubmit}
             searchQuery={searchState.searchQuery}
           />
-        </div>
       </div>
+   </div>
 
       {/* Appointments Card */}
       <AppinmetCard

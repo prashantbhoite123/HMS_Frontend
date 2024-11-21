@@ -140,14 +140,15 @@ const AppoinmentUpdate = ({ updatedApp, isLoading, appoinment }: Props) => {
                           <option value="" disabled>
                             Select a doctor
                           </option>
-                          {doctors.map((doctor: IDoctors) => (
-                            <option
-                              key={doctor.doctorName}
-                              value={doctor.doctorName}
-                            >
-                              {doctor.doctorName}
-                            </option>
-                          ))}
+                          {doctors &&
+                            doctors.map((doctor: IDoctors) => (
+                              <option
+                                key={doctor.doctorName}
+                                value={doctor.doctorName}
+                              >
+                                {doctor.doctorName}
+                              </option>
+                            ))}
                         </select>
                       )}
                     />

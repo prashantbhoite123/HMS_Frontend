@@ -154,7 +154,7 @@ export const useMydeleteApp = () => {
   return { delApp, isLoading }
 }
 
-export const useUpdateApp = (appId: string) => {
+export const useUpdateApp = (appId: string, refetch: any) => {
   const queryClient = useQueryClient()
 
   const updateApp = async (
@@ -184,44 +184,12 @@ export const useUpdateApp = (appId: string) => {
   const { mutate: updatedApp, isLoading } = useMutation(
     (updatedAppoinment: AppointmentForm) => updateApp(updatedAppoinment),
     {
-      // onMutate: async (newApp) => {
-      //   await queryClient.cancelQueries("allAppoinment")
-
-      //   const previousAppointments =
-      //     queryClient.getQueryData<apptype[]>("allAppoinment")
-
-      //   queryClient.setQueryData<apptype[]>("allAppoinment", (old) =>
-      //     old
-      //       ? old.map((app) =>
-      //           app._id === appId
-      //             ? ({
-      //                 ...app,
-      //                 ...newApp,
-      //                 appointmentDate: new Date(newApp.appointmentDate),
-      //               } as apptype)
-      //             : app
-      //         )
-      //       : []
-      //   )
-
-      //   return { previousAppointments }
-      // },
-
-      // onError: (err, variables, context) => {
-      //   console.log(err, variables)
-      //   if (context?.previousAppointments) {
-      //     queryClient.setQueryData(
-      //       "allAppoinment",
-      //       context.previousAppointments
-      //     )
-      //   }
-      //   toast.error("Failed to update appointment")
-      // },
       onError: () => {
         console.log("Error to updated appoinment")
       },
 
       onSuccess: () => {
+        refetch()
         queryClient.invalidateQueries("allAppoinment")
         toast.success("Appointment updated successfully")
       },
