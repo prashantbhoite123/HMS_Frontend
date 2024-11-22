@@ -49,7 +49,7 @@ const UserProfileDropdown = () => {
               <Link
                 to={
                   currentUser.role === "patient"
-                    ? "/"
+                    ? "/patientprofile"
                     : currentUser.role === "hospital"
                     ? "/createhospital"
                     : currentUser.role === "Doctor"

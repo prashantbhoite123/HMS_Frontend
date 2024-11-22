@@ -24,6 +24,7 @@ import AdminSignin from "./pages/Common_Pages/AdminSignin"
 import AdminOtp from "./pages/Common_Pages/AdminOtp"
 import AdminProtect from "./auth/AdminProtect"
 import AdminRequestHosPage from "./pages/Admin/AdminRequestHosPage"
+import PatientProfile from "./pages/Patient_pages/PatientProfile"
 
 const AppRoutes = () => {
   return (
@@ -94,6 +95,14 @@ const AppRoutes = () => {
             element={
               <Layouts showhero={false}>
                 <AdminRequestHosPage />
+              </Layouts>
+            }
+          />
+          <Route
+            path="/patientprofile"
+            element={
+              <Layouts showhero={false}>
+                <PatientProfile />
               </Layouts>
             }
           />
