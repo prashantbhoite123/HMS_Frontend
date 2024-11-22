@@ -50,7 +50,7 @@ function AdminSigninForm({ signInAdmin, isLoading }: Props) {
         <form onSubmit={form.handleSubmit(onSave)}>
           <div className="mb-6 flex gap-2 flex-col text-center">
             <h2 className="text-2xl font-semibold">
-              <span className="text-green-500">Admin-</span> Sign In
+              <span className="text-green-500">Admin </span> SignIn
             </h2>
           </div>
 
