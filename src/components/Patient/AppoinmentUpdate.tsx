@@ -89,7 +89,7 @@ const AppoinmentUpdate = ({ updatedApp, isLoading, appoinment }: Props) => {
   // const { updatedApp, isLoading: updatedappLoading } = useUpdateApp(
   //   appoinment._id
   // )
-
+  
   const onSubmit = (updatedAppoinment: AppointmentForm) => {
     setOpen(false)
     updatedApp(appoinment._id, updatedAppoinment)
