@@ -88,7 +88,7 @@ const ProfileForm = () => {
     <FormProvider {...form}>
       <form
         onSubmit={form.handleSubmit(onSave)}
-        className="space-y-4 shadow-xl shadow-slate-500 p-6 rounded-md bg-white"
+        className="space-y-4  p-6 rounded-md bg-white"
       >
         <div>
           <div className="">

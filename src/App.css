@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @keyframes rotateBorderColors {
   0% {
     border-color: red;
@@ -17,10 +21,20 @@
 }
 
 .otp-input {
-  animation: rotateBorderColors 3s linear infinite; /* Rotates through colors */
+  animation: rotateBorderColors 3s linear infinite;
   border-width: 2px;
   border-style: solid;
   border-radius: 10px;
   padding: 8px;
   transition: border-color 0.3s ease-in-out;
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }
