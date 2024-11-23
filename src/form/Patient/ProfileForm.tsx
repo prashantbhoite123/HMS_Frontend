@@ -8,6 +8,8 @@ import EmergencyContact from "./EmergencyContact"
 import MedicalHistory from "./MedicalHistory"
 import CurrentMedicalInfo from "./CurrentMedicalInfo"
 import VisitHistory from "./VisitHistory"
+import { BsHeartPulseFill } from "react-icons/bs"
+import { Button } from "@/components/ui/button"
 
 export const patientSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -86,12 +88,24 @@ const ProfileForm = () => {
     <FormProvider {...form}>
       <form
         onSubmit={form.handleSubmit(onSave)}
-        className="space-y-4 shadow-xl shadow-slate-500 p-6 rounded-md"
+        className="space-y-4 shadow-xl shadow-slate-500 p-6 rounded-md bg-white"
       >
         <div>
           <div className="">
-            <span></span>
-            <span>CarePlusX</span>
+            <span className="flex items-center gap-x-3 px-4 py-2 bg-gradient-to-r text-2xl font-bold from-indigo-600 to-pink-600 rounded-md text-transparent bg-clip-text">
+              <span>
+                <BsHeartPulseFill className="text-pink-600" size="25" />
+              </span>
+              <span>CarePlusX</span>
+            </span>
+          </div>
+          <div className="px-6 py-2 mt-2">
+            <h1 className="text-2xl font-semibold bg-gradient-to-r from-indigo-600 to-pink-600  text-transparent bg-clip-text">
+              Welcome
+            </h1>
+            <h6 className="text-sm text-slate-700 font-semibold">
+              Let us know more about yourself
+            </h6>
           </div>
         </div>
 
@@ -101,13 +115,14 @@ const ProfileForm = () => {
         <MedicalHistory />
         <CurrentMedicalInfo />
         <VisitHistory />
-        <div className="flex justify-end">
-          <button
+        <div className="col-span-2">
+          <Button
+            // disabled={isLoading}
             type="submit"
-            className="px-6 py-2 bg-blue-500 text-white rounded-md"
+            className="w-full bg-gradient-to-r from-green-400 to-blue-400 text-white rounded-md py-2"
           >
             Submit
-          </button>
+          </Button>
         </div>
       </form>
     </FormProvider>

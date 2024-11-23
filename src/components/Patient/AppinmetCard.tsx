@@ -79,7 +79,11 @@ const AppinmetCard = ({
           >
             <CardContent className="p-6 relative">
               <div className="flex justify-end gap-3 absolute top-4 right-4">
-                <AppoinmentUpdate updatedApp={handleUpdateApp} isLoading={isLoading} appoinment={appoinment} />
+                <AppoinmentUpdate
+                  updatedApp={handleUpdateApp}
+                  isLoading={isLoading}
+                  appoinment={appoinment}
+                />
                 <Dialog open={dialogopen} onOpenChange={setDialogopen}>
                   <DialogTrigger>
                     <Button
@@ -173,7 +177,7 @@ const AppinmetCard = ({
                   <div className="flex items-center gap-3 text-gray-800">
                     <MdInfoOutline size={20} className="text-blue-400" />
                     <span className="text-lg font-semibold">Reason:</span>
-                    <span className="font-medium text-md">
+                    <span className="font-medium text-md line-clamp-1">
                       {appoinment?.reason}
                     </span>
                   </div>
