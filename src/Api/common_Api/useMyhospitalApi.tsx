@@ -30,7 +30,9 @@ export const useHospitalRegistration = () => {
     }
 
     const data = await responce.json()
+    console.log("====>",data)
 
+    toast.success(data.message)
     return data
   }
 
@@ -42,7 +44,7 @@ export const useHospitalRegistration = () => {
         naviagate("/signin")
       },
       onError: () => {
-        toast.error("Error while registration")
+        console.error("Error while registration")
       },
     }
   )
@@ -74,14 +76,19 @@ export const useUserSignIn = () => {
     }
 
     const data = await response.json()
-    saveUserToSession(data)
+    if (data.patientproStatus) {
+      navigate("/patientprofile")
+    } else {
+      navigate("/")
+    }
+
+    saveUserToSession(data.rest)
     return data
   }
 
   const { mutate: signIn, isLoading } = useMutation(signInUser, {
     onSuccess: () => {
       toast.success("Sign-in successful")
-      navigate("/")
     },
     onError: () => {
       toast.error("Error while signing in")

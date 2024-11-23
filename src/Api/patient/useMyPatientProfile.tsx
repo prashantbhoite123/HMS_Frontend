@@ -1,9 +1,11 @@
 import { Patient } from "@/form/Patient/ProfileForm"
 import { BACKEND_API_URL } from "@/main"
 import { useMutation } from "react-query"
+import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
 
 export const useMyPatient = () => {
+  const navigate = useNavigate()
   const formDataToJson = (formData: FormData): Record<string, any> => {
     const obj: Record<string, any> = {}
 
@@ -41,6 +43,7 @@ export const useMyPatient = () => {
     if (data.success === false) {
       throw toast.error(data.message)
     }
+    navigate("/")
     toast.success(data.message)
     return data
   }
