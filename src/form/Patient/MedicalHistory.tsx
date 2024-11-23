@@ -3,30 +3,35 @@ import FormInput from "../Common_Form/FormInput"
 const MedicalHistory = () => {
   return (
     <>
-      <FormInput
-        placeholder="allergies"
-        name="medicalHistory.allergies"
-        label="allergies"
-        type="text"
-      />
-      <FormInput
-        placeholder="chronicConditions"
-        name="medicalHistory.chronicConditions"
-        label="chronicConditions"
-        type="text"
-      />
-      <FormInput
-        placeholder="pastSurgeries"
-        name="medicalHistory.pastSurgeries"
-        label="PastSurgeries"
-        type="text"
-      />
-      <FormInput
-        placeholder="currentMedications"
-        name="medicalHistory.currentMedications"
-        label="CurrentMedications"
-        type="text"
-      />
+      <div className=" p-4 rounded-md">
+        <h2 className="text-lg font-semibold mb-4">Medical History</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormInput
+            placeholder="Allergies"
+            label="Allergies"
+            name="medicalHistory.allergies"
+            type="text"
+          />
+          <FormInput
+            placeholder="Chronic Conditions"
+            label="Chronic Conditions"
+            name="medicalHistory.chronicConditions"
+            type="text"
+          />
+          <FormInput
+            placeholder="Past Surgeries"
+            label="Past Surgeries"
+            name="medicalHistory.pastSurgeries"
+            type="text"
+          />
+          <FormInput
+            placeholder="Current Medications"
+            label="Current Medications"
+            name="medicalHistory.currentMedications"
+            type="text"
+          />
+        </div>
+      </div>
     </>
   )
 }

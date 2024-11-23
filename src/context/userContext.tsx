@@ -18,7 +18,7 @@ export interface User {
 interface UserContextType {
   currentUser: User | null
   setCurrentUser: (user: User | null) => void
-  saveUserToSession: (user: User) => void // Global function to save user
+  saveUserToSession: (user: User) => void 
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined)
@@ -39,7 +39,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 
   const saveUserToSession = (user: User) => {
     localStorage.setItem("user", JSON.stringify(user))
-    setCurrentUser(user) // Update the context state
+    setCurrentUser(user) 
   }
 
   return (

@@ -84,13 +84,31 @@ const ProfileForm = () => {
 
   return (
     <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(onSave)}>
+      <form
+        onSubmit={form.handleSubmit(onSave)}
+        className="space-y-4 shadow-xl shadow-slate-500 p-6 rounded-md"
+      >
+        <div>
+          <div className="">
+            <span></span>
+            <span>CarePlusX</span>
+          </div>
+        </div>
+
         <DetailSection />
         <AddressSection />
         <EmergencyContact />
         <MedicalHistory />
         <CurrentMedicalInfo />
         <VisitHistory />
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            className="px-6 py-2 bg-blue-500 text-white rounded-md"
+          >
+            Submit
+          </button>
+        </div>
       </form>
     </FormProvider>
   )
