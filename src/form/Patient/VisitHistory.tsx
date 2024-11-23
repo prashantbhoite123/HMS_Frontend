@@ -1,42 +1,52 @@
-import FormInput from "../Common_Form/FormInput"
+import { Button } from "@/components/ui/button"
+import { FormDescription, FormField, FormItem } from "@/components/ui/form"
+import { useFieldArray, useFormContext } from "react-hook-form"
+import VisiteInput from "./VisiteInput"
 
 const VisitHistory = () => {
+  const { control } = useFormContext()
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "visitHistory",
+  })
+
   return (
     <>
-      <div className=" p-4  rounded-md ">
-        <h2 className="text-lg font-semibold mb-4">Visit History</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <FormInput
-            placeholder="Last Visit Date"
-            label="Last Visit Date"
-            type="date"
-            name="visitHistory.lastVisitDate"
-          />
-          <FormInput
-            placeholder="Assigned Doctor"
-            label="Assigned Doctor"
-            name="visitHistory.assignedDoctor"
-            type="text"
-          />
-          <FormInput
-            placeholder="Last Visit Reason"
-            label="Last Visit Reason"
-            name="visitHistory.lastVisitReason"
-            type="text"
-          />
-          <FormInput
-            placeholder="Provider"
-            label="Insurance Provider"
-            name="insurance.provider"
-            type="text"
-          />
-          <FormInput
-            placeholder="Policy Number"
-            label="Policy Number"
-            name="insurance.policyNumber"
-            type="text"
-          />
+      <div className="p-4">
+        <div>
+          <h2 className=" text-lg font-semibold ">Visite History</h2>
+          <FormDescription className="mb-4">
+            Create your visite history details
+          </FormDescription>
         </div>
+        <FormField
+          control={control}
+          name="visitHistory"
+          render={() => (
+            <FormItem className="flex flex-col gap-2">
+              {fields.map((_, index) => (
+                <VisiteInput
+                  index={index}
+                  removeMenuItem={() => remove(index)}
+                />
+              ))}
+            </FormItem>
+          )}
+        />
+        <Button
+          type="button"
+          className="mt-4 bg-gradient-to-r from-indigo-600 to-pink-600"
+          onClick={() =>
+            append({
+              lastVisitDate: "",
+              assignedDoctor: "",
+              lastVisitReason: "",
+            })
+          }
+        >
+          Add details
+        </Button>
       </div>
     </>
   )
