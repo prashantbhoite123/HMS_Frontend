@@ -1,5 +1,3 @@
-
-
 import { zodResolver } from "@hookform/resolvers/zod"
 import { FormProvider, useForm } from "react-hook-form"
 import { z } from "zod"
@@ -74,7 +72,7 @@ const HospitalCreateForm = ({
     resolver: zodResolver(formSchema),
   })
 
-  const [message, setMessage] = useState("Approve")
+  const [message, setMessage] = useState("hospital Not found")
 
   useEffect(() => {
     if (typeof hospital === "string") {
@@ -83,6 +81,7 @@ const HospitalCreateForm = ({
     }
 
     if (hospital && typeof hospital === "object") {
+      setMessage("Approved")
       const formattedDate = hospital.establishedDate
         ? (() => {
             const date = new Date(hospital.establishedDate)

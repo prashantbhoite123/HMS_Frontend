@@ -10,6 +10,8 @@ import FormInput from "../Common_Form/FormInput"
 import { Controller, useFormContext } from "react-hook-form"
 import { Textarea } from "@/components/ui/textarea"
 import { hospitalType } from "@/config/HospitalData"
+// import { IoArrowRedoSharp } from "react-icons/io5"
+import { MdKeyboardDoubleArrowRight } from "react-icons/md"
 
 type Props = {
   message: string
@@ -21,8 +23,20 @@ function DetailSection({ message }: Props) {
   return (
     <div className="space-y-8 ">
       <div className="">
-        <h2>Status :- {message}</h2>
-        <h2 className="text-lg font-bold">Hospital Details</h2>
+        <span
+          className={`bg-black mb-4 w-auto px-3 py-1 rounded-md shadow-xl font-bold ${
+            message === "hospital Not found"
+              ? "text-red-500"
+              : message === "Pending"
+              ? "text-orange-600"
+              : "text-green-500"
+          }`}
+        >
+          <span className="text-slate-100">Status</span>{" "}
+          <MdKeyboardDoubleArrowRight className="inline" /> {message}
+        </span>
+
+        <h2 className="text-lg font-bold mt-3">Hospital Details</h2>
         <FormDescription>
           Enetr the details about your restaurant
         </FormDescription>
