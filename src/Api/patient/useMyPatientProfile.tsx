@@ -1,6 +1,6 @@
 import { Patient } from "@/form/Patient/ProfileForm"
 import { BACKEND_API_URL } from "@/main"
-import { useMutation } from "react-query"
+import { useMutation, useQuery } from "react-query"
 import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
 
@@ -58,4 +58,37 @@ export const useMyPatient = () => {
   })
 
   return { patientData, isLoading }
+}
+
+export const useMyPatientInfo = () => {
+  const getMyPatientInfo = async () => {
+    const responce = await fetch(`${BACKEND_API_URL}/api/patient/getpatient`, {
+      method: "GET",
+      credentials: "include",
+    })
+
+    if (!responce.ok) {
+      throw new Error("failed to get Patient Info")
+    }
+    const data = await responce.json()
+    if (!data.success) {
+      return console.log(data.message)
+    }
+    return data
+  }
+
+  const { data: patientInfo, isLoading } = useQuery(
+    "patientInfo",
+    getMyPatientInfo,
+    {
+      onSuccess: () => {
+        console.log("successfully get patientData")
+      },
+      onError: () => {
+        console.log("failed to get patient data")
+      },
+    }
+  )
+
+  return { patientInfo, isLoading }
 }
