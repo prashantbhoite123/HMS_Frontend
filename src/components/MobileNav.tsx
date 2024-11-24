@@ -46,7 +46,11 @@ const MobileNav = () => {
                 <span className="text-sm font-semibold">About</span>
               </Link>
               <Link
-                to={currentUser?.role === "patient" ? "/" : "/createhospital"}
+                to={
+                  currentUser?.role === "patient"
+                    ? "/patientprofile"
+                    : "/createhospital"
+                }
                 className="flex gap-x-3 items-center"
               >
                 <span>

@@ -9,14 +9,13 @@ export const useMyPatient = () => {
   const formDataToJson = (formData: FormData): Record<string, any> => {
     const obj: Record<string, any> = {}
 
-    // Convert flat FormData keys into a nested object
     formData.forEach((value, key) => {
-      const keys = key.split(".")
+      const keys = key.replace(/\[(\w+)]/g, ".$1").split(".")
       keys.reduce((acc, part, index) => {
         if (index === keys.length - 1) {
           acc[part] = value
         } else {
-          acc[part] = acc[part] || {}
+          acc[part] = acc[part] || (isNaN(Number(keys[index + 1])) ? {} : [])
         }
         return acc[part]
       }, obj)
@@ -24,6 +23,7 @@ export const useMyPatient = () => {
 
     return obj
   }
+
   const patientProfile = async (patientData: FormData): Promise<Patient> => {
     const jsonPayload = formDataToJson(patientData)
     const responce = await fetch(`${BACKEND_API_URL}/api/patient/patientPro`, {
@@ -40,11 +40,12 @@ export const useMyPatient = () => {
     }
 
     const data = await responce.json()
-    if (data.success === false) {
+    if (!data.success) {
+      toast.error(data.message)
       throw toast.error(data.message)
     }
-    navigate("/")
     toast.success(data.message)
+    navigate("/")
     return data
   }
   const { mutate: patientData, isLoading } = useMutation(patientProfile, {

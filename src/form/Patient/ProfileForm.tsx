@@ -171,7 +171,23 @@ const ProfileForm = ({ patientData, loading }: Props) => {
     }
 
     // Visit History
-    if (data.visitHistory) {
+    // if (data.visitHistory?.length) {
+    //   data.visitHistory.forEach((visit, index) => {
+    //     formData.append(
+    //       `visitHistory[${index}][lastVisitDate]`,
+    //       visit.lastVisitDate.toISOString()
+    //     )
+    //     formData.append(
+    //       `visitHistory[${index}][assignedDoctor]`,
+    //       visit.assignedDoctor
+    //     )
+    //     formData.append(
+    //       `visitHistory[${index}][lastVisitReason]`,
+    //       visit.lastVisitReason
+    //     )
+    //   })
+    // }
+    if (data.visitHistory?.length) {
       data.visitHistory.forEach((visit, index) => {
         formData.append(
           `visitHistory[${index}].lastVisitDate`,
@@ -187,7 +203,6 @@ const ProfileForm = ({ patientData, loading }: Props) => {
         )
       })
     }
-
     // Insurance
     if (data.insurance) {
       if (data.insurance.provider) {
