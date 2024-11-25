@@ -104,7 +104,7 @@ const MyAppoinment = () => {
         appoinment={searchAndallApp}
       />
 
-      {result && result?.pagination?.page >= 2 ? (
+      {result && result?.pagination?.pages >= 2 ? (
         <PaginationSelector
           page={result?.pagination?.page || 1}
           pages={result?.pagination?.pages || 1}

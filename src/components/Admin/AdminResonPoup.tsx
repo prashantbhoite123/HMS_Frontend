@@ -49,10 +49,14 @@ const AdminResonPoup = ({ hospitalRejection, isLoading }: Props) => {
           {isLoading ? (
             <LoadingBtn />
           ) : (
-            <Button className="bg-red-500 text-lg" onClick={handleSubmit}>
+            <Button
+              className="bg-gradient-to-r from-indigo-600 to-pink-600 text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform "
+              onClick={handleSubmit}
+            >
               Reject
             </Button>
           )}
+          
         </DialogContent>
       </Dialog>
     </div>

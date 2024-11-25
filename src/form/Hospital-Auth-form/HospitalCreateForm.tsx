@@ -157,7 +157,16 @@ const HospitalCreateForm = ({
 
         <Separator />
         <div className="flex justify-between">
-          {loading ? <LoadingBtn /> : <Button type="submit">Submit</Button>}
+          {loading ? (
+            <LoadingBtn />
+          ) : (
+            <Button
+              type="submit"
+              className="bg-gradient-to-r from-indigo-600 to-pink-600 space-x-4 text-white font-semibold rounded-lg py-2 shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform"
+            >
+              Submit
+            </Button>
+          )}
           {deleteLoding ? (
             <LoadingBtn />
           ) : (

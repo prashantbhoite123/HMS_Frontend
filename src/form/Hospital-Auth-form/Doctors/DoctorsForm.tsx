@@ -81,23 +81,64 @@ const DoctorsForm = ({ hospitalId }: Props) => {
     }
   }, [image, form])
 
-  const onSave = (data: doctors) => {
-    const formData = new FormData()
-    formData.append("doctorName", data.doctorName)
-    formData.append("profilePic", image ? image : "") // Base64 image
-    formData.append("email", data.email)
-    formData.append("password", data.password)
-    formData.append("education", data.education)
-    formData.append("experienceYears", data.experienceYears)
-    formData.append("specialization", data.specialization)
-    formData.append("workingHours", data.workingHours)
+  // const onSave = async (data: doctors) => {
+  //   const formData = new FormData()
+  //   formData.append("doctorName", data.doctorName)
+  //   formData.append("profilePic", image ? image : "") // Base64 image
+  //   formData.append("email", data.email)
+  //   formData.append("password", data.password)
+  //   formData.append("education", data.education)
+  //   formData.append("experienceYears", data.experienceYears)
+  //   formData.append("specialization", data.specialization)
+  //   formData.append("workingHours", data.workingHours)
 
-    if (data.degree && data.degree[0]) {
-      formData.append("degree", data.degree[0]) // Attach file
+  //   if (data.degree && data.degree[0]) {
+  //     formData.append("degree", data.degree[0]) // Attach file
+  //   }
+  //   console.log("Doctor data =>", formData.entries())
+
+  //    doctorRegister(formData)
+  //   form.reset()
+  //   setImage(null)
+  //   setCameraOn(false)
+  // }
+
+  const onSave = async (data: doctors) => {
+    try {
+      const formData = new FormData()
+      formData.append("doctorName", data.doctorName)
+      formData.append("profilePic", image ? image : "")
+      formData.append("email", data.email)
+      formData.append("password", data.password)
+      formData.append("education", data.education)
+      formData.append("experienceYears", data.experienceYears)
+      formData.append("specialization", data.specialization)
+      formData.append("workingHours", data.workingHours)
+
+      if (data.degree && data.degree[0]) {
+        formData.append("degree", data.degree[0])
+      }
+
+      console.log("Doctor data =>", formData.entries())
+
+       doctorRegister(formData)
+
+      // Clear input fields
+      form.setValue("doctorName", "")
+      form.setValue("profilePic", "https://via.placeholder.com/150")
+      form.setValue("email", "")
+      form.setValue("password", "")
+      form.setValue("education", "")
+      form.setValue("experienceYears", "")
+      form.setValue("specialization", "")
+      form.setValue("workingHours", "")
+      form.setValue("degree", undefined as unknown as FileList)
+
+      setImage(null) // Reset the image
+      setCameraOn(false) // Turn off the camera if active
+    } catch (error) {
+      console.error("Error during registration:", error)
     }
-    console.log("Doctor data =>", formData.entries())
-
-    doctorRegister(formData)
   }
 
   return (

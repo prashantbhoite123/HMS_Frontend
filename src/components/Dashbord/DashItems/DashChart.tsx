@@ -58,7 +58,7 @@ const DashChart = ({ chartData }: Props) => {
 
   return (
     <div className="">
-      <Card borderRadius="10px">
+      <Card borderRadius="10px h-[50vh]">
         <CardHeader>
           <h2 className="text-lg font-semibold">Week Chart</h2>
           <CardTitle>Line Chart - Multiple</CardTitle>

@@ -55,9 +55,6 @@ export const generateTimeSlots = (doctor: IDoctors): string[] => {
 
 const Appointment = ({ doctors, onSave, isLoading }: Props) => {
   const [close, setClose] = useState(false)
-  const onSubmit = (data: Appointment) => {
-    onSave(data)
-  }
 
   const handleClick = () => {
     setClose(false)
@@ -75,9 +72,18 @@ const Appointment = ({ doctors, onSave, isLoading }: Props) => {
   const selectedDoctor = doctors.find(
     (doctor) => doctor.doctorName === selectedDoctorName
   )
+
   const appointmentSlots = selectedDoctor
     ? generateTimeSlots(selectedDoctor)
     : []
+  const onSubmit = (data: Appointment) => {
+    onSave(data)
+    form.setValue("patientName", "")
+    form.setValue("doctorName", "")
+    form.setValue("appointmentDate", "")
+    form.setValue("appTime", "")
+    form.setValue("reason", "")
+  }
 
   return (
     <Drawer open={close} onOpenChange={setClose}>
@@ -86,7 +92,7 @@ const Appointment = ({ doctors, onSave, isLoading }: Props) => {
           <Button
             type="button"
             variant="outline"
-            className="w-full bg-green-500 text-[1.1rem] text-white"
+            className="w-full text-lg bg-gradient-to-r from-green-400 to-blue-400 text-white font-semibold rounded-lg py-2 shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform"
           >
             Book Appointment
           </Button>

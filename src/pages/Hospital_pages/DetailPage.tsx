@@ -65,7 +65,8 @@ const DetailPage = () => {
         <Dialog>
           <DialogTrigger>
             <img
-              className="rounded-full ml-4 md:ml-0 h-[25vw] w-[25vw] md:h-[15vw] md:w-[15vw] object-cover"
+              draggable={false}
+              className="rounded-full select-none ml-4 md:ml-0 h-[25vw] w-[25vw] md:h-[15vw] md:w-[15vw] object-cover"
               src={getHospital.hospital.picture || "/default-hospital.jpg"}
               alt={getHospital.hospital.hospitalName}
             />
@@ -135,7 +136,8 @@ const DetailPage = () => {
               <CardHeader>
                 <div className="flex justify-center items-center">
                   <img
-                    className="size-24 rounded-full"
+                    className="size-24 rounded-full select-none"
+                    draggable={false}
                     src={
                       doctor.image ||
                       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQN5aeH5PWbBb2Ws7lZnlJ6VJviegkHLgbhg&s"
