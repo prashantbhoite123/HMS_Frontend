@@ -11,7 +11,6 @@ import { BsHeartPulseFill } from "react-icons/bs"
 
 const Header = () => {
   const { currentUser } = useUser()
-  console.log("this is a currentUser", currentUser)
 
   return (
     <header className="flex justify-between sticky top-0 z-10 overflow-hidden items-center p-4 bg-gradient-to-r from-green-400 to-blue-500 shadow-lg">

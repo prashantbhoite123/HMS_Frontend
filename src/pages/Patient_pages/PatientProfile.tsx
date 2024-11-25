@@ -8,14 +8,15 @@ import {
 } from "@/Api/patient/useMyPatientProfile"
 const PatientProfile = () => {
   const { patientData, isLoading } = useMyPatient()
-  const { patientInfo, isLoading: patientInfoLoading } = useMyPatientInfo()
+  const { getpatient, isLoading: patientInfoLoading } = useMyPatientInfo()
   console.log(patientInfoLoading)
+
   return (
     <div className="shadow-xl shadow-slate-700 h-screen overflow-hidden">
       <div className="grid grid-cols-1 md:grid-cols-2 h-full">
         <div className="overflow-y-auto h-full p-4 scrollbar-hide">
           <ProfileForm
-            patientInfo={patientInfo}
+            patientInfo={getpatient}
             patientData={patientData}
             loading={isLoading}
           />

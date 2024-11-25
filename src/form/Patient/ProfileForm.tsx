@@ -11,7 +11,8 @@ import VisitHistory from "./VisitHistory"
 import { BsHeartPulseFill } from "react-icons/bs"
 import { Button } from "@/components/ui/button"
 import Patientinsurance from "./Patientinsurance"
-import { IPatient } from "@/Types/patientTypes"
+// import { IPatient } from "@/Types/patientTypes"
+import { useEffect } from "react"
 
 export const patientSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -88,7 +89,7 @@ export const patientSchema = z.object({
 export type Patient = z.infer<typeof patientSchema>
 
 type Props = {
-  patientInfo: IPatient
+  patientInfo: Patient
   patientData: (data: FormData) => void
   loading: boolean
 }
@@ -171,7 +172,6 @@ const ProfileForm = ({ patientInfo, patientData, loading }: Props) => {
       }
     }
 
-
     if (data.visitHistory?.length) {
       data.visitHistory.forEach((visit, index) => {
         formData.append(
@@ -203,10 +203,15 @@ const ProfileForm = ({ patientInfo, patientData, loading }: Props) => {
 
   const form = useForm<Patient>({
     resolver: zodResolver(patientSchema),
+    defaultValues: patientInfo,
   })
+  const { reset } = form
+  useEffect(() => {
+    reset(patientInfo)
+  }, [patientInfo, reset])
 
-  const watch = form.watch()
-  console.log(watch)
+  // const watch = form.watch()
+  // console.log(watch)
 
   return (
     <FormProvider {...form}>

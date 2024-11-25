@@ -70,16 +70,11 @@ export const useMyPatientInfo = () => {
     if (!responce.ok) {
       throw new Error("failed to get Patient Info")
     }
-    const data = await responce.json()
-    console.log("this is patientInfo", data)
-    if (!data.success) {
-      return console.log(data.message)
-    }
-    return data
+    return responce.json()
   }
 
-  const { data: patientInfo, isLoading } = useQuery(
-    "patientInfo",
+  const { data: getpatient, isLoading } = useQuery(
+    "getMyPatientInfo",
     getMyPatientInfo,
     {
       onSuccess: () => {
@@ -91,5 +86,5 @@ export const useMyPatientInfo = () => {
     }
   )
 
-  return { patientInfo, isLoading }
+  return { getpatient, isLoading }
 }
