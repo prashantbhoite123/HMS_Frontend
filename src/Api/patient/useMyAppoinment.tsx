@@ -61,7 +61,8 @@ export const useMyallAppoinment = () => {
       throw new Error("Failed to get appointments")
     }
 
-    return response.json()
+    const data = await response.json()
+    return data
   }
 
   const {
@@ -155,7 +156,7 @@ export const useMydeleteApp = () => {
 }
 
 export const useUpdateApp = (appId: string, refetch: any) => {
-  const queryClient = useQueryClient()
+  // const queryClient = useQueryClient()
 
   const updateApp = async (
     updatedAppoinment: AppointmentForm
@@ -190,7 +191,7 @@ export const useUpdateApp = (appId: string, refetch: any) => {
 
       onSuccess: () => {
         refetch()
-        queryClient.invalidateQueries("allAppoinment")
+        // queryClient.invalidateQueries("allAppoinment")
         toast.success("Appointment updated successfully")
       },
     }

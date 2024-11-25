@@ -36,23 +36,24 @@ const MyAppoinment = () => {
       ...data,
     }))
   }
-  const { result, isLoading: searchLoding } = useMysearchAppoinment(searchState)
+  const {
+    result,
+    isLoading: searchLoding,
+    refetch: searchRefetch,
+  } = useMysearchAppoinment(searchState)
   const { allAppoinment, isLoading, refetch } = useMyallAppoinment()
-
   const { delApp, isLoading: delAppLoading } = useMydeleteApp()
   const { updatedApp, isLoading: updatedappLoading } = useUpdateApp(
     appId,
     refetch
   )
-  console.log(updatedApp)
-  console.log("Updated app loading:", updatedappLoading)
-  console.log("All appointments:", allAppoinment)
 
   useEffect(() => {
     if (!updatedappLoading) {
       refetch()
+      searchRefetch()
     }
-  }, [updatedApp])
+  }, [updatedApp, allAppoinment, result])
 
   const handleUpdaredApp = (
     appId: string,
@@ -70,7 +71,7 @@ const MyAppoinment = () => {
     )
   }
 
-  const searchAndallApp = result ? result.data : allAppoinment
+  const searchAndallApp = allAppoinment ? allAppoinment : result?.data
 
   return (
     <div className="flex flex-col gap-4 items-center p-4 w-full">
@@ -91,8 +92,8 @@ const MyAppoinment = () => {
             onSubmit={sethandleSubmit}
             searchQuery={searchState.searchQuery}
           />
+        </div>
       </div>
-   </div>
 
       {/* Appointments Card */}
       <AppinmetCard
@@ -103,11 +104,15 @@ const MyAppoinment = () => {
         appoinment={searchAndallApp}
       />
 
-      <PaginationSelector
-        page={result?.pagination?.page || 1}
-        pages={result?.pagination?.pages || 1}
-        onPageChange={setPage}
-      />
+      {result && result?.pagination?.page >= 2 ? (
+        <PaginationSelector
+          page={result?.pagination?.page || 1}
+          pages={result?.pagination?.pages || 1}
+          onPageChange={setPage}
+        />
+      ) : (
+        ""
+      )}
     </div>
   )
 }

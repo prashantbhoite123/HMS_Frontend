@@ -30,21 +30,22 @@ export const useMysearchAppoinment = (searchState: searchState) => {
     return data
   }
 
-  const { data: result, isLoading } = useQuery(
-    ["searchAppoinments", searchState],
-    createSearchRequest,
-    {
-      onSuccess: () => {
-        console.log("search success")
-      },
-      onError: () => {
-        console.log("Error while searchAPi frontend")
-      },
-    }
-  )
+  const {
+    data: result,
+    isLoading,
+    refetch,
+  } = useQuery(["searchAppoinments", searchState], createSearchRequest, {
+    onSuccess: () => {
+      console.log("search success")
+    },
+    onError: () => {
+      console.log("Error while searchAPi frontend")
+    },
+  })
 
   return {
     result,
     isLoading,
+    refetch,
   }
 }

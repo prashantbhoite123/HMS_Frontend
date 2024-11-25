@@ -53,14 +53,14 @@ const AppoinmentUpdate = ({ updatedApp, isLoading, appoinment }: Props) => {
   const [open, setOpen] = useState(false)
   const { allHospitalData, isLoading: allAppLoading } = useMyHospitalDetail()
   console.log(allAppLoading)
-  console.log("alll hospital Data==>", allHospitalData)
+  
   const matchingHospital = Array.isArray(allHospitalData?.hospitals)
     ? allHospitalData?.hospitals.find(
         (hospital: IHospital) => hospital._id === appoinment?.hospitalId?._id
       )
     : null
 
-  console.log("matchHospital", matchingHospital)
+  
   const doctors = allHospitalData?.doctors.filter(
     (doctor: IDoctor) => doctor.hospitalId === matchingHospital._id
   )

@@ -6,7 +6,9 @@ import { MdEventNote } from "react-icons/md"
 import { FaUserMd } from "react-icons/fa"
 import { Separator } from "../ui/separator"
 import { GiExitDoor } from "react-icons/gi"
+import { useUser } from "@/context/userContext"
 const DashSidebar = () => {
+  const { currentUser } = useUser()
   const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState("/dashboard?tab=dash")
   const [openSidebar, setOpenSidebar] = useState(false)
@@ -76,6 +78,34 @@ const DashSidebar = () => {
               Dashboard
             </div>
           </Link>
+          <Link
+            to="/dashboard?tab=profile"
+            className={`flex justify-between items-center gap-x-3 p-2 rounded-md ${
+              activeTab === "/dashboard?tab=profile"
+                ? "bg-gray-500 text-white"
+                : ""
+            }`}
+            onClick={() => handleTabChange("/dashboard?tab=profile")}
+          >
+            <div className="flex items-center space-x-2">
+              {" "}
+              <HiUser size="25" />
+              <div className="font-semibold">Profile</div>
+            </div>
+            {currentUser?.role === "Admin" ? (
+              <span className="text-sm bg-slate-800 px-1 font-semibold text-white rounded-sm">
+                Admin
+              </span>
+            ) : currentUser?.role === "Doctor" ? (
+              <span className="text-sm bg-slate-800 px-1 font-semibold text-white rounded-sm">
+                Doctor
+              </span>
+            ) : (
+              <span className="text-sm bg-slate-800 px-4  font-semibold text-white rounded-sm">
+                Hos
+              </span>
+            )}
+          </Link>
 
           {/* Appointment Tab */}
 
@@ -105,18 +135,7 @@ const DashSidebar = () => {
             <FaUserMd size="25" />
             <div className="font-semibold">Doctors</div>
           </Link>
-          <Link
-            to="/dashboard?tab=profile"
-            className={`flex items-center gap-x-3 p-2 rounded-md ${
-              activeTab === "/dashboard?tab=profile"
-                ? "bg-gray-500 text-white"
-                : ""
-            }`}
-            onClick={() => handleTabChange("/dashboard?tab=profile")}
-          >
-            <HiUser size="25" />
-            <div className="font-semibold">Profile</div>
-          </Link>
+
           {/* Logout */}
           <div
             className="flex items-center gap-x-3 p-2 rounded-md hover:cursor-pointer"
