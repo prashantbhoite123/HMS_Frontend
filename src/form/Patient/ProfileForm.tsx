@@ -11,6 +11,7 @@ import VisitHistory from "./VisitHistory"
 import { BsHeartPulseFill } from "react-icons/bs"
 import { Button } from "@/components/ui/button"
 import Patientinsurance from "./Patientinsurance"
+import { IPatient } from "@/Types/patientTypes"
 
 export const patientSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -87,32 +88,31 @@ export const patientSchema = z.object({
 export type Patient = z.infer<typeof patientSchema>
 
 type Props = {
+  patientInfo: IPatient
   patientData: (data: FormData) => void
   loading: boolean
 }
 
-const ProfileForm = ({ patientData, loading }: Props) => {
+const ProfileForm = ({ patientInfo, patientData, loading }: Props) => {
+  const patientInfoma = patientInfo
+  console.log(patientInfoma)
   const onSave = (data: Patient) => {
     const formData = new FormData()
 
-    // Basic Info
     formData.append("name", data.name)
     formData.append("dateOfBirth", data.dateOfBirth.toISOString())
     formData.append("gender", data.gender)
     formData.append("age", data.age.toString())
     formData.append("phone", data.phone)
 
-    // Address
     formData.append("address.city", data.address.city)
     formData.append("address.state", data.address.state)
     formData.append("address.country", data.address.country)
 
-    // Emergency Contact
     formData.append("emergencyContact.name", data.emergencyContact.name)
     formData.append("emergencyContact.relation", data.emergencyContact.relation)
     formData.append("emergencyContact.phone", data.emergencyContact.phone)
 
-    // Medical History
     if (data.medicalHistory) {
       formData.append(
         "medicalHistory.allergies",
@@ -126,13 +126,13 @@ const ProfileForm = ({ patientData, loading }: Props) => {
         "medicalHistory.pastSurgeries",
         data.medicalHistory.pastSurgeries || ""
       )
+
       formData.append(
         "medicalHistory.currentMedications",
         data.medicalHistory.currentMedications || ""
       )
     }
 
-    // Current Medical Info
     formData.append(
       "currentMedicalInfo.reasonForVisit",
       data.currentMedicalInfo.reasonForVisit
@@ -150,6 +150,7 @@ const ProfileForm = ({ patientData, loading }: Props) => {
           data.currentMedicalInfo.vitalSigns.bloodPressure
         )
       }
+
       if (data.currentMedicalInfo.vitalSigns.heartRate) {
         formData.append(
           "currentMedicalInfo.vitalSigns.heartRate",
@@ -170,23 +171,7 @@ const ProfileForm = ({ patientData, loading }: Props) => {
       }
     }
 
-    // Visit History
-    // if (data.visitHistory?.length) {
-    //   data.visitHistory.forEach((visit, index) => {
-    //     formData.append(
-    //       `visitHistory[${index}][lastVisitDate]`,
-    //       visit.lastVisitDate.toISOString()
-    //     )
-    //     formData.append(
-    //       `visitHistory[${index}][assignedDoctor]`,
-    //       visit.assignedDoctor
-    //     )
-    //     formData.append(
-    //       `visitHistory[${index}][lastVisitReason]`,
-    //       visit.lastVisitReason
-    //     )
-    //   })
-    // }
+
     if (data.visitHistory?.length) {
       data.visitHistory.forEach((visit, index) => {
         formData.append(

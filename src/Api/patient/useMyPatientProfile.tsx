@@ -71,6 +71,7 @@ export const useMyPatientInfo = () => {
       throw new Error("failed to get Patient Info")
     }
     const data = await responce.json()
+    console.log("this is patientInfo", data)
     if (!data.success) {
       return console.log(data.message)
     }

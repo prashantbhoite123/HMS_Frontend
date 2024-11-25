@@ -8,7 +8,7 @@ import FormInput from "@/form/Common_Form/FormInput"
 import { doctorSpecializations, workingHours } from "@/config/DoctorData"
 import { FaUserMd } from "react-icons/fa"
 import { useMyDoctorRegister } from "@/Api/Hospital/useMyDoctor"
-  
+
 import {
   // FormControl,
   // FormField,
@@ -210,7 +210,9 @@ const DoctorsForm = ({ hospitalId }: Props) => {
                 <FormMessage />
               </div>
             </div>
+
             {/* Camera Section */}
+
             <div className="col-span-2 flex flex-col py-4 gap-4">
               {cameraOn ? (
                 <Webcam

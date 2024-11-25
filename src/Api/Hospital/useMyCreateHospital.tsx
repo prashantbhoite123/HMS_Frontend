@@ -2,6 +2,7 @@ import { IHospital } from "@/Types/hospital"
 import { BACKEND_API_URL } from "../../main"
 import { useMutation, useQuery } from "react-query"
 import { toast } from "sonner"
+import { useNavigate } from "react-router-dom"
 
 export const useGetHospital = () => {
   const getHospital = async (): Promise<IHospital> => {
@@ -34,6 +35,7 @@ export const useGetHospital = () => {
 }
 
 export const usecreateHospital = () => {
+  const navigate = useNavigate()
   const createHospital = async (
     createHospitalFormData: FormData
   ): Promise<IHospital | undefined> => {
@@ -55,6 +57,7 @@ export const usecreateHospital = () => {
         toast.error(data.message)
       } else {
         toast.success(data.message)
+        navigate("/")
       }
       console.log("Responce Hotel create ime: ", data)
       return data

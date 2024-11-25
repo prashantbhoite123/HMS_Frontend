@@ -2,8 +2,7 @@ import { Controller } from "react-hook-form"
 import FormInput from "../Common_Form/FormInput"
 
 const DetailSection = () => {
-  // const { control } = useForm()
-  const gender = ["Male", "Female", "Other"]
+  const gender = ["", "Male", "Female", "Other"]
   return (
     <div className=" p-4  rounded-md">
       <h2 className="text-lg font-semibold mb-4">Personal Information</h2>
@@ -37,6 +36,10 @@ const DetailSection = () => {
               </select>
             )}
           />
+          {/* 
+          <div className="">
+            <FormInput type="radio" placeholder="" label="Male" />
+          </div> */}
         </div>
         <FormInput placeholder="Age" label="Age" type="number" name="age" />
         <FormInput placeholder="Phone" label="Phone" type="text" name="phone" />
