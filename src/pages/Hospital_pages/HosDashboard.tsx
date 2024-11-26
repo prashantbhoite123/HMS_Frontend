@@ -1,15 +1,19 @@
 import { useMyDashData } from "@/Api/Hospital/useDashData"
+import DashAdminApprovel from "@/components/Dashbord/DashAdminApprovel"
 import DashAppoinment from "@/components/Dashbord/DashAppoinment"
 import DashboardComponents from "@/components/Dashbord/DashboardComponents"
 import DashDoctors from "@/components/Dashbord/DashDoctors"
+import DashPendingHos from "@/components/Dashbord/DashPendingHos"
 import DashProfile from "@/components/Dashbord/DashProfile"
 import Loader from "@/components/Loader"
+
 import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
 const HosDashboard = () => {
   const { dashdata, isLoading } = useMyDashData()
   const location = useLocation()
   const [tab, setTab] = useState("")
+  
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search)
@@ -29,10 +33,20 @@ const HosDashboard = () => {
   return (
     <div className="p-4">
       {tab === "dash" && <DashboardComponents dashData={dashdata} />}
-      {tab === "dashappoinment" && (
+      {tab === "dashappoinment" ? (
         <DashAppoinment allAppoinment={dashdata?.allAppoinment} />
+      ) : tab === "dashapprovels" ? (
+        <DashPendingHos pendingHospital={dashdata?.PendingHospital} />
+      ) : (
+        ""
       )}
-      {tab === "dashdoctors" && <DashDoctors doctors={dashdata?.doctors} />}
+      {tab === "dashdoctors" ? (
+        <DashDoctors doctors={dashdata?.doctors} />
+      ) : tab === "dashdoctors" ? (
+        <DashAdminApprovel ApprovedHospital={dashdata?.ApprovedHospital} />
+      ) : (
+        ""
+      )}
       {tab === "profile" && <DashProfile />}
     </div>
   )

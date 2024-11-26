@@ -112,28 +112,54 @@ const DashSidebar = () => {
           <Link
             to="/dashboard?tab=dashappoinment"
             className={`flex items-center gap-x-3 p-2 rounded-md ${
-              activeTab === "/dashboard?tab=dashappoinment"
+              activeTab === "/dashboard?tab=dashappoinment" ||
+              "/dashboard?tab=dashapprovels"
                 ? "bg-gray-500 text-white"
                 : ""
             }`}
-            onClick={() => handleTabChange("/dashboard?tab=dashappoinment")}
+            onClick={() =>
+              handleTabChange(
+                currentUser?.role === "Admin"
+                  ? "/dashboard?tab=dashapprovels"
+                  : "/dashboard?tab=dashappoinment"
+              )
+            }
           >
             <MdEventNote size="25" />
-            <div className="font-semibold">Appointment</div>
+            <div className="font-semibold">
+              {currentUser?.role === "Admin" ? (
+                <span>Approvels</span>
+              ) : (
+                <span>Appointment</span>
+              )}
+            </div>
           </Link>
 
           {/* Doctors Tab */}
           <Link
             to="/dashboard?tab=dashdoctors"
             className={`flex items-center gap-x-3 p-2 rounded-md ${
-              activeTab === "/dashboard?tab=dashdoctors"
+              activeTab === "/dashboard?tab=dashdoctors" ||
+              "/dashboard?tab=hospitals"
                 ? "bg-gray-500 text-white"
                 : ""
             }`}
-            onClick={() => handleTabChange("/dashboard?tab=dashdoctors")}
+            onClick={() =>
+              handleTabChange(
+                currentUser?.role === "Admin"
+                  ? "/dashboard?tab=hospitals"
+                  : "/dashboard?tab=dashdoctors"
+              )
+            }
           >
             <FaUserMd size="25" />
-            <div className="font-semibold">Doctors</div>
+            <div className="font-semibold">
+              {currentUser?.role === "Admin" ? (
+                <span>Hospitals</span>
+              ) : (
+                <span>Doctors</span>
+              )}
+            </div>
           </Link>
 
           {/* Logout */}
