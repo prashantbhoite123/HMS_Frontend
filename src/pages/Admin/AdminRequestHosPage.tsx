@@ -4,12 +4,18 @@ import {
 } from "@/Api/Admin/useMyAdminRequest"
 import AdminCards from "@/components/Admin/AdminCards"
 import Loader from "@/components/Loader"
-import { IHospital } from "@/Types/hospital"
 import { useEffect } from "react"
+import { useParams } from "react-router-dom"
 
 const AdminRequestHosPage = () => {
+  const { hospitalId } = useParams()
+
+  console.log("hospital id", hospitalId)
+
   const { rejectionHos, isLoading: rejectedLoading } = useMyRejectHospital()
-  const { requestedHospital, isLoading, refetch } = useMyRequestedHospital()
+  const { requestedHospital, isLoading, refetch } = useMyRequestedHospital(
+    hospitalId as string
+  )
   console.log(requestedHospital)
 
   const handleRejectHos = (reson: string, hospitalId: string) => {
@@ -42,16 +48,14 @@ const AdminRequestHosPage = () => {
             Requested hospitals not found
           </div>
         ) : (
-          requestedHospital.map((hospital: IHospital, index: number) => (
-            <div key={index} className=" mt-5">
-              <AdminCards
-                hospitals={hospital}
-                rejectedHospital={handleRejectHos}
-                isLoading={rejectedLoading}
-                hospitalId={hospital._id}
-              />
-            </div>
-          ))
+          <div className=" mt-5">
+            <AdminCards
+              hospitals={requestedHospital}
+              rejectedHospital={handleRejectHos}
+              isLoading={rejectedLoading}
+              hospitalId={requestedHospital._id}
+            />
+          </div>
         )}
       </div>
     </div>

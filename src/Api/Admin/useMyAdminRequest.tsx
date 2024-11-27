@@ -1,12 +1,13 @@
 import { BACKEND_API_URL } from "@/main"
 import { useMutation, useQuery } from "react-query"
+import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
 
-export const useMyRequestedHospital = () => {
+export const useMyRequestedHospital = (hospitalId: string) => {
   const getMyRequestHos = async () => {
     try {
       const responce = await fetch(
-        `${BACKEND_API_URL}/api/approvel/aprovelhos`,
+        `${BACKEND_API_URL}/api/approvel/aprovelhos/${hospitalId}`,
         {
           method: "GET",
           credentials: "include",
@@ -23,22 +24,23 @@ export const useMyRequestedHospital = () => {
     }
   }
 
-  const { data: requestedHospital, isLoading ,refetch} = useQuery(
-    "requestedHos",
-    getMyRequestHos,
-    {
-      onSuccess: () => {
-        console.log("success")
-      },
-      onError: () => {
-        console.log("Error")
-      },
-    }
-  )
+  const {
+    data: requestedHospital,
+    isLoading,
+    refetch,
+  } = useQuery("requestedHos", getMyRequestHos, {
+    onSuccess: () => {
+      console.log("success")
+    },
+    onError: () => {
+      console.log("Error")
+    },
+  })
   return { requestedHospital, isLoading, refetch }
 }
 
 export const useMyRejectHospital = () => {
+  const navigate = useNavigate()
   const hospitalRejectApi = async (reson: string, hospitalId: string) => {
     console.log(reson, hospitalId)
     const responce = await fetch(
@@ -62,6 +64,7 @@ export const useMyRejectHospital = () => {
     }
 
     toast.success(data.message)
+    navigate("/")
     return data
   }
 
