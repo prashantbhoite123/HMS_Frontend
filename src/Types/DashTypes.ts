@@ -49,7 +49,6 @@ type lastMonthData = {
   approvedHospital: number
   pendingHospital: number
   patients: number
-
   users: number
 }
 
@@ -64,6 +63,7 @@ export type DashCard = {
 export type ResponseType = {
   dashCard: DashCard
   latestPendingHospitals: Hospital[]
+  todaysPendingHospitals: Hospital[]
   chartData: { count: number; month: string | null }[]
   PendingHospital: Hospital[]
   ApprovedHospital: Hospital[]
@@ -105,7 +105,6 @@ export type DashboardResponse = {
     totalDoctors: number
   }
   latesAppoinments: Appointment[]
-
   chartData: { count: number; month: string | null }[]
   todayAppointments: Appointment[]
   doctors: Doctor[]

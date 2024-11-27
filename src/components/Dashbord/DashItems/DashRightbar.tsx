@@ -1,6 +1,6 @@
-
-
 import { Card, CardContent } from "@/components/ui/card"
+import { useUser } from "@/context/userContext"
+import { Hospital } from "@/Types/DashTypes"
 import { BsRocketTakeoffFill } from "react-icons/bs"
 import { MdNotificationAdd } from "react-icons/md"
 
@@ -20,10 +20,12 @@ interface Appointment {
 }
 
 type Props = {
-  todayApp: Appointment[]
+  todayApp: Appointment[] | Hospital[]
 }
 
 const DashRightbar = ({ todayApp }: Props) => {
+  const data = todayApp as any
+  const { currentUser } = useUser()
   const formatAppointmentTime = (timeSlot?: string): string => {
     if (!timeSlot) return "Time not available"
 
@@ -43,7 +45,7 @@ const DashRightbar = ({ todayApp }: Props) => {
   }
 
   return (
-    <div className="flex flex-col h-full  gap-y-6 mt-5 md:mt-0 md:sticky md:top-36 md:right-5 md:h-screen">
+    <div className="flex flex-col h-full gap-y-6 mt-5 md:mt-0 md:sticky md:top-36 md:right-5 lg:h-screen">
       <div>
         <Card
           borderRadius="none"
@@ -55,19 +57,32 @@ const DashRightbar = ({ todayApp }: Props) => {
               Upcoming APPT
             </h4>
 
-            {todayApp.length === 0 ? (
+            {todayApp?.length === 0 ? (
               <h1 className="font-semibold text-red-500">No appointments</h1>
             ) : (
-              todayApp?.map((appointment) => (
+              data?.map((appointment: any) => (
                 <div
                   key={appointment._id}
                   className="text-sm text-muted-foreground"
                 >
                   <div className="flex justify-between font-semibold">
-                    <span>Dr. {appointment.doctorName}</span>
-                    <span className="line-clamp-2">
-                      {formatAppointmentTime(appointment.appTime)}
-                    </span>
+                    {currentUser?.role === "Admin" ? (
+                      <span>Dr. {appointment.hospitalName}</span>
+                    ) : currentUser?.role === "hospital" ? (
+                      <span>Dr. {appointment.doctorName}</span>
+                    ) : (
+                      ""
+                    )}
+
+                    {currentUser?.role === "Admin" ? (
+                      <span>{appointment?.establishedDate}</span>
+                    ) : currentUser?.role === "hospital" ? (
+                      <span className="line-clamp-2">
+                        {formatAppointmentTime(appointment?.appTime)}
+                      </span>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
               ))
