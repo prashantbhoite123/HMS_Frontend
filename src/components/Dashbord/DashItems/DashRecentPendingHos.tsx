@@ -1,11 +1,86 @@
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 import { Hospital } from "@/Types/DashTypes"
+import { format } from "date-fns"
 
 type Props = {
   recentPenHos: Hospital[]
 }
 
 const DashRecentPendingHos = ({ recentPenHos }: Props) => {
-  return <div>DashRecentPendingHos</div>
+  console.log("recentp==>", recentPenHos)
+  if (!recentPenHos || recentPenHos.length === 0) {
+    return (
+      <div>
+        <Table>
+          <TableBody>
+            <TableRow className="shadow-xl shadow-slate-200">
+              <TableCell colSpan={5} className="py-4 text-center text-gray-500">
+                No pending Hospial Found
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </div>
+    )
+  }
+  return (
+    <div className="w-full p-4 shadow-lg rounded-lg bg-whites">
+      <span className="flex items-center gap-x-2 text-2xl font-semibold ml-4 text-green-600">
+        <span>
+          <span className="mr-2">{recentPenHos?.length}</span>
+          <span>Latest Pending Hospital</span>
+        </span>
+      </span>
+      <Table>
+        <TableHeader className=" text-gray-700 border-none">
+          <TableRow>
+            <TableHead>Picture</TableHead>
+            <TableHead>Hospital Name</TableHead>
+            <TableHead>Hospital Type</TableHead>
+            <TableHead>Phone Number</TableHead>
+            <TableHead>EstablishedDate</TableHead>
+            <TableHead>Total Beds</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody className="mt-4">
+          {recentPenHos?.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={5} className="py-4 text-center text-gray-500">
+                No Hospital Found
+              </TableCell>
+            </TableRow>
+          ) : (
+            recentPenHos?.map((hospital, index: number) => (
+              <TableRow key={index}>
+                <TableCell>
+                  <img
+                    src={hospital?.picture}
+                    alt="hospital img"
+                    className="w-10 h-10 rounded-full"
+                  />
+                </TableCell>
+                <TableCell>{hospital?.hospitalName}</TableCell>
+                <TableCell>{hospital?.hospitalType}</TableCell>
+                <TableCell>{hospital?.phoneNumber}</TableCell>
+                <TableCell>
+                  {hospital?.establishedDate &&
+                    format(new Date(hospital?.establishedDate), "dd/MM/yyyy")}
+                </TableCell>
+                <TableCell>{hospital?.totalBeds}</TableCell>
+              </TableRow>
+            ))
+          )}
+        </TableBody>
+      </Table>
+    </div>
+  )
 }
 
 export default DashRecentPendingHos

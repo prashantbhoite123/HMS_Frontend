@@ -24,14 +24,6 @@ const LoginDialog = ({ handleClose }: Props) => {
           As a Hospital
         </Button>
       </Link>
-      <Link to="/signuphospital?role=clinic">
-        <Button
-          onClick={() => handleClose()}
-          className="relative h-[15vh] md:h-[20vh] w-[15vh] hover:text-white md:w-[20vh] bg-green-400 text-black font-semibold shadow-md shadow-gray-800 text-lg transition-transform duration-500 hover:rotate-y-180"
-        >
-          As a Clinic
-        </Button>
-      </Link>
     </div>
   )
 }

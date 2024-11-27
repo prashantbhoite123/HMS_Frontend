@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { useUser } from "@/context/userContext"
 import { Hospital } from "@/Types/DashTypes"
+import { format } from "date-fns"
 import { BsRocketTakeoffFill } from "react-icons/bs"
 import { MdNotificationAdd } from "react-icons/md"
 
@@ -54,7 +55,11 @@ const DashRightbar = ({ todayApp }: Props) => {
           <CardContent className="flex flex-col gap-y-2 p-4">
             <h4 className="flex items-center gap-x-2 text-lg font-semibold text-green-500">
               <BsRocketTakeoffFill />
-              Upcoming APPT
+              {currentUser?.role === "Admin"
+                ? " Upcoming HOS"
+                : currentUser?.role === "hospital"
+                ? "Upcoming APPT"
+                : ""}
             </h4>
 
             {todayApp?.length === 0 ? (
@@ -67,7 +72,7 @@ const DashRightbar = ({ todayApp }: Props) => {
                 >
                   <div className="flex justify-between font-semibold">
                     {currentUser?.role === "Admin" ? (
-                      <span>Dr. {appointment.hospitalName}</span>
+                      <span> {appointment.hospitalName}</span>
                     ) : currentUser?.role === "hospital" ? (
                       <span>Dr. {appointment.doctorName}</span>
                     ) : (
@@ -75,7 +80,14 @@ const DashRightbar = ({ todayApp }: Props) => {
                     )}
 
                     {currentUser?.role === "Admin" ? (
-                      <span>{appointment?.establishedDate}</span>
+                      <span>
+                        {appointment?.establishedDate
+                          ? format(
+                              new Date(appointment.establishedDate),
+                              "dd/MM/yyyy"
+                            )
+                          : "No Date"}
+                      </span>
                     ) : currentUser?.role === "hospital" ? (
                       <span className="line-clamp-2">
                         {formatAppointmentTime(appointment?.appTime)}

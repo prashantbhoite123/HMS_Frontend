@@ -72,7 +72,7 @@ const HospitalCreateForm = ({
     resolver: zodResolver(formSchema),
   })
 
-  const [message, setMessage] = useState("hospital Not found")
+  const [message, setMessage] = useState("Hospital not found")
 
   useEffect(() => {
     if (typeof hospital === "string") {

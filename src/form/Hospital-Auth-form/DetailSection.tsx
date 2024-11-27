@@ -25,7 +25,7 @@ function DetailSection({ message }: Props) {
       <div className="">
         <span
           className={`bg-black mb-4 w-auto px-3 py-1 rounded-md shadow-xl font-bold ${
-            message === "hospital Not found"
+            message === "Hospital not found"
               ? "text-red-500"
               : message === "Pending"
               ? "text-orange-600"
