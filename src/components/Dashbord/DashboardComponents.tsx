@@ -75,7 +75,7 @@ const DashboardComponents = ({ dashData }: Props) => {
   if (!data) return <div>Loading...</div> // Handle case where data is not available
 
   return (
-    <div className="flex flex-row md:flex-col">
+    <div className="flex flex-col md:flex-col lg:flex-row ">
       <div className="flex flex-col gap-y-6">
         <DashCards
           CardData={

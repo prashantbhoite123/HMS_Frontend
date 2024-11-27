@@ -45,7 +45,7 @@ const DashRightbar = ({ todayApp }: Props) => {
   }
 
   return (
-    <div className="flex flex-col h-full gap-y-6 mt-5 md:mt-0 md:sticky md:top-36 md:right-5 lg:h-screen">
+    <div className="flex flex-col md:h-auto md:flex-row lg:flex-col md:mt-5 lg:mt-0 h-full gap-y-6 mt-5  md:sticky md:top-36 md:right-5 lg:h-screen static ">
       <div>
         <Card
           borderRadius="none"

@@ -24,7 +24,7 @@ const DashCards = ({ CardData }: Props) => {
   const { currentUser } = useUser()
   const data = CardData as any
   return (
-    <div className="grid flex-wrap grid-rows-1  md:grid-cols-3 gap-x-3">
+    <div className="grid flex-wrap grid-rows-1 gap-y-3 md:grid-cols-3 gap-x-3">
       <div className="w-full md:w-[19vw]">
         <Card borderRadius="none">
           <CardContent className="flex flex-col gap-y-2 p-4 shadow-xl rounded-none">
