@@ -150,42 +150,6 @@ const DashCards = ({ CardData }: Props) => {
           </CardContent>
         </Card>
       </div>
-      {/* <div className="w-full md:w-[20vw]">
-        <Card borderRadius="none">
-          <CardContent className="flex flex-col gap-y-2 p-4 shadow-xl rounded-none">
-            <div className="flex items-center gap-x-2 text-red-500">
-              <FaExclamationTriangle size={24} />
-              <span className="text-[1.1rem] font-semibold ">
-                {currentUser?.role === "Admin" ? (
-                  <span>Total Patient</span>
-                ) : currentUser?.role === "hospital" ? (
-                  <span>Cancel Appoinments</span>
-                ) : (
-                  ""
-                )}
-              </span>
-            </div>
-            <div className="ml-7 text-lg font-semibold">
-              {currentUser?.role === "Admin"
-                ? data?.totalPatient < 10
-                  ? `0${data?.totalPatient}`
-                  : data?.totalPatient
-                : ""}
-            </div>
-            <div className="flex items-center gap-x-2 ml-7 font-semibold text-sm">
-              <span className="flex gap-x-1 items-center text-green-500 ">
-                <ArrowUp size={20} />
-                <span>
-                  {currentUser?.role === "Admin"
-                    ? data?.lastMonthData?.patients
-                    : ""}
-                </span>
-              </span>
-              <span className="text-slate-400">Last Month</span>
-            </div>
-          </CardContent>
-        </Card>
-      </div> */}
     </div>
   )
 }

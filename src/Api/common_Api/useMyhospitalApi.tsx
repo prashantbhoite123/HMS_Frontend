@@ -30,7 +30,7 @@ export const useHospitalRegistration = () => {
     }
 
     const data = await responce.json()
-    console.log("====>",data)
+    console.log("====>", data)
 
     toast.success(data.message)
     return data

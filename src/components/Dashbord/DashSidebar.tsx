@@ -7,8 +7,11 @@ import { FaUserMd } from "react-icons/fa"
 import { Separator } from "../ui/separator"
 import { GiExitDoor } from "react-icons/gi"
 import { useUser } from "@/context/userContext"
+import { BACKEND_API_URL } from "@/main"
+import { toast } from "sonner"
 const DashSidebar = () => {
   const { currentUser } = useUser()
+
   const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState("/dashboard?tab=dash")
   const [openSidebar, setOpenSidebar] = useState(false)
@@ -23,6 +26,29 @@ const DashSidebar = () => {
     setActiveTab(tab)
   }
 
+  const naviagte = useNavigate()
+  const { setCurrentUser } = useUser()
+  const handleSignOut = async () => {
+    try {
+      const response = await fetch(`${BACKEND_API_URL}/api/auth/logout`, {
+        method: "GET",
+        credentials: "include",
+      })
+      if (!response.ok) {
+        console.log("Error while logging out user")
+        return toast.error("Failed to log out")
+      }
+
+      localStorage.removeItem("user")
+      setCurrentUser(null)
+      const data = await response.json()
+      toast.success(data.message)
+      naviagte("/")
+      console.log("this is data", data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <div className="w-full ">
       <div className=" w-full">
@@ -63,7 +89,7 @@ const DashSidebar = () => {
           {/* Dashboard Tab */}
           <Link
             to="/dashboard?tab=dash"
-            className={`flex items-center gap-x-3 p-2 rounded-md ${
+            className={`flex items-center gap-x-3 p-2 rounded-md  hover:bg-gray-500 hover:text-white ${
               activeTab === "/dashboard?tab=dash"
                 ? "bg-gray-500 text-white shadow-xl shadow-white"
                 : ""
@@ -80,7 +106,7 @@ const DashSidebar = () => {
           </Link>
           <Link
             to="/dashboard?tab=profile"
-            className={`flex justify-between items-center gap-x-3 p-2 rounded-md ${
+            className={`flex justify-between items-center gap-x-3 p-2 rounded-md hover:bg-gray-500 hover:text-white ${
               activeTab === "/dashboard?tab=profile"
                 ? "bg-gray-500 text-white"
                 : ""
@@ -110,11 +136,22 @@ const DashSidebar = () => {
           {/* Appointment Tab */}
 
           <Link
-            to="/dashboard?tab=dashappoinment"
-            className={`flex items-center gap-x-3 p-2 rounded-md ${
-              activeTab === "/dashboard?tab=dashappoinment" ||
-              "/dashboard?tab=dashapprovels"
-                ? "bg-gray-500 text-white"
+            to={
+              currentUser?.role === "Admin"
+                ? "/dashboard?tab=dashapprovels"
+                : currentUser?.role === "hospital"
+                ? "/dashboard?tab=dashappoinment"
+                : ""
+            }
+            className={`flex items-center gap-x-3 p-2 rounded-md hover:bg-gray-500 hover:text-white ${
+              currentUser?.role === "Admin"
+                ? activeTab == "/dashboard?tab=dashapprovels"
+                  ? "bg-gray-500 text-white"
+                  : ""
+                : currentUser?.role === "hospital"
+                ? activeTab === "/dashboard?tab=dashappoinment"
+                  ? "bg-gray-500 text-white"
+                  : ""
                 : ""
             }`}
             onClick={() =>
@@ -138,10 +175,15 @@ const DashSidebar = () => {
           {/* Doctors Tab */}
           <Link
             to="/dashboard?tab=dashdoctors"
-            className={`flex items-center gap-x-3 p-2 rounded-md ${
-              activeTab === "/dashboard?tab=dashdoctors" ||
-              "/dashboard?tab=hospitals"
-                ? "bg-gray-500 text-white"
+            className={`flex items-center gap-x-3 p-2 rounded-md hover:bg-gray-500 hover:text-white ${
+              currentUser?.role === "Admin"
+                ? activeTab === "/dashboard?tab=hospitals"
+                  ? "bg-gray-500 text-white"
+                  : ""
+                : currentUser?.role === "hospital"
+                ? activeTab === "/dashboard?tab=dashdoctors"
+                  ? "bg-gray-500 text-white"
+                  : ""
                 : ""
             }`}
             onClick={() =>
@@ -164,8 +206,8 @@ const DashSidebar = () => {
 
           {/* Logout */}
           <div
-            className="flex items-center gap-x-3 p-2 rounded-md hover:cursor-pointer"
-            onClick={() => console.log("Logout clicked")}
+            className="flex items-center hover:bg-gray-500  gap-x-3 p-2 rounded-md hover:cursor-pointer hover:underline hover:text-white"
+            onClick={handleSignOut}
           >
             <HiArrowSmRight size="25" />
             <span className="font-semibold">Logout</span>

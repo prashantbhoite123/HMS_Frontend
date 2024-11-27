@@ -13,7 +13,6 @@ const HosDashboard = () => {
   const { dashdata, isLoading } = useMyDashData()
   const location = useLocation()
   const [tab, setTab] = useState("")
-  
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search)
@@ -34,14 +33,14 @@ const HosDashboard = () => {
     <div className="p-4">
       {tab === "dash" && <DashboardComponents dashData={dashdata} />}
       {tab === "dashappoinment" ? (
-        <DashAppoinment allAppoinment={dashdata?.allAppoinment} />
+        <DashAppoinment allAppoinment={dashdata?.allAppointments} />
       ) : tab === "dashapprovels" ? (
         <DashPendingHos pendingHospital={dashdata?.PendingHospital} />
       ) : (
         ""
       )}
       {tab === "dashdoctors" ? (
-        <DashDoctors doctors={dashdata?.doctors} />
+        <DashDoctors doctors={dashdata?.totalDoctors} />
       ) : tab === "dashdoctors" ? (
         <DashAdminApprovel ApprovedHospital={dashdata?.ApprovedHospital} />
       ) : (

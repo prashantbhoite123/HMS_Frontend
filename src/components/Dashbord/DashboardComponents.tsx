@@ -58,6 +58,7 @@ import DashChart from "./DashItems/DashChart"
 import DashRecentApp from "./DashItems/DashRecentApp"
 import DashRightbar from "./DashItems/DashRightbar"
 import { useUser } from "@/context/userContext"
+import DashRecentPendingHos from "./DashItems/DashRecentPendingHos"
 
 type Props = {
   dashData: DashboardResponse | ResponseType | any
@@ -72,6 +73,8 @@ const DashboardComponents = ({ dashData }: Props) => {
   // Use type narrowing to determine the data type
   const data = dashData as any
 
+  console.log("this is dashData==>", data)
+
   if (!data) return <div>Loading...</div> // Handle case where data is not available
 
   return (
@@ -82,15 +85,13 @@ const DashboardComponents = ({ dashData }: Props) => {
             isAdmin ? data.dashCard : isHospital ? data.CardData : undefined
           }
         />
-        <DashRecentApp
-          latestAppoinment={
-            isAdmin
-              ? data?.latestPendingHospitals
-              : isHospital
-              ? data?.latestAppoinment
-              : undefined
-          }
-        />
+
+        {currentUser?.role === "Admin" ? (
+          <DashRecentPendingHos recentPenHos={data?.latestPendingHospitals} />
+        ) : currentUser?.role === "hospital" ? (
+          <DashRecentApp latestAppoinment={data?.latestAppointments} />
+        ) : undefined}
+
         <DashChart chartData={data?.chartData} />
       </div>
       <div className="relative">
