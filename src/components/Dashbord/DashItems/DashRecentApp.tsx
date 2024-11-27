@@ -7,6 +7,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
+
 // import { MdEventNote } from "react-icons/md"
 
 interface latestApp {
@@ -80,38 +81,40 @@ const DashRecentApp = ({ latestAppoinment }: Props) => {
             </TableRow>
           ) : (
             latestAppoinment.map((app, i) => (
-              <TableRow
-                key={i}
-                className="hover:bg-gray-50 transition-colors duration-200 border-none"
-              >
-                <TableCell className="py-3 px-4 font-semibold">
-                  {app.patientName}
-                </TableCell>
-                <TableCell className="py-3 px-4">
-                  <span className="font-semibold text-sm  text-green-500  py-1 rounded-md">
-                    {app.apptNumber}
-                  </span>
-                </TableCell>
-                <TableCell className="py-3 px-4">
-                  <span
-                    className={`font-semibold text-sm px-2 py-1 rounded-md ${
-                      app.status === "Completed"
-                        ? " text-green-600"
-                        : app.status === "Pending"
-                        ? " text-yellow-600"
-                        : " text-red-600"
-                    }`}
-                  >
-                    {app.status}
-                  </span>
-                </TableCell>
-                <TableCell className="py-3 px-4 font-semibold">
-                  {app.doctorName}
-                </TableCell>
-                <TableCell className="py-3 px-4 font-semibold">
-                  {new Date(app.appointmentDate).toLocaleDateString()}
-                </TableCell>
-              </TableRow>
+              
+                <TableRow
+                  key={i}
+                  className="hover:bg-gray-50 transition-colors duration-200 border-none"
+                >
+                  <TableCell className="py-3 px-4 font-semibold">
+                    {app.patientName}
+                  </TableCell>
+                  <TableCell className="py-3 px-4">
+                    <span className="font-semibold text-sm  text-green-500  py-1 rounded-md">
+                      {app.apptNumber}
+                    </span>
+                  </TableCell>
+                  <TableCell className="py-3 px-4">
+                    <span
+                      className={`font-semibold text-sm px-2 py-1 rounded-md ${
+                        app.status === "Completed"
+                          ? " text-green-600"
+                          : app.status === "Pending"
+                          ? " text-yellow-600"
+                          : " text-red-600"
+                      }`}
+                    >
+                      {app.status}
+                    </span>
+                  </TableCell>
+                  <TableCell className="py-3 px-4 font-semibold">
+                    {app.doctorName}
+                  </TableCell>
+                  <TableCell className="py-3 px-4 font-semibold">
+                    {new Date(app.appointmentDate).toLocaleDateString()}
+                  </TableCell>
+                </TableRow>
+              
             ))
           )}
         </TableBody>

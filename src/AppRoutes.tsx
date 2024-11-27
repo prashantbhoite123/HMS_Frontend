@@ -91,7 +91,7 @@ const AppRoutes = () => {
             }
           />
           <Route
-            path="/requestedhos"
+            path="/requestedhos/:hospitalId"
             element={
               <Layouts showhero={false}>
                 <AdminRequestHosPage />

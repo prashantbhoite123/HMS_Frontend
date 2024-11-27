@@ -52,7 +52,7 @@ const DashRightbar = ({ todayApp }: Props) => {
           borderRadius="none"
           className="w-full md:w-[15rem] max-w-full ml-2"
         >
-          <CardContent className="flex flex-col gap-y-2 p-4">
+          <CardContent className="flex flex-col space-x-3 gap-y-2 p-4">
             <h4 className="flex items-center gap-x-2 text-lg font-semibold text-green-500">
               <BsRocketTakeoffFill />
               {currentUser?.role === "Admin"
@@ -70,7 +70,7 @@ const DashRightbar = ({ todayApp }: Props) => {
                   key={appointment._id}
                   className="text-sm text-muted-foreground"
                 >
-                  <div className="flex justify-between font-semibold">
+                  <div className="flex justify-between font-semibold space-x-3">
                     {currentUser?.role === "Admin" ? (
                       <span> {appointment.hospitalName}</span>
                     ) : currentUser?.role === "hospital" ? (
@@ -80,7 +80,7 @@ const DashRightbar = ({ todayApp }: Props) => {
                     )}
 
                     {currentUser?.role === "Admin" ? (
-                      <span>
+                      <span className="text-wrap">
                         {appointment?.establishedDate
                           ? format(
                               new Date(appointment.establishedDate),

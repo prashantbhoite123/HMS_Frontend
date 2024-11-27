@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/table"
 import { Hospital } from "@/Types/DashTypes"
 import { format } from "date-fns"
+import { Link } from "react-router-dom"
 
 type Props = {
   recentPenHos: Hospital[]
@@ -51,29 +52,53 @@ const DashRecentPendingHos = ({ recentPenHos }: Props) => {
         </TableHeader>
         <TableBody className="mt-4">
           {recentPenHos?.length === 0 ? (
-            <TableRow>
+            <TableRow className="hover:bg-gray-50 transition-colors duration-200 border-none">
               <TableCell colSpan={5} className="py-4 text-center text-gray-500">
                 No Hospital Found
               </TableCell>
             </TableRow>
           ) : (
             recentPenHos?.map((hospital, index: number) => (
-              <TableRow key={index}>
+              <TableRow
+                key={index}
+                className="hover:bg-gray-50 transition-colors duration-200 border-none"
+              >
                 <TableCell>
-                  <img
-                    src={hospital?.picture}
-                    alt="hospital img"
-                    className="w-10 h-10 rounded-full"
-                  />
+                  <Link to={`/requestedhos/${hospital?._id}`}>
+                    <img
+                      src={hospital?.picture}
+                      alt="hospital img"
+                      className="w-10 h-10 rounded-full"
+                    />
+                  </Link>
                 </TableCell>
-                <TableCell>{hospital?.hospitalName}</TableCell>
-                <TableCell>{hospital?.hospitalType}</TableCell>
-                <TableCell>{hospital?.phoneNumber}</TableCell>
                 <TableCell>
-                  {hospital?.establishedDate &&
-                    format(new Date(hospital?.establishedDate), "dd/MM/yyyy")}
+                  <Link to={`/requestedhos/${hospital?._id}`}>
+                    {hospital?.hospitalName}
+                  </Link>
                 </TableCell>
-                <TableCell>{hospital?.totalBeds}</TableCell>
+
+                <TableCell>
+                  <Link to={`/requestedhos/${hospital?._id}`}>
+                    {hospital?.hospitalType}
+                  </Link>
+                </TableCell>
+                <TableCell>
+                  <Link to={`/requestedhos/${hospital?._id}`}>
+                    {hospital?.phoneNumber}
+                  </Link>
+                </TableCell>
+                <TableCell>
+                  <Link to={`/requestedhos/${hospital?._id}`}>
+                    {hospital?.establishedDate &&
+                      format(new Date(hospital?.establishedDate), "dd/MM/yyyy")}
+                  </Link>
+                </TableCell>
+                <TableCell>
+                  <Link to={`/requestedhos/${hospital?._id}`}>
+                    {hospital?.totalBeds}
+                  </Link>
+                </TableCell>
               </TableRow>
             ))
           )}
