@@ -26,7 +26,7 @@ export type Hospital = {
   address: Address
 }
 
-type AdminProfileData = {
+type ProfileData = {
   _id: string
   username: string
   email: string
@@ -67,7 +67,7 @@ export type ResponseType = {
   chartData: { count: number; month: string | null }[]
   PendingHospital: Hospital[]
   ApprovedHospital: Hospital[]
-  adminProfileData: AdminProfileData
+  ProfileData: ProfileData
 }
 
 interface Doctor {
@@ -109,4 +109,5 @@ export type DashboardResponse = {
   todayAppointments: Appointment[]
   doctors: Doctor[]
   allAppoinment: Appointment[]
+  ProfileData: ProfileData
 }

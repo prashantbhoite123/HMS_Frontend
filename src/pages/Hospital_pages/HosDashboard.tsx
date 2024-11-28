@@ -46,7 +46,7 @@ const HosDashboard = () => {
       ) : (
         ""
       )}
-      {tab === "profile" && <DashProfile />}
+      {tab === "profile" && <DashProfile ProfileData={dashdata?.ProfileData} />}
     </div>
   )
 }
