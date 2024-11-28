@@ -32,7 +32,6 @@ const AdminCards = ({
       <Card className="p-6 shadow-lg">
         <CardHeader>
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            {/* Hospital Name and Type */}
             <div className="text-lg font-semibold text-green-600 flex flex-col gap-1 md:flex-row md:items-center md:gap-3">
               <span>{hospitals.hospitalName}</span>
               <span className="text-gray-500 text-sm">
@@ -40,13 +39,11 @@ const AdminCards = ({
               </span>
             </div>
 
-            {/* Contact Information */}
             <div className="flex items-center gap-2 text-blue-500">
               <FaPhone />
               <span>{hospitals.phoneNumber}</span>
             </div>
 
-            {/* Bed Information */}
             <div className="flex items-center gap-2 text-gray-700">
               <Bed />
               <span>{hospitals.totalBeds} Beds</span>
@@ -57,7 +54,6 @@ const AdminCards = ({
               <span>{new Date(hospitals.createdAt).toLocaleDateString()}</span>
             </div>
 
-            {/* Location Information */}
             <div className="flex flex-wrap gap-2 text-gray-600 font-medium text-sm">
               <span className="flex items-center">
                 <Dot size={14} />
@@ -75,26 +71,22 @@ const AdminCards = ({
           </div>
         </CardHeader>
 
-        {/* Content Section */}
         <CardContent className="grid gap-6 md:grid-cols-2">
-          {/* Image Section */}
           <div className="flex justify-center">
             <img
               src={
                 typeof hospitals.picture === "string"
-                  ? hospitals.picture // Use directly if it's a string
+                  ? hospitals.picture
                   : hospitals.picture instanceof File
-                  ? URL.createObjectURL(hospitals.picture) // Use createObjectURL for File
-                  : "default-image-url.jpg" // Fallback for invalid cases
+                  ? URL.createObjectURL(hospitals.picture)
+                  : "default-image-url.jpg"
               }
               alt="Hospital"
               className="w-full object-cover rounded-lg"
             />
           </div>
 
-          {/* Details Section */}
           <div className="space-y-6">
-            {/* Services Section */}
             <div className="p-4 shadow-md rounded-md">
               <h3 className="text-lg font-semibold text-center text-green-600">
                 Services

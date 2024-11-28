@@ -33,13 +33,13 @@ const DashRecentPendingHos = ({ recentPenHos }: Props) => {
   }
   return (
     <div className="w-full p-4 shadow-lg rounded-lg bg-whites">
-      <span className="flex items-center gap-x-2 text-2xl font-semibold ml-4 text-green-600">
+      <span className="inline-flex py-1 shadow-lg  px-3 rounded-md bg-gradient-to-r from-indigo-600 to-pink-600  items-center gap-x-2 text-lg  font-semibold ml-4 text-slate-50">
         <span>
           <span className="mr-2">{recentPenHos?.length}</span>
-          <span>Latest Pending Hospital</span>
+          <span>Latest Pending Hospitals</span>
         </span>
       </span>
-      <Table>
+      <Table className="mt-4">
         <TableHeader className=" text-gray-700 border-none">
           <TableRow>
             <TableHead>Picture</TableHead>
@@ -73,13 +73,19 @@ const DashRecentPendingHos = ({ recentPenHos }: Props) => {
                   </Link>
                 </TableCell>
                 <TableCell>
-                  <Link to={`/requestedhos/${hospital?._id}`}>
+                  <Link
+                    to={`/requestedhos/${hospital?._id}`}
+                    className="line-clamp-1"
+                  >
                     {hospital?.hospitalName}
                   </Link>
                 </TableCell>
 
                 <TableCell>
-                  <Link to={`/requestedhos/${hospital?._id}`}>
+                  <Link
+                    to={`/requestedhos/${hospital?._id}`}
+                    className="line-clamp-1"
+                  >
                     {hospital?.hospitalType}
                   </Link>
                 </TableCell>
