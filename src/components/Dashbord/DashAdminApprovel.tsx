@@ -14,7 +14,7 @@ type Props = {
   ApprovedHospital: Hospital[]
 }
 
-const DashAdminApprovel = ({ ApprovedHospital }: Props) => {
+const DashAdminApproval = ({ ApprovedHospital }: Props) => {
   if (!ApprovedHospital || ApprovedHospital.length === 0) {
     return (
       <Table>
@@ -26,21 +26,23 @@ const DashAdminApprovel = ({ ApprovedHospital }: Props) => {
       </Table>
     )
   }
+
   return (
     <div className="">
-      <div className="shadow-lg  p-2 px-4 rounded-md">
+      <div className="text-center bg-gradient-to-r from-indigo-600 to-pink-600 text-clip text-transparent bg-clip-text">
         <h1 className="text-2xl font-semibold text-center">
           Approved Hospitals
         </h1>
       </div>
 
-      <div className="mt-6 shadow-lg p-2">
-        <span className="inline-flex py-1 shadow-lg  px-3 rounded-md bg-gradient-to-r from-indigo-600 to-pink-600 items-center gap-x-2 text-lg  font-semibold ml-4 text-slate-50">
+      <div className="mt-4 shadow-lg p-2">
+        <span className="inline-flex py-1 shadow-lg px-3 rounded-md bg-gradient-to-r from-indigo-600 to-pink-600 items-center gap-x-2 text-lg font-semibold ml-4 text-slate-50">
           <span>
-            <span className="mr-2">{ApprovedHospital?.length}</span>
+            <span className="mr-2">{ApprovedHospital.length}</span>
             <span>Approved Hospitals</span>
           </span>
         </span>
+
         <Table className="mt-4">
           <TableHeader>
             <TableRow className="bg-slate-100">
@@ -49,28 +51,29 @@ const DashAdminApprovel = ({ ApprovedHospital }: Props) => {
               <TableHead>Hospital Name</TableHead>
               <TableHead>Hospital Type</TableHead>
               <TableHead>Phone Number</TableHead>
-              <TableHead>EstablishedDate</TableHead>
+              <TableHead>Established Date</TableHead>
               <TableHead>Total Beds</TableHead>
             </TableRow>
           </TableHeader>
+
           <TableBody className="mt-4">
-            {ApprovedHospital?.length === 0 ? (
-              <TableRow className="transition-all duration-300 hover:bg-gray-100 border-none font-semibold hover:shadow-md hover:rounded-md">
+            {ApprovedHospital.length === 0 ? (
+              <TableRow>
                 <TableCell
-                  colSpan={5}
+                  colSpan={7}
                   className="py-4 text-center text-gray-500"
                 >
-                  No Hospital Found
+                  No Hospitals Found
                 </TableCell>
               </TableRow>
             ) : (
-              ApprovedHospital?.map((hospital, index: number) => (
+              ApprovedHospital.map((hospital, index) => (
                 <TableRow
                   key={index}
-                  className="transition-all duration-300 hover:bg-gray-100 border-none font-semibold hover:shadow-md hover:rounded-md"
+                  className="transition-all duration-300 hover:bg-gray-100 font-semibold hover:shadow-md hover:rounded-md"
                 >
-                  <TableCell>{index + 1}</TableCell>
-                  <TableCell>
+                  <TableCell className="py-3 px-4">{index + 1}</TableCell>
+                  <TableCell className="py-3 px-4">
                     <Link to={`/detail/${hospital?._id}`}>
                       <img
                         src={hospital?.picture}
@@ -79,7 +82,7 @@ const DashAdminApprovel = ({ ApprovedHospital }: Props) => {
                       />
                     </Link>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="py-3 px-4">
                     <Link
                       to={`/detail/${hospital?._id}`}
                       className="line-clamp-1"
@@ -87,8 +90,7 @@ const DashAdminApprovel = ({ ApprovedHospital }: Props) => {
                       {hospital?.hospitalName}
                     </Link>
                   </TableCell>
-
-                  <TableCell>
+                  <TableCell className="py-3 px-4">
                     <Link
                       to={`/detail/${hospital?._id}`}
                       className="line-clamp-1"
@@ -96,21 +98,22 @@ const DashAdminApprovel = ({ ApprovedHospital }: Props) => {
                       {hospital?.hospitalType}
                     </Link>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="py-3 px-4">
                     <Link to={`/detail/${hospital?._id}`}>
                       {hospital?.phoneNumber}
                     </Link>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="py-3 px-4">
                     <Link to={`/detail/${hospital?._id}`}>
                       {hospital?.establishedDate &&
+                        !isNaN(new Date(hospital?.establishedDate).getTime()) &&
                         format(
                           new Date(hospital?.establishedDate),
                           "dd/MM/yyyy"
                         )}
                     </Link>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="py-3 px-4">
                     <Link to={`/detail/${hospital?._id}`}>
                       {hospital?.totalBeds}
                     </Link>
@@ -125,4 +128,4 @@ const DashAdminApprovel = ({ ApprovedHospital }: Props) => {
   )
 }
 
-export default DashAdminApprovel
+export default DashAdminApproval

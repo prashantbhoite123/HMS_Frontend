@@ -22,8 +22,8 @@ const DashRecentPendingHos = ({ recentPenHos }: Props) => {
         <Table>
           <TableBody>
             <TableRow className="shadow-xl shadow-slate-200">
-              <TableCell colSpan={5} className="py-4 text-center text-gray-500">
-                No pending Hospial Found
+              <TableCell colSpan={6} className="py-3 text-center text-gray-500">
+                No Pending Hospitals Found
               </TableCell>
             </TableRow>
           </TableBody>
@@ -31,83 +31,75 @@ const DashRecentPendingHos = ({ recentPenHos }: Props) => {
       </div>
     )
   }
+
   return (
-    <div className="w-full p-4 shadow-lg rounded-lg bg-whites">
-      <span className="inline-flex py-1 shadow-lg  px-3 rounded-md bg-gradient-to-r from-indigo-600 to-pink-600  items-center gap-x-2 text-lg  font-semibold ml-4 text-slate-50">
+    <div className="w-full p-4 shadow-lg rounded-lg bg-white">
+      <span className="inline-flex py-1.5 px-3 shadow-lg rounded-md bg-gradient-to-r from-indigo-600 to-pink-600 items-center gap-x-2 text-lg font-semibold text-white">
         <span>
           <span className="mr-2">{recentPenHos?.length}</span>
           <span>Latest Pending Hospitals</span>
         </span>
       </span>
       <Table className="mt-4">
-        <TableHeader className=" text-gray-700 border-none">
+        <TableHeader className="text-gray-700 border-none">
           <TableRow>
-            <TableHead>Picture</TableHead>
-            <TableHead>Hospital Name</TableHead>
-            <TableHead>Hospital Type</TableHead>
-            <TableHead>Phone Number</TableHead>
-            <TableHead>EstablishedDate</TableHead>
-            <TableHead>Total Beds</TableHead>
+            <TableHead className="py-3">Picture</TableHead>
+            <TableHead className="py-3">Hospital Name</TableHead>
+            <TableHead className="py-3">Hospital Type</TableHead>
+            <TableHead className="py-3">Phone Number</TableHead>
+            <TableHead className="py-3">Established Date</TableHead>
+            <TableHead className="py-3">Total Beds</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody className="mt-4">
-          {recentPenHos?.length === 0 ? (
-            <TableRow className="hover:bg-gray-50 transition-colors duration-200 border-none">
-              <TableCell colSpan={5} className="py-4 text-center text-gray-500">
-                No Hospital Found
+        <TableBody>
+          {recentPenHos?.map((hospital, index: number) => (
+            <TableRow
+              key={index}
+              className="transition-all duration-300 hover:bg-gray-100 border-none font-semibold hover:shadow-md hover:rounded-md"
+            >
+              <TableCell className="py-3">
+                <Link to={`/requestedhos/${hospital?._id}`}>
+                  <img
+                    src={hospital?.picture}
+                    alt="hospital img"
+                    className="w-10 h-10 rounded-full"
+                  />
+                </Link>
+              </TableCell>
+              <TableCell className="py-3">
+                <Link
+                  to={`/requestedhos/${hospital?._id}`}
+                  className="line-clamp-1"
+                >
+                  {hospital?.hospitalName}
+                </Link>
+              </TableCell>
+              <TableCell className="py-3">
+                <Link
+                  to={`/requestedhos/${hospital?._id}`}
+                  className="line-clamp-1"
+                >
+                  {hospital?.hospitalType}
+                </Link>
+              </TableCell>
+              <TableCell className="py-3">
+                <Link to={`/requestedhos/${hospital?._id}`}>
+                  {hospital?.phoneNumber}
+                </Link>
+              </TableCell>
+              <TableCell className="py-3">
+                <Link to={`/requestedhos/${hospital?._id}`}>
+                  {hospital?.establishedDate &&
+                    format(new Date(hospital?.establishedDate), "dd/MM/yyyy")}
+                </Link>
+              </TableCell>
+              <TableCell className="py-3">
+                <Link to={`/requestedhos/${hospital?._id}`}>
+                  {hospital?.totalBeds}
+                </Link>
               </TableCell>
             </TableRow>
-          ) : (
-            recentPenHos?.map((hospital, index: number) => (
-              <TableRow
-                key={index}
-                className="hover:bg-gray-50 transition-colors duration-200 border-none"
-              >
-                <TableCell>
-                  <Link to={`/requestedhos/${hospital?._id}`}>
-                    <img
-                      src={hospital?.picture}
-                      alt="hospital img"
-                      className="w-10 h-10 rounded-full"
-                    />
-                  </Link>
-                </TableCell>
-                <TableCell>
-                  <Link
-                    to={`/requestedhos/${hospital?._id}`}
-                    className="line-clamp-1"
-                  >
-                    {hospital?.hospitalName}
-                  </Link>
-                </TableCell>
-
-                <TableCell>
-                  <Link
-                    to={`/requestedhos/${hospital?._id}`}
-                    className="line-clamp-1"
-                  >
-                    {hospital?.hospitalType}
-                  </Link>
-                </TableCell>
-                <TableCell>
-                  <Link to={`/requestedhos/${hospital?._id}`}>
-                    {hospital?.phoneNumber}
-                  </Link>
-                </TableCell>
-                <TableCell>
-                  <Link to={`/requestedhos/${hospital?._id}`}>
-                    {hospital?.establishedDate &&
-                      format(new Date(hospital?.establishedDate), "dd/MM/yyyy")}
-                  </Link>
-                </TableCell>
-                <TableCell>
-                  <Link to={`/requestedhos/${hospital?._id}`}>
-                    {hospital?.totalBeds}
-                  </Link>
-                </TableCell>
-              </TableRow>
-            ))
-          )}
+          ))}
         </TableBody>
       </Table>
     </div>
