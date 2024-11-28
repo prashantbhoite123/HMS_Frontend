@@ -62,7 +62,7 @@ const AppoinmentUpdate = ({ updatedApp, isLoading, appoinment }: Props) => {
 
   
   const doctors = allHospitalData?.doctors.filter(
-    (doctor: IDoctor) => doctor.hospitalId === matchingHospital._id
+    (doctor: IDoctor) => doctor?.hospitalId === matchingHospital?._id
   )
 
   const form = useForm<AppointmentForm>({
