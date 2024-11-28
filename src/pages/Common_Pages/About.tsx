@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 
+import { BsHeartPulseFill } from "react-icons/bs"
 const About = () => {
   return (
     <div className="min-h-screen p-2 bg-gray-50 text-gray-900 py-12">
@@ -94,12 +95,18 @@ const About = () => {
         </div>
       </div>
 
-      <div className="mt-16 text-center">
+      <div className="mt-16 text-center flex justify-center items-center  rounded-full">
         <Link
-          to="/contact"
-          className="inline-block px-6 py-3 text-lg font-semibold text-indigo-600 bg-pink-300 rounded-lg shadow-md hover:bg-pink-400 transition-all duration-300 ease-in-out"
+          to="/"
+          className="flex items-center text-xl sm:text-2xl font-bold text-white"
         >
-          Contact Us to Learn More
+          <span className="flex justify-center items-center gap-x-3 px-4 py-2 bg-gradient-to-r from-indigo-600 to-pink-600 rounded-md text-transparent bg-clip-text">
+            <span>
+              <BsHeartPulseFill className="text-pink-600" size="30" />
+            </span>
+            {/* <img src={codeflxImg1} alt="logoimg" className="w-10 h-10" /> */}
+            <span>CarePlusX</span>
+          </span>
         </Link>
       </div>
     </div>
