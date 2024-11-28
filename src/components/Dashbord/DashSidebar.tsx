@@ -9,6 +9,7 @@ import { GiExitDoor } from "react-icons/gi"
 import { useUser } from "@/context/userContext"
 import { BACKEND_API_URL } from "@/main"
 import { toast } from "sonner"
+import { Hospital } from "lucide-react"
 const DashSidebar = () => {
   const { currentUser } = useUser()
 
@@ -162,7 +163,14 @@ const DashSidebar = () => {
               )
             }
           >
-            <MdEventNote size="25" />
+            {currentUser?.role === "Admin" ? (
+              <Hospital />
+            ) : currentUser?.role === "hospital" ? (
+              <MdEventNote size="25" />
+            ) : (
+              ""
+            )}
+
             <div className="font-semibold">
               {currentUser?.role === "Admin" ? (
                 <span>Approvels</span>
@@ -174,7 +182,13 @@ const DashSidebar = () => {
 
           {/* Doctors Tab */}
           <Link
-            to="/dashboard?tab=dashdoctors"
+            to={
+              currentUser?.role === "Admin"
+                ? "/dashboard?tab=hospitals"
+                : currentUser?.role === "hospital"
+                ? "/dashboard?tab=dashdoctors"
+                : ""
+            }
             className={`flex items-center gap-x-3 p-2 rounded-md hover:bg-gray-500 hover:text-white ${
               currentUser?.role === "Admin"
                 ? activeTab === "/dashboard?tab=hospitals"
@@ -194,7 +208,14 @@ const DashSidebar = () => {
               )
             }
           >
-            <FaUserMd size="25" />
+            {currentUser?.role === "Admin" ? (
+              <Hospital />
+            ) : currentUser?.role === "hospital" ? (
+              <FaUserMd size="25" />
+            ) : (
+              ""
+            )}
+
             <div className="font-semibold">
               {currentUser?.role === "Admin" ? (
                 <span>Hospitals</span>

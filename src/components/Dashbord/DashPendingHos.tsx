@@ -42,7 +42,7 @@ const DashPendingHos = ({ pendingHospital }: Props) => {
         </span>
         <Table className="mt-4">
           <TableHeader>
-            <TableRow>
+            <TableRow className="bg-slate-100">
               <TableHead>#</TableHead>
               <TableHead>Picture</TableHead>
               <TableHead>Hospital Name</TableHead>
@@ -79,13 +79,19 @@ const DashPendingHos = ({ pendingHospital }: Props) => {
                     </Link>
                   </TableCell>
                   <TableCell>
-                    <Link to={`/requestedhos/${hospital?._id}`}>
+                    <Link
+                      to={`/requestedhos/${hospital?._id}`}
+                      className="line-clamp-1"
+                    >
                       {hospital?.hospitalName}
                     </Link>
                   </TableCell>
 
                   <TableCell>
-                    <Link to={`/requestedhos/${hospital?._id}`}>
+                    <Link
+                      to={`/requestedhos/${hospital?._id}`}
+                      className="line-clamp-1"
+                    >
                       {hospital?.hospitalType}
                     </Link>
                   </TableCell>

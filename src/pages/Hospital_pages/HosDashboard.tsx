@@ -41,7 +41,7 @@ const HosDashboard = () => {
       )}
       {tab === "dashdoctors" ? (
         <DashDoctors doctors={dashdata?.totalDoctors} />
-      ) : tab === "dashdoctors" ? (
+      ) : tab === "hospitals" ? (
         <DashAdminApprovel ApprovedHospital={dashdata?.ApprovedHospital} />
       ) : (
         ""

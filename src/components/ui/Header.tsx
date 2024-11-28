@@ -6,6 +6,7 @@ import { useUser } from "@/context/userContext"
 import UserProfileDropdown from "../UserProfileDropdown "
 import { Button } from "./button"
 import { Hospital } from "lucide-react"
+// import codeflxImg1 from "../../assets/Codef.png"
 
 import { BsHeartPulseFill } from "react-icons/bs"
 
@@ -23,6 +24,7 @@ const Header = () => {
           <span>
             <BsHeartPulseFill className="text-pink-600" size="30" />
           </span>
+          {/* <img src={codeflxImg1} alt="logoimg" className="w-10 h-10" /> */}
           <span>CarePlusX</span>
         </span>
       </Link>
