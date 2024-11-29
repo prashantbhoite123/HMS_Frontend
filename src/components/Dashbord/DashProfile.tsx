@@ -52,7 +52,7 @@ const DashProfile = ({ ProfileData }: Props) => {
     <div className="flex flex-col space-y-3 items-center justify-center mt-5">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSave)}>
-          <div className="flex flex-col items-center justify-center bg-slate-100 shadow-xl p-6 w-[90vw] md:w-[50vw] lg:w-[35vw] rounded-md space-y-5">
+          <div className="flex flex-col items-center justify-center rounded-lg shadow-2xl shadow-slate-400 p-6 w-[90vw] md:w-[50vw] lg:w-[35vw] space-y-5">
             <div className="">
               <h1 className="font-semibold text-2xl">Profile</h1>
             </div>

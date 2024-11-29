@@ -1,4 +1,3 @@
-
 import { FaUserMd } from "react-icons/fa"
 import {
   Table,
@@ -10,13 +9,20 @@ import {
 } from "../ui/table"
 
 interface Doctor {
+  role: string
   _id: string
   doctorName: string
+  profilePic: string
+  degree: string
   email: string
+  ownerId: string
+  hospitalId: string
+  password: string
   education: string
   experienceYears: number
   specialization: string
   workingHours: string
+  __v: number
 }
 
 type Props = {
@@ -39,7 +45,7 @@ const DashDoctors = ({ doctors }: Props) => {
         <FaUserMd />
         <span>Doctors</span>
       </h1>
-      <div className="mt-6">
+      <div className="mt-4">
         <span className="inline-flex py-1 shadow-lg px-4 rounded-md bg-gradient-to-r from-indigo-600 to-pink-600 items-center gap-x-2 text-lg font-semibold text-white">
           <span>
             <span className="mr-2">{doctors?.length}</span>
@@ -51,6 +57,9 @@ const DashDoctors = ({ doctors }: Props) => {
             <TableRow className="bg-gray-200 text-gray-700">
               <TableHead className="px-6 py-2 text-center font-semibold">
                 #
+              </TableHead>
+              <TableHead className="px-6 py-2 text-center font-semibold">
+                Picture
               </TableHead>
               <TableHead className="px-6 py-2 text-left font-semibold">
                 Doctor Name
@@ -82,10 +91,17 @@ const DashDoctors = ({ doctors }: Props) => {
                   {i + 1}
                 </TableCell>
                 <TableCell className="px-6 py-3 text-left font-semibold">
-                  {doctor.doctorName}
+                  <img
+                    src={doctor?.profilePic}
+                    alt="profilepic"
+                    className="w-10 h-10 rounded-full"
+                  />
                 </TableCell>
                 <TableCell className="px-6 py-3 text-left font-semibold">
-                  {doctor.email}
+                  {doctor?.doctorName}
+                </TableCell>
+                <TableCell className="px-6 py-3 text-left font-semibold">
+                  {doctor?.email}
                 </TableCell>
                 <TableCell className="px-6 py-3 text-left font-semibold">
                   {doctor.education}

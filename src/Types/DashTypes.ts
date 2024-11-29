@@ -71,13 +71,20 @@ export type ResponseType = {
 }
 
 interface Doctor {
-  _id: ObjectId
+  role: string
+  _id: string
   doctorName: string
+  profilePic: string
+  degree: string
   email: string
+  ownerId: string
+  hospitalId: string
+  password: string
   education: string
   experienceYears: number
   specialization: string
   workingHours: string
+  __v: number
 }
 
 interface Appointment {
@@ -98,11 +105,12 @@ interface Appointment {
 // Define the structure of the data
 export type DashboardResponse = {
   CardData: {
-    completeAppoinments: number
-    cancelAppoinments: number
-    pendingAppoinments: number
-    lastMonthAppoinment: number
+    totalAppoinments: number
     totalDoctors: number
+    totalPatient: number
+    lastMonthAppointments: number
+    lastMonthPatients: number
+    lastMonthDoctors: number
   }
   latesAppoinments: Appointment[]
   chartData: { count: number; month: string | null }[]
