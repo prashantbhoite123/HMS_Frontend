@@ -54,12 +54,12 @@ const DashAdminApproval = ({ ApprovedHospital }: Props) => {
               <TableHead>Phone Number</TableHead>
               <TableHead>Established Date</TableHead>
               <TableHead>Total Beds</TableHead>
-              <TableHead>Reject</TableHead>
+              <TableHead>Rejection</TableHead>
             </TableRow>
           </TableHeader>
 
           <TableBody className="mt-4">
-            {ApprovedHospital.length === 0 ? (
+            {ApprovedHospital?.length === 0 ? (
               <TableRow>
                 <TableCell
                   colSpan={7}
@@ -69,7 +69,7 @@ const DashAdminApproval = ({ ApprovedHospital }: Props) => {
                 </TableCell>
               </TableRow>
             ) : (
-              ApprovedHospital.map((hospital, index) => (
+              ApprovedHospital?.map((hospital, index) => (
                 <TableRow
                   key={index}
                   className="transition-all duration-300 hover:bg-gray-100 font-semibold hover:shadow-md hover:rounded-md"

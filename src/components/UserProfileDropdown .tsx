@@ -54,7 +54,7 @@ const UserProfileDropdown = () => {
                     ? "/createhospital"
                     : currentUser.role === "Doctor"
                     ? "/doctorProfile"
-                    : "/requestedhos"
+                    : "/"
                 }
               >
                 {currentUser.role === "patient" ? (

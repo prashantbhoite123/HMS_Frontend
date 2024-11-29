@@ -13,12 +13,13 @@ function DashResonPopup({ hospitalId }: Props) {
   const [getReson, setGetReson] = useState<string>("")
   const [open, setOpen] = useState(false)
 
+  console.log("this is reson=>", getReson)
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setGetReson(e.target.value)
   }
   const handleSubmit = () => {
     setOpen(false)
-    rejectionHos(getReson, hospitalId as string)
+    rejectionHos({ reson: getReson, hospitalId })
   }
   return (
     <div>

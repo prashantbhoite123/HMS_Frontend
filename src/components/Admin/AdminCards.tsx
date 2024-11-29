@@ -95,7 +95,7 @@ const AdminCards = ({
                 {hospitals.services?.slice(0, 8).map((service, index) => (
                   <div
                     key={index}
-                    className="flex items-center gap-2 text-gray-800 text-sm"
+                    className="flex items-center gap-2 text-gray-800 text-sm font-semibold"
                   >
                     {service.length - 1 && <Dot size={14} />}
                     {service}
@@ -113,7 +113,7 @@ const AdminCards = ({
                 {hospitals.departments?.slice(0, 8).map((dep, index) => (
                   <div
                     key={index}
-                    className="flex items-center gap-2 text-gray-800 text-sm"
+                    className="flex items-center gap-2 text-gray-800 text-sm font-semibold"
                   >
                     {dep.length - 1 && <Dot size={14} />}
                     {dep}
