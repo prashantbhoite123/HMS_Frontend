@@ -55,29 +55,32 @@ const DashDoctors = ({ doctors }: Props) => {
         <Table className="w-full border border-gray-300 rounded-lg overflow-hidden mt-4">
           <TableHeader>
             <TableRow className="bg-gray-200 text-gray-700">
-              <TableHead className="px-6 py-2 text-center font-semibold">
+              <TableHead className="px-4 py-2 text-center font-semibold">
                 #
               </TableHead>
-              <TableHead className="px-6 py-2 text-center font-semibold">
+              <TableHead className="px-4 py-2 text-center font-semibold">
                 Picture
               </TableHead>
-              <TableHead className="px-6 py-2 text-left font-semibold">
+              <TableHead className="px-4 py-2 text-left font-semibold">
                 Doctor Name
               </TableHead>
-              <TableHead className="px-6 py-2 text-left font-semibold">
+              <TableHead className="px-4 py-2 text-left font-semibold">
                 Email
               </TableHead>
-              <TableHead className="px-6 py-2 text-left font-semibold">
+              <TableHead className="px-4 py-2 text-left font-semibold">
                 Education
               </TableHead>
-              <TableHead className="px-6 py-2 text-center font-semibold">
+              <TableHead className="px-4 py-2 text-center font-semibold">
                 Experience
               </TableHead>
-              <TableHead className="px-6 py-2 text-left font-semibold">
+              <TableHead className="px-4 py-2 text-left font-semibold">
                 Specialization
               </TableHead>
-              <TableHead className="px-6 py-2 text-center font-semibold">
-                Working Hours
+              <TableHead className="px-4 py-2 text-center font-semibold">
+                WH
+              </TableHead>
+              <TableHead className="px-4 py-2 text-center font-semibold">
+                Delete
               </TableHead>
             </TableRow>
           </TableHeader>
@@ -87,33 +90,36 @@ const DashDoctors = ({ doctors }: Props) => {
                 key={doctor._id}
                 className="transition-all duration-300 hover:bg-gray-100 border-t border-gray-300"
               >
-                <TableCell className="px-6 py-3 text-center font-semibold">
+                <TableCell className="px-4 py-3 text-center font-semibold">
                   {i + 1}
                 </TableCell>
-                <TableCell className="px-6 py-3 text-left font-semibold">
+                <TableCell className="px-4 py-3 text-left font-semibold">
                   <img
                     src={doctor?.profilePic}
                     alt="profilepic"
                     className="w-10 h-10 rounded-full"
                   />
                 </TableCell>
-                <TableCell className="px-6 py-3 text-left font-semibold">
+                <TableCell className="px-4 py-3 text-left font-semibold">
                   {doctor?.doctorName}
                 </TableCell>
-                <TableCell className="px-6 py-3 text-left font-semibold">
+                <TableCell className="px-4 py-3 text-left font-semibold">
                   {doctor?.email}
                 </TableCell>
-                <TableCell className="px-6 py-3 text-left font-semibold">
+                <TableCell className="px-4 py-3 text-left font-semibold">
                   {doctor.education}
                 </TableCell>
-                <TableCell className="px-6 py-3 text-center font-semibold">
+                <TableCell className="px-4 py-3 text-center font-semibold">
                   {doctor.experienceYears} years
                 </TableCell>
-                <TableCell className="px-6 py-3 text-left font-semibold">
+                <TableCell className="px-4 py-3 text-left font-semibold">
                   {doctor.specialization}
                 </TableCell>
-                <TableCell className="px-6 py-3 text-center font-semibold">
+                <TableCell className="px-4 py-3 text-center font-semibold">
                   {doctor.workingHours}
+                </TableCell>
+                <TableCell className="px-4 py-3 text-center font-semibold">
+                  Delete
                 </TableCell>
               </TableRow>
             ))}

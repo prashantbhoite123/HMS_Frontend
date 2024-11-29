@@ -193,7 +193,7 @@ const DashSidebar = () => {
                 ? "/dashboard?tab=hospitals"
                 : currentUser?.role === "hospital"
                 ? "/dashboard?tab=dashdoctors"
-                : ""
+                : "/dashboard?tab=dashpatient"
             }
             className={`flex items-center gap-x-3 p-2 rounded-md hover:bg-gray-500 hover:text-white ${
               currentUser?.role === "Admin"
@@ -204,13 +204,17 @@ const DashSidebar = () => {
                 ? activeTab === "/dashboard?tab=dashdoctors"
                   ? "bg-gray-500 text-white"
                   : ""
+                : activeTab === "/dashboard?tab=dashpatient"
+                ? "bg-gray-500 text-white"
                 : ""
             }`}
             onClick={() =>
               handleTabChange(
                 currentUser?.role === "Admin"
                   ? "/dashboard?tab=hospitals"
-                  : "/dashboard?tab=dashdoctors"
+                  : currentUser?.role === "hospital"
+                  ? "/dashboard?tab=dashdoctors"
+                  : "/dashboard?tab=dashpatient"
               )
             }
           >
@@ -219,14 +223,16 @@ const DashSidebar = () => {
             ) : currentUser?.role === "hospital" ? (
               <FaUserMd size="25" />
             ) : (
-              ""
+              <FaUserMd size="25" />
             )}
 
             <div className="font-semibold">
               {currentUser?.role === "Admin" ? (
                 <span>Hospitals</span>
-              ) : (
+              ) : currentUser?.role === "hospital" ? (
                 <span>Doctors</span>
+              ) : (
+                <span>Patients</span>
               )}
             </div>
           </Link>

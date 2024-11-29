@@ -9,6 +9,7 @@ import {
 } from "../ui/table"
 import { Link } from "react-router-dom"
 import { format } from "date-fns"
+import DashResonPopup from "../Admin/DashResonPopup"
 
 type Props = {
   ApprovedHospital: Hospital[]
@@ -53,6 +54,7 @@ const DashAdminApproval = ({ ApprovedHospital }: Props) => {
               <TableHead>Phone Number</TableHead>
               <TableHead>Established Date</TableHead>
               <TableHead>Total Beds</TableHead>
+              <TableHead>Reject</TableHead>
             </TableRow>
           </TableHeader>
 
@@ -117,6 +119,9 @@ const DashAdminApproval = ({ ApprovedHospital }: Props) => {
                     <Link to={`/detail/${hospital?._id}`}>
                       {hospital?.totalBeds}
                     </Link>
+                  </TableCell>
+                  <TableCell>
+                    <DashResonPopup hospitalId={hospital._id} />
                   </TableCell>
                 </TableRow>
               ))

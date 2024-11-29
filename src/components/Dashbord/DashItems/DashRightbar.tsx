@@ -63,7 +63,7 @@ const DashRightbar = ({ todayApp }: Props) => {
             </h4>
 
             {todayApp?.length === 0 ? (
-              <h1 className="font-semibold text-red-500">No appointments</h1>
+              <h1 className="font-semibold text-red-500">No Data Found</h1>
             ) : (
               data?.map((appointment: any) => (
                 <div
