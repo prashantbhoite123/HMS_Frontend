@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { FaUserMd } from "react-icons/fa"
 
 import { ArrowUp, Hospital } from "lucide-react"
-import { DashCard } from "@/Types/DashTypes"
+import { DashCard, dashDataType } from "@/Types/DashTypes"
 import { useUser } from "@/context/userContext"
 import { MdEventNote } from "react-icons/md"
 import { HiUser } from "react-icons/hi"
@@ -15,7 +15,7 @@ interface CardData {
   totalDoctors: number
 }
 type Props = {
-  CardData: CardData | DashCard
+  CardData: CardData | DashCard | dashDataType
 }
 
 const DashCards = ({ CardData }: Props) => {
@@ -40,7 +40,7 @@ const DashCards = ({ CardData }: Props) => {
                 ) : currentUser?.role === "hospital" ? (
                   <span>Total Patient</span>
                 ) : (
-                  ""
+                  <span>Shedule Appoinment</span>
                 )}
               </span>
             </div>
@@ -53,7 +53,7 @@ const DashCards = ({ CardData }: Props) => {
                 ? data?.totalPatient < 10
                   ? `0${data?.totalPatient}`
                   : data?.totalPatient
-                : ""}
+                : data?.completedAppointments}
             </div>
             <div className="flex items-center gap-x-2 ml-7 font-semibold text-sm">
               <span className="flex gap-x-1 items-center text-green-500 ">

@@ -1,5 +1,8 @@
-
-import { DashboardResponse, ResponseType } from "@/Types/DashTypes"
+import {
+  DashboardResponse,
+  DoctorDashboardData,
+  ResponseType,
+} from "@/Types/DashTypes"
 import DashCards from "./DashItems/DashCards"
 import DashChart from "./DashItems/DashChart"
 import DashRecentApp from "./DashItems/DashRecentApp"
@@ -8,7 +11,7 @@ import { useUser } from "@/context/userContext"
 import DashRecentPendingHos from "./DashItems/DashRecentPendingHos"
 
 type Props = {
-  dashData: DashboardResponse | ResponseType | any
+  dashData: DashboardResponse | ResponseType | DoctorDashboardData
 }
 
 const DashboardComponents = ({ dashData }: Props) => {
@@ -29,7 +32,7 @@ const DashboardComponents = ({ dashData }: Props) => {
       <div className="flex flex-col gap-y-6">
         <DashCards
           CardData={
-            isAdmin ? data.dashCard : isHospital ? data.CardData : undefined
+            isAdmin ? data.dashCard : isHospital ? data.CardData : data.dashData
           }
         />
 

@@ -119,3 +119,103 @@ export type DashboardResponse = {
   allAppoinment: Appointment[]
   ProfileData: ProfileData
 }
+
+// Type for an individual appointment
+export interface AppointmentType {
+  _id: string
+  patientName: string
+  petientId: string // Assuming it's the ObjectId for the patient
+  hospitalId: string // Assuming it's the ObjectId for the hospital
+  doctorName: string
+  appointmentDate: Date
+  appTime: string
+  reason: string
+  apptNumber: string
+  status: "Pending" | "Completed" | "Cancelled" // Appointment status
+  createdAt: Date
+}
+
+// Type for visit history in patient schema
+export interface VisitHistoryType {
+  _id: string
+  lastVisitDate: Date
+  assignedDoctor: string
+  lastVisitReason: string
+}
+
+// Type for a patient
+export interface PatientType {
+  _id: string
+  name: string
+  dateOfBirth: Date
+  gender: string
+  age: number
+  phone: string
+  address: {
+    city: string
+    state: string
+    country: string
+  }
+  emergencyContact: {
+    name: string
+    relation: string
+    phone: string
+  }
+  medicalHistory: {
+    allergies: string
+    chronicConditions: string
+    pastSurgeries: string
+    currentMedications: string
+  }
+  currentMedicalInfo: {
+    reasonForVisit: string
+    symptoms: string
+    vitalSigns: {
+      bloodPressure?: string
+      heartRate?: number
+      temperature?: number
+      weight?: number
+    }
+  }
+  userId: string
+  visitHistory: VisitHistoryType[]
+  insurance?: {
+    provider?: string
+    policyNumber?: string
+  }
+}
+
+// Type for a doctor
+export interface DoctorType {
+  _id: string
+  doctorName: string
+  specialization: string
+  hospitalId: string // Assuming it's the ObjectId for the hospital
+  contactNumber: string
+  email: string
+  experience: number // Experience in years
+}
+
+// Type for appointment stats
+export interface AppointmentStats {
+  pending: number
+  cancelled: number
+  completed: number
+}
+
+// Main dashboard data type
+
+export type dashDataType = {
+  pendingAppointments: number
+  cancelledAppointments: number
+  completedAppointments: number
+  lastMonth: AppointmentStats
+}
+export interface DoctorDashboardData {
+  dashData: dashDataType
+  latestAppointments: AppointmentType[]
+  todayAppointments: AppointmentType[]
+  allAppointments: AppointmentType[]
+  allPatients: PatientType[]
+  doctor: DoctorType
+}

@@ -3,11 +3,12 @@ import { useQuery } from "react-query"
 
 export const useMyDashData = () => {
   const getMydashData = async () => {
+    console.log("api call")
     const response = await fetch(`${BACKEND_API_URL}/api/dash/dashdata`, {
       method: "GET",
       credentials: "include",
     })
-
+    console.log("api back")
     if (!response.ok) {
       throw new Error("Failed to get dash Data")
     }
