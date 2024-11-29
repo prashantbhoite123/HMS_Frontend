@@ -21,7 +21,7 @@ interface Appointment {
 }
 
 type Props = {
-  todayApp: Appointment[] | Hospital[]
+  todayApp: Appointment[] | Hospital[] | Appointment[]
 }
 
 const DashRightbar = ({ todayApp }: Props) => {
@@ -59,7 +59,7 @@ const DashRightbar = ({ todayApp }: Props) => {
                 ? " Upcoming HOS"
                 : currentUser?.role === "hospital"
                 ? "Upcoming APPT"
-                : ""}
+                : "Upcoming APPT"}
             </h4>
 
             {todayApp?.length === 0 ? (
@@ -76,7 +76,7 @@ const DashRightbar = ({ todayApp }: Props) => {
                     ) : currentUser?.role === "hospital" ? (
                       <span>Dr. {appointment.doctorName}</span>
                     ) : (
-                      ""
+                      <span>Dr. {appointment.doctorName}</span>
                     )}
 
                     {currentUser?.role === "Admin" ? (
@@ -93,7 +93,9 @@ const DashRightbar = ({ todayApp }: Props) => {
                         {formatAppointmentTime(appointment?.appTime)}
                       </span>
                     ) : (
-                      ""
+                      <span className="line-clamp-2">
+                        {formatAppointmentTime(appointment?.appTime)}
+                      </span>
                     )}
                   </div>
                 </div>

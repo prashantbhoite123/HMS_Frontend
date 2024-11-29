@@ -217,5 +217,6 @@ export interface DoctorDashboardData {
   todayAppointments: AppointmentType[]
   allAppointments: AppointmentType[]
   allPatients: PatientType[]
+  chartData: { count: number; month: string | null }[]
   doctor: DoctorType
 }

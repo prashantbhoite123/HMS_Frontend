@@ -32,7 +32,7 @@ const DashCards = ({ CardData }: Props) => {
               ) : currentUser?.role === "hospital" ? (
                 <HiUser size="25" />
               ) : (
-                " "
+                <MdEventNote size={24} />
               )}
               <span className="text-[1.1rem] font-semibold ">
                 {currentUser?.role === "Admin" ? (
@@ -63,7 +63,7 @@ const DashCards = ({ CardData }: Props) => {
                     ? data?.lastMonthData?.users
                     : currentUser?.role === "hospital"
                     ? data?.lastMonthPatients
-                    : ""}
+                    : data?.lastMonth?.completed}
                 </span>
               </span>
               <span className="text-slate-400">Last Month</span>
@@ -81,7 +81,7 @@ const DashCards = ({ CardData }: Props) => {
               ) : currentUser?.role === "hospital" ? (
                 <MdEventNote size={24} />
               ) : (
-                " "
+                <MdEventNote size={24} />
               )}
 
               <span className="text-[1.1rem] font-semibold ">
@@ -90,7 +90,7 @@ const DashCards = ({ CardData }: Props) => {
                 ) : currentUser?.role === "hospital" ? (
                   <span>Total Appointment</span>
                 ) : (
-                  ""
+                  <span>Pending Appointment</span>
                 )}
               </span>
             </div>
@@ -103,7 +103,7 @@ const DashCards = ({ CardData }: Props) => {
                 ? data?.totalAppoinments < 10
                   ? `0${data?.totalAppoinments}`
                   : data?.totalAppoinments
-                : ""}
+                : data?.pendingAppointments}
             </div>
             <div className="flex items-center gap-x-2 ml-7 font-semibold text-sm">
               <span className="flex gap-x-1 items-center text-green-500 ">
@@ -113,7 +113,7 @@ const DashCards = ({ CardData }: Props) => {
                     ? data?.lastMonthData?.pendingHospital
                     : currentUser?.role === "hospital"
                     ? data?.lastMonthAppointments
-                    : ""}
+                    : data?.lastMonth?.pending}
                 </span>
               </span>
               <span className="text-slate-400">Last Month</span>
@@ -130,7 +130,7 @@ const DashCards = ({ CardData }: Props) => {
               ) : currentUser?.role === "hospital" ? (
                 <FaUserMd size={24} />
               ) : (
-                " "
+                <MdEventNote size={24} />
               )}
 
               <span className="text-[1.1rem] font-semibold ">
@@ -139,7 +139,7 @@ const DashCards = ({ CardData }: Props) => {
                 ) : currentUser?.role === "hospital" ? (
                   <span>Total Doctors</span>
                 ) : (
-                  ""
+                  <span>Cancel Appoinment</span>
                 )}
               </span>
             </div>
@@ -152,7 +152,7 @@ const DashCards = ({ CardData }: Props) => {
                 ? data?.totalDoctors < 10
                   ? `0${data?.totalDoctors}`
                   : data?.totalDoctors
-                : ""}
+                : data?.cancelledAppointments}
             </div>
             <div className="flex items-center gap-x-2 ml-7 font-semibold text-sm">
               <span className="flex gap-x-1 items-center text-green-500 ">
@@ -162,7 +162,7 @@ const DashCards = ({ CardData }: Props) => {
                     ? data?.lastMonthData?.approvedHospital
                     : currentUser?.role === "hospital"
                     ? data?.lastMonthPatients
-                    : ""}
+                    : data?.lastMonth?.cancelled}
                 </span>
               </span>
               <span className="text-slate-400">Last Month</span>

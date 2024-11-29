@@ -9,6 +9,7 @@ import DashRecentApp from "./DashItems/DashRecentApp"
 import DashRightbar from "./DashItems/DashRightbar"
 import { useUser } from "@/context/userContext"
 import DashRecentPendingHos from "./DashItems/DashRecentPendingHos"
+import DashDoctorLatestApp from "./DashItems/DashDoctorLatestApp"
 
 type Props = {
   dashData: DashboardResponse | ResponseType | DoctorDashboardData
@@ -40,7 +41,9 @@ const DashboardComponents = ({ dashData }: Props) => {
           <DashRecentPendingHos recentPenHos={data?.latestPendingHospitals} />
         ) : currentUser?.role === "hospital" ? (
           <DashRecentApp latestAppoinment={data?.latestAppointments} />
-        ) : undefined}
+        ) : (
+          <DashDoctorLatestApp latestAppoinmet={data?.latestAppointments} />
+        )}
 
         <DashChart chartData={data?.chartData} />
       </div>
@@ -51,7 +54,7 @@ const DashboardComponents = ({ dashData }: Props) => {
               ? data?.todaysPendingHospitals
               : isHospital
               ? data?.todayAppointments
-              : undefined
+              : data?.todayAppointments
           }
         />
       </div>
