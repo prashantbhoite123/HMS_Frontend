@@ -1,11 +1,12 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { FaUserMd } from "react-icons/fa"
 
-import { ArrowUp, Hospital } from "lucide-react"
+import { ArrowUp, CalendarIcon, Hospital, HourglassIcon } from "lucide-react"
 import { DashCard, dashDataType } from "@/Types/DashTypes"
 import { useUser } from "@/context/userContext"
 import { MdEventNote } from "react-icons/md"
 import { HiUser } from "react-icons/hi"
+import { IoIosWarning } from "react-icons/io"
 
 interface CardData {
   completeAppoinments: number
@@ -28,19 +29,19 @@ const DashCards = ({ CardData }: Props) => {
           <CardContent className="flex flex-col gap-y-2 p-4 shadow-xl  rounded-none">
             <div className="flex items-center gap-x-2 text-slate-500">
               {currentUser?.role === "Admin" ? (
-                <HiUser size="25" />
+                <HiUser size="25" className="text-blue-500" />
               ) : currentUser?.role === "hospital" ? (
-                <HiUser size="25" />
+                <HiUser size="25" className="text-cyan-400" />
               ) : (
-                <MdEventNote size={24} />
+                <CalendarIcon className="text-yellow-400 " />
               )}
               <span className="text-[1.1rem] font-semibold ">
                 {currentUser?.role === "Admin" ? (
-                  <span>Total User</span>
+                  <span className="text-blue-500">Total User</span>
                 ) : currentUser?.role === "hospital" ? (
-                  <span>Total Patient</span>
+                  <span className="text-cyan-400">Total Patient</span>
                 ) : (
-                  <span>Shedule Appoinment</span>
+                  <span className="text-yellow-500">Shedule Appoinment</span>
                 )}
               </span>
             </div>
@@ -77,20 +78,20 @@ const DashCards = ({ CardData }: Props) => {
           <CardContent className="flex flex-col gap-y-2 p-4 shadow-xl rounded-none">
             <div className="flex items-center gap-x-2 text-slate-500">
               {currentUser?.role === "Admin" ? (
-                <Hospital size={24} />
+                <Hospital size={24} className="text-orange-500" />
               ) : currentUser?.role === "hospital" ? (
-                <MdEventNote size={24} />
+                <MdEventNote size={24} className="text-purple-800" />
               ) : (
-                <MdEventNote size={24} />
+                <HourglassIcon size={24} className="text-blue-500" />
               )}
 
               <span className="text-[1.1rem] font-semibold ">
                 {currentUser?.role === "Admin" ? (
-                  <span>Pending Hospitals</span>
+                  <span className="text-orange-500">Pending Hospitals</span>
                 ) : currentUser?.role === "hospital" ? (
-                  <span>Total Appointment</span>
+                  <span className="text-purple-800">Total Appointment</span>
                 ) : (
-                  <span>Pending Appointment</span>
+                  <span className="text-blue-500">Pending Appointment</span>
                 )}
               </span>
             </div>
@@ -126,20 +127,20 @@ const DashCards = ({ CardData }: Props) => {
           <CardContent className="flex flex-col gap-y-2 p-4 shadow-xl rounded-none">
             <div className="flex items-center gap-x-2 text-slate-500">
               {currentUser?.role === "Admin" ? (
-                <Hospital size={24} />
+                <Hospital size={24} className="text-cyan-500" />
               ) : currentUser?.role === "hospital" ? (
-                <FaUserMd size={24} />
+                <FaUserMd size={24} className="text-green-500" />
               ) : (
-                <MdEventNote size={24} />
+                <IoIosWarning size={24} className="text-red-500" />
               )}
 
               <span className="text-[1.1rem] font-semibold ">
                 {currentUser?.role === "Admin" ? (
-                  <span>Approved Hospital</span>
+                  <span className="text-cyan-500">Approved Hospital</span>
                 ) : currentUser?.role === "hospital" ? (
-                  <span>Total Doctors</span>
+                  <span className="text-green-400">Total Doctors</span>
                 ) : (
-                  <span>Cancel Appoinment</span>
+                  <span className="text-red-500">Cancel Appoinment</span>
                 )}
               </span>
             </div>
