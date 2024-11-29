@@ -142,7 +142,7 @@ const DashSidebar = () => {
                 ? "/dashboard?tab=dashapprovels"
                 : currentUser?.role === "hospital"
                 ? "/dashboard?tab=dashappoinment"
-                : ""
+                : "/dashboard?tab=dashpendingapp"
             }
             className={`flex items-center gap-x-3 p-2 rounded-md hover:bg-gray-500 hover:text-white ${
               currentUser?.role === "Admin"
@@ -153,13 +153,17 @@ const DashSidebar = () => {
                 ? activeTab === "/dashboard?tab=dashappoinment"
                   ? "bg-gray-500 text-white"
                   : ""
+                : activeTab === "/dashboard?tab=dashpendingapp"
+                ? "bg-gray-500 text-white"
                 : ""
             }`}
             onClick={() =>
               handleTabChange(
                 currentUser?.role === "Admin"
                   ? "/dashboard?tab=dashapprovels"
-                  : "/dashboard?tab=dashappoinment"
+                  : currentUser?.role === "hospital"
+                  ? "/dashboard?tab=dashappoinment"
+                  : "/dashboard?tab=dashpendingapp"
               )
             }
           >
@@ -168,12 +172,14 @@ const DashSidebar = () => {
             ) : currentUser?.role === "hospital" ? (
               <MdEventNote size="25" />
             ) : (
-              ""
+              <MdEventNote size="25" />
             )}
 
             <div className="font-semibold">
               {currentUser?.role === "Admin" ? (
                 <span>Approvels</span>
+              ) : currentUser?.role === "hospital" ? (
+                <span>Appointment</span>
               ) : (
                 <span>Appointment</span>
               )}

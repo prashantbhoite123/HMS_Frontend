@@ -189,11 +189,18 @@ export interface PatientType {
 export interface DoctorType {
   _id: string
   doctorName: string
-  specialization: string
-  hospitalId: string // Assuming it's the ObjectId for the hospital
-  contactNumber: string
+  profilePic: string
+  degree: string
+  education: string
   email: string
-  experience: number // Experience in years
+  password: string
+  ownerId: string
+  hospitalId: string
+  experienceYears: number
+  specialization: string
+  workingHours: string
+  role: string
+  contactNumber?: string
 }
 
 // Type for appointment stats

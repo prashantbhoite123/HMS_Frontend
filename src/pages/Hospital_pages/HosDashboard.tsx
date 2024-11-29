@@ -5,6 +5,7 @@ import DashboardComponents from "@/components/Dashbord/DashboardComponents"
 import DashDoctors from "@/components/Dashbord/DashDoctors"
 import DashPendingHos from "@/components/Dashbord/DashPendingHos"
 import DashProfile from "@/components/Dashbord/DashProfile"
+import DoctorPendingApp from "@/components/Dashbord/DoctorPendingApp"
 import Loader from "@/components/Loader"
 
 import { useEffect, useState } from "react"
@@ -37,7 +38,7 @@ const HosDashboard = () => {
       ) : tab === "dashapprovels" ? (
         <DashPendingHos pendingHospital={dashdata?.PendingHospital} />
       ) : (
-        ""
+        <DoctorPendingApp allAppoinment={dashdata?.allAppointments} />
       )}
       {tab === "dashdoctors" ? (
         <DashDoctors doctors={dashdata?.totalDoctors} />
