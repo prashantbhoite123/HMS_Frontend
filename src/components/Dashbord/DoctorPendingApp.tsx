@@ -7,6 +7,7 @@ import {
   TableRow,
 } from "../ui/table"
 import { FaNotesMedical } from "react-icons/fa"
+import DashCancelAppResonPop from "./DashCancelAppResonPop"
 
 interface Appointment {
   _id: string
@@ -22,12 +23,21 @@ interface Appointment {
   __v: number
   createdAt: string
 }
+import { MdOutlineCheck } from "react-icons/md"
+import { HourglassIcon } from "lucide-react"
+import { IoIosWarning } from "react-icons/io"
 
 type Props = {
   allAppoinment: Appointment[]
+  cancelApp: (reson: string, appId: string) => void
+  isLoading: boolean
 }
 
-function DoctorPendingApp({ allAppoinment }: Props) {
+function DoctorPendingApp({ allAppoinment, cancelApp, isLoading }: Props) {
+  const handleCancel = (reson: string, appId: string) => {
+    cancelApp(reson, appId)
+  }
+
   if (!allAppoinment || allAppoinment.length === 0) {
     return (
       <div className="w-full p-4 shadow-lg rounded-lg bg-white">
@@ -93,17 +103,30 @@ function DoctorPendingApp({ allAppoinment }: Props) {
                   {allApp?.patientName}
                 </TableCell>
                 <TableCell className="py-3 px-2 text-center">
-                  <span
-                    className={`font-semibold text-sm px-2 py-1 rounded-md ${
+                  <div
+                    className={`flex justify-center items-center text-black rounded-2xl ${
                       allApp?.status === "Completed"
-                        ? "text-green-600"
-                        : allApp?.status === "Pending"
-                        ? "text-yellow-600"
-                        : "text-red-600"
+                        ? "bg-green-300 text-green-800"
+                        : allApp.status === "Pending"
+                        ? "bg-blue-300 text-blue-900"
+                        : "bg-red-300 text-red-600"
                     }`}
                   >
-                    {allApp?.status}
-                  </span>
+                    <span>
+                      {allApp?.status === "Completed" ? (
+                        <MdOutlineCheck size={15} />
+                      ) : allApp?.status === "Pending" ? (
+                        <HourglassIcon size={15} />
+                      ) : (
+                        <IoIosWarning size={15} />
+                      )}
+                    </span>
+                    <span
+                      className={`font-semibold text-sm px-2 py-1 rounded-md `}
+                    >
+                      {allApp?.status}
+                    </span>
+                  </div>
                 </TableCell>
                 <TableCell className="py-3 px-2 text-center">
                   {new Date(allApp?.appointmentDate).toLocaleDateString()}
@@ -118,7 +141,11 @@ function DoctorPendingApp({ allAppoinment }: Props) {
                   Schedule
                 </TableCell>
                 <TableCell className="py-3 px-6 text-center cursor-pointer text-red-500">
-                  Cancel
+                  <DashCancelAppResonPop
+                    appId={allApp?._id}
+                    cancelApp={handleCancel}
+                    loading={isLoading}
+                  />
                 </TableCell>
               </TableRow>
             ))}

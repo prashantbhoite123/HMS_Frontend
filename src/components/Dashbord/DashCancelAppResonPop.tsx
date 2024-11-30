@@ -13,7 +13,6 @@ function DashCancelAppResonPop({ appId, cancelApp, loading }: Props) {
   const [getReson, setGetReson] = useState<string>("")
   const [open, setOpen] = useState(false)
 
-  
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setGetReson(e.target.value)
   }
@@ -30,7 +29,7 @@ function DashCancelAppResonPop({ appId, cancelApp, loading }: Props) {
             variant="outline"
             className="text-red-500 font-bold shadow-xl hover:text-red-500 hover:bg-white rounded-lg transition hover:scale-110 shadow-slate-300"
           >
-            Cacel
+            Cancel
           </Button>
         </DialogTrigger>
         <DialogContent className="bg-slate-100 text-black font-semibold ">

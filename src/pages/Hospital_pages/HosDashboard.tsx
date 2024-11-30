@@ -59,7 +59,11 @@ const HosDashboard = () => {
         <DashPendingHos pendingHospital={dashdata?.PendingHospital} />
       )}
       {tab === "dashpendingapp" && (
-        <DoctorPendingApp allAppoinment={dashdata?.allAppointments} />
+        <DoctorPendingApp
+          allAppoinment={dashdata?.allAppointments}
+          cancelApp={handleCancel}
+          isLoading={cancelAppLoading}
+        />
       )}
       {tab === "dashdoctors" && (
         <DashDoctors doctors={dashdata?.totalDoctors} />
