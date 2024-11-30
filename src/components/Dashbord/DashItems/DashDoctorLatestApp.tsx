@@ -6,7 +6,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-
+import { MdOutlineCheck } from "react-icons/md"
+import { HourglassIcon } from "lucide-react"
+import { IoIosWarning } from "react-icons/io"
 interface latestApp {
   _id: string
   patientName: string
@@ -70,17 +72,30 @@ const DashDoctorLatestApp = ({ latestAppoinmet }: Props) => {
                 </span>
               </TableCell>
               <TableCell className="px-4 py-3">
-                <span
-                  className={`font-semibold text-sm px-2 py-1 rounded-md ${
-                    app.status === "Completed"
-                      ? "text-green-600"
+                <div
+                  className={`flex justify-center items-center text-black rounded-2xl ${
+                    app?.status === "Completed"
+                      ? "bg-green-300 text-green-800"
                       : app.status === "Pending"
-                      ? "text-yellow-600"
-                      : "text-red-600"
+                      ? "bg-blue-300 text-blue-900"
+                      : "bg-red-300 text-red-600"
                   }`}
                 >
-                  {app.status}
-                </span>
+                  <span>
+                    {app?.status === "Completed" ? (
+                      <MdOutlineCheck size={15} />
+                    ) : app?.status === "Pending" ? (
+                      <HourglassIcon size={15} />
+                    ) : (
+                      <IoIosWarning size={15} />
+                    )}
+                  </span>
+                  <span
+                    className={`font-semibold text-sm px-2 py-1 rounded-md `}
+                  >
+                    {app?.status}
+                  </span>
+                </div>
               </TableCell>
               <TableCell className="px-4 py-3">{app.appTime}</TableCell>
               <TableCell className="px-4 py-3">

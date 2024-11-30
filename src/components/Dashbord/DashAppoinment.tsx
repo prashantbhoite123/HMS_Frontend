@@ -7,7 +7,9 @@ import {
   TableRow,
 } from "../ui/table"
 import { FaNotesMedical } from "react-icons/fa"
-
+import { MdOutlineCheck } from "react-icons/md"
+import { HourglassIcon } from "lucide-react"
+import { IoIosWarning } from "react-icons/io"
 interface Appointment {
   _id: string
   patientName: string
@@ -93,17 +95,30 @@ function DashAppoinment({ allAppoinment }: Props) {
                   {allApp?.patientName}
                 </TableCell>
                 <TableCell className="py-3 px-2 text-center">
-                  <span
-                    className={`font-semibold text-sm px-2 py-1 rounded-md ${
+                  <div
+                    className={`flex justify-center items-center text-black rounded-2xl ${
                       allApp?.status === "Completed"
-                        ? "text-green-600"
-                        : allApp?.status === "Pending"
-                        ? "text-yellow-600"
-                        : "text-red-600"
+                        ? "bg-green-300 text-green-800"
+                        : allApp.status === "Pending"
+                        ? "bg-blue-300 text-blue-900"
+                        : "bg-red-300 text-red-600"
                     }`}
                   >
-                    {allApp?.status}
-                  </span>
+                    <span>
+                      {allApp?.status === "Completed" ? (
+                        <MdOutlineCheck size={15} />
+                      ) : allApp?.status === "Pending" ? (
+                        <HourglassIcon size={15} />
+                      ) : (
+                        <IoIosWarning size={15} />
+                      )}
+                    </span>
+                    <span
+                      className={`font-semibold text-sm px-2 py-1 rounded-md `}
+                    >
+                      {allApp?.status}
+                    </span>
+                  </div>
                 </TableCell>
                 <TableCell className="py-3 px-2 text-center">
                   {new Date(allApp?.appointmentDate).toLocaleDateString()}

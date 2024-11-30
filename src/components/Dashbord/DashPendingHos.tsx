@@ -1,4 +1,3 @@
-
 import { Hospital } from "@/Types/DashTypes"
 import {
   Table,
@@ -10,7 +9,7 @@ import {
 } from "../ui/table"
 import { Link } from "react-router-dom"
 import { format } from "date-fns"
-
+import { HourglassIcon } from "lucide-react"
 type Props = {
   pendingHospital: Hospital[]
 }
@@ -50,13 +49,30 @@ const DashPendingHos = ({ pendingHospital }: Props) => {
         <Table className="mt-4">
           <TableHeader>
             <TableRow className="bg-gray-100 border-b border-gray-300">
-              <TableHead>#</TableHead>
-              <TableHead>Picture</TableHead>
-              <TableHead>Hospital Name</TableHead>
-              <TableHead>Hospital Type</TableHead>
-              <TableHead>Phone Number</TableHead>
-              <TableHead>Established Date</TableHead>
-              <TableHead>Total Beds</TableHead>
+              <TableHead className="border border-gray-300 text-center">
+                #
+              </TableHead>
+              <TableHead className="border border-gray-300 text-center">
+                Picture
+              </TableHead>
+              <TableHead className="border border-gray-300 text-center">
+                Hospital Name
+              </TableHead>
+              <TableHead className="border border-gray-300 text-center">
+                Status
+              </TableHead>
+              <TableHead className="border border-gray-300 text-center">
+                Hospital Type
+              </TableHead>
+              <TableHead className="border border-gray-300 text-center">
+                Phone Number
+              </TableHead>
+              <TableHead className="border border-gray-300 text-center">
+                Established Date
+              </TableHead>
+              <TableHead className="border border-gray-300 text-center">
+                Total Beds
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -82,6 +98,17 @@ const DashPendingHos = ({ pendingHospital }: Props) => {
                   >
                     {hospital?.hospitalName}
                   </Link>
+                </TableCell>
+                <TableCell className="py-3 px-4">
+                  <div className=" bg-blue-300 text-black px-1 py-1 rounded-2xl">
+                    <Link
+                      to={`/detail/${hospital?._id}`}
+                      className="flex justify-center items-center gap-x-2 "
+                    >
+                      <HourglassIcon size={15} />
+                      {hospital?.status}
+                    </Link>
+                  </div>
                 </TableCell>
                 <TableCell className="py-3 px-4">
                   <Link

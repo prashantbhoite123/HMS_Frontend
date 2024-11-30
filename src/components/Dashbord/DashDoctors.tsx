@@ -55,31 +55,31 @@ const DashDoctors = ({ doctors }: Props) => {
         <Table className="w-full border border-gray-300 rounded-lg overflow-hidden mt-4">
           <TableHeader>
             <TableRow className="bg-gray-200 text-gray-700">
-              <TableHead className="px-4 py-2 text-center font-semibold">
+              <TableHead className="border border-gray-300 text-center">
                 #
               </TableHead>
-              <TableHead className="px-4 py-2 text-center font-semibold">
+              <TableHead className="border border-gray-300 text-center">
                 Picture
               </TableHead>
-              <TableHead className="px-4 py-2 text-left font-semibold">
+              <TableHead className="border border-gray-300 text-center">
                 Doctor Name
               </TableHead>
-              <TableHead className="px-4 py-2 text-left font-semibold">
+              <TableHead className="border border-gray-300 text-center">
                 Email
               </TableHead>
-              <TableHead className="px-4 py-2 text-left font-semibold">
+              <TableHead className="border border-gray-300 text-center">
                 Education
               </TableHead>
-              <TableHead className="px-4 py-2 text-center font-semibold">
+              <TableHead className="border border-gray-300 text-center">
                 Experience
               </TableHead>
-              <TableHead className="px-4 py-2 text-left font-semibold">
+              <TableHead className="border border-gray-300 text-center">
                 Specialization
               </TableHead>
-              <TableHead className="px-4 py-2 text-center font-semibold">
+              <TableHead className="border border-gray-300 text-center">
                 WH
               </TableHead>
-              <TableHead className="px-4 py-2 text-center font-semibold">
+              <TableHead className="border border-gray-300 text-center">
                 Delete
               </TableHead>
             </TableRow>

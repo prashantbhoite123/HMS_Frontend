@@ -10,7 +10,7 @@ import {
 import { Link } from "react-router-dom"
 import { format } from "date-fns"
 import DashResonPopup from "../Admin/DashResonPopup"
-
+import { MdOutlineCheck } from "react-icons/md"
 type Props = {
   ApprovedHospital: Hospital[]
 }
@@ -47,14 +47,33 @@ const DashAdminApproval = ({ ApprovedHospital }: Props) => {
         <Table className="mt-4">
           <TableHeader>
             <TableRow className="bg-slate-100">
-              <TableHead>#</TableHead>
-              <TableHead>Picture</TableHead>
-              <TableHead>Hospital Name</TableHead>
-              <TableHead>Hospital Type</TableHead>
-              <TableHead>Phone Number</TableHead>
-              <TableHead>Established Date</TableHead>
-              <TableHead>Total Beds</TableHead>
-              <TableHead>Rejection</TableHead>
+              <TableHead className="border border-gray-300 text-center">
+                #
+              </TableHead>
+              <TableHead className="border border-gray-300 text-center">
+                Picture
+              </TableHead>
+              <TableHead className="border border-gray-300 text-center">
+                Status
+              </TableHead>
+              <TableHead className="border border-gray-300 text-center">
+                Hospital Type
+              </TableHead>
+              <TableHead className="border border-gray-300 text-center">
+                Hospital Name
+              </TableHead>
+              <TableHead className="border border-gray-300 text-center">
+                Phone Number
+              </TableHead>
+              <TableHead className="border border-gray-300 text-center">
+                Established Date
+              </TableHead>
+              <TableHead className="border border-gray-300 text-center">
+                Total Beds
+              </TableHead>
+              <TableHead className="border border-gray-300 text-center">
+                Rejection
+              </TableHead>
             </TableRow>
           </TableHeader>
 
@@ -91,6 +110,17 @@ const DashAdminApproval = ({ ApprovedHospital }: Props) => {
                     >
                       {hospital?.hospitalName}
                     </Link>
+                  </TableCell>
+                  <TableCell className="py-3 px-4 ">
+                    <div className=" bg-green-300 text-black px-1 py-1 rounded-2xl">
+                      <Link
+                        to={`/detail/${hospital?._id}`}
+                        className="flex justify-center items-center gap-x-2 "
+                      >
+                        <MdOutlineCheck />
+                        {hospital?.status}
+                      </Link>
+                    </div>
                   </TableCell>
                   <TableCell className="py-3 px-4">
                     <Link

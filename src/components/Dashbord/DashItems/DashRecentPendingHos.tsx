@@ -42,21 +42,38 @@ const DashRecentPendingHos = ({ recentPenHos }: Props) => {
       </span>
       <Table className="mt-4">
         <TableHeader className="text-gray-700 border-none">
-          <TableRow>
-            <TableHead className="py-3">Picture</TableHead>
-            <TableHead className="py-3">Hospital Name</TableHead>
-            <TableHead className="py-3">Hospital Type</TableHead>
-            <TableHead className="py-3">Phone Number</TableHead>
-            <TableHead className="py-3">Established Date</TableHead>
-            <TableHead className="py-3">Total Beds</TableHead>
+          <TableRow className="bg-slate-200">
+            <TableHead className="border border-gray-300 text-center">
+              #
+            </TableHead>
+            <TableHead className="border border-gray-300 text-center">
+              Picture
+            </TableHead>
+            <TableHead className="border border-gray-300 text-center">
+              Hospital Name
+            </TableHead>
+            <TableHead className="border border-gray-300 text-center">
+              Status
+            </TableHead>
+            <TableHead className="border border-gray-300 text-center">
+              Hospital Type
+            </TableHead>
+
+            <TableHead className="border border-gray-300 text-center">
+              Established Date
+            </TableHead>
+            <TableHead className="border border-gray-300 text-center">
+              Total Beds
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {recentPenHos?.map((hospital, index: number) => (
             <TableRow
               key={index}
-              className="transition-all duration-300 hover:bg-gray-100 border-none font-semibold hover:shadow-md hover:rounded-md"
+              className="transition-all duration-300 hover:bg-gray-100 border-t  font-semibold hover:shadow-md hover:rounded-md"
             >
+              <TableCell>{index + 1}</TableCell>
               <TableCell className="py-3">
                 <Link to={`/requestedhos/${hospital?._id}`}>
                   <img
