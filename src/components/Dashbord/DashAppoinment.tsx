@@ -28,9 +28,11 @@ interface Appointment {
 
 type Props = {
   allAppoinment: Appointment[]
+  cancelApp: (reson: string, appId: string) => void
+  isLoading: boolean
 }
 
-function DashAppoinment({ allAppoinment }: Props) {
+function DashAppoinment({ allAppoinment, cancelApp, isLoading }: Props) {
   if (!allAppoinment || allAppoinment.length === 0) {
     return (
       <div className="w-full p-4 shadow-lg rounded-lg bg-white">
@@ -39,6 +41,10 @@ function DashAppoinment({ allAppoinment }: Props) {
         </span>
       </div>
     )
+  }
+
+  const handleCancel = (reson: string, appId: string) => {
+    cancelApp(reson, appId)
   }
 
   return (
@@ -134,7 +140,11 @@ function DashAppoinment({ allAppoinment }: Props) {
                   Schedule
                 </TableCell>
                 <TableCell className="py-3 px-6 text-center cursor-pointer text-red-500">
-                  <DashCancelAppResonPop appId={allApp?._id} />
+                  <DashCancelAppResonPop
+                    appId={allApp?._id}
+                    cancelApp={handleCancel}
+                    loading={isLoading}
+                  />
                 </TableCell>
               </TableRow>
             ))}

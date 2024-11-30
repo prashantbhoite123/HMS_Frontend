@@ -6,18 +6,20 @@ import LoadingBtn from "../LoadingBtn"
 
 type Props = {
   appId: string
+  cancelApp: (reson: string, appId: string) => void
+  loading: boolean
 }
-function DashCancelAppResonPop({ appId }: Props) {
+function DashCancelAppResonPop({ appId, cancelApp, loading }: Props) {
   const [getReson, setGetReson] = useState<string>("")
   const [open, setOpen] = useState(false)
-  const [loading, setLoading] = useState(false)
-  console.log(setLoading)
-  console.log("this is reson=>", getReson)
+
+  
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setGetReson(e.target.value)
   }
   const handleSubmit = () => {
     setOpen(false)
+    cancelApp(getReson, appId)
     console.log(appId)
   }
   return (

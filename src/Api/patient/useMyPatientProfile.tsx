@@ -121,7 +121,7 @@ export const useMyPatientProfileUpdate = (refetch: any) => {
       body: JSON.stringify(jsonPayload),
     })
 
-    if (!responce) {
+    if (!responce.ok) {
       throw new Error("Faild to update patient Profile")
     }
 

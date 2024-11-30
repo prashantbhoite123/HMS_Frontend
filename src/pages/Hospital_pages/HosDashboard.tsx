@@ -8,15 +8,27 @@ import DashPendingHos from "@/components/Dashbord/DashPendingHos"
 import DashProfile from "@/components/Dashbord/DashProfile"
 import DoctorPendingApp from "@/components/Dashbord/DoctorPendingApp"
 import Loader from "@/components/Loader"
+import { useMyCacelAppoinment } from "@/Api/Hospital/useDashData"
 
 import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
 
 const HosDashboard = () => {
-  const { dashdata, isLoading } = useMyDashData()
+  const { dashdata, isLoading, refetch } = useMyDashData()
+  const { cancelApp, isLoading: cancelAppLoading } =
+    useMyCacelAppoinment(refetch)
   const location = useLocation()
   const [tab, setTab] = useState("")
 
+  useEffect(() => {
+    if (!cancelAppLoading && dashdata?.length) {
+      refetch()
+    }
+  }, [cancelAppLoading, dashdata, refetch])
+
+  const handleCancel = (reson: string, appId: string) => {
+    cancelApp({ reson, appId })
+  }
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search)
     const tabFromUrl = urlParams.get("tab")
@@ -37,7 +49,11 @@ const HosDashboard = () => {
     <div className="p-4">
       {tab === "dash" && <DashboardComponents dashData={dashdata} />}
       {tab === "dashappoinment" && (
-        <DashAppoinment allAppoinment={dashdata?.allAppointments} />
+        <DashAppoinment
+          allAppoinment={dashdata?.allAppointments}
+          cancelApp={handleCancel}
+          isLoading={cancelAppLoading}
+        />
       )}
       {tab === "dashapprovels" && (
         <DashPendingHos pendingHospital={dashdata?.PendingHospital} />
