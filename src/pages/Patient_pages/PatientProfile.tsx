@@ -1,15 +1,24 @@
 import ProfileForm from "@/form/Patient/ProfileForm"
-// import doctorPatient from "../../assets/doctorPatient.png"
+
 import madicine from "../../assets/doctorimage.png"
 import "../../App.css"
 import {
   useMyPatient,
   useMyPatientInfo,
+  useMyPatientProfileUpdate,
 } from "@/Api/patient/useMyPatientProfile"
 const PatientProfile = () => {
   const { patientData, isLoading } = useMyPatient()
-  const { getpatient, isLoading: patientInfoLoading } = useMyPatientInfo()
+  const {
+    getpatient,
+    isLoading: patientInfoLoading,
+    refetch,
+  } = useMyPatientInfo()
   console.log(patientInfoLoading)
+  const { updateProfile, isLoading: updateLoading } =
+    useMyPatientProfileUpdate(refetch)
+
+  const isEditing = !!patientData
 
   return (
     <div className="shadow-xl shadow-slate-700 h-screen overflow-hidden">
@@ -17,8 +26,8 @@ const PatientProfile = () => {
         <div className="overflow-y-auto h-full p-4 scrollbar-hide">
           <ProfileForm
             patientInfo={getpatient}
-            patientData={patientData}
-            loading={isLoading}
+            patientData={isEditing ? updateProfile : patientData}
+            loading={isLoading || updateLoading}
           />
         </div>
 

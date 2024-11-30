@@ -73,18 +73,74 @@ export const useMyPatientInfo = () => {
     return responce.json()
   }
 
-  const { data: getpatient, isLoading } = useQuery(
-    "getMyPatientInfo",
-    getMyPatientInfo,
+  const {
+    data: getpatient,
+    isLoading,
+    refetch,
+  } = useQuery("getMyPatientInfo", getMyPatientInfo, {
+    onSuccess: () => {
+      console.log("successfully get patientData")
+    },
+    onError: () => {
+      console.log("failed to get patient data")
+    },
+  })
+
+  return { getpatient, isLoading, refetch }
+}
+
+export const useMyPatientProfileUpdate = (refetch: any) => {
+  const formDataToJson = (formData: FormData): Record<string, any> => {
+    const obj: Record<string, any> = {}
+
+    formData.forEach((value, key) => {
+      const keys = key.replace(/\[(\w+)]/g, ".$1").split(".")
+      keys.reduce((acc, part, index) => {
+        if (index === keys.length - 1) {
+          acc[part] = value
+        } else {
+          acc[part] = acc[part] || (isNaN(Number(keys[index + 1])) ? {} : [])
+        }
+        return acc[part]
+      }, obj)
+    })
+
+    return obj
+  }
+  const updatePatientProfile = async (
+    patientData: FormData
+  ): Promise<Patient> => {
+    const jsonPayload = formDataToJson(patientData)
+
+    const responce = await fetch(`${BACKEND_API_URL}/api/patient/update`, {
+      method: "PUT",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(jsonPayload),
+    })
+
+    if (!responce) {
+      throw new Error("Faild to update patient Profile")
+    }
+
+    const data = await responce.json()
+    toast.success(data.message)
+    return data
+  }
+  const { mutate: updateProfile, isLoading } = useMutation(
+    updatePatientProfile,
     {
       onSuccess: () => {
-        console.log("successfully get patientData")
+        console.log("Patient update successfull")
+        refetch()
       },
-      onError: () => {
-        console.log("failed to get patient data")
+      onError: (error: any) => {
+        toast.error(error)
       },
     }
   )
 
-  return { getpatient, isLoading }
+  return { updateProfile, isLoading }
 }
