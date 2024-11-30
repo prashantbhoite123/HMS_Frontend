@@ -10,6 +10,7 @@ import { FaNotesMedical } from "react-icons/fa"
 import { MdOutlineCheck } from "react-icons/md"
 import { HourglassIcon } from "lucide-react"
 import { IoIosWarning } from "react-icons/io"
+import DashCancelAppResonPop from "./DashCancelAppResonPop"
 interface Appointment {
   _id: string
   patientName: string
@@ -133,7 +134,7 @@ function DashAppoinment({ allAppoinment }: Props) {
                   Schedule
                 </TableCell>
                 <TableCell className="py-3 px-6 text-center cursor-pointer text-red-500">
-                  Cancel
+                  <DashCancelAppResonPop appId={allApp?._id} />
                 </TableCell>
               </TableRow>
             ))}
