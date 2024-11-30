@@ -50,12 +50,24 @@ const DashDoctorLatestApp = ({ latestAppoinmet }: Props) => {
       <Table className="mt-3 rounded-lg">
         <TableHeader className="text-gray-700">
           <TableRow className="bg-gray-200 text-gray-700 rounded-md">
-            <TableHead className="px-4 py-3">#</TableHead>
-            <TableHead className="px-4 py-3">Patient Name</TableHead>
-            <TableHead className="px-4 py-3">Code</TableHead>
-            <TableHead className="px-4 py-3">Status</TableHead>
-            <TableHead className="px-4 py-3">Appoinment time</TableHead>
-            <TableHead className="px-4 py-3">Date</TableHead>
+            <TableHead className="border border-gray-300 text-center">
+              #
+            </TableHead>
+            <TableHead className="border border-gray-300 text-center">
+              Patient Name
+            </TableHead>
+            <TableHead className="border border-gray-300 text-center">
+              Status
+            </TableHead>
+            <TableHead className="border border-gray-300 text-center">
+              Code
+            </TableHead>
+            <TableHead className="border border-gray-300 text-center">
+              Appoinment time
+            </TableHead>
+            <TableHead className="border border-gray-300 text-center">
+              Date
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -64,14 +76,11 @@ const DashDoctorLatestApp = ({ latestAppoinmet }: Props) => {
               key={i}
               className="hover:bg-gray-50 border-t border-gray-300 font-semibold transition-all duration-200"
             >
-              <TableCell className="px-4 py-3">{i + 1}</TableCell>
-              <TableCell className="px-4 py-3">{app.patientName}</TableCell>
-              <TableCell className="px-4 py-3">
-                <span className="font-semibold text-sm text-green-500">
-                  {app.apptNumber}
-                </span>
+              <TableCell className="py-3 px-2 text-center">{i + 1}</TableCell>
+              <TableCell className="py-3 px-2 text-center">
+                {app.patientName}
               </TableCell>
-              <TableCell className="px-4 py-3">
+              <TableCell className="py-3 px-2 text-center">
                 <div
                   className={`flex justify-center items-center text-black rounded-2xl ${
                     app?.status === "Completed"
@@ -97,8 +106,16 @@ const DashDoctorLatestApp = ({ latestAppoinmet }: Props) => {
                   </span>
                 </div>
               </TableCell>
-              <TableCell className="px-4 py-3">{app.appTime}</TableCell>
-              <TableCell className="px-4 py-3">
+              <TableCell className="py-3 px-2 text-center">
+                <span className="font-semibold text-sm text-green-500">
+                  {app.apptNumber}
+                </span>
+              </TableCell>
+
+              <TableCell className="py-3 px-2 text-center">
+                {app.appTime}
+              </TableCell>
+              <TableCell className="py-3 px-2 text-center">
                 {new Date(app.appointmentDate).toLocaleDateString()}
               </TableCell>
             </TableRow>

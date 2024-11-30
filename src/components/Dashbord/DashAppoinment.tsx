@@ -11,13 +11,14 @@ import { MdOutlineCheck } from "react-icons/md"
 import { HourglassIcon } from "lucide-react"
 import { IoIosWarning } from "react-icons/io"
 import DashCancelAppResonPop from "./DashCancelAppResonPop"
+import DashScheduleAppPop from "./DashScheduleAppPop"
 interface Appointment {
   _id: string
   patientName: string
   petientId: string
   hospitalId: string
   doctorName: string
-  appointmentDate: string
+  appointmentDate: Date
   appTime: string
   reason: string
   apptNumber: string
@@ -73,11 +74,9 @@ function DashAppoinment({ allAppoinment, cancelApp, isLoading }: Props) {
                 Status
               </TableHead>
               <TableHead className="border border-gray-300 text-center">
-                Date
+                Code
               </TableHead>
-              <TableHead className="border border-gray-300 text-center">
-                Time
-              </TableHead>
+
               <TableHead className="border border-gray-300 text-left">
                 Doctor Name
               </TableHead>
@@ -127,17 +126,24 @@ function DashAppoinment({ allAppoinment, cancelApp, isLoading }: Props) {
                     </span>
                   </div>
                 </TableCell>
-                <TableCell className="py-3 px-2 text-center">
-                  {new Date(allApp?.appointmentDate).toLocaleDateString()}
+                <TableCell className="py-3 px-2  text-center">
+                  <div className="text-green-400 font-bold rounded-full">
+                    {allApp?.apptNumber}
+                  </div>
                 </TableCell>
-                <TableCell className="py-3 px-4 text-center">
-                  {allApp?.appTime}
-                </TableCell>
+
                 <TableCell className="py-3 px-4 text-left">
                   {allApp?.doctorName}
                 </TableCell>
                 <TableCell className="py-3 px-6 text-center cursor-pointer text-blue-500">
-                  Schedule
+                  <DashScheduleAppPop
+                    appData={{
+                      doctorName: allApp?.doctorName,
+                      appDate: allApp?.appointmentDate,
+                      appTime: allApp?.appTime,
+                      reson: allApp?.reason,
+                    }}
+                  />
                 </TableCell>
                 <TableCell className="py-3 px-6 text-center cursor-pointer text-red-500">
                   <DashCancelAppResonPop

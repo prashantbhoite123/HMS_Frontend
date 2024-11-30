@@ -41,25 +41,25 @@ const DashDoctorPatient = ({ patient }: Props) => {
         <Table className="w-full border border-gray-300 rounded-lg overflow-hidden mt-4">
           <TableHeader>
             <TableRow className="bg-gray-200 text-gray-700">
-              <TableHead className="px-6 py-2 text-center font-semibold">
+              <TableHead className="border border-gray-300 text-center">
                 #
               </TableHead>
-              <TableHead className="px-6 py-2 text-center font-semibold">
+              <TableHead className="border border-gray-300 text-center">
                 Name
               </TableHead>
-              <TableHead className="px-6 py-2 text-left font-semibold">
+              <TableHead className="border border-gray-300 text-center">
                 Contact
               </TableHead>
-              <TableHead className="px-6 py-2 text-left font-semibold">
+              <TableHead className="border border-gray-300 text-center">
                 Address
               </TableHead>
-              <TableHead className="px-6 py-2 text-left font-semibold">
+              <TableHead className="border border-gray-300 text-center">
                 gender
               </TableHead>
-              <TableHead className="px-6 py-2 text-center font-semibold">
+              <TableHead className="border border-gray-300 text-center">
                 age
               </TableHead>
-              <TableHead className="px-6 py-2 text-left font-semibold">
+              <TableHead className="border border-gray-300 text-center">
                 dateOfBirth
               </TableHead>
             </TableRow>
@@ -68,27 +68,25 @@ const DashDoctorPatient = ({ patient }: Props) => {
             {patient?.map((patient, i) => (
               <TableRow
                 key={patient._id}
-                className="transition-all duration-300 hover:bg-gray-100 border-t border-gray-300"
+                className="transition-all duration-300 font-semibold hover:bg-gray-100 border-t border-gray-300"
               >
-                <TableCell className="px-6 py-3 text-center font-semibold">
-                  {i + 1}
-                </TableCell>
-                <TableCell className="px-6 py-3 text-left font-semibold">
+                <TableCell className="py-3 px-2 text-center">{i + 1}</TableCell>
+                <TableCell className="py-3 px-2 text-center">
                   {patient?.name}
                 </TableCell>
-                <TableCell className="px-6 py-3 text-left font-semibold">
+                <TableCell className="py-3 px-2 text-center">
                   {patient?.phone}
                 </TableCell>
-                <TableCell className="px-6 py-3 text-left font-semibold">
+                <TableCell className="py-3 px-2 text-center">
                   {patient?.address?.city}
                 </TableCell>
-                <TableCell className="px-6 py-3 text-left font-semibold">
+                <TableCell className="py-3 px-2 text-center">
                   {patient?.gender}
                 </TableCell>
-                <TableCell className="px-6 py-3 text-center font-semibold">
+                <TableCell className="py-3 px-2 text-center">
                   {patient?.age}
                 </TableCell>
-                <TableCell className="px-6 py-3 text-left font-semibold">
+                <TableCell className="py-3 px-2 text-center">
                   {format(new Date(patient?.dateOfBirth), "dd/MM/yyyy")}
                 </TableCell>
               </TableRow>

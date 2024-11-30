@@ -3,7 +3,7 @@ import { Button } from "../ui/button"
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog"
 import { Textarea } from "../ui/textarea"
 import LoadingBtn from "../LoadingBtn"
-
+import { BsHeartPulseFill } from "react-icons/bs"
 type Props = {
   appId: string
   cancelApp: (reson: string, appId: string) => void
@@ -33,8 +33,19 @@ function DashCancelAppResonPop({ appId, cancelApp, loading }: Props) {
           </Button>
         </DialogTrigger>
         <DialogContent className="bg-slate-100 text-black font-semibold ">
+          <div className="flex items-center text-xl sm:text-2xl font-bold text-white">
+            <span className="flex justify-center items-center gap-x-3 py-2 bg-gradient-to-r from-indigo-600 to-pink-600 rounded-md text-transparent bg-clip-text">
+              <span>
+                <BsHeartPulseFill className="text-pink-600" size="30" />
+              </span>
+
+              <span>CarePlusX</span>
+            </span>
+          </div>
           <div className="">
-            <h1 className="text-xl">Cancel Appoinment</h1>
+            <h1 className="text-xl bg-gradient-to-r font-semibold from-indigo-600 to-pink-600 text-transparent bg-clip-text">
+              Cancel Appoinment
+            </h1>
             <h6 className="text-sm text-slate-600">
               Please fill the following details to cancel appoinment
             </h6>
@@ -44,7 +55,7 @@ function DashCancelAppResonPop({ appId, cancelApp, loading }: Props) {
             <Textarea
               placeholder="fill the reason"
               onChange={handleChange}
-              className="text-slate-700"
+              className="text-slate-700 mt-2"
             />
           </div>
           {loading ? (
