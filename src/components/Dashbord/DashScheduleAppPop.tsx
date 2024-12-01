@@ -2,12 +2,14 @@ import { useState } from "react"
 import { Button } from "../ui/button"
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog"
 import { Textarea } from "../ui/textarea"
-import LoadingBtn from "../LoadingBtn"
 import { FaCalendar } from "react-icons/fa"
 import { BsHeartPulseFill } from "react-icons/bs"
 import { format } from "date-fns"
 
 type Props = {
+  scheduleApp: (appId: string) => void
+  Loading: boolean
+  appId: string
   appData: {
     doctorName: string
     appDate: Date
@@ -15,7 +17,7 @@ type Props = {
     reson: string
   }
 }
-function DashScheduleAppPop({ appData }: Props) {
+function DashScheduleAppPop({ appData, scheduleApp, appId, Loading }: Props) {
   const formatAppointmentTime = (timeSlot?: string): string => {
     if (!timeSlot) return "Time not available"
 
@@ -34,9 +36,9 @@ function DashScheduleAppPop({ appData }: Props) {
     return `${formatTime(start)}`
   }
   const [open, setOpen] = useState(false)
-  const [loading, setloading] = useState(false)
   const handleSubmit = () => {
-    setloading(false)
+    scheduleApp(appId)
+    setOpen(false)
   }
   return (
     <div>
@@ -105,16 +107,14 @@ function DashScheduleAppPop({ appData }: Props) {
               className="text-slate-700 border mt-2 border-slate-400 outline-none"
             />
           </div>
-          {loading ? (
-            <LoadingBtn />
-          ) : (
-            <Button
-              className="bg-gradient-to-r from-indigo-600 to-pink-600 text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform "
-              onClick={handleSubmit}
-            >
-              Schedule Appoinment
-            </Button>
-          )}
+
+          <Button
+            disabled={Loading}
+            className="bg-gradient-to-r from-indigo-600 to-pink-600 text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform "
+            onClick={handleSubmit}
+          >
+            {Loading ? "Loading..." : "Schedule Appoinment"}
+          </Button>
         </DialogContent>
       </Dialog>
     </div>

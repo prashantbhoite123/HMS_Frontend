@@ -30,10 +30,18 @@ interface Appointment {
 type Props = {
   allAppoinment: Appointment[]
   cancelApp: (reson: string, appId: string) => void
+  scheduleApp: (appId: string) => void
   isLoading: boolean
+  Loading: boolean
 }
 
-function DashAppoinment({ allAppoinment, cancelApp, isLoading }: Props) {
+function DashAppoinment({
+  allAppoinment,
+  scheduleApp,
+  cancelApp,
+  Loading,
+  isLoading,
+}: Props) {
   if (!allAppoinment || allAppoinment.length === 0) {
     return (
       <div className="w-full p-4 shadow-lg rounded-lg bg-white">
@@ -137,6 +145,9 @@ function DashAppoinment({ allAppoinment, cancelApp, isLoading }: Props) {
                 </TableCell>
                 <TableCell className="py-3 px-6 text-center cursor-pointer text-blue-500">
                   <DashScheduleAppPop
+                    scheduleApp={scheduleApp}
+                    appId={allApp?._id}
+                    Loading={Loading}
                     appData={{
                       doctorName: allApp?.doctorName,
                       appDate: allApp?.appointmentDate,

@@ -31,10 +31,18 @@ import DashScheduleAppPop from "./DashScheduleAppPop"
 type Props = {
   allAppoinment: Appointment[]
   cancelApp: (reson: string, appId: string) => void
+  scheduleApp: (appId: string) => void
+  Loading: boolean
   isLoading: boolean
 }
 
-function DoctorPendingApp({ allAppoinment, cancelApp, isLoading }: Props) {
+function DoctorPendingApp({
+  allAppoinment,
+  cancelApp,
+  scheduleApp,
+  Loading,
+  isLoading,
+}: Props) {
   const handleCancel = (reson: string, appId: string) => {
     cancelApp(reson, appId)
   }
@@ -138,6 +146,9 @@ function DoctorPendingApp({ allAppoinment, cancelApp, isLoading }: Props) {
                 </TableCell>
                 <TableCell className="py-3 px-6 text-center cursor-pointer text-blue-500">
                   <DashScheduleAppPop
+                    scheduleApp={scheduleApp}
+                    appId={allApp?._id}
+                    Loading={Loading}
                     appData={{
                       doctorName: allApp?.doctorName,
                       appDate: allApp?.appointmentDate,

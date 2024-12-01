@@ -1,4 +1,7 @@
-import { useMyDashData } from "@/Api/Hospital/useDashData"
+import {
+  useMyDashData,
+  useMyScheduleAppoinment,
+} from "@/Api/Hospital/useDashData"
 import DashAdminApprovel from "@/components/Dashbord/DashAdminApprovel"
 import DashAppoinment from "@/components/Dashbord/DashAppoinment"
 import DashboardComponents from "@/components/Dashbord/DashboardComponents"
@@ -17,11 +20,13 @@ const HosDashboard = () => {
   const { dashdata, isLoading, refetch } = useMyDashData()
   const { cancelApp, isLoading: cancelAppLoading } =
     useMyCacelAppoinment(refetch)
+  const { scheduleApp, isLoading: scheduleLoading } =
+    useMyScheduleAppoinment(refetch)
   const location = useLocation()
   const [tab, setTab] = useState("")
 
   useEffect(() => {
-    if (!cancelAppLoading && dashdata?.length) {
+    if (!cancelAppLoading || (!scheduleLoading && dashdata?.length)) {
       refetch()
     }
   }, [cancelAppLoading, dashdata, refetch])
@@ -29,6 +34,7 @@ const HosDashboard = () => {
   const handleCancel = (reson: string, appId: string) => {
     cancelApp({ reson, appId })
   }
+
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search)
     const tabFromUrl = urlParams.get("tab")
@@ -52,6 +58,8 @@ const HosDashboard = () => {
         <DashAppoinment
           allAppoinment={dashdata?.allAppointments}
           cancelApp={handleCancel}
+          scheduleApp={scheduleApp}
+          Loading={scheduleLoading}
           isLoading={cancelAppLoading}
         />
       )}
@@ -62,6 +70,8 @@ const HosDashboard = () => {
         <DoctorPendingApp
           allAppoinment={dashdata?.allAppointments}
           cancelApp={handleCancel}
+          scheduleApp={scheduleApp}
+          Loading={scheduleLoading}
           isLoading={cancelAppLoading}
         />
       )}

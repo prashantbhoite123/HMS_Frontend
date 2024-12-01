@@ -74,3 +74,34 @@ export const useMyCacelAppoinment = (refetch: any) => {
   )
   return { cancelApp, isLoading }
 }
+
+export const useMyScheduleAppoinment = (refetch: any) => {
+  const scheduleAppoinment = async (appId: string) => {
+    console.log(appId)
+    const responce = await fetch(
+      `${BACKEND_API_URL}/api/dash/schedule/${appId}`,
+      {
+        method: "PUT",
+        credentials: "include",
+      }
+    )
+    if (!responce.ok) {
+      throw new Error("faild to cancel appoinment")
+    }
+
+    const data = await responce.json()
+    toast.success(data.message)
+
+    return data
+  }
+  const { mutate: scheduleApp, isLoading } = useMutation(scheduleAppoinment, {
+    onSuccess: () => {
+      console.log("appoinment schedule success")
+      refetch()
+    },
+    onError: (error) => {
+      console.log(error)
+    },
+  })
+  return { scheduleApp, isLoading }
+}
