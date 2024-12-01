@@ -73,24 +73,30 @@ const DashDoctorPatient = ({ patient }: Props) => {
               >
                 <TableCell className="py-3 px-2 text-center">{i + 1}</TableCell>
                 <TableCell className="py-3 px-2 text-center">
-                  <Link to={`/profile/${patient._id}`}>{patient?.name}</Link>
+                  <Link to={`/profile/${patient?.userId}`}>
+                    {patient?.name}
+                  </Link>
                 </TableCell>
                 <TableCell className="py-3 px-2 text-center">
-                  <Link to={`/profile/${patient._id}`}>{patient?.phone}</Link>
+                  <Link to={`/profile/${patient?.userId}`}>
+                    {patient?.phone}
+                  </Link>
                 </TableCell>
                 <TableCell className="py-3 px-2 text-center">
-                  <Link to={`/profile/${patient._id}`}>
+                  <Link to={`/profile/${patient?.userId}`}>
                     {patient?.address?.city}
                   </Link>
                 </TableCell>
                 <TableCell className="py-3 px-2 text-center">
-                  <Link to={`/profile/${patient._id}`}>{patient?.gender}</Link>
+                  <Link to={`/profile/${patient?.userId}`}>
+                    {patient?.gender}
+                  </Link>
                 </TableCell>
                 <TableCell className="py-3 px-2 text-center">
-                  <Link to={`/profile/${patient._id}`}>{patient?.age}</Link>
+                  <Link to={`/profile/${patient?.userId}`}>{patient?.age}</Link>
                 </TableCell>
                 <TableCell className="py-3 px-2 text-center">
-                  <Link to={`/profile/${patient._id}`}>
+                  <Link to={`/profile/${patient?.userId}`}>
                     {format(new Date(patient?.dateOfBirth), "dd/MM/yyyy")}
                   </Link>
                 </TableCell>

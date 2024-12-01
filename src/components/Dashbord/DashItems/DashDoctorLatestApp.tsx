@@ -9,6 +9,7 @@ import {
 import { MdOutlineCheck } from "react-icons/md"
 import { HourglassIcon } from "lucide-react"
 import { IoIosWarning } from "react-icons/io"
+import { Link } from "react-router-dom"
 interface latestApp {
   _id: string
   patientName: string
@@ -76,47 +77,55 @@ const DashDoctorLatestApp = ({ latestAppoinmet }: Props) => {
               key={i}
               className="hover:bg-gray-50 border-t border-gray-300 font-semibold transition-all duration-200"
             >
-              <TableCell className="py-3 px-2 text-center">{i + 1}</TableCell>
               <TableCell className="py-3 px-2 text-center">
-                {app.patientName}
+                <Link to={`/profile/${app?.petientId}`}>{i + 1}</Link>
               </TableCell>
               <TableCell className="py-3 px-2 text-center">
-                <div
-                  className={`flex justify-center items-center text-black rounded-2xl ${
-                    app?.status === "Completed"
-                      ? "bg-green-300 text-green-800"
-                      : app.status === "Pending"
-                      ? "bg-blue-300 text-blue-900"
-                      : "bg-red-300 text-red-600"
-                  }`}
-                >
-                  <span>
-                    {app?.status === "Completed" ? (
-                      <MdOutlineCheck size={15} />
-                    ) : app?.status === "Pending" ? (
-                      <HourglassIcon size={15} />
-                    ) : (
-                      <IoIosWarning size={15} />
-                    )}
-                  </span>
-                  <span
-                    className={`font-semibold text-sm px-2 py-1 rounded-md `}
+                <Link to={`/profile/${app?.petientId}`}>{app.patientName}</Link>
+              </TableCell>
+              <TableCell className="py-3 px-2 text-center">
+                <Link to={`/profile/${app?.petientId}`}>
+                  <div
+                    className={`flex justify-center items-center text-black rounded-2xl ${
+                      app?.status === "Completed"
+                        ? "bg-green-300 text-green-800"
+                        : app.status === "Pending"
+                        ? "bg-blue-300 text-blue-900"
+                        : "bg-red-300 text-red-600"
+                    }`}
                   >
-                    {app?.status}
-                  </span>
-                </div>
+                    <span>
+                      {app?.status === "Completed" ? (
+                        <MdOutlineCheck size={15} />
+                      ) : app?.status === "Pending" ? (
+                        <HourglassIcon size={15} />
+                      ) : (
+                        <IoIosWarning size={15} />
+                      )}
+                    </span>
+                    <span
+                      className={`font-semibold text-sm px-2 py-1 rounded-md `}
+                    >
+                      {app?.status}
+                    </span>
+                  </div>
+                </Link>
               </TableCell>
               <TableCell className="py-3 px-2 text-center">
-                <span className="font-semibold text-sm text-green-500">
-                  {app.apptNumber}
-                </span>
+                <Link to={`/profile/${app?.petientId}`}>
+                  <span className="font-semibold text-sm text-green-500">
+                    {app.apptNumber}
+                  </span>
+                </Link>
               </TableCell>
 
               <TableCell className="py-3 px-2 text-center">
-                {app.appTime}
+                <Link to={`/profile/${app?.petientId}`}>{app.appTime}</Link>
               </TableCell>
               <TableCell className="py-3 px-2 text-center">
-                {new Date(app.appointmentDate).toLocaleDateString()}
+                <Link to={`/profile/${app?.petientId}`}>
+                  {new Date(app.appointmentDate).toLocaleDateString()}
+                </Link>
               </TableCell>
             </TableRow>
           ))}
