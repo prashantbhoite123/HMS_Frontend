@@ -74,7 +74,7 @@ interface Doctor {
   role: string
   _id: string
   doctorName: string
-  profilePic: string
+  profilepic: string
   degree: string
   email: string
   ownerId: string

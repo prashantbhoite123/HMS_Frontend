@@ -10,6 +10,7 @@ import Layouts from "./Layouts/Layouts"
 import DashLayout from "./Layouts/DashLayout"
 import ProtectRouter from "./auth/ProtectRouter"
 import AdminProtect from "./auth/AdminProtect"
+import PatientDetailPage from "./pages/Common_Pages/PatientDetailPage"
 
 const Home = lazy(() => import("./pages/Common_Pages/Home"))
 const About = lazy(() => import("./pages/Common_Pages/About"))
@@ -107,6 +108,15 @@ const AppRoutes = () => {
               element={
                 <Layouts showhero={false}>
                   <PatientProfile />
+                </Layouts>
+              }
+            />
+
+            <Route
+              path="/profile/:patientId"
+              element={
+                <Layouts showhero={false}>
+                  <PatientDetailPage />
                 </Layouts>
               }
             />

@@ -18,7 +18,8 @@ const PatientProfile = () => {
   const { updateProfile, isLoading: updateLoading } =
     useMyPatientProfileUpdate(refetch)
 
-  const isEditing = !!patientData
+  const isEditing = !!getpatient
+  console.log(isEditing)
 
   return (
     <div className="shadow-xl shadow-slate-700 h-screen overflow-hidden">

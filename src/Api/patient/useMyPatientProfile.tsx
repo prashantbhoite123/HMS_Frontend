@@ -144,3 +144,38 @@ export const useMyPatientProfileUpdate = (refetch: any) => {
 
   return { updateProfile, isLoading }
 }
+
+export const useMyPatientDetail = (patientId: string) => {
+  const getPatientDetail = async (id: string): Promise<string> => {
+    const response = await fetch(
+      `${BACKEND_API_URL}/api/patient/getinfo/${id}`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    )
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch patient details")
+    }
+
+    const data = await response.json()
+    return data
+  }
+
+  const { data: patientDetail, isLoading } = useQuery(
+    ["patientDetail", patientId], // Include patientId in the query key
+    () => getPatientDetail(patientId), // Pass the id dynamically
+    {
+      enabled: !!patientId, // Prevent the query from running if patientId is not available
+      onSuccess: () => {
+        console.log("Successfully fetched patient details")
+      },
+      onError: (error) => {
+        console.error("Error fetching patient details:", error)
+      },
+    }
+  )
+
+  return { patientDetail, isLoading }
+}

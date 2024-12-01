@@ -14,13 +14,14 @@ import {
   TableRow,
 } from "../ui/table"
 import { format } from "date-fns"
+import { Link } from "react-router-dom"
 
 const DashDoctorPatient = ({ patient }: Props) => {
   if (!patient || patient.length === 0) {
     return (
       <div className="w-full p-4 shadow-lg rounded-lg bg-white">
         <span className="flex items-center gap-x-2 text-2xl font-semibold ml-4 text-red-600">
-          <span>No doctor available</span>
+          <span>No Patient available</span>
         </span>
       </div>
     )
@@ -72,22 +73,26 @@ const DashDoctorPatient = ({ patient }: Props) => {
               >
                 <TableCell className="py-3 px-2 text-center">{i + 1}</TableCell>
                 <TableCell className="py-3 px-2 text-center">
-                  {patient?.name}
+                  <Link to={`/profile/${patient._id}`}>{patient?.name}</Link>
                 </TableCell>
                 <TableCell className="py-3 px-2 text-center">
-                  {patient?.phone}
+                  <Link to={`/profile/${patient._id}`}>{patient?.phone}</Link>
                 </TableCell>
                 <TableCell className="py-3 px-2 text-center">
-                  {patient?.address?.city}
+                  <Link to={`/profile/${patient._id}`}>
+                    {patient?.address?.city}
+                  </Link>
                 </TableCell>
                 <TableCell className="py-3 px-2 text-center">
-                  {patient?.gender}
+                  <Link to={`/profile/${patient._id}`}>{patient?.gender}</Link>
                 </TableCell>
                 <TableCell className="py-3 px-2 text-center">
-                  {patient?.age}
+                  <Link to={`/profile/${patient._id}`}>{patient?.age}</Link>
                 </TableCell>
                 <TableCell className="py-3 px-2 text-center">
-                  {format(new Date(patient?.dateOfBirth), "dd/MM/yyyy")}
+                  <Link to={`/profile/${patient._id}`}>
+                    {format(new Date(patient?.dateOfBirth), "dd/MM/yyyy")}
+                  </Link>
                 </TableCell>
               </TableRow>
             ))}
