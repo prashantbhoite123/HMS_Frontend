@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog"
 import { Textarea } from "../ui/textarea"
 import LoadingBtn from "../LoadingBtn"
 import { useMyRejectHospital } from "@/Api/Admin/useMyAdminRequest"
-
+import { BsHeartPulseFill } from "react-icons/bs"
 type Props = {
   hospitalId: string
 }
@@ -33,6 +33,15 @@ function DashResonPopup({ hospitalId }: Props) {
           </Button>
         </DialogTrigger>
         <DialogContent className="bg-slate-100 text-black font-semibold ">
+          <div className="flex items-center text-xl sm:text-2xl font-bold text-white">
+            <span className="flex justify-center items-center gap-x-3 py-2 bg-gradient-to-r from-indigo-600 to-pink-600 rounded-md text-transparent bg-clip-text">
+              <span>
+                <BsHeartPulseFill className="text-pink-600" size="30" />
+              </span>
+
+              <span>CarePlusX</span>
+            </span>
+          </div>
           <div className="">
             <h1 className="text-xl">Rejected Hospital</h1>
             <h6 className="text-sm text-slate-600">
@@ -44,7 +53,7 @@ function DashResonPopup({ hospitalId }: Props) {
             <Textarea
               placeholder="fill the reason"
               onChange={handleChange}
-              className="text-slate-700"
+              className="text-slate-700 mt-2"
             />
           </div>
           {isLoading ? (

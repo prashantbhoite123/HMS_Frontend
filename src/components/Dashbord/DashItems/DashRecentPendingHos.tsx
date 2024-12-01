@@ -8,6 +8,8 @@ import {
 } from "@/components/ui/table"
 import { Hospital } from "@/Types/DashTypes"
 import { format } from "date-fns"
+import { HourglassIcon } from "lucide-react"
+
 import { Link } from "react-router-dom"
 
 type Props = {
@@ -92,16 +94,19 @@ const DashRecentPendingHos = ({ recentPenHos }: Props) => {
                 </Link>
               </TableCell>
               <TableCell className="py-3">
-                <Link
-                  to={`/requestedhos/${hospital?._id}`}
-                  className="line-clamp-1"
-                >
-                  {hospital?.hospitalType}
-                </Link>
+                <div className=" bg-blue-300 text-black px-1 py-1 rounded-2xl">
+                  <Link
+                    to={`/requestedhos/${hospital?._id}`}
+                    className="flex justify-center items-center gap-x-2 "
+                  >
+                    <HourglassIcon size={15} />
+                    {hospital?.status}
+                  </Link>
+                </div>
               </TableCell>
               <TableCell className="py-3">
                 <Link to={`/requestedhos/${hospital?._id}`}>
-                  {hospital?.phoneNumber}
+                  {hospital?.hospitalType}
                 </Link>
               </TableCell>
               <TableCell className="py-3">

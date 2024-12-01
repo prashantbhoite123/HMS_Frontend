@@ -54,13 +54,13 @@ const DashAdminApproval = ({ ApprovedHospital }: Props) => {
                 Picture
               </TableHead>
               <TableHead className="border border-gray-300 text-center">
+                Hospital Name
+              </TableHead>
+              <TableHead className="border border-gray-300 text-center">
                 Status
               </TableHead>
               <TableHead className="border border-gray-300 text-center">
                 Hospital Type
-              </TableHead>
-              <TableHead className="border border-gray-300 text-center">
-                Hospital Name
               </TableHead>
               <TableHead className="border border-gray-300 text-center">
                 Phone Number
@@ -72,7 +72,7 @@ const DashAdminApproval = ({ ApprovedHospital }: Props) => {
                 Total Beds
               </TableHead>
               <TableHead className="border border-gray-300 text-center">
-                Rejection
+                Actions
               </TableHead>
             </TableRow>
           </TableHeader>
