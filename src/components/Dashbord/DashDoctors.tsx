@@ -7,6 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table"
+import { Link } from "react-router-dom"
 
 interface Doctor {
   role: string
@@ -94,11 +95,13 @@ const DashDoctors = ({ doctors }: Props) => {
                   {i + 1}
                 </TableCell>
                 <TableCell className="px-4 py-3 text-left font-semibold">
-                  <img
-                    src={doctor?.profilePic}
-                    alt="profilepic"
-                    className="w-10 h-10 rounded-full"
-                  />
+                  <Link to={`/doctorprofile/${doctor?._id}`}>
+                    <img
+                      src={doctor?.profilePic}
+                      alt="profilepic"
+                      className="w-10 h-10 rounded-full"
+                    />
+                  </Link>
                 </TableCell>
                 <TableCell className="px-4 py-3 text-left font-semibold">
                   {doctor?.doctorName}

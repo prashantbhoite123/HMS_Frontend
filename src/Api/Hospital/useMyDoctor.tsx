@@ -2,7 +2,7 @@
 import { useUser } from "@/context/userContext"
 import { doctors } from "@/form/Hospital-Auth-form/Doctors/DoctorsForm"
 import { BACKEND_API_URL } from "@/main"
-import { useMutation } from "react-query"
+import { useMutation, useQuery } from "react-query"
 import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
 
@@ -81,4 +81,36 @@ export const useMyDoctorLogin = () => {
   })
 
   return { DoctorSign, isLoading }
+}
+
+export const useMyDoctorDetail = (doctorId: string) => {
+  const getDoctorDetail = async (id: string): Promise<string> => {
+    const response = await fetch(`${BACKEND_API_URL}/api/doctor/detail/${id}`, {
+      method: "GET",
+      credentials: "include",
+    })
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch doctor details")
+    }
+
+    const data = await response.json()
+    return data
+  }
+
+  const { data: doctorDetail, isLoading } = useQuery(
+    ["doctorDetail", doctorId],
+    () => getDoctorDetail(doctorId),
+    {
+      enabled: !!doctorId,
+      onSuccess: () => {
+        console.log("Successfully fetched doctor details")
+      },
+      onError: (error) => {
+        console.error("Error fetching doctor details:", error)
+      },
+    }
+  )
+
+  return { doctorDetail, isLoading }
 }
