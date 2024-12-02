@@ -3,6 +3,8 @@ import { useMutation } from "react-query"
 import { toast } from "sonner"
 import { useNavigate } from "react-router-dom"
 import { useUser } from "@/context/userContext"
+import { BACKEND_API_URL } from "@/main"
+import { profileForm } from "@/components/Dashbord/DashProfile"
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
@@ -96,4 +98,45 @@ export const useUserSignIn = () => {
   })
 
   return { signIn, isLoading }
+}
+
+export const useMyupdateProfile = () => {
+  const { saveUserToSession } = useUser()
+
+  const updateUserProfile = async (
+    updatedData: FormData
+  ): Promise<profileForm> => {
+    for (let [key, value] of updatedData.entries()) {
+      console.log(`updated form data ${key},${value}`)
+    }
+
+    const responce = await fetch(`${BACKEND_API_URL}/api/auth/updateprofile`, {
+      method: "PUT",
+      credentials: "include",
+      body: updatedData,
+    })
+
+    if (!responce.ok) {
+      throw new Error("failed to update user")
+    }
+
+    const data = await responce.json()
+    if (!data.success) {
+      throw toast.error(data.message)
+    }
+    console.log("this is data=>", data)
+    toast.success(data.message)
+    saveUserToSession(data.rest)
+    return data
+  }
+  const { mutate: updateProfile, isLoading } = useMutation(updateUserProfile, {
+    onSuccess: () => {
+      toast.success("Profile successfuly updated")
+    },
+    onError: () => {
+      toast.error("faild to update profile ")
+    },
+  })
+
+  return { updateProfile, isLoading }
 }
