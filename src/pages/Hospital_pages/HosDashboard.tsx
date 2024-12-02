@@ -15,8 +15,11 @@ import { useMyCacelAppoinment } from "@/Api/Hospital/useDashData"
 
 import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
+import { useUser } from "@/context/userContext"
+import DashDoctorProfile from "@/components/Dashbord/DashItems/DashDoctorProfile"
 
 const HosDashboard = () => {
+  const { currentUser } = useUser()
   const { dashdata, isLoading, refetch } = useMyDashData()
   const { cancelApp, isLoading: cancelAppLoading } =
     useMyCacelAppoinment(refetch)
@@ -84,7 +87,9 @@ const HosDashboard = () => {
       {tab === "dashpatient" && (
         <DashDoctorPatient patient={dashdata?.allPatients} />
       )}
-      {tab === "profile" && <DashProfile />}
+      {currentUser?.role === "Doctor"
+        ? tab === "profile" && <DashDoctorProfile />
+        : tab === "profile" && <DashProfile />}
     </div>
   )
 }
