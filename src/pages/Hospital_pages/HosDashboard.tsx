@@ -84,7 +84,7 @@ const HosDashboard = () => {
       {tab === "dashpatient" && (
         <DashDoctorPatient patient={dashdata?.allPatients} />
       )}
-      {tab === "profile" && <DashProfile ProfileData={dashdata?.ProfileData} />}
+      {tab === "profile" && <DashProfile />}
     </div>
   )
 }

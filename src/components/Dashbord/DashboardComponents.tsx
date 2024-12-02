@@ -10,6 +10,7 @@ import DashRightbar from "./DashItems/DashRightbar"
 import { useUser } from "@/context/userContext"
 import DashRecentPendingHos from "./DashItems/DashRecentPendingHos"
 import DashDoctorLatestApp from "./DashItems/DashDoctorLatestApp"
+import Loader from "../Loader"
 
 type Props = {
   dashData: DashboardResponse | ResponseType | DoctorDashboardData
@@ -26,7 +27,12 @@ const DashboardComponents = ({ dashData }: Props) => {
 
   console.log("this is dashData==>", data)
 
-  if (!data) return <div>Loading...</div> // Handle case where data is not available
+  if (!data)
+    return (
+      <div className="w-full h-full">
+        <Loader />
+      </div>
+    ) // Handle case where data is not available
 
   return (
     <div className="flex flex-col md:flex-col lg:flex-row ">

@@ -100,7 +100,7 @@ export const useUserSignIn = () => {
   return { signIn, isLoading }
 }
 
-export const useMyupdateProfile = () => {
+export const useMyupdateProfile = (userId: string) => {
   const { saveUserToSession } = useUser()
 
   const updateUserProfile = async (
@@ -110,11 +110,14 @@ export const useMyupdateProfile = () => {
       console.log(`updated form data ${key},${value}`)
     }
 
-    const responce = await fetch(`${BACKEND_API_URL}/api/auth/updateprofile`, {
-      method: "PUT",
-      credentials: "include",
-      body: updatedData,
-    })
+    const responce = await fetch(
+      `${BACKEND_API_URL}/api/auth/updateprofile/${userId}`,
+      {
+        method: "PUT",
+        credentials: "include",
+        body: updatedData,
+      }
+    )
 
     if (!responce.ok) {
       throw new Error("failed to update user")

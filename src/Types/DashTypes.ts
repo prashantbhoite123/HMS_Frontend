@@ -26,25 +26,6 @@ export type Hospital = {
   address: Address
 }
 
-type ProfileData = {
-  _id: string
-  username: string
-  email: string
-  password: string
-  role: string
-  admin: {
-    isAdmin: boolean
-    key: number
-    logedin: boolean
-    _id: string
-    Akey: number
-  }
-  profilepic: string
-  createdAt: string
-  updatedAt: string
-  __v: number
-}
-
 type lastMonthData = {
   approvedHospital: number
   pendingHospital: number
@@ -67,7 +48,6 @@ export type ResponseType = {
   chartData: { count: number; month: string | null }[]
   PendingHospital: Hospital[]
   ApprovedHospital: Hospital[]
-  ProfileData: ProfileData
 }
 
 export interface Doctor {
@@ -126,7 +106,6 @@ export type DashboardResponse = {
   todayAppointments: Appointment[]
   doctors: Doctor[]
   allAppoinment: Appointment[]
-  ProfileData: ProfileData
 }
 
 // Type for an individual appointment

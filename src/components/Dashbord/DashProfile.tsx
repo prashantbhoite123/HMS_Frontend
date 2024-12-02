@@ -7,34 +7,31 @@ import { Button } from "../ui/button"
 import { useState } from "react"
 import { FiCamera } from "react-icons/fi"
 import { useMyupdateProfile } from "@/Api/common_Api/useMyhospitalApi"
+import { useUser } from "@/context/userContext"
 
-type ProfileData = {
-  _id: string
-  username: string
-  email: string
-  password: string
-  role: string
-  admin: {
-    isAdmin: boolean
-    key: number
-    logedin: boolean
-    _id: string
-    Akey: number
-  }
-  profilepic: string
-  createdAt: string
-  updatedAt: string
-  __v: number
-}
-
-type Props = {
-  ProfileData: ProfileData
-}
+// type currentUser = {
+//   _id: string
+//   username: string
+//   email: string
+//   password: string
+//   role: string
+//   admin: {
+//     isAdmin: boolean
+//     key: number
+//     logedin: boolean
+//     _id: string
+//     Akey: number
+//   }
+//   profilepic: string
+//   createdAt: string
+//   updatedAt: string
+//   __v: number
+// }
 
 const formSchema = z.object({
   email: z.string().trim().email("Invalid email format").optional(),
   username: z.string().trim().min(1, "Username is required").optional(),
-  profilepic: z.instanceof(File).optional(),
+  profilepic: z.union([z.instanceof(File), z.undefined()]).optional(),
   password: z
     .string()
     .trim()
@@ -45,25 +42,27 @@ const formSchema = z.object({
 
 export type profileForm = z.infer<typeof formSchema>
 
-const DashProfile = ({ ProfileData }: Props) => {
-  const { updateProfile, isLoading } = useMyupdateProfile()
+const DashProfile = () => {
+  const { currentUser } = useUser()
+  const { updateProfile, isLoading } = useMyupdateProfile(
+    currentUser?._id as string
+  )
   const [selectedImage, setSelectedImage] = useState(
-    ProfileData?.profilepic || ""
+    currentUser?.profilepic || ""
   )
   const [imagefile, setImageFile] = useState<File | null>(null) // Ensure proper typing here
   const form = useForm<profileForm>({
     resolver: zodResolver(formSchema),
   })
 
-  
   console.log("iamge=>", imagefile)
   const onSave = (data: profileForm) => {
     if (imagefile) {
       const formData = new FormData()
 
-      formData.append("username", data.username || ProfileData.username)
-      formData.append("email", data.email || ProfileData.email)
-      formData.append("password", data.password || ProfileData.password)
+      formData.append("username", data?.username || currentUser?.username || "")
+      formData.append("email", data?.email || currentUser?.email || "")
+      formData.append("password", data?.password || currentUser?.password || "")
       formData.append("profilepic", imagefile)
       console.log("Updated profile data:", data)
 
@@ -115,7 +114,7 @@ const DashProfile = ({ ProfileData }: Props) => {
             <div className="w-full">
               <FormInput
                 name="username"
-                defaultValue={ProfileData?.username}
+                defaultValue={currentUser?.username}
                 placeholder="Username"
                 type="text"
               />
@@ -123,7 +122,7 @@ const DashProfile = ({ ProfileData }: Props) => {
             <div className="w-full">
               <FormInput
                 name="email"
-                defaultValue={ProfileData?.email}
+                defaultValue={currentUser?.email}
                 placeholder="Email"
                 type="text"
               />
@@ -135,7 +134,11 @@ const DashProfile = ({ ProfileData }: Props) => {
                 type="password"
               />
             </div>
-            <Button className="w-full bg-gradient-to-r from-indigo-600 to-pink-600">
+            <Button
+              disabled={isLoading}
+              type="submit"
+              className="w-full bg-gradient-to-r from-indigo-600 to-pink-600"
+            >
               {isLoading ? "Updating..." : "Update"}
             </Button>
             <div className="flex w-full justify-end text-red-500 hover:underline font-semibold hover:cursor-pointer">
