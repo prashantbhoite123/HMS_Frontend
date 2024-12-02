@@ -9,23 +9,43 @@ import { doctorSpecializations, workingHours } from "@/config/DoctorData"
 import { FaUserMd } from "react-icons/fa"
 import { useMyDoctorRegister } from "@/Api/Hospital/useMyDoctor"
 
-import {
-  // FormControl,
-  // FormField,
-  // FormItem,
-  FormMessage,
-} from "@/components/ui/form"
+import { FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
 export const doctorSchema = z.object({
   doctorName: z.string().min(1, "Doctor name is required").trim(),
-  profilePic: z.string().optional().default("https://via.placeholder.com/150"),
-  // degree: z.instanceof(File, { message: "degree is required" }),
+  profilepic: z.string().optional().default("https://via.placeholder.com/150"),
+  email: z.string().trim().email("Invalid email format"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+  dateOfBirth: z
+    .string()
+    .transform((val) => (val ? new Date(val) : null)) // Transform empty strings to null
+    .refine(
+      (val) => val === null || !isNaN(val.getTime()), // Allow null or valid Date
+      {
+        message: "Invalid date of birth",
+      }
+    ),
+  gender: z.enum(["", "Male", "Female", "Other"], {
+    errorMap: () => ({ message: "Gender must be Male, Female, or Other" }),
+  }),
+  age: z
+    .string({ invalid_type_error: "Age must be a number" })
+    .min(0, "Age must be a positive number")
+    .refine((val) => !isNaN(Number(val)) && Number(val) > 0, {
+      message: "Age must be a positive number",
+    }),
+
+  phone: z.string().regex(/^\d{10}$/, "Phone number must be exactly 10 digits"),
+  address: z.object({
+    city: z.string().min(1, "City is required"),
+    state: z.string().min(1, "State is required"),
+    country: z.string().min(1, "Country is required"),
+  }),
   degree: z
     .instanceof(FileList)
     .refine((files) => files?.length > 0, "Degree file is required"),
-  email: z.string().trim().email("Invalid email format"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+
   education: z.string().min(1, "Education is required").trim(),
   experienceYears: z
     .string()
@@ -68,6 +88,7 @@ const DoctorsForm = ({ hospitalId }: Props) => {
     }
   }
 
+  console.log("hellow")
   const watchForm = form.watch()
   console.log(watchForm)
 
@@ -77,39 +98,31 @@ const DoctorsForm = ({ hospitalId }: Props) => {
 
   useEffect(() => {
     if (image) {
-      form.setValue("profilePic", image)
+      form.setValue("profilepic", image)
     }
   }, [image, form])
-
-  // const onSave = async (data: doctors) => {
-  //   const formData = new FormData()
-  //   formData.append("doctorName", data.doctorName)
-  //   formData.append("profilePic", image ? image : "") // Base64 image
-  //   formData.append("email", data.email)
-  //   formData.append("password", data.password)
-  //   formData.append("education", data.education)
-  //   formData.append("experienceYears", data.experienceYears)
-  //   formData.append("specialization", data.specialization)
-  //   formData.append("workingHours", data.workingHours)
-
-  //   if (data.degree && data.degree[0]) {
-  //     formData.append("degree", data.degree[0]) // Attach file
-  //   }
-  //   console.log("Doctor data =>", formData.entries())
-
-  //    doctorRegister(formData)
-  //   form.reset()
-  //   setImage(null)
-  //   setCameraOn(false)
-  // }
-
+  console.log("hello world")
   const onSave = async (data: doctors) => {
+    console.log("click")
     try {
       const formData = new FormData()
       formData.append("doctorName", data.doctorName)
-      formData.append("profilePic", image ? image : "")
+      formData.append("profilepic", image ? image : "")
       formData.append("email", data.email)
       formData.append("password", data.password)
+      if (data.dateOfBirth) {
+        formData.append("dateOfBirth", data.dateOfBirth.toISOString())
+      } else {
+        formData.append("dateOfBirth", "") 
+      }
+      formData.append("gender", data.gender)
+      formData.append("age", data.age.toString())
+      formData.append("phone", data.phone)
+
+      formData.append("address.city", data.address.city)
+      formData.append("address.state", data.address.state)
+      formData.append("address.country", data.address.country)
+
       formData.append("education", data.education)
       formData.append("experienceYears", data.experienceYears)
       formData.append("specialization", data.specialization)
@@ -119,27 +132,37 @@ const DoctorsForm = ({ hospitalId }: Props) => {
         formData.append("degree", data.degree[0])
       }
 
-      console.log("Doctor data =>", formData.entries())
+      console.log("click 2")
+      console.log("FormData entries:", [...formData.entries()])
 
-       doctorRegister(formData)
+      doctorRegister(formData)
 
       // Clear input fields
       form.setValue("doctorName", "")
-      form.setValue("profilePic", "https://via.placeholder.com/150")
+      form.setValue("profilepic", "https://via.placeholder.com/150")
       form.setValue("email", "")
       form.setValue("password", "")
+      form.setValue("dateOfBirth", null)
+      form.setValue("gender", "")
+      form.setValue("age", "")
+      form.setValue("phone", "")
+      form.setValue("address.city", "")
+      form.setValue("address.state", "")
+      form.setValue("address.country", "")
       form.setValue("education", "")
       form.setValue("experienceYears", "")
       form.setValue("specialization", "")
       form.setValue("workingHours", "")
       form.setValue("degree", undefined as unknown as FileList)
 
-      setImage(null) // Reset the image
-      setCameraOn(false) // Turn off the camera if active
+      // setImage(null)
+      setCameraOn(false)
     } catch (error) {
       console.error("Error during registration:", error)
     }
   }
+
+  const gender = ["", "Male", "Female", "Other"]
 
   return (
     <FormProvider {...form}>
@@ -161,6 +184,29 @@ const DoctorsForm = ({ hospitalId }: Props) => {
                 name="doctorName"
                 type="text"
               />
+              <div>
+                <label htmlFor="gender" className="block text-sm font-medium">
+                  Gender
+                </label>
+                <Controller
+                  name="gender"
+                  render={({ field }) => (
+                    <select
+                      {...field}
+                      className="mt-1 block w-full border rounded p-2"
+                    >
+                      <option value="" disabled>
+                        Select Gender
+                      </option>
+                      {gender.map((gender) => (
+                        <option key={gender} value={gender}>
+                          {gender}
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                />
+              </div>
               <FormInput
                 label="Email"
                 placeholder="Enter email address"
@@ -172,6 +218,35 @@ const DoctorsForm = ({ hospitalId }: Props) => {
                 placeholder="Enter password"
                 name="password"
                 type="password"
+              />
+              <FormInput
+                placeholder="Age"
+                label="Age"
+                type="number"
+                name="age"
+              />
+              <FormInput
+                placeholder="Date of Birth"
+                label="Date of Birth"
+                type="date"
+                name="dateOfBirth"
+              />
+              <FormInput
+                placeholder="Phone"
+                label="Phone"
+                type="text"
+                name="phone"
+              />
+              <FormInput placeholder="City" name="address.city" label="City" />
+              <FormInput
+                placeholder="State"
+                name="address.state"
+                label="State"
+              />
+              <FormInput
+                placeholder="Country"
+                name="address.country"
+                label="Country"
               />
               <FormInput
                 label="Education"

@@ -12,6 +12,7 @@ import { HourglassIcon } from "lucide-react"
 import { IoIosWarning } from "react-icons/io"
 import DashCancelAppResonPop from "./DashCancelAppResonPop"
 import DashScheduleAppPop from "./DashScheduleAppPop"
+import { Link } from "react-router-dom"
 interface Appointment {
   _id: string
   patientName: string
@@ -103,45 +104,53 @@ function DashAppoinment({
                 className="transition-all duration-300 hover:bg-gray-100 border-t border-gray-300 font-semibold hover:shadow-md"
               >
                 <TableCell className="py-3 px-2 text-center">
-                  {index + 1}
+                  <Link to={`/profile/${allApp?.petientId}`}>{index + 1}</Link>
                 </TableCell>
                 <TableCell className="py-3 px-2 text-left line-clamp-1">
-                  {allApp?.patientName}
+                  <Link to={`/profile/${allApp?.petientId}`}>
+                    {allApp?.patientName}
+                  </Link>
                 </TableCell>
                 <TableCell className="py-3 px-2 text-center">
-                  <div
-                    className={`flex justify-center items-center text-black rounded-2xl ${
-                      allApp?.status === "Completed"
-                        ? "bg-green-300 text-green-800"
-                        : allApp.status === "Pending"
-                        ? "bg-blue-300 text-blue-900"
-                        : "bg-red-300 text-red-600"
-                    }`}
-                  >
-                    <span>
-                      {allApp?.status === "Completed" ? (
-                        <MdOutlineCheck size={15} />
-                      ) : allApp?.status === "Pending" ? (
-                        <HourglassIcon size={15} />
-                      ) : (
-                        <IoIosWarning size={15} />
-                      )}
-                    </span>
-                    <span
-                      className={`font-semibold text-sm px-2 py-1 rounded-md `}
+                  <Link to={`/profile/${allApp?.petientId}`}>
+                    <div
+                      className={`flex justify-center items-center text-black rounded-2xl ${
+                        allApp?.status === "Completed"
+                          ? "bg-green-300 text-green-800"
+                          : allApp.status === "Pending"
+                          ? "bg-blue-300 text-blue-900"
+                          : "bg-red-300 text-red-600"
+                      }`}
                     >
-                      {allApp?.status}
-                    </span>
-                  </div>
+                      <span>
+                        {allApp?.status === "Completed" ? (
+                          <MdOutlineCheck size={15} />
+                        ) : allApp?.status === "Pending" ? (
+                          <HourglassIcon size={15} />
+                        ) : (
+                          <IoIosWarning size={15} />
+                        )}
+                      </span>
+                      <span
+                        className={`font-semibold text-sm px-2 py-1 rounded-md `}
+                      >
+                        {allApp?.status}
+                      </span>
+                    </div>
+                  </Link>
                 </TableCell>
                 <TableCell className="py-3 px-2  text-center">
-                  <div className="text-green-400 font-bold rounded-full">
-                    {allApp?.apptNumber}
-                  </div>
+                  <Link to={`/profile/${allApp?.petientId}`}>
+                    <div className="text-green-400 font-bold rounded-full">
+                      {allApp?.apptNumber}
+                    </div>
+                  </Link>
                 </TableCell>
 
                 <TableCell className="py-3 px-4 text-left">
-                  {allApp?.doctorName}
+                  <Link to={`/profile/${allApp?.petientId}`}>
+                    {allApp?.doctorName}
+                  </Link>
                 </TableCell>
                 <TableCell className="py-3 px-6 text-center cursor-pointer text-blue-500">
                   <DashScheduleAppPop

@@ -13,7 +13,7 @@ interface Doctor {
   role: string
   _id: string
   doctorName: string
-  profilePic: string
+  profilepic: string
   degree: string
   email: string
   ownerId: string
@@ -97,7 +97,7 @@ const DashDoctors = ({ doctors }: Props) => {
                 <TableCell className="px-4 py-3 text-left font-semibold">
                   <Link to={`/doctorprofile/${doctor?._id}`}>
                     <img
-                      src={doctor?.profilePic}
+                      src={doctor?.profilepic}
                       alt="profilepic"
                       className="w-10 h-10 rounded-full"
                     />

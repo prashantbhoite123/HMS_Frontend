@@ -70,7 +70,7 @@ export type ResponseType = {
   ProfileData: ProfileData
 }
 
-interface Doctor {
+export interface Doctor {
   role: string
   _id: string
   doctorName: string
@@ -84,6 +84,15 @@ interface Doctor {
   experienceYears: number
   specialization: string
   workingHours: string
+  gender: string
+  address: {
+    city: string
+    state: string
+    country: string
+  }
+  age: number
+  phone: string
+  dateOfBirth: string
   __v: number
 }
 
