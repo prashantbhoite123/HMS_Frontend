@@ -1,4 +1,3 @@
-
 import { IHospital } from "@/Types/hospital"
 import { Card, CardContent, CardHeader } from "../ui/card"
 import { MdOutlineDone } from "react-icons/md"
@@ -42,7 +41,7 @@ const HospitalsCard = ({ Hospitals, loading }: Props) => {
                 {/* Image Section */}
                 <img
                   className="h-[30vh] w-full rounded-md object-cover"
-                  src={imageSrc}
+                  src={imageSrc || undefined}
                   alt={`${Hospitals.hospitalName} Image`}
                 />
 

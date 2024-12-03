@@ -1,6 +1,6 @@
 import { Hospital, TimerIcon, User } from "lucide-react"
 
-import { Card, CardContent } from "../ui/card"
+import { Card, CardContent, CardHeader } from "../ui/card"
 import { MdDateRange, MdDelete, MdInfoOutline } from "react-icons/md"
 import { Button } from "../ui/button"
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "../ui/dialog"
@@ -70,14 +70,14 @@ const AppinmetCard = ({
   }
 
   return (
-    <div className="flex flex-col p-2 md:p-6 gap-6 w-full md:w-[50vw]">
+    <div className="flex flex-col p-2 md:p-6 gap-6 w-full md:w-[65vw] lg:w-[50vw]">
       {appoinments.length > 0 ? (
         appoinments.map((appoinment: Appointment) => (
           <Card
             key={appoinment._id}
-            className="bg-gradient-to-r from-gray-50 to-gray-100 shadow-lg rounded-lg hover:shadow-2xl transition-shadow duration-200 border border-gray-200"
+            className="bg-gradient-to-r relative from-gray-50 to-gray-100 shadow-lg rounded-lg hover:shadow-2xl transition-shadow duration-200 border border-gray-200"
           >
-            <CardContent className="p-6 relative">
+            <CardHeader>
               <div className="flex justify-end gap-3 absolute top-4 right-4">
                 <AppoinmentUpdate
                   updatedApp={handleUpdateApp}
@@ -95,14 +95,14 @@ const AppinmetCard = ({
                   </DialogTrigger>
                   <DialogContent className="flex flex-col gap-y-5 bg-white p-5 rounded-md shadow-lg">
                     <DialogTitle>
-                      <h1 className="text-gray-900 text-lg font-semibold">
+                      <h1 className="text-gray-700 text-lg font-semibold">
                         Are you sure you want to delete this appointment?
                       </h1>
                     </DialogTitle>
                     <div className="flex justify-end gap-4">
                       <Button
                         variant="outline"
-                        className="bg-white text-gray-700"
+                        className="bg-white text-red-700"
                         onClick={handleCancel}
                       >
                         Cancel
@@ -111,7 +111,7 @@ const AppinmetCard = ({
                         <LoadingBtn />
                       ) : (
                         <Button
-                          className="bg-red-600 text-white"
+                          className="bg-gradient-to-r from-indigo-600 to-pink-600 text-white"
                           onClick={() => handleDelete(appoinment._id)}
                         >
                           Delete
@@ -121,7 +121,8 @@ const AppinmetCard = ({
                   </DialogContent>
                 </Dialog>
               </div>
-
+            </CardHeader>
+            <CardContent className="p-6 ">
               {/* Main content of the card */}
               <div className="grid grid-cols-1 md:grid-cols-[3fr_1fr] gap-6 items-center">
                 <div className="flex flex-col gap-y-3">
