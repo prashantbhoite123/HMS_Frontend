@@ -38,10 +38,9 @@ type Props = {
   isLoading: boolean
 }
 
-// Generate time slots for a given doctor
 export const generateTimeSlots = (doctor: IDoctors): string[] => {
   const slots: string[] = []
-  const workingHours = Number(doctor.workingHours) // Convert to number
+  const workingHours = Number(doctor.workingHours)
   const startHour = 9
 
   for (let i = 0; i < workingHours; i++) {
@@ -102,7 +101,7 @@ const Appointment = ({ doctors, onSave, isLoading }: Props) => {
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="flex justify-center items-center w-full h-full">
-              <div className="flex flex-col  items-center mt-7 mb-3 p-6 w-full md:w-[30vw] bg-white shadow-lg shadow-slate-700 rounded-xl">
+              <div className="flex flex-col  items-center mt-7 mb-3 p-6 w-full md:w-[50vw] lg:w-[30vw] bg-white shadow-lg shadow-slate-700 rounded-xl">
                 <h1 className="text-xl text-green-400 font-semibold">
                   Book Appointment
                 </h1>
@@ -153,13 +152,17 @@ const Appointment = ({ doctors, onSave, isLoading }: Props) => {
                     control={control}
                     render={({ field }) => (
                       <ReactDatePicker
-                        selected={new Date(field.value)}
-                        onChange={(date) =>
-                          setValue(
-                            "appointmentDate",
-                            format(date as Date, "yyyy-MM-dd")
-                          )
-                        }
+                        selected={field.value ? new Date(field.value) : null} // Handle invalid or empty values
+                        onChange={(date) => {
+                          if (date) {
+                            setValue(
+                              "appointmentDate",
+                              format(date, "yyyy-MM-dd")
+                            )
+                          } else {
+                            setValue("appointmentDate", "") // Clear value if no date is selected
+                          }
+                        }}
                         className="border p-2 rounded"
                         placeholderText="Select appointment date"
                         dateFormat="yyyy-MM-dd"

@@ -25,7 +25,7 @@ export const doctorSchema = z.object({
     .optional(),
   dateOfBirth: z.string().optional(),
   gender: z.enum(["", "Male", "Female", "Other"]).optional(),
-  age: z.string().optional(),
+  age: z.union([z.number(), z.string()]).optional(),
   phone: z
     .string()
     .regex(/^\d{10}$/, "Phone number must be exactly 10 digits")
@@ -39,7 +39,7 @@ export const doctorSchema = z.object({
     .optional(),
 
   education: z.string().optional(),
-  experienceYears: z.string().optional(),
+  experienceYears: z.union([z.number(), z.string()]).optional(),
   specialization: z.string().optional(),
   workingHours: z.string().optional(),
 })
@@ -127,7 +127,12 @@ const UpdateDoctorProfile = () => {
         formData.append("dateOfBirth", "")
       }
       formData.append("gender", data.gender || formattedGender || "")
-      formData.append("age", data?.age?.toString() || doctorData?.age || "")
+      formData.append(
+        "age",
+        (data?.age !== undefined
+          ? data.age.toString()
+          : doctorData?.age?.toString()) || ""
+      )
       formData.append("phone", data.phone || doctorData?.phone || "")
 
       formData.append(
@@ -149,7 +154,9 @@ const UpdateDoctorProfile = () => {
       )
       formData.append(
         "experienceYears",
-        data.experienceYears || doctorData?.experienceYears || ""
+        (data?.experienceYears !== undefined
+          ? data.experienceYears.toString()
+          : doctorData?.experienceYears?.toString()) || ""
       )
       formData.append(
         "specialization",

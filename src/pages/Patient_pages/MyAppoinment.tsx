@@ -1,3 +1,4 @@
+
 import { useMysearchAppoinment } from "@/Api/patient/UseManageAppoinment"
 import {
   useMyallAppoinment,
@@ -23,6 +24,7 @@ const MyAppoinment = () => {
     searchQuery: "",
     page: 1,
   })
+
   const setPage = (page: number) => {
     setSearchState((prevState) => ({
       ...prevState,
@@ -36,6 +38,7 @@ const MyAppoinment = () => {
       ...data,
     }))
   }
+
   const {
     result,
     isLoading: searchLoding,
@@ -53,7 +56,7 @@ const MyAppoinment = () => {
       refetch()
       searchRefetch()
     }
-  }, [updatedApp, allAppoinment, result])
+  }, [updatedApp, updatedappLoading])
 
   const handleUpdaredApp = (
     appId: string,
@@ -61,9 +64,17 @@ const MyAppoinment = () => {
   ) => {
     setAppId(appId)
     updatedApp(updatedAppoinment)
+    refetch() // Refetch all appointments
+    searchRefetch() // Optionally refetch search results
   }
 
-  if (searchLoding || isLoading) {
+  // Determine whether to show search or all appointments
+  const searchAndallApp =
+    result?.data?.length && result?.data?.length > 0
+      ? result?.data
+      : allAppoinment
+
+  if (searchLoding || isLoading || delAppLoading || updatedappLoading) {
     return (
       <div>
         <Loader />
@@ -71,12 +82,9 @@ const MyAppoinment = () => {
     )
   }
 
-  const searchAndallApp = allAppoinment ? allAppoinment : result?.data
-
   return (
     <div className="flex flex-col gap-4 items-center p-4 w-full">
       <div className="flex flex-col mb-7 md:flex-row justify-evenly flex-wrap items-center h-[20vh] md:h-[0vh] p-7 w-full">
-        {/* Centered Heading */}
         <div className="flex absolute right-30 justify-center items-center">
           <span className="text-red-500">
             <MdEventNote size="25" />
@@ -85,9 +93,7 @@ const MyAppoinment = () => {
             Appointments
           </h1>
         </div>
-
-        {/* Search Bar on the Right */}
-        <div className="flex items-center  mt-20 md:mt-7 ml-0 md:ml-auto ">
+        <div className="flex items-center mt-20 md:mt-7 ml-0 md:ml-auto">
           <SearchApp
             onSubmit={sethandleSubmit}
             searchQuery={searchState.searchQuery}
@@ -95,7 +101,6 @@ const MyAppoinment = () => {
         </div>
       </div>
 
-      {/* Appointments Card */}
       <AppinmetCard
         handleUpdateApp={handleUpdaredApp}
         isLoading={updatedappLoading}

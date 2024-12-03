@@ -18,6 +18,7 @@ import HosImageDialog from "@/components/Hospital/HosImageDialog"
 import Appoinment from "@/form/Patient/Appoinment"
 import { useMyAppoinment } from "@/Api/patient/useMyAppoinment"
 import Loader from "@/components/Loader"
+import { Link } from "react-router-dom"
 
 const DetailPage = () => {
   const { hospitalId } = useParams()
@@ -134,65 +135,67 @@ const DetailPage = () => {
         </div>
         <div className="flex flex-col flex-wrap space-y-6  md:flex-row w-full justify-center items-center  p-2 mt-4 gap-4 ">
           {getHospital.doctors.map((doctor: any, index: number) => (
-            <Card
-              key={index}
-              className="w-full md:w-[25vw] p-2 bg-white shadow-xl shadow-slate-400 rounded-md"
-            >
-              <CardHeader>
-                <div className="flex justify-center items-center">
-                  <img
-                    className="size-24 rounded-full select-none"
-                    draggable={false}
-                    src={
-                      doctor.image ||
-                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQN5aeH5PWbBb2Ws7lZnlJ6VJviegkHLgbhg&s"
-                    }
-                    alt={doctor.doctorName || "Doctor image"}
-                  />
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-col gap-2 items-center text-center">
-                  <div className="mb-2">
-                    <FaUserMd className="inline mr-2 text-blue-500" />
-                    <span className="font-semibold text-lg">
-                      Dr. {doctor.doctorName}
-                    </span>
+            <Link to={`/doctorprofile/${doctor._id}`}>
+              <Card
+                key={index}
+                className="w-full md:w-[35vw] lg:w-[25vw] md:h-[40vh] p-2 bg-white shadow-xl shadow-slate-400 rounded-md"
+              >
+                <CardHeader>
+                  <div className="flex justify-center items-center">
+                    <img
+                      className="size-24 rounded-full select-none"
+                      draggable={false}
+                      src={
+                        doctor.profilepic ||
+                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQN5aeH5PWbBb2Ws7lZnlJ6VJviegkHLgbhg&s"
+                      }
+                      alt={doctor.doctorName || "Doctor image"}
+                    />
                   </div>
-                  <div className="flex justify-around w-full gap-4">
-                    <div className="flex flex-col">
-                      <span className="flex text-sm font-semibold items-center mb-1 gap-2">
-                        <FaGraduationCap
-                          size="20"
-                          className="mr-2 text-gray-500"
-                        />
-                        <span>{doctor.education}</span>
-                      </span>
-                      <span className="flex text-sm font-semibold items-center mb-1">
-                        <FaStethoscope
-                          size="20"
-                          className="mr-2 text-gray-500"
-                        />
-                        <span>{doctor.specialization}</span>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-col gap-2 items-center text-center">
+                    <div className="mb-2">
+                      <FaUserMd className="inline mr-2 text-blue-500" />
+                      <span className="font-semibold text-lg">
+                        Dr. {doctor.doctorName}
                       </span>
                     </div>
-                    <div className="flex flex-col ml-2 ">
-                      <span className="flex text-sm font-semibold items-center mb-1 gap-2">
-                        <FaCalendarAlt
-                          size="20"
-                          className="mr-2 text-gray-500"
-                        />
-                        <span>{doctor.experienceYears} years</span>
-                      </span>
-                      <span className="flex text-sm font-semibold items-center">
-                        <FaClock size="20" className="mr-2 text-gray-500" />
-                        <span>{doctor.workingHours} hours</span>
-                      </span>
+                    <div className="flex justify-around w-full gap-4">
+                      <div className="flex flex-col">
+                        <span className="flex text-sm font-semibold items-center mb-1 gap-2">
+                          <FaGraduationCap
+                            size="20"
+                            className="mr-2 text-gray-500"
+                          />
+                          <span>{doctor.education}</span>
+                        </span>
+                        <span className="flex text-sm font-semibold items-center mb-1">
+                          <FaStethoscope
+                            size="20"
+                            className="mr-2 text-gray-500"
+                          />
+                          <span>{doctor.specialization}</span>
+                        </span>
+                      </div>
+                      <div className="flex flex-col ml-2 ">
+                        <span className="flex text-sm font-semibold items-center mb-1 gap-2">
+                          <FaCalendarAlt
+                            size="20"
+                            className="mr-2 text-gray-500"
+                          />
+                          <span>{doctor.experienceYears} years</span>
+                        </span>
+                        <span className="flex text-sm font-semibold items-center">
+                          <FaClock size="20" className="mr-2 text-gray-500" />
+                          <span>{doctor.workingHours} hours</span>
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
 
