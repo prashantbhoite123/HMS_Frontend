@@ -2,6 +2,7 @@ export const hospitalType = [
   "Cancer Hospital",
   "Research Hospital",
   "Private Hospital",
+  "Clinic",
   "Government Hospital",
   "Maternity Hospital",
   "Trauma Center",

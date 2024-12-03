@@ -8,6 +8,8 @@ import {
 } from "./ui/dropdown-menu"
 import { Separator } from "./ui/separator"
 import LogoutBtn from "./LogoutBtn"
+import { FaClipboardList } from "react-icons/fa"
+import { User } from "lucide-react"
 
 const UserProfileDropdown = () => {
   const { currentUser } = useUser()
@@ -58,7 +60,12 @@ const UserProfileDropdown = () => {
                 }
               >
                 {currentUser.role === "patient" ? (
-                  <span>Patient Profile</span>
+                  <div className="flex items-center gap-x-1">
+                    <span>
+                      <User size={15} />
+                    </span>
+                    <span>Patient Profile</span>
+                  </div>
                 ) : currentUser.role === "hospital" ? (
                   <span>Hospital Profile</span>
                 ) : currentUser.role === "Doctor" ? (
@@ -67,6 +74,21 @@ const UserProfileDropdown = () => {
                   <span>Approvels</span>
                 )}
               </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              {currentUser?.role === "patient" ? (
+                <Link
+                  to="/myappoinment"
+                  className="hover:underline flex justify-center items-center gap-x-2"
+                >
+                  <span>
+                    <FaClipboardList />
+                  </span>
+                  <span>My Appoinment</span>
+                </Link>
+              ) : (
+                ""
+              )}
             </DropdownMenuItem>
             {currentUser.role === "Admin" ? <Separator /> : ""}
             {currentUser.role === "Admin" ? (

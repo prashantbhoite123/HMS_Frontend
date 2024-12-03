@@ -9,6 +9,7 @@ import { Hospital } from "lucide-react"
 // import codeflxImg1 from "../../assets/Codef.png"
 
 import { BsHeartPulseFill } from "react-icons/bs"
+import { HiChartPie } from "react-icons/hi"
 
 const Header = () => {
   const { currentUser } = useUser()
@@ -50,15 +51,17 @@ const Header = () => {
           ""
         )}
 
-        {currentUser?.role === "patient" ? (
-          " "
-        ) : (
+        {currentUser?.role === "Doctor" ||
+        currentUser?.role === "hospital" ||
+        currentUser?.role === "Admin" ? (
           <Link to="/dashboard?tab=dash">
             <Button className="flex items-center gap-2 text-lg font-semibold bg-gradient-to-r from-red-500 to-pink-400 text-white px-6 py-2 rounded-md transition-transform duration-300 hover:scale-105 hover:underline shadow-md">
-              <Hospital className="text-xl" />
+                <HiChartPie size={35} />
               <span>Dashboard</span>
             </Button>
           </Link>
+        ) : (
+          ""
         )}
       </div>
 

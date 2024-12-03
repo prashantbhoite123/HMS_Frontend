@@ -49,7 +49,7 @@ const formSchema = z.object({
   pictureUrl: z.string().optional(),
   // picture: z.instanceof(File, { message: "Image is required" }).optional(),
   // picture: z.instanceof(File).optional(),
-  picture: z.string().optional(),
+  picture: z.union([z.instanceof(File), z.string()]).optional(),
 })
 
 export type hospitalFormData = z.infer<typeof formSchema>

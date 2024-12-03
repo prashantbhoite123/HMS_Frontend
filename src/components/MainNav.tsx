@@ -1,12 +1,10 @@
-import { useUser } from "@/context/userContext"
 
-import { FaBookOpen, FaClipboardList, FaHome } from "react-icons/fa"
+import { FaBookOpen,FaHome } from "react-icons/fa"
 import { Link } from "react-router-dom"
 
 
 
 const MainNav = () => {
-  const { currentUser } = useUser()
   return (
     <>
       <div className="">
@@ -29,19 +27,7 @@ const MainNav = () => {
             </span>
             <span>About</span>
           </Link>
-          {currentUser?.role === "patient" ? (
-            <Link
-              to="/myappoinment"
-              className="hover:underline flex justify-center items-center gap-x-2"
-            >
-              <span>
-                <FaClipboardList />
-              </span>
-              <span>My Appoinment</span>
-            </Link>
-          ) : (
-            ""
-          )}
+          
         </div>
       </div>
     </>
