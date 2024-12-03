@@ -61,7 +61,7 @@ export interface Doctor {
   hospitalId: string
   password: string
   education: string
-  experienceYears: number
+  experienceYears: string
   specialization: string
   workingHours: string
   gender: string
@@ -112,8 +112,8 @@ export type DashboardResponse = {
 export interface AppointmentType {
   _id: string
   patientName: string
-  petientId: string // Assuming it's the ObjectId for the patient
-  hospitalId: string // Assuming it's the ObjectId for the hospital
+  petientId: string
+  hospitalId: string
   doctorName: string
   appointmentDate: Date
   appTime: string
@@ -174,22 +174,6 @@ export interface PatientType {
 }
 
 // Type for a doctor
-export interface DoctorType {
-  _id: string
-  doctorName: string
-  profilePic: string
-  degree: string
-  education: string
-  email: string
-  password: string
-  ownerId: string
-  hospitalId: string
-  experienceYears: number
-  specialization: string
-  workingHours: string
-  role: string
-  contactNumber?: string
-}
 
 // Type for appointment stats
 export interface AppointmentStats {
@@ -213,5 +197,4 @@ export interface DoctorDashboardData {
   allAppointments: AppointmentType[]
   allPatients: PatientType[]
   chartData: { count: number; month: string | null }[]
-  doctor: DoctorType
 }

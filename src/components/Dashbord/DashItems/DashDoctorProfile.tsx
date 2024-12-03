@@ -7,8 +7,7 @@ import { FiCamera } from "react-icons/fi"
 import { Button } from "@/components/ui/button"
 import FormInput from "@/form/Common_Form/FormInput"
 import { useUser } from "@/context/userContext"
-import { Input } from "@/components/ui/input"
-import { FormMessage } from "@/components/ui/form"
+
 import { doctorSpecializations, workingHours } from "@/config/DoctorData"
 import { useMyDoctorRegister } from "@/Api/Hospital/useMyDoctor"
 import { BsHeartPulseFill } from "react-icons/bs"
@@ -35,7 +34,7 @@ export const doctorSchema = z.object({
       country: z.string().optional(),
     })
     .optional(),
-  degree: z.instanceof(FileList).optional(),
+
   education: z.string().optional(),
   experienceYears: z.string().optional(),
   specialization: z.string().optional(),
@@ -43,36 +42,62 @@ export const doctorSchema = z.object({
 })
 
 export type doctors = z.infer<typeof doctorSchema>
-
+export interface Doctor {
+  role?: string
+  _id?: string
+  doctorName?: string
+  profilepic?: string
+  degree?: string
+  email?: string
+  ownerId?: string
+  hospitalId?: string
+  password?: string
+  education?: string
+  experienceYears?: string
+  specialization?: string
+  workingHours?: string
+  gender?: "" | "Male" | "Female" | "Other"
+  address?: {
+    city?: string
+    state?: string
+    country?: string
+  }
+  age?: string
+  phone?: string
+  dateOfBirth?: string
+}
 const UpdateDoctorProfile = () => {
   const { currentUser } = useUser()
   const [selectedImage, setSelectedImage] = useState(
     currentUser?.profilepic || ""
   )
 
-  const { doctorRegister, isLoading } = useMyDoctorRegister(
-    currentUser?.hospitalId || ""
-  )
+  const data: Doctor | null = currentUser
+
+  const { doctorRegister, isLoading } = useMyDoctorRegister(data?._id || "")
+  const formattedGender = Array.isArray(data?.gender)
+    ? data.gender[0]
+    : data?.gender || ""
 
   const form = useForm<doctors>({
     resolver: zodResolver(doctorSchema),
     defaultValues: {
-      doctorName: currentUser?.doctorName || "",
-      profilepic: currentUser?.profilepic || "",
-      email: currentUser?.email || "",
-      dateOfBirth: currentUser?.dateOfBirth || "",
-      gender: currentUser?.gender || "",
-      age: currentUser?.age || "",
-      phone: currentUser?.phone || "",
+      doctorName: data?.doctorName || "",
+      profilepic: data?.profilepic || "",
+      email: data?.email || "",
+      dateOfBirth: data?.dateOfBirth || "",
+      gender: formattedGender,
+      age: data?.age || "",
+      phone: data?.phone || "",
       address: {
-        city: currentUser?.address?.city || "",
-        state: currentUser?.address?.state || "",
-        country: currentUser?.address?.country || "",
+        city: data?.address?.city,
+        state: data?.address?.state,
+        country: data?.address?.country || "",
       },
-      education: currentUser?.education || "",
-      experienceYears: currentUser?.experienceYears || "",
-      specialization: currentUser?.specialization || "",
-      workingHours: currentUser?.workingHours || "",
+      education: data?.education || "",
+      experienceYears: data?.experienceYears || "",
+      specialization: data?.specialization || "",
+      workingHours: data?.workingHours || "",
     },
   })
 
@@ -85,9 +110,8 @@ const UpdateDoctorProfile = () => {
             Object.entries(value as object).forEach(([subKey, subValue]) => {
               formData.append(`address.${subKey}`, subValue as string)
             })
-          } else if (key === "degree" && value instanceof FileList) {
-            formData.append("degree", value[0])
-          } else {
+          } 
+          else {
             formData.append(key, value as string)
           }
         }
@@ -117,7 +141,7 @@ const UpdateDoctorProfile = () => {
                 <span>
                   <BsHeartPulseFill className="text-pink-600" size="30" />
                 </span>
-                {/* <img src={codeflxImg1} alt="logoimg" className="w-10 h-10" /> */}
+
                 <span>CarePlusX</span>
               </span>
 
@@ -254,21 +278,6 @@ const UpdateDoctorProfile = () => {
                 name="experienceYears"
                 placeholder="Enter years of experience"
               />
-              {/* Degree Upload */}
-              <div>
-                <label className="text-sm font-medium">Upload Degree</label>
-                <Controller
-                  name="degree"
-                  render={({ field }) => (
-                    <Input
-                      type="file"
-                      accept=".jpg,.jpeg,.png,.pdf"
-                      onChange={(e) => field.onChange(e.target.files)}
-                    />
-                  )}
-                />
-                <FormMessage />
-              </div>
             </div>
 
             {/* Submit Button */}
