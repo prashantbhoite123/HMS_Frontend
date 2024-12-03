@@ -7,6 +7,9 @@ import { FiCamera } from "react-icons/fi"
 import { Button } from "@/components/ui/button"
 import FormInput from "@/form/Common_Form/FormInput"
 import { useUser } from "@/context/userContext"
+import { useNavigate } from "react-router-dom"
+import { BACKEND_API_URL } from "@/main"
+import { toast } from "sonner"
 
 import { doctorSpecializations, workingHours } from "@/config/DoctorData"
 import { useMyUpdateDoctor } from "@/Api/Hospital/useMyDoctor"
@@ -172,6 +175,35 @@ const UpdateDoctorProfile = () => {
     }
   }
 
+  const naviagte = useNavigate()
+  const { setCurrentUser } = useUser()
+  const handleDelete = async () => {
+    try {
+      const responce = await fetch(
+        `${BACKEND_API_URL}/api/doctor/delete/${currentUser?._id}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      )
+
+      if (!responce.ok) {
+        throw new Error("failed to delete Doctor")
+      }
+
+      const data = await responce.json()
+      if (data.success === false) {
+        return toast.error(data.message)
+      }
+      localStorage.removeItem("user")
+      setCurrentUser(null)
+      toast.success(data.message)
+      naviagte("/")
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <FormProvider {...form}>
       <div className="flex flex-col items-center min-h-screen p-6 bg-gray-50">
@@ -331,7 +363,10 @@ const UpdateDoctorProfile = () => {
             </Button>
 
             <div className="text-end">
-              <span className=" font-semibold text-red-500 hover:underline hover:cursor-pointer ">
+              <span
+                onClick={handleDelete}
+                className=" font-semibold text-red-500 hover:underline hover:cursor-pointer "
+              >
                 Delete
               </span>
             </div>

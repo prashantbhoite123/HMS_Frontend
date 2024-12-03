@@ -5,6 +5,10 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Button } from "../ui/button"
 import { useState } from "react"
+import { toast } from "sonner"
+import { useNavigate } from "react-router-dom"
+
+import { BACKEND_API_URL } from "@/main"
 import { FiCamera } from "react-icons/fi"
 import { useMyupdateProfile } from "@/Api/common_Api/useMyhospitalApi"
 import { useUser } from "@/context/userContext"
@@ -28,6 +32,7 @@ const DashProfile = () => {
   const { updateProfile, isLoading } = useMyupdateProfile(
     currentUser?._id as string
   )
+
   const [selectedImage, setSelectedImage] = useState(
     currentUser?.profilepic || ""
   )
@@ -60,6 +65,34 @@ const DashProfile = () => {
       const imageUrl = URL.createObjectURL(file)
       setSelectedImage(imageUrl)
       setImageFile(file)
+    }
+  }
+  const naviagte = useNavigate()
+  const { setCurrentUser } = useUser()
+  const handleDelete = async () => {
+    try {
+      const responce = await fetch(
+        `${BACKEND_API_URL}/api/auth/delete/${currentUser?._id}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      )
+
+      if (!responce.ok) {
+        throw new Error("failed to delete user")
+      }
+
+      const data = await responce.json()
+      if (data.success === false) {
+        return toast.error(data.message)
+      }
+      localStorage.removeItem("user")
+      setCurrentUser(null)
+      toast.success(data.message)
+      naviagte("/")
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -123,7 +156,7 @@ const DashProfile = () => {
               {isLoading ? "Updating..." : "Update"}
             </Button>
             <div className="flex w-full justify-end text-red-500 hover:underline font-semibold hover:cursor-pointer">
-              <span>Delete</span>
+              <span onClick={handleDelete}>Delete</span>
             </div>
           </div>
         </form>
