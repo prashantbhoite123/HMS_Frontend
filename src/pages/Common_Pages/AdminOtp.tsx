@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { useMyResendOtp, useMyVarifyOtp } from "@/Api/Admin/useAdminApi"
-import LoadingBtn from "@/components/LoadingBtn"
+
 import { useLocation } from "react-router-dom"
 import "../../App.css"
 import otpImage from "../../assets/otpLock-removebg-preview (1).png"
@@ -113,17 +113,14 @@ const AdminOtp = () => {
           {timeLeft > 0 ? formatTimeLeft(timeLeft) : "OTP expired"}
         </p>
         <div className="flex flex-col items-center gap-y-2 mt-4">
-          {isLoading ? (
-            <LoadingBtn />
-          ) : (
-            <Button
-              type="submit"
-              onClick={handleSubmit}
-              className="bg-gradient-to-r   from-green-400 to-blue-400 text-white w-52 font-semibold rounded-full  shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform"
-            >
-              Varify code
-            </Button>
-          )}
+          <Button
+            type="submit"
+            onClick={handleSubmit}
+            className="bg-gradient-to-r   from-green-400 to-blue-400 text-white w-52 font-semibold rounded-full  shadow-lg hover:shadow-xl transform hover:scale-105 transition-transform"
+          >
+            {isLoading ? "Verifying..." : "Varify code"}
+          </Button>
+
           <Button
             variant="link"
             type="submit"

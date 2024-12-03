@@ -71,12 +71,12 @@ const UserProfileDropdown = () => {
                 ) : currentUser.role === "Doctor" ? (
                   <span>Doctor Profile</span>
                 ) : (
-                  <span>Approvels</span>
+                  ""
                 )}
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              {currentUser?.role === "patient" ? (
+              {currentUser?.role === "patient" && (
                 <Link
                   to="/myappoinment"
                   className="hover:underline flex justify-center items-center gap-x-2"
@@ -86,20 +86,9 @@ const UserProfileDropdown = () => {
                   </span>
                   <span>My Appoinment</span>
                 </Link>
-              ) : (
-                ""
               )}
             </DropdownMenuItem>
-            {currentUser.role === "Admin" ? <Separator /> : ""}
-            {currentUser.role === "Admin" ? (
-              <DropdownMenuItem className="flex gap-y-2 flex-col justify-start items-start">
-                <Link to="/adminProfile">Profile</Link>
-              </DropdownMenuItem>
-            ) : (
-              ""
-            )}
 
-            <Separator />
             <DropdownMenuItem>
               <LogoutBtn />
             </DropdownMenuItem>

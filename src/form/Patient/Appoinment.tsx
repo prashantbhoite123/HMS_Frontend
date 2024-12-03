@@ -157,7 +157,7 @@ const Appointment = ({ doctors, onSave, isLoading }: Props) => {
                         onChange={(date) =>
                           setValue(
                             "appointmentDate",
-                            format(date as Date, "dd/MM/yyyy")
+                            format(date as Date, "yyyy-MM-dd")
                           )
                         }
                         className="border p-2 rounded"

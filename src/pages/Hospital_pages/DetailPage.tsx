@@ -18,7 +18,6 @@ import HosImageDialog from "@/components/Hospital/HosImageDialog"
 import Appoinment from "@/form/Patient/Appoinment"
 import { useMyAppoinment } from "@/Api/patient/useMyAppoinment"
 import Loader from "@/components/Loader"
-import { Link } from "react-router-dom"
 
 const DetailPage = () => {
   const { hospitalId } = useParams()
@@ -63,63 +62,68 @@ const DetailPage = () => {
   return (
     <div className=" w-full">
       <div className="flex flex-col md:flex-row items-start md:items-center p-4  bg-white shadow-lg ">
-        <Dialog>
-          <DialogTrigger>
-            <img
-              draggable={false}
-              className="rounded-full select-none ml-4 md:ml-0 h-[25vw] w-[25vw] md:h-[15vw] md:w-[15vw] object-cover"
-              src={getHospital.hospital.picture || "/default-hospital.jpg"}
-              alt={getHospital.hospital.hospitalName}
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_3fr]">
+          <Dialog>
+            <DialogTrigger>
+              <img
+                draggable={false}
+                className="rounded-full select-none ml-4 md:ml-0 h-[25vw] w-[25vw] md:h-[20vw] md:w-[20vw] object-cover"
+                src={getHospital.hospital.picture || "/default-hospital.jpg"}
+                alt={getHospital.hospital.hospitalName}
+              />
+            </DialogTrigger>
+            <HosImageDialog picture={getHospital.hospital.picture} />
+          </Dialog>
+
+          <div className="p-4  flex flex-col  gap-4">
+            <h1 className="text-2xl md:text-4xl font-semibold">
+              {getHospital.hospital.hospitalName}
+            </h1>
+            <h2 className="text-xl md:text-2xl">
+              {getHospital.hospital.hospitalType}
+            </h2>
+
+            <div className="grid  gap-4">
+              <div className="flex flex-col gap-2 text-sm font-semibold">
+                <div className="flex space-x-6">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-gray-700">
+                      <MdLocationOn size={20} />
+                      <span>{`${getHospital.hospital.address.city}, ${getHospital.hospital.address.state}, ${getHospital.hospital.address.country}`}</span>
+                    </div>
+
+                    <div className="flex items-center gap-2 text-gray-700">
+                      <Phone size={15} />
+                      <span>{getHospital.hospital.phoneNumber}</span>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex gap-2 items-center">
+                      <MdDateRange />
+                      <span className="">{formatedDate}</span>
+                    </div>
+                    <div className="flex gap-2 items-center">
+                      <FaBed />
+                      <span>{getHospital.hospital.totalBeds}</span>
+                    </div>
+                  </div>
+                </div>
+                {/* Description */}
+                <div className="flex w-full  items-start gap-2 text-gray-700">
+                  <Notebook size={30} />
+                  <span>
+                    {getHospital.hospital.description ||
+                      "No description available"}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <Appoinment
+              onSave={appoinment}
+              isLoading={appLoading}
+              doctors={getHospital.doctors}
             />
-          </DialogTrigger>
-          <HosImageDialog picture={getHospital.hospital.picture} />
-        </Dialog>
-
-        <div className="p-4 ml-5 flex flex-col  gap-4">
-          <h1 className="text-2xl md:text-4xl font-semibold">
-            {getHospital.hospital.hospitalName}
-          </h1>
-          <h2 className="text-xl md:text-2xl">
-            {getHospital.hospital.hospitalType}
-          </h2>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div className="flex flex-col gap-2 text-sm font-semibold">
-              <div className="flex items-center gap-2 text-gray-700">
-                <MdLocationOn size={20} />
-                <span>{`${getHospital.hospital.address.city}, ${getHospital.hospital.address.state}, ${getHospital.hospital.address.country}`}</span>
-              </div>
-
-              <div className="flex items-center gap-2 text-gray-700">
-                <Phone size={20} />
-                <span>{getHospital.hospital.phoneNumber}</span>
-              </div>
-
-              {/* Description */}
-              <div className="flex items-center gap-2 text-gray-700">
-                <Notebook size={20} />
-                <span>
-                  {getHospital.hospital.description ||
-                    "No description available"}
-                </span>
-              </div>
-            </div>
-            <div className="ml-3 gap-6 text-sm font-semibold">
-              <div className="flex gap-2 items-center">
-                <MdDateRange />
-                <span className="">{formatedDate}</span>
-              </div>
-              <div className="flex gap-2 items-center">
-                <FaBed />
-                <span>{getHospital.hospital.totalBeds}</span>
-              </div>
-            </div>
           </div>
-          <Appoinment
-            onSave={appoinment}
-            isLoading={appLoading}
-            doctors={getHospital.doctors}
-          />
         </div>
       </div>
 
@@ -130,68 +134,65 @@ const DetailPage = () => {
         </div>
         <div className="flex flex-col flex-wrap space-y-6  md:flex-row w-full justify-center items-center  p-2 mt-4 gap-4 ">
           {getHospital.doctors.map((doctor: any, index: number) => (
-            <Link to={`/doctorprofile/${doctor?._id}`}>
-              {" "}
-              <Card
-                key={index}
-                className="w-full md:w-[25vw] p-2 bg-white shadow-xl shadow-slate-400 rounded-md"
-              >
-                <CardHeader>
-                  <div className="flex justify-center items-center">
-                    <img
-                      className="size-24 rounded-full select-none"
-                      draggable={false}
-                      src={
-                        doctor.profilepic ||
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQN5aeH5PWbBb2Ws7lZnlJ6VJviegkHLgbhg&s"
-                      }
-                      alt={doctor.doctorName || "Doctor image"}
-                    />
+            <Card
+              key={index}
+              className="w-full md:w-[25vw] p-2 bg-white shadow-xl shadow-slate-400 rounded-md"
+            >
+              <CardHeader>
+                <div className="flex justify-center items-center">
+                  <img
+                    className="size-24 rounded-full select-none"
+                    draggable={false}
+                    src={
+                      doctor.image ||
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQN5aeH5PWbBb2Ws7lZnlJ6VJviegkHLgbhg&s"
+                    }
+                    alt={doctor.doctorName || "Doctor image"}
+                  />
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-col gap-2 items-center text-center">
+                  <div className="mb-2">
+                    <FaUserMd className="inline mr-2 text-blue-500" />
+                    <span className="font-semibold text-lg">
+                      Dr. {doctor.doctorName}
+                    </span>
                   </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-col gap-2 items-center text-center">
-                    <div className="mb-2">
-                      <FaUserMd className="inline mr-2 text-blue-500" />
-                      <span className="font-semibold text-lg">
-                        Dr. {doctor.doctorName}
+                  <div className="flex justify-around w-full gap-4">
+                    <div className="flex flex-col">
+                      <span className="flex text-sm font-semibold items-center mb-1 gap-2">
+                        <FaGraduationCap
+                          size="20"
+                          className="mr-2 text-gray-500"
+                        />
+                        <span>{doctor.education}</span>
+                      </span>
+                      <span className="flex text-sm font-semibold items-center mb-1">
+                        <FaStethoscope
+                          size="20"
+                          className="mr-2 text-gray-500"
+                        />
+                        <span>{doctor.specialization}</span>
                       </span>
                     </div>
-                    <div className="flex justify-around w-full gap-4">
-                      <div className="flex flex-col">
-                        <span className="flex text-sm font-semibold items-center mb-1 gap-2">
-                          <FaGraduationCap
-                            size="20"
-                            className="mr-2 text-gray-500"
-                          />
-                          <span>{doctor.education}</span>
-                        </span>
-                        <span className="flex text-sm font-semibold items-center mb-1">
-                          <FaStethoscope
-                            size="20"
-                            className="mr-2 text-gray-500"
-                          />
-                          <span>{doctor.specialization}</span>
-                        </span>
-                      </div>
-                      <div className="flex flex-col ml-2 ">
-                        <span className="flex text-sm font-semibold items-center mb-1 gap-2">
-                          <FaCalendarAlt
-                            size="20"
-                            className="mr-2 text-gray-500"
-                          />
-                          <span>{doctor.experienceYears} years</span>
-                        </span>
-                        <span className="flex text-sm font-semibold items-center">
-                          <FaClock size="20" className="mr-2 text-gray-500" />
-                          <span>{doctor.workingHours} hours</span>
-                        </span>
-                      </div>
+                    <div className="flex flex-col ml-2 ">
+                      <span className="flex text-sm font-semibold items-center mb-1 gap-2">
+                        <FaCalendarAlt
+                          size="20"
+                          className="mr-2 text-gray-500"
+                        />
+                        <span>{doctor.experienceYears} years</span>
+                      </span>
+                      <span className="flex text-sm font-semibold items-center">
+                        <FaClock size="20" className="mr-2 text-gray-500" />
+                        <span>{doctor.workingHours} hours</span>
+                      </span>
                     </div>
                   </div>
-                </CardContent>
-              </Card>{" "}
-            </Link>
+                </div>
+              </CardContent>
+            </Card>
           ))}
         </div>
 

@@ -12,8 +12,8 @@ import DoctorSIgnup from "./Doctor/DoctorSIgnup"
 const HospitalCreate = () => {
   // const { currentUser } = useUser()
 
-  const { createHospitaldata } = usecreateHospital()
-  const { hospital, isLoading, refetch } = useGetHospital()
+  const { createHospitaldata, isLoading } = usecreateHospital()
+  const { hospital, refetch } = useGetHospital()
 
   const { updateHospital, isLoading: updateLoading } =
     useUpdateMyHospital(refetch)

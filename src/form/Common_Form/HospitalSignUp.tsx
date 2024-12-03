@@ -28,7 +28,6 @@ import { Button } from "@/components/ui/button"
 import GoogleAuthBtn from "@/components/GoogleAuthBtn"
 import { Link } from "react-router-dom"
 
-
 type Props = {
   createHospital: (data: FormData) => void
   isLoading: boolean
@@ -57,7 +56,7 @@ const HospitalSignUp = ({ createHospital, isLoading, role }: Props) => {
 
   return (
     <>
-      <div className="flex flex-col border w-full md:w-[35vw]  p-5 md:p-10 shadow-lg rounded-lg">
+      <div className="flex flex-col border w-full md:w-[50vw] lg:w-[35vw] p-5 md:p-10 shadow-lg rounded-lg">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSave)}>
             <div className="mb-4 flex gap-2 flex-col text-center">
@@ -71,7 +70,6 @@ const HospitalSignUp = ({ createHospital, isLoading, role }: Props) => {
               name="username"
               render={({ field }) => (
                 <FormItem className="mb-4">
-                 
                   <FormLabel>Username</FormLabel>
                   <FormControl>
                     <Input

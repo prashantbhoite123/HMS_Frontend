@@ -66,7 +66,7 @@ const SigninUser = ({ signInUser, doctorSignIn, isLoading }: Props) => {
   }
 
   return (
-    <div className="flex flex-col border w-full md:w-[35vw] p-5 md:p-10 shadow-lg rounded-lg">
+    <div className="flex flex-col border w-full md:w-[50vw] lg:w-[35vw] p-5 md:p-10 shadow-lg rounded-lg">
       <Form {...form}>
         <form
           onSubmit={
@@ -77,7 +77,7 @@ const SigninUser = ({ signInUser, doctorSignIn, isLoading }: Props) => {
         >
           <div className="mb-6 flex gap-2 flex-col text-center">
             <h2 className="text-2xl font-semibold">
-              {doctorApi ? "Doctor SignIn" : "Sign In"}
+              {doctorApi ? "Doctor Sign In" : "Sign In"}
             </h2>
           </div>
 
@@ -88,7 +88,6 @@ const SigninUser = ({ signInUser, doctorSignIn, isLoading }: Props) => {
             render={({ field }) => (
               <FormItem className="mb-4">
                 {" "}
-                {/* Added mb-4 for spacing */}
                 <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input {...field} className="bg-white" placeholder="Email" />
@@ -105,7 +104,6 @@ const SigninUser = ({ signInUser, doctorSignIn, isLoading }: Props) => {
             render={({ field }) => (
               <FormItem className="mb-6">
                 {" "}
-                {/* Added mb-6 for larger spacing */}
                 <FormLabel>Password</FormLabel>
                 <FormControl>
                   <Input
