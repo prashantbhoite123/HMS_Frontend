@@ -50,7 +50,7 @@ const DashProfile = () => {
   const [selectedImage, setSelectedImage] = useState(
     currentUser?.profilepic || ""
   )
-  const [imagefile, setImageFile] = useState<File | null>(null) // Ensure proper typing here
+  const [imagefile, setImageFile] = useState<File | null>(null) 
   const form = useForm<profileForm>({
     resolver: zodResolver(formSchema),
   })

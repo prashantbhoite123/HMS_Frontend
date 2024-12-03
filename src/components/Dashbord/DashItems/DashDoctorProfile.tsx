@@ -9,7 +9,7 @@ import FormInput from "@/form/Common_Form/FormInput"
 import { useUser } from "@/context/userContext"
 
 import { doctorSpecializations, workingHours } from "@/config/DoctorData"
-import { useMyDoctorRegister } from "@/Api/Hospital/useMyDoctor"
+import { useMyUpdateDoctor } from "@/Api/Hospital/useMyDoctor"
 import { BsHeartPulseFill } from "react-icons/bs"
 
 export const doctorSchema = z.object({
@@ -41,7 +41,7 @@ export const doctorSchema = z.object({
   workingHours: z.string().optional(),
 })
 
-export type doctors = z.infer<typeof doctorSchema>
+export type updatedoctors = z.infer<typeof doctorSchema>
 export interface Doctor {
   role?: string
   _id?: string
@@ -71,53 +71,93 @@ const UpdateDoctorProfile = () => {
   const [selectedImage, setSelectedImage] = useState(
     currentUser?.profilepic || ""
   )
+  const [imageFile, setImageFile] = useState<File | null>(null)
+  const doctorData: Doctor | null = currentUser
 
-  const data: Doctor | null = currentUser
+  const { doctorUpdate, isLoading } = useMyUpdateDoctor(doctorData?._id || "")
+  const formattedGender = Array.isArray(doctorData?.gender)
+    ? doctorData.gender[0]
+    : doctorData?.gender || ""
 
-  const { doctorRegister, isLoading } = useMyDoctorRegister(data?._id || "")
-  const formattedGender = Array.isArray(data?.gender)
-    ? data.gender[0]
-    : data?.gender || ""
-
-  const form = useForm<doctors>({
+  const form = useForm<updatedoctors>({
     resolver: zodResolver(doctorSchema),
     defaultValues: {
-      doctorName: data?.doctorName || "",
-      profilepic: data?.profilepic || "",
-      email: data?.email || "",
-      dateOfBirth: data?.dateOfBirth || "",
+      doctorName: doctorData?.doctorName || "",
+      profilepic: doctorData?.profilepic || "",
+      email: doctorData?.email || "",
+      dateOfBirth: doctorData?.dateOfBirth || "",
       gender: formattedGender,
-      age: data?.age || "",
-      phone: data?.phone || "",
+      age: doctorData?.age || "",
+      phone: doctorData?.phone || "",
       address: {
-        city: data?.address?.city,
-        state: data?.address?.state,
-        country: data?.address?.country || "",
+        city: doctorData?.address?.city,
+        state: doctorData?.address?.state,
+        country: doctorData?.address?.country || "",
       },
-      education: data?.education || "",
-      experienceYears: data?.experienceYears || "",
-      specialization: data?.specialization || "",
-      workingHours: data?.workingHours || "",
+      education: doctorData?.education || "",
+      experienceYears: doctorData?.experienceYears || "",
+      specialization: doctorData?.specialization || "",
+      workingHours: doctorData?.workingHours || "",
     },
   })
 
-  const onSave = async (data: doctors) => {
+  const onSave = async (data: updatedoctors) => {
     try {
       const formData = new FormData()
-      Object.entries(data).forEach(([key, value]) => {
-        if (value) {
-          if (key === "address") {
-            Object.entries(value as object).forEach(([subKey, subValue]) => {
-              formData.append(`address.${subKey}`, subValue as string)
-            })
-          } 
-          else {
-            formData.append(key, value as string)
-          }
-        }
-      })
+      formData.append(
+        "doctorName",
+        data.doctorName || doctorData?.doctorName || ""
+      )
+      if (imageFile) {
+        formData.append("profilepic", imageFile)
+      } else {
+        console.error("Image file is null")
+      }
+      formData.append("email", data.email || doctorData?.email || "")
+      formData.append("password", data.password || "")
+      if (data.dateOfBirth) {
+        formData.append(
+          "dateOfBirth",
+          data.dateOfBirth || doctorData?.dateOfBirth || ""
+        )
+      } else {
+        formData.append("dateOfBirth", "")
+      }
+      formData.append("gender", data.gender || formattedGender || "")
+      formData.append("age", data?.age?.toString() || doctorData?.age || "")
+      formData.append("phone", data.phone || doctorData?.phone || "")
 
-      doctorRegister(formData)
+      formData.append(
+        "address.city",
+        data?.address?.city || doctorData?.address?.city || ""
+      )
+      formData.append(
+        "address.state",
+        data?.address?.state || doctorData?.address?.state || ""
+      )
+      formData.append(
+        "address.country",
+        data?.address?.country || doctorData?.address?.country || ""
+      )
+
+      formData.append(
+        "education",
+        data.education || doctorData?.education || ""
+      )
+      formData.append(
+        "experienceYears",
+        data.experienceYears || doctorData?.experienceYears || ""
+      )
+      formData.append(
+        "specialization",
+        data.specialization || doctorData?.specialization || ""
+      )
+      formData.append(
+        "workingHours",
+        data.workingHours || doctorData?.workingHours || ""
+      )
+
+      doctorUpdate(formData)
     } catch (error) {
       console.error("Error during update:", error)
     }
@@ -128,6 +168,7 @@ const UpdateDoctorProfile = () => {
     if (file) {
       const imageUrl = URL.createObjectURL(file)
       setSelectedImage(imageUrl)
+      setImageFile(file)
     }
   }
 
@@ -282,6 +323,7 @@ const UpdateDoctorProfile = () => {
 
             {/* Submit Button */}
             <Button
+              disabled={isLoading}
               type="submit"
               className="w-full bg-gradient-to-r from-indigo-600 to-pink-600"
             >

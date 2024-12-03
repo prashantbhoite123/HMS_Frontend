@@ -1,4 +1,5 @@
 // import { doctors } from "@/form/Hospital-Auth-form/Doctors/DoctorsForm"
+import { updatedoctors } from "@/components/Dashbord/DashItems/DashDoctorProfile"
 import { useUser } from "@/context/userContext"
 import { doctors } from "@/form/Hospital-Auth-form/Doctors/DoctorsForm"
 import { BACKEND_API_URL } from "@/main"
@@ -113,4 +114,44 @@ export const useMyDoctorDetail = (doctorId: string) => {
   )
 
   return { doctorDetail, isLoading }
+}
+
+export const useMyUpdateDoctor = (doctorId: string) => {
+  const { saveUserToSession } = useUser()
+  const updateDoctor = async (
+    updatedData: FormData
+  ): Promise<updatedoctors> => {
+    for (let [key, value] of updatedData.entries()) {
+      console.log(`${key} : ${value}`)
+    }
+    const responce = await fetch(
+      `${BACKEND_API_URL}/api/doctor/update/${doctorId as string}`,
+      {
+        method: "PUT",
+        credentials: "include",
+        body: updatedData,
+      }
+    )
+
+    if (!responce.ok) {
+      throw new Error("Failed to udate doctor")
+    }
+    const data = await responce.json()
+    if (data.success === false) {
+      throw toast.error(data.message)
+    }
+    toast.success(data.message)
+    saveUserToSession(data.rest)
+    return data
+  }
+  const { mutate: doctorUpdate, isLoading } = useMutation(updateDoctor, {
+    onSuccess: () => {
+      console.log("Profile update successfuly")
+    },
+    onError: () => {
+      toast.error("failed to update profile")
+    },
+  })
+
+  return { doctorUpdate, isLoading }
 }
