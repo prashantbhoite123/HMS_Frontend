@@ -9,25 +9,6 @@ import { FiCamera } from "react-icons/fi"
 import { useMyupdateProfile } from "@/Api/common_Api/useMyhospitalApi"
 import { useUser } from "@/context/userContext"
 
-// type currentUser = {
-//   _id: string
-//   username: string
-//   email: string
-//   password: string
-//   role: string
-//   admin: {
-//     isAdmin: boolean
-//     key: number
-//     logedin: boolean
-//     _id: string
-//     Akey: number
-//   }
-//   profilepic: string
-//   createdAt: string
-//   updatedAt: string
-//   __v: number
-// }
-
 const formSchema = z.object({
   email: z.string().trim().email("Invalid email format").optional(),
   username: z.string().trim().min(1, "Username is required").optional(),
@@ -50,7 +31,7 @@ const DashProfile = () => {
   const [selectedImage, setSelectedImage] = useState(
     currentUser?.profilepic || ""
   )
-  const [imagefile, setImageFile] = useState<File | null>(null) 
+  const [imagefile, setImageFile] = useState<File | null>(null)
   const form = useForm<profileForm>({
     resolver: zodResolver(formSchema),
   })

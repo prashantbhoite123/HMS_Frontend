@@ -14,7 +14,7 @@ import { BsHeartPulseFill } from "react-icons/bs"
 
 export const doctorSchema = z.object({
   doctorName: z.string().optional(),
-  profilepic: z.string().optional(),
+  profilepic: z.union([z.instanceof(File), z.undefined()]).optional(),
   email: z.string().email("Invalid email format").optional(),
   password: z
     .string()
@@ -83,7 +83,7 @@ const UpdateDoctorProfile = () => {
     resolver: zodResolver(doctorSchema),
     defaultValues: {
       doctorName: doctorData?.doctorName || "",
-      profilepic: doctorData?.profilepic || "",
+      profilepic: undefined,
       email: doctorData?.email || "",
       dateOfBirth: doctorData?.dateOfBirth || "",
       gender: formattedGender,
@@ -109,7 +109,7 @@ const UpdateDoctorProfile = () => {
         data.doctorName || doctorData?.doctorName || ""
       )
       if (imageFile) {
-        formData.append("profilepic", imageFile)
+        formData.append("profilepic", imageFile || undefined)
       } else {
         console.error("Image file is null")
       }
@@ -164,7 +164,7 @@ const UpdateDoctorProfile = () => {
   }
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
+    const file = e.target.files?.[0] || null
     if (file) {
       const imageUrl = URL.createObjectURL(file)
       setSelectedImage(imageUrl)
