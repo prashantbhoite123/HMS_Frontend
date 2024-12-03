@@ -47,8 +47,7 @@ const formSchema = z.object({
   departments: z.array(z.string().trim()).optional(),
   services: z.array(z.string().trim()).optional(),
   pictureUrl: z.string().optional(),
-  // picture: z.instanceof(File, { message: "Image is required" }).optional(),
-  // picture: z.instanceof(File).optional(),
+
   picture: z.union([z.instanceof(File), z.string()]).optional(),
 })
 

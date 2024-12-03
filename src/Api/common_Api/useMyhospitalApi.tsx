@@ -1,5 +1,5 @@
 import { RegisterHos } from "@/Types/types"
-import { useMutation } from "react-query"
+import { useMutation, useQuery } from "react-query"
 import { toast } from "sonner"
 import { useNavigate } from "react-router-dom"
 import { useUser } from "@/context/userContext"
@@ -142,4 +142,45 @@ export const useMyupdateProfile = (userId: string) => {
   })
 
   return { updateProfile, isLoading }
+}
+
+export const useMydeleteuser = (userId: string) => {
+  const naviagte = useNavigate()
+  const { setCurrentUser } = useUser()
+  const deleteUser = async () => {
+    const responce = await fetch(
+      `${BACKEND_API_URL}/api/auth/delete/${userId}`,
+      {
+        method: "DELETE",
+        credentials: "include",
+      }
+    )
+
+    if (!responce.ok) {
+      throw new Error("failed to delete user")
+    }
+
+    const data = await responce.json()
+    if (data.success === false) {
+      return toast.error(data.message)
+    }
+    localStorage.removeItem("user")
+    setCurrentUser(null)
+    toast.success(data.message)
+    naviagte("/")
+    toast.success(data.message)
+
+    return data
+  }
+
+  const { data: userDelete, isLoading } = useQuery("deleteUser", deleteUser, {
+    onSuccess: () => {
+      toast.success("User successfuly deleted")
+    },
+    onError: () => {
+      toast.error("failed to delete user")
+    },
+  })
+
+  return { userDelete, isLoading }
 }
