@@ -23,7 +23,6 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import GoogleAuthBtn from "@/components/GoogleAuthBtn"
 import LoginBtn from "@/components/LoginBtn"
 import { Link } from "react-router-dom"
 import { useState } from "react"
@@ -117,13 +116,6 @@ const SigninUser = ({ signInUser, doctorSignIn, isLoading }: Props) => {
               </FormItem>
             )}
           />
-
-          <div className="mb-6">
-            {" "}
-            <GoogleAuthBtn role={null} />
-          </div>
-
-          {/* Submit Button */}
 
           <Button
             type="submit"

@@ -73,11 +73,16 @@ export const useUserSignIn = () => {
       body: JSON.stringify(formDataObj),
     })
 
-    if (!response.ok) {
-      throw new Error("Failed to sign in user")
-    }
+    // if (!response.ok) {
+    //   throw new Error("Failed to sign in user")
+    // }
 
     const data = await response.json()
+
+    console.log("sign in data", data)
+    if (data.success === false) {
+      return toast.error(data.message)
+    }
     if (data.patientproStatus) {
       navigate("/patientprofile")
     } else {
@@ -90,10 +95,12 @@ export const useUserSignIn = () => {
 
   const { mutate: signIn, isLoading } = useMutation(signInUser, {
     onSuccess: () => {
-      toast.success("Sign-in successful")
+      // toast.success("Sign-in successful")
+      console.log("Successfuly sign in ")
     },
     onError: () => {
-      toast.error("Error while signing in")
+      // toast.error("Error while signing in")
+      console.log("falied to sign in")
     },
   })
 

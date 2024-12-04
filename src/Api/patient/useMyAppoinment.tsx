@@ -6,8 +6,10 @@ import { IAppointment } from "@/Types/appoinmentType"
 import { useMutation, useQuery, useQueryClient } from "react-query"
 import { toast } from "sonner"
 import { AppointmentForm } from "@/components/Patient/AppoinmentUpdate"
+import { useNavigate } from "react-router-dom"
 
 export const useMyAppoinment = (hospitalId: string) => {
+  const navigate = useNavigate()
   const createAppoinment = async (
     appoinmentData: Appointment
   ): Promise<IAppointment | undefined> => {
@@ -29,6 +31,7 @@ export const useMyAppoinment = (hospitalId: string) => {
     const data = await response.json()
     if (data.success === true) {
       toast.success(data.message)
+      navigate("/successapp")
       return
     } else {
       toast.error(data.message)

@@ -12,6 +12,7 @@ import ProtectRouter from "./auth/ProtectRouter"
 import AdminProtect from "./auth/AdminProtect"
 import PatientDetailPage from "./pages/Common_Pages/PatientDetailPage"
 import DoctorDetailPage from "./pages/Common_Pages/DoctorDetailPage"
+import SuccessfulyApp from "./pages/Patient_pages/SuccessfulyApp"
 
 const Home = lazy(() => import("./pages/Common_Pages/Home"))
 const About = lazy(() => import("./pages/Common_Pages/About"))
@@ -126,6 +127,14 @@ const AppRoutes = () => {
               element={
                 <Layouts showhero={false}>
                   <DoctorDetailPage />
+                </Layouts>
+              }
+            />
+            <Route
+              path="/successapp"
+              element={
+                <Layouts showhero={false}>
+                  <SuccessfulyApp />
                 </Layouts>
               }
             />

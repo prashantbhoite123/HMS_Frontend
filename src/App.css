@@ -38,3 +38,28 @@
     display: none;
   }
 }
+
+@keyframes gradient-border {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-border {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #ff0080, #ff8c00, #40e0d0, #1e90ff);
+  background-size: 300% 300%;
+  animation: gradient-border 3s ease infinite;
+  z-index: -1;
+}
