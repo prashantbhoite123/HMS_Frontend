@@ -107,64 +107,58 @@ const UpdateDoctorProfile = () => {
   const onSave = async (data: updatedoctors) => {
     try {
       const formData = new FormData()
-      formData.append(
-        "doctorName",
-        data.doctorName || doctorData?.doctorName || ""
-      )
+      formData.append("doctorName", data.doctorName || doctorData?.doctorName!)
       if (imageFile) {
         formData.append("profilepic", imageFile || undefined)
       } else {
         console.error("Image file is null")
       }
-      formData.append("email", data.email || doctorData?.email || "")
-      formData.append("password", data.password || "")
+      formData.append("email", data.email || doctorData?.email!)
+      formData.append("password", data.password || doctorData?.password!)
       if (data.dateOfBirth) {
         formData.append(
           "dateOfBirth",
-          data.dateOfBirth || doctorData?.dateOfBirth || ""
+          data.dateOfBirth || doctorData?.dateOfBirth!
         )
       } else {
         formData.append("dateOfBirth", "")
       }
-      formData.append("gender", data.gender || formattedGender || "")
+      formData.append("gender", data.gender || formattedGender!)
       formData.append(
         "age",
         (data?.age !== undefined
           ? data.age.toString()
-          : doctorData?.age?.toString()) || ""
+          : doctorData?.age?.toString())!
       )
-      formData.append("phone", data.phone || doctorData?.phone || "")
+      formData.append("phone", data.phone || doctorData?.phone!)
 
       formData.append(
         "address.city",
-        data?.address?.city || doctorData?.address?.city || ""
+        data?.address?.city || doctorData?.address?.city!
       )
       formData.append(
         "address.state",
-        data?.address?.state || doctorData?.address?.state || ""
+        data?.address?.state || doctorData?.address?.state!
       )
       formData.append(
         "address.country",
-        data?.address?.country || doctorData?.address?.country || ""
+        data?.address?.country || doctorData?.address?.country!
       )
 
-      formData.append(
-        "education",
-        data.education || doctorData?.education || ""
-      )
+      formData.append("education", data.education || doctorData?.education!)
       formData.append(
         "experienceYears",
         (data?.experienceYears !== undefined
           ? data.experienceYears.toString()
-          : doctorData?.experienceYears?.toString()) || ""
+          : doctorData?.experienceYears?.toString())!
       )
       formData.append(
         "specialization",
-        data.specialization || doctorData?.specialization || ""
+        data.specialization || doctorData?.specialization!
       )
       formData.append(
         "workingHours",
-        data.workingHours || doctorData?.workingHours || ""
+        data.workingHours || doctorData?.workingHours!
       )
 
       doctorUpdate(formData)

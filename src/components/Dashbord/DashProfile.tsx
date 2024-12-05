@@ -46,9 +46,9 @@ const DashProfile = () => {
     if (imagefile) {
       const formData = new FormData()
 
-      formData.append("username", data?.username || currentUser?.username || "")
-      formData.append("email", data?.email || currentUser?.email || "")
-      formData.append("password", data?.password || currentUser?.password || "")
+      formData.append("username", data?.username || currentUser?.username!)
+      formData.append("email", data?.email || currentUser?.email!)
+      formData.append("password", data?.password || currentUser?.password!)
       formData.append("profilepic", imagefile)
       console.log("Updated profile data:", data)
 
