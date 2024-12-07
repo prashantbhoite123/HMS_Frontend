@@ -73,10 +73,7 @@ export const useUserSignIn = () => {
       body: JSON.stringify(formDataObj),
     })
 
-    // if (!response.ok) {
-    //   throw new Error("Failed to sign in user")
-    // }
-
+    
     const data = await response.json()
 
     console.log("sign in data", data)
