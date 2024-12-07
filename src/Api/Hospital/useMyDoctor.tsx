@@ -14,7 +14,6 @@ export const useMyDoctorRegister = (hospitalId: string) => {
       {
         method: "POST",
         credentials: "include",
-
         body: doctorData,
       }
     )
@@ -62,19 +61,20 @@ export const useMyDoctorLogin = () => {
       body: JSON.stringify(formDataObj),
     })
 
-    if (!response.ok) {
-      throw new Error("Failed to sign in user")
-    }
-
     const data = await response.json()
-    saveUserToSession(data)
+    console.log("this doctor data", data)
+    if (!data.success) {
+      return toast.error(data.message)
+    }
+    toast.success(data.message)
+    saveUserToSession(data.rest)
+    navigate("/")
     return data
   }
 
   const { mutate: DoctorSign, isLoading } = useMutation(loginDoctor, {
     onSuccess: () => {
-      toast.success("Doctor Sign-in successful")
-      navigate("/")
+      console.log("doctor sign in successfuly")
     },
     onError: () => {
       toast.error("Error while Doctor Signin")
@@ -155,4 +155,3 @@ export const useMyUpdateDoctor = (doctorId: string) => {
 
   return { doctorUpdate, isLoading }
 }
-
